@@ -1,0 +1,385 @@
+{
+  "generated_at": "2026-09-21 15:20:15",
+  "groups": {
+    "A_基线(温度0)": {
+      "summary": {
+        "n": 11,
+        "answer_acc": 0.9090909090909091,
+        "cite_acc": 0.9259259259259259,
+        "cite_total": 27,
+        "cite_valid": 25,
+        "cite_at_k": 0.36363636363636365,
+        "slot_valid": 12,
+        "slot_total": 33,
+        "zero_cite_questions": 3,
+        "avg_retrieve_ms": 370.798436363905,
+        "avg_gen_ms": 1317.6922545429659,
+        "avg_prompt_tokens": 747.8181818181819,
+        "avg_completion_tokens": 84.36363636363636,
+        "avg_cost": 0.0009165454545454546,
+        "by_type": {
+          "in": {
+            "n": 5,
+            "correct": 5,
+            "rate": 1.0
+          },
+          "cross": {
+            "n": 4,
+            "correct": 3,
+            "rate": 0.75
+          },
+          "out": {
+            "n": 2,
+            "correct": 2,
+            "rate": 1.0
+          }
+        }
+      },
+      "records": [
+        {
+          "id": 1,
+          "type": "in",
+          "question": "RAG 系统根据提出动因和特点可以分为哪几类？NaiveRAG 的提出动因和主要特点是什么？",
+          "top_k": 3,
+          "n_recall": 10,
+          "n_dedup": 9,
+          "sources": [
+            "RAG知识.pdf#15",
+            "RAG知识.pdf#16",
+            "RAG知识.pdf#16"
+          ],
+          "retrieve_ms": 2405.7061000494286,
+          "gen_ms": 5045.627799932845,
+          "prompt_tokens": 758,
+          "completion_tokens": 119,
+          "cost": 0.000996,
+          "correct": true,
+          "correct_reason": "分类及NaiveRAG动因特点均与资料一致",
+          "cite_total": 3,
+          "cite_valid": 2,
+          "cite_invalid": [
+            1
+          ],
+          "cite_missing": false,
+          "cited_ids": [
+            1,
+            2
+          ],
+          "valid_cited_ids": [
+            2
+          ],
+          "answer": "RAG 系统根据提出动因和主要特点可分为 NaiveRAG、AdvancedRAG 等类别 [1][2]。其中，NaiveRAG 的提出动因是：LLM 容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提供可追溯的证据 [2]。其主要特点是：采用三步流程（文档切块→向量检索→拼接提示生成），支持一体化端到端微调（如 RAG‑Sequence 和 RAG‑Token），能够减少模型幻觉，提升开放域问答的准确率 [2]。"
+        },
+        {
+          "id": 2,
+          "type": "in",
+          "question": "和传统大语言模型相比，RAG 解决了哪些关键问题？",
+          "top_k": 3,
+          "n_recall": 10,
+          "n_dedup": 7,
+          "sources": [
+            "RAG知识.pdf#13",
+            "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732",
+            "RAG知识.pdf#81"
+          ],
+          "retrieve_ms": 168.0538000073284,
+          "gen_ms": 1335.7249000109732,
+          "prompt_tokens": 762,
+          "completion_tokens": 208,
+          "cost": 0.001178,
+          "correct": true,
+          "correct_reason": "回答核心结论均能在资料1和资料2中找到依据",
+          "cite_total": 5,
+          "cite_valid": 5,
+          "cite_invalid": [],
+          "cite_missing": false,
+          "cited_ids": [
+            1,
+            2
+          ],
+          "valid_cited_ids": [
+            1,
+            2
+          ],
+          "answer": "和传统大语言模型相比，RAG 解决了以下关键问题：\n\n- 知识截止点：传统LLM的训练数据有时间限制，无法获取最新信息，RAG通过引入外部知识库，在生成回答前先检索相关信息，从而显著提高回答的时效性[1]。\n- 幻觉问题：传统LLM可能生成看似合理但实际错误的信息，RAG通过检索相关信息辅助生成，从而显著提高回答的准确性[1]。\n- 领域专业性不足：传统LLM对特定领域的深度知识掌握有限，RAG通过引入外部知识库来补充领域知识[1]。\n- 个性化缺失：传统LLM无法基于用户的个人知识库进行回答，RAG可以基于个人文档、博客文章、经验总结等生成符合用户风格和观点的回答[1]。\n\n此外，RAG结合了搜索技术和大语言模型的提示词功能，将查询和检索到的上下文信息整合进发送给大语言模型的提示中，从而辅助模型生成答案[2]。"
+        },
+        {
+          "id": 3,
+          "type": "in",
+          "question": "Cloudflare 提供的 RAG 参考架构，其实现通常分为哪两个核心阶段？",
+          "top_k": 3,
+          "n_recall": 10,
+          "n_dedup": 8,
+          "sources": [
+            "RAG知识.pdf#15",
+            "RAG知识.pdf#13",
+            "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732"
+          ],
+          "retrieve_ms": 143.65269988775253,
+          "gen_ms": 959.7390000708401,
+          "prompt_tokens": 752,
+          "completion_tokens": 62,
+          "cost": 0.0008759999999999999,
+          "correct": true,
+          "correct_reason": "资料1明确提及两阶段及知识库构建阶段细节",
+          "cite_total": 3,
+          "cite_valid": 2,
+          "cite_invalid": [
+            2
+          ],
+          "cite_missing": false,
+          "cited_ids": [
+            1,
+            2
+          ],
+          "valid_cited_ids": [
+            1
+          ],
+          "answer": "Cloudflare 提供的 RAG 参考架构，其实现通常分为两个核心阶段：知识库构建阶段（Knowledge Seeding）和查询响应阶段[1][2]。其中，知识库构建阶段会将原始文档上传至系统，经过初步处理后，消息被异步推送到队列[1]。"
+        },
+        {
+          "id": 4,
+          "type": "in",
+          "question": "向量数据库（Vectorize）中存储一个向量，通常包含哪几个关键组成部分？",
+          "top_k": 3,
+          "n_recall": 10,
+          "n_dedup": 8,
+          "sources": [
+            "RAG知识.pdf#21",
+            "RAG知识.pdf#66",
+            "RAG知识.pdf#65"
+          ],
+          "retrieve_ms": 136.88460004050285,
+          "gen_ms": 1134.909600019455,
+          "prompt_tokens": 710,
+          "completion_tokens": 88,
+          "cost": 0.0008860000000000001,
+          "correct": true,
+          "correct_reason": "回答与资料1中向量组成部分完全一致",
+          "cite_total": 4,
+          "cite_valid": 4,
+          "cite_invalid": [],
+          "cite_missing": false,
+          "cited_ids": [
+            1
+          ],
+          "valid_cited_ids": [
+            1
+          ],
+          "answer": "向量数据库（Vectorize）中存储的向量通常包含以下关键组成部分：\n\n1. **向量ID**：唯一标识符，通常基于文档路径和块索引生成 [1]。\n2. **向量值**：由嵌入模型生成的数值数组 [1]。\n3. **元数据**：与向量关联的描述性信息 [1]。\n4. **命名空间**：可选的向量分组标识 [1]。"
+        },
+        {
+          "id": 5,
+          "type": "in",
+          "question": "为什么《RAGHandbook》建议中国大陆用户选择千问而不是 Gemini？",
+          "top_k": 3,
+          "n_recall": 10,
+          "n_dedup": 9,
+          "sources": [
+            "RAG知识.pdf#21",
+            "RAG知识.pdf#44",
+            "RAG知识.pdf#20"
+          ],
+          "retrieve_ms": 164.34759995900095,
+          "gen_ms": 782.8481000615284,
+          "prompt_tokens": 722,
+          "completion_tokens": 81,
+          "cost": 0.000884,
+          "correct": true,
+          "correct_reason": "资料1明确给出封禁和成本中文优势两点原因",
+          "cite_total": 2,
+          "cite_valid": 2,
+          "cite_invalid": [],
+          "cite_missing": false,
+          "cited_ids": [
+            1
+          ],
+          "valid_cited_ids": [
+            1
+          ],
+          "answer": "《RAG知识.pdf》建议中国大陆用户选择千问而不是 Gemini，原因有两点：一是 Google 的服务在中国被封禁[1]；二是千问的嵌入模型（如 text-embedding-v4）和大语言模型（如 qwen-turbo-latest）在中文处理上表现更佳，且更具成本优势，价格只有 Gemini API 约一半[1]。"
+        },
+        {
+          "id": 6,
+          "type": "cross",
+          "question": "RAG 能减少幻觉，一个重要原因是它把检索到的资料\"喂\"给生成模型。请问：检索到的上下文是如何与用户问题一起交给大模型，再由大模型利用\"自注意力\"生成回答的？请结合 RAG 的查询响应流程和 Transformer 的自注意力原理说明。",
+          "top_k": 3,
+          "n_recall": 10,
+          "n_dedup": 10,
+          "sources": [
+            "RAG知识.pdf#16",
+            "RAG知识.pdf#13",
+            "Transformer--Attention Is All You Need.html#https://zhuanlan.zhihu.com/p/689083488"
+          ],
+          "retrieve_ms": 152.88139996118844,
+          "gen_ms": 682.8421000391245,
+          "prompt_tokens": 834,
+          "completion_tokens": 4,
+          "cost": 0.000842,
+          "correct": false,
+          "correct_reason": "资料2有查询响应流程，资料3有自注意力，并非无相关内容",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "cite_invalid": [],
+          "cite_missing": false,
+          "cited_ids": [],
+          "valid_cited_ids": [],
+          "answer": "资料中没有相关内容。"
+        },
+        {
+          "id": 7,
+          "type": "cross",
+          "question": "把一段文本变成向量再检索，为什么比直接用关键词匹配更可能召回语义相关的内容？请结合向量嵌入（embedding）与语义检索的原理说明。",
+          "top_k": 3,
+          "n_recall": 10,
+          "n_dedup": 9,
+          "sources": [
+            "RAG知识.pdf#129",
+            "RAG知识.pdf#97",
+            "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732"
+          ],
+          "retrieve_ms": 191.97580008767545,
+          "gen_ms": 1115.4382999520749,
+          "prompt_tokens": 552,
+          "completion_tokens": 136,
+          "cost": 0.000824,
+          "correct": true,
+          "correct_reason": "回答核心结论均有资料1和3支撑，无编造。",
+          "cite_total": 4,
+          "cite_valid": 4,
+          "cite_invalid": [],
+          "cite_missing": false,
+          "cited_ids": [
+            1,
+            3
+          ],
+          "valid_cited_ids": [
+            1,
+            3
+          ],
+          "answer": "把一段文本变成向量再检索，比直接用关键词匹配更可能召回语义相关内容，原因如下：\n\n- 语义检索是基于语义理解而非关键词匹配的信息检索技术；它使用向量化技术将查询和文档转换为语义向量，再通过计算向量相似度找到语义相关的内容 [1]。\n- 检索时，系统会把用户的查询转换成向量，然后根据这个向量在索引中进行搜索，并找到最相关的前k个结果 [3]。\n\n因此，向量嵌入把查询和文档都映射到同一语义向量空间，检索依据的是向量相似度，而不是字面关键词是否一致，所以更可能召回语义相关的内容 [1][3]。"
+        },
+        {
+          "id": 8,
+          "type": "cross",
+          "question": "为提高检索质量，高级 RAG 常把复杂的用户问题拆成多个子查询分别检索再综合。请结合 RAG 技术概览中把问题分解为子查询（多查询检索）的做法，以及 RAG知识中 Advanced RAG 将查询重写、扩展归为预检索阶段的说法，说明：把复杂问题拆成子查询属于检索的哪个阶段？它的作用是什么？",
+          "top_k": 3,
+          "n_recall": 10,
+          "n_dedup": 7,
+          "sources": [
+            "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732",
+            "RAG知识.pdf#16",
+            "RAG知识.pdf#77"
+          ],
+          "retrieve_ms": 214.77979992050678,
+          "gen_ms": 958.915299968794,
+          "prompt_tokens": 837,
+          "completion_tokens": 95,
+          "cost": 0.001027,
+          "correct": true,
+          "correct_reason": "回答结论与资料1、2一致，无编造",
+          "cite_total": 2,
+          "cite_valid": 2,
+          "cite_invalid": [],
+          "cite_missing": false,
+          "cited_ids": [
+            1,
+            2
+          ],
+          "valid_cited_ids": [
+            1,
+            2
+          ],
+          "answer": "把复杂问题拆成子查询属于 Advanced RAG 的预检索阶段，因为 Advanced RAG 将查询重写/扩展归入预检索处理 [2]。其作用是提高检索质量：当查询内容复杂时，LLM 可把问题分解为更简单、更具体的子查询，这些子查询并行执行后，检索到的上下文会组合进提示中，供 LLM 综合出对初始查询的最终答案 [1]。"
+        },
+        {
+          "id": 9,
+          "type": "out",
+          "question": "什么是扩散模型？Stable Diffusion 是如何一步步生成图像的？",
+          "top_k": 3,
+          "n_recall": 10,
+          "n_dedup": 9,
+          "sources": [
+            "Transformer--Attention Is All You Need.html#https://zhuanlan.zhihu.com/p/689083488",
+            "Transformer--Attention Is All You Need.html#https://zhuanlan.zhihu.com/p/689083488",
+            "Transformer--Attention Is All You Need.html#https://zhuanlan.zhihu.com/p/689083488"
+          ],
+          "retrieve_ms": 187.71069997455925,
+          "gen_ms": 681.0159999877214,
+          "prompt_tokens": 733,
+          "completion_tokens": 4,
+          "cost": 0.000741,
+          "correct": true,
+          "correct_reason": "资料未涉及扩散模型，回答正确拒答",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "cite_invalid": [],
+          "cite_missing": false,
+          "cited_ids": [],
+          "valid_cited_ids": [],
+          "answer": "资料中没有相关内容。"
+        },
+        {
+          "id": 10,
+          "type": "out",
+          "question": "图神经网络（GNN）的核心思想是什么？它和 Transformer 有什么联系？",
+          "top_k": 3,
+          "n_recall": 10,
+          "n_dedup": 9,
+          "sources": [
+            "Transformer--Attention Is All You Need.html#https://zhuanlan.zhihu.com/p/689083488",
+            "Transformer--Attention Is All You Need.html#https://zhuanlan.zhihu.com/p/689083488",
+            "RAG知识.pdf#13"
+          ],
+          "retrieve_ms": 241.4000000571832,
+          "gen_ms": 548.1779999099672,
+          "prompt_tokens": 754,
+          "completion_tokens": 4,
+          "cost": 0.000762,
+          "correct": true,
+          "correct_reason": "资料未涉及GNN，回答正确拒答",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "cite_invalid": [],
+          "cite_missing": false,
+          "cited_ids": [],
+          "valid_cited_ids": [],
+          "answer": "资料中没有相关内容。"
+        },
+        {
+          "id": 11,
+          "type": "cross",
+          "question": "检索得到一批候选文档之后，在把它们送进大模型之前还能做哪些进一步处理来提升质量？这些处理在 RAG 流程里属于哪个阶段？",
+          "top_k": 3,
+          "n_recall": 10,
+          "n_dedup": 10,
+          "sources": [
+            "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732",
+            "RAG知识.pdf#16",
+            "RAG知识.pdf#13"
+          ],
+          "retrieve_ms": 71.39030005782843,
+          "gen_ms": 1249.3757000193,
+          "prompt_tokens": 812,
+          "completion_tokens": 127,
+          "cost": 0.001066,
+          "correct": true,
+          "correct_reason": "回答内容与资料1、2一致，无编造",
+          "cite_total": 4,
+          "cite_valid": 4,
+          "cite_invalid": [],
+          "cite_missing": false,
+          "cited_ids": [
+            1,
+            2
+          ],
+          "valid_cited_ids": [
+            1,
+            2
+          ],
+          "answer": "检索得到候选文档后、送入大模型前，可以进一步做过滤、重新排名或一些转换来优化结果[1]。具体可基于相似度评分、关键词、元数据等过滤结果，或使用其他模型进行重新排名，如 LLM、句子-转换器交叉编码器、Cohere 重新排名端点，或基于元数据如日期的新近性来进行[1]。这些处理属于将检索到的上下文输入到大语言模型（LLM）以得到最终答案之前的最后一步[1]，在 RAG 流程中对应 PostRetrieval（检索后处理）阶段[2]。"
+        }
+      ]
+    }
+  }
+}

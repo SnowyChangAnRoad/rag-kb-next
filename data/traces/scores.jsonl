@@ -1,0 +1,11 @@
+{"trace_id": "20260923-140833-212a", "name": "user_feedback", "value": "up", "score": 1.0, "note": "自检反馈", "ts": "2026-09-23 14:08:33"}
+{"trace_id": "20260923-141358-2d53", "name": "user_feedback", "value": "up", "score": 1.0, "note": "in题：4点局限都在资料里，引用准确", "ts": "2026-09-23 15:05:13"}
+{"trace_id": "20260923-141448-7f90", "name": "user_feedback", "value": "down", "score": 0.0, "note": "partial题v1假拒答，证据已在prompt", "ts": "2026-09-23 15:05:24"}
+{"trace_id": "20260923-141509-e819", "name": "user_feedback", "value": "up", "score": 1.0, "note": "out题：正确拒答，无编造", "ts": "2026-09-23 15:05:55"}
+{"trace_id": "20260924-091157-c3e7", "name": "user_feedback", "value": "up", "score": 1.0, "note": "Day11 Swagger 通关自测", "ts": "2026-09-24 09:12:00"}
+{"trace_id": "20260101-000000-dead", "name": "user_feedback", "value": "down", "score": 0.0, "note": "孤儿测试", "ts": "2026-09-24 09:12:00"}
+{"trace_id": "20260926-145014-c852", "name": "user_feedback", "value": "down", "score": 0.0, "note": "", "ts": "2026-09-26 14:50:52"}
+{"trace_id": "20260926-145113-dfdc", "name": "user_feedback", "value": "up", "score": 1.0, "note": "", "ts": "2026-09-26 14:51:21"}
+{"trace_id": "20260926-145144-ddf7", "name": "user_feedback", "value": "up", "score": 1.0, "note": "", "ts": "2026-09-26 14:51:52"}
+{"trace_id": "20260926-151027-1415", "name": "user_feedback", "value": "up", "score": 1.0, "note": "", "ts": "2026-09-26 15:10:48"}
+{"trace_id": "20260928-151156-b932", "name": "user_feedback", "value": "up", "score": 1.0, "note": "", "ts": "2026-09-28 15:13:02"}

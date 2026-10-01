@@ -1,0 +1,1065 @@
+{
+  "generated_at": "2026-09-26 20:10:57",
+  "library": {
+    "collection": "day6_kb",
+    "count": 932
+  },
+  "group": {
+    "name": "final_交付口径",
+    "dedupe": true,
+    "top_k": 3,
+    "quota_cap": 2,
+    "prompt": "v2"
+  },
+  "summary": {
+    "n": 30,
+    "answer_acc": 0.9666666666666667,
+    "cite_acc": 0.9328358208955224,
+    "cite_total": 134,
+    "cite_valid": 125,
+    "cite_at_k": 0.5555555555555556,
+    "slot_valid": 50,
+    "slot_total": 90,
+    "zero_cite_questions": 2,
+    "avg_retrieve_ms": 189.77174997174492,
+    "avg_gen_ms": 1400.7933733286336,
+    "avg_prompt_tokens": 749.1,
+    "avg_completion_tokens": 209.33333333333334,
+    "avg_cost": 0.0011677666666666667,
+    "by_type": {
+      "in": {
+        "n": 10,
+        "correct": 10,
+        "rate": 1.0
+      },
+      "cross": {
+        "n": 8,
+        "correct": 7,
+        "rate": 0.875
+      },
+      "partial": {
+        "n": 5,
+        "correct": 5,
+        "rate": 1.0
+      },
+      "out": {
+        "n": 7,
+        "correct": 7,
+        "rate": 1.0
+      }
+    }
+  },
+  "records": [
+    {
+      "id": 1,
+      "type": "in",
+      "question": "RAG 系统根据提出动因和特点可以分为哪几类？NaiveRAG 的提出动因和主要特点是什么？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 9,
+      "sources": [
+        "RAG知识.pdf#15",
+        "RAG知识.pdf#16",
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732"
+      ],
+      "retrieve_ms": 2133.779800031334,
+      "gen_ms": 4418.396499939263,
+      "prompt_tokens": 742,
+      "completion_tokens": 198,
+      "cost": 0.0011380000000000001,
+      "correct": true,
+      "correct_reason": "分类及NaiveRAG动因特点均与资料2一致",
+      "cite_total": 3,
+      "cite_valid": 3,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        1,
+        2
+      ],
+      "answer": "**子问题清单：**\n1. RAG 系统根据提出动因和特点可以分为哪几类？\n2. NaiveRAG 的提出动因和主要特点是什么？\n\n**逐条回答：**\n\n**1. RAG 系统根据提出动因和特点可以分为哪几类？**\nRAG 架构可以根据其提出动因和主要特点分为以下几类：NaiveRAG、AdvancedRAG [1][2]。\n\n**2. NaiveRAG 的提出动因和主要特点是什么？**\n- 提出动因：LLM 容易出现\"幻觉\"，参数化知识难以更新，需要外部检索补充知识并提供可追溯的证据 [2]。\n- 主要特点：采用三步流程（文档切块→向量检索→拼接提示生成），支持一体化端到端微调（如 RAG‑Sequence 和 RAG‑Token），能够减少模型幻觉，提升开放域问答的准确率 [2]。"
+    },
+    {
+      "id": 2,
+      "type": "in",
+      "question": "和传统大语言模型相比，RAG 解决了哪些关键问题？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 7,
+      "sources": [
+        "RAG知识.pdf#13",
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732",
+        "RAG知识.pdf#81"
+      ],
+      "retrieve_ms": 154.5168999582529,
+      "gen_ms": 1068.2812999002635,
+      "prompt_tokens": 783,
+      "completion_tokens": 174,
+      "cost": 0.001131,
+      "correct": true,
+      "correct_reason": "回答内容与资料1完全一致，无编造",
+      "cite_total": 6,
+      "cite_valid": 6,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1
+      ],
+      "valid_cited_ids": [
+        1
+      ],
+      "answer": "**子问题清单：**\n1. 传统大语言模型存在哪些局限性？\n2. RAG 通过什么方式解决了这些问题？\n\n**逐条回答：**\n\n1. 传统大语言模型存在以下局限性：知识截止点，模型训练数据有时间限制，无法获取最新信息 [1]；幻觉问题，模型可能生成看似合理但实际错误的信息 [1]；领域专业性不足，对特定领域的深度知识掌握有限 [1]；个性化缺失，无法基于用户的个人知识库进行回答 [1]。\n\n2. RAG 通过引入外部知识库，让 AI 模型在生成回答前先检索相关信息，从而显著提高回答的准确性和时效性 [1]。这种方法特别适合构建个人数字分身，因为它可以基于你的个人文档、博客文章、经验总结等生成符合你风格和观点的回答 [1]。"
+    },
+    {
+      "id": 3,
+      "type": "in",
+      "question": "Cloudflare 提供的 RAG 参考架构，其实现通常分为哪两个核心阶段？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 8,
+      "sources": [
+        "RAG知识.pdf#15",
+        "RAG知识.pdf#13",
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732"
+      ],
+      "retrieve_ms": 151.7195999622345,
+      "gen_ms": 705.0057998858392,
+      "prompt_tokens": 773,
+      "completion_tokens": 89,
+      "cost": 0.000951,
+      "correct": true,
+      "correct_reason": "资料1明确提及两阶段，回答与资料一致",
+      "cite_total": 3,
+      "cite_valid": 2,
+      "cite_invalid": [
+        2
+      ],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        1
+      ],
+      "answer": "**子问题清单：**\n1. Cloudflare 提供的 RAG 参考架构，其实现通常分为哪两个核心阶段？\n\n**回答：**\n\nRAG 系统的实现通常分为两个核心阶段：知识库构建阶段（Knowledge Seeding）和实时查询响应阶段 [1][2]。其中，知识库构建阶段中，原始文档会被上传至系统，经过初步处理后，消息被异步推送到队列 [1]。"
+    },
+    {
+      "id": 4,
+      "type": "in",
+      "question": "向量数据库（Vectorize）中存储一个向量，通常包含哪几个关键组成部分？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 8,
+      "sources": [
+        "RAG知识.pdf#21",
+        "RAG知识.pdf#66",
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732"
+      ],
+      "retrieve_ms": 153.09869986958802,
+      "gen_ms": 685.7328000478446,
+      "prompt_tokens": 799,
+      "completion_tokens": 120,
+      "cost": 0.001039,
+      "correct": true,
+      "correct_reason": "回答与资料1中向量组成部分完全一致",
+      "cite_total": 5,
+      "cite_valid": 5,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1
+      ],
+      "valid_cited_ids": [
+        1
+      ],
+      "answer": "**子问题清单**\n1. 向量数据库（Vectorize）中存储一个向量，通常包含哪几个关键组成部分？\n\n**回答**\nVectorize 中存储的向量包含以下关键组成部分：向量ID、向量值、元数据、命名空间 [1]。\n- 向量ID：唯一标识符，通常基于文档路径和块索引生成 [1]。\n- 向量值：由嵌入模型生成的数值数组 [1]。\n- 元数据：与向量关联的描述性信息 [1]。\n- 命名空间：可选的向量分组标识 [1]。"
+    },
+    {
+      "id": 5,
+      "type": "in",
+      "question": "为什么《RAGHandbook》建议中国大陆用户选择千问而不是 Gemini？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 9,
+      "sources": [
+        "RAG知识.pdf#21",
+        "RAG知识.pdf#44",
+        "Redis全套学习笔记.pdf#47"
+      ],
+      "retrieve_ms": 119.81200007721782,
+      "gen_ms": 993.5059000272304,
+      "prompt_tokens": 731,
+      "completion_tokens": 179,
+      "cost": 0.001089,
+      "correct": true,
+      "correct_reason": "资料1明确支持中国大陆用户选千问及原因",
+      "cite_total": 4,
+      "cite_valid": 4,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        1,
+        2
+      ],
+      "answer": "**子问题清单：**\n1. 《RAGHandbook》是否建议中国大陆用户选择千问而非 Gemini？\n2. 建议选择千问的原因是什么？\n\n**逐条回答：**\n\n1. 资料未涉及《RAGHandbook》这一名称，但【资料1】中确有对中国大陆用户的选型建议：对于中国大陆用户，建议使用千问模型 [1]。\n\n2. 原因包括：\n- Google 的服务在中国被封禁 [1]；\n- 千问 text-embedding-v4 模型在中文处理上表现更佳 [1]；\n- 千问的嵌入模型和大语言模型都提供高质量的中文支持，且更具成本优势，只有 Gemini API 约一半的价格 [1]。\n\n此外，【资料2】也指出，如果内容主要是简体中文或需要良好的本地化处理，建议使用千问 [2]。"
+    },
+    {
+      "id": 6,
+      "type": "partial",
+      "question": "RAG 能减少幻觉，一个重要原因是它把检索到的资料\"喂\"给生成模型。请问：检索到的上下文是如何与用户问题一起交给大模型，再由大模型利用\"自注意力\"生成回答的？请结合 RAG 的查询响应流程和 Transformer 的自注意力原理说明。",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 10,
+      "sources": [
+        "RAG知识.pdf#16",
+        "RAG知识.pdf#13",
+        "Transformer--Attention Is All You Need.html#https://zhuanlan.zhihu.com/p/689083488"
+      ],
+      "retrieve_ms": 178.49910003133118,
+      "gen_ms": 2008.2732001319528,
+      "prompt_tokens": 855,
+      "completion_tokens": 339,
+      "cost": 0.001533,
+      "correct": true,
+      "correct_reason": "资料能答部分如实回答，未涉及部分明确拒答，无编造",
+      "cite_total": 6,
+      "cite_valid": 5,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "answer": "**子问题清单**\n1. RAG 的查询响应流程是怎样的？\n2. 检索到的上下文如何与用户问题一起交给大模型？\n3. 大模型如何利用“自注意力”生成回答？\n\n**逐条回答**\n\n1. RAG 的查询响应流程是怎样的？\nRAG 系统的工作流程分为两个主要阶段：知识库构建（离线处理）和查询响应（实时处理）[2]。RAG 采用三步流程：文档切块→向量检索→拼接提示生成[1]。在查询响应阶段，RAG 通过引入外部知识库，让 AI 模型在生成回答前先检索相关信息[2]。\n\n2. 检索到的上下文如何与用户问题一起交给大模型？\n资料未涉及检索到的上下文与用户问题拼接后交给大模型的具体输入格式或拼接方式。资料仅提及“拼接提示生成”这一步骤[1]，但未说明拼接的具体结构。\n\n3. 大模型如何利用“自注意力”生成回答？\n资料未涉及大模型利用自注意力机制处理 RAG 拼接提示并生成回答的具体过程。资料3仅讨论了 Transformer 中自注意力的一般特性：自注意力可以产生更多可解释的模型，单个注意力头清楚地学习执行不同的任务，许多表现出与句子的句法和语义结构相关的行为[3]；当 n 小于表征维度 d 时，自注意力层比循环层更快[3]；为提高涉及非常长序列的任务的计算性能，自注意力可以限制为仅考虑大小为 r 的邻域[3]。但资料3未涉及 RAG 场景下自注意力如何利用检索上下文生成回答。"
+    },
+    {
+      "id": 7,
+      "type": "cross",
+      "question": "把一段文本变成向量再检索，为什么比直接用关键词匹配更可能召回语义相关的内容？请结合向量嵌入（embedding）与语义检索的原理说明。",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 9,
+      "sources": [
+        "RAG知识.pdf#129",
+        "RAG知识.pdf#97",
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732"
+      ],
+      "retrieve_ms": 174.88280008547008,
+      "gen_ms": 1729.991399915889,
+      "prompt_tokens": 573,
+      "completion_tokens": 204,
+      "cost": 0.000981,
+      "correct": true,
+      "correct_reason": "回答核心结论均有资料1和3支撑，无编造内容",
+      "cite_total": 6,
+      "cite_valid": 6,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        3
+      ],
+      "answer": "**子问题清单**\n1. 向量嵌入（embedding）在检索中起什么作用？\n2. 语义检索与传统关键词匹配有何不同？\n3. 为什么向量检索更可能召回语义相关内容？\n\n**逐条回答**\n\n1. 语义检索使用向量化技术将查询和文档转换为语义向量，通过计算向量相似度找到语义相关的内容 [1]。系统把用户的查询转换成向量，然后根据这个向量在索引中进行搜索，找到最相关的前k个结果 [3]。\n\n2. 语义检索是基于语义理解而非关键词匹配的信息检索技术 [1]。与传统关系数据库不同，向量数据库优化了相似度搜索功能 [1]。\n\n3. 因为查询和文档都被转换为语义向量，检索依据的是向量相似度而非字面关键词是否重合，所以能召回语义相关的内容 [1]。检索时系统根据查询向量在索引中搜索，找到最相关的前k个结果，再提取相应文本段作为上下文输入大语言模型 [3]。"
+    },
+    {
+      "id": 8,
+      "type": "cross",
+      "question": "为提高检索质量，高级 RAG 常把复杂的用户问题拆成多个子查询分别检索再综合。请结合 RAG 技术概览中把问题分解为子查询（多查询检索）的做法，以及 RAG知识中 Advanced RAG 将查询重写、扩展归为预检索阶段的说法，说明：把复杂问题拆成子查询属于检索的哪个阶段？它的作用是什么？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 7,
+      "sources": [
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732",
+        "RAG知识.pdf#16",
+        "RAG知识.pdf#77"
+      ],
+      "retrieve_ms": 190.42039988562465,
+      "gen_ms": 1493.7925999984145,
+      "prompt_tokens": 858,
+      "completion_tokens": 272,
+      "cost": 0.001402,
+      "correct": true,
+      "correct_reason": "回答依据资料1和2，正确指出预检索阶段及提高检索质量的作用。",
+      "cite_total": 6,
+      "cite_valid": 6,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        1,
+        2
+      ],
+      "answer": "**子问题清单**\n1. 把复杂问题拆成子查询属于检索的哪个阶段？\n2. 它的作用是什么？\n\n**逐条回答**\n\n1. 把复杂问题拆成子查询属于检索的哪个阶段？\n把复杂问题拆成子查询属于预检索阶段。Advanced RAG 引入预检索（如查询重写/扩展）、检索（语义向量检索）、后检索（结果重排序、摘要压缩）等多阶段处理 [2]。而将复杂查询分解为多个子查询，正是使用 LLM 作为推理引擎来修改用户输入、以提高检索质量的做法 [1]，因此归入预检索阶段。\n\n2. 它的作用是什么？\n其作用是提高检索质量 [1]。当查询内容复杂时，LLM 可将其分解为几个更简单、更具体的子查询，例如把“在 Github 上，Langchain 和 LlamaIndex 哪个框架的 star 更多？”拆成“Langchain 在 Github 上有多少 star？”和“LlamaIndex 在 Github 上有多少 star？” [1]。这些子查询并行执行后，检索到的上下文会组合在一个提示中，供 LLM 综合出对初始查询的最终答案 [1]。总体上，这类预检索处理能显著提升检索相关性和生成质量 [2]。"
+    },
+    {
+      "id": 9,
+      "type": "out",
+      "question": "什么是扩散模型？Stable Diffusion 是如何一步步生成图像的？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 9,
+      "sources": [
+        "Transformer--Attention Is All You Need.html#https://zhuanlan.zhihu.com/p/689083488",
+        "Transformer--Attention Is All You Need.html#https://zhuanlan.zhihu.com/p/689083488",
+        "RAG知识.pdf#88"
+      ],
+      "retrieve_ms": 103.19210006855428,
+      "gen_ms": 806.0741000808775,
+      "prompt_tokens": 759,
+      "completion_tokens": 63,
+      "cost": 0.000885,
+      "correct": true,
+      "correct_reason": "资料未涉及扩散模型，回答明确拒答",
+      "cite_total": 0,
+      "cite_valid": 0,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [],
+      "valid_cited_ids": [],
+      "answer": "**子问题清单：**\n1. 什么是扩散模型？\n2. Stable Diffusion 是如何一步步生成图像的？\n\n**逐条回答：**\n\n1. 什么是扩散模型？\n资料未涉及扩散模型的定义。\n\n2. Stable Diffusion 是如何一步步生成图像的？\n资料未涉及 Stable Diffusion 的图像生成步骤。"
+    },
+    {
+      "id": 10,
+      "type": "out",
+      "question": "图神经网络（GNN）的核心思想是什么？它和 Transformer 有什么联系？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 9,
+      "sources": [
+        "Transformer--Attention Is All You Need.html#https://zhuanlan.zhihu.com/p/689083488",
+        "Transformer--Attention Is All You Need.html#https://zhuanlan.zhihu.com/p/689083488",
+        "RAG知识.pdf#13"
+      ],
+      "retrieve_ms": 121.99410004541278,
+      "gen_ms": 585.46660002321,
+      "prompt_tokens": 775,
+      "completion_tokens": 83,
+      "cost": 0.000941,
+      "correct": true,
+      "correct_reason": "资料未涉及GNN，回答明确拒答",
+      "cite_total": 0,
+      "cite_valid": 0,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [],
+      "valid_cited_ids": [],
+      "answer": "**子问题清单：**\n1. 图神经网络（GNN）的核心思想是什么？\n2. GNN 和 Transformer 有什么联系？\n\n**逐条回答：**\n\n1. 图神经网络（GNN）的核心思想是什么？\n资料未涉及图神经网络（GNN）的核心思想。\n\n2. GNN 和 Transformer 有什么联系？\n资料未涉及 GNN 与 Transformer 之间的联系。"
+    },
+    {
+      "id": 11,
+      "type": "cross",
+      "question": "检索得到一批候选文档之后，在把它们送进大模型之前还能做哪些进一步处理来提升质量？这些处理在 RAG 流程里属于哪个阶段？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 10,
+      "sources": [
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732",
+        "RAG知识.pdf#16",
+        "RAG知识.pdf#13"
+      ],
+      "retrieve_ms": 147.2907999996096,
+      "gen_ms": 1217.6142998505384,
+      "prompt_tokens": 833,
+      "completion_tokens": 192,
+      "cost": 0.001217,
+      "correct": true,
+      "correct_reason": "回答内容与资料1、2一致，阶段归属正确",
+      "cite_total": 3,
+      "cite_valid": 3,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        1,
+        2
+      ],
+      "answer": "**子问题清单**\n1. 检索得到候选文档后、送入大模型前，还能做哪些进一步处理来提升质量？\n2. 这些处理在 RAG 流程里属于哪个阶段？\n\n**逐条回答**\n\n1. 可以做过滤、重新排名或一些转换来进一步优化结果；具体可基于相似度评分、关键词、元数据等过滤结果，或使用其他模型进行重新排名，如 LLM、句子-转换器交叉编码器、Cohere 重新排名端点，或基于元数据如日期的新近性来进行 [1]。此外，还包括重排序、压缩等多阶段处理，以显著提升检索相关性和生成质量 [2]。\n\n2. 这些处理属于将检索到的上下文输入到大语言模型（LLM）以得到最终答案之前的最后一步 [1]；在模块化 RAG 流程中，属于 PostRetrieval（检索后）阶段 [2]。"
+    },
+    {
+      "id": 12,
+      "type": "in",
+      "question": "《RAG知识》第 4 章列出了 RAG 流水线从内容接入到答案返回的主要处理步骤。请按顺序说明这些步骤，并指出其中哪几步负责把检索结果组织成送给大模型的提示词。",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 9,
+      "sources": [
+        "RAG知识.pdf#24",
+        "RAG知识.pdf#87",
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732"
+      ],
+      "retrieve_ms": 158.70340005494654,
+      "gen_ms": 876.9211999606341,
+      "prompt_tokens": 792,
+      "completion_tokens": 152,
+      "cost": 0.001096,
+      "correct": true,
+      "correct_reason": "步骤顺序与资料1完全一致，组织提示词步骤也正确",
+      "cite_total": 2,
+      "cite_valid": 2,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1
+      ],
+      "valid_cited_ids": [
+        1
+      ],
+      "answer": "**子问题清单**\n1. 《RAG知识》第4章列出的RAG流水线主要处理步骤有哪些，按顺序是什么？\n2. 其中哪几步负责把检索结果组织成送给大模型的提示词？\n\n**逐条回答**\n\n1. 第4章列出的主要处理步骤依次为：Markdown内容；解析+Front‑matter；分块chunkText；批量嵌入（Gemini/Qwen）；向量规整/裁剪；批量UpsertVectorize；检索（查询+过滤+回退）；上下文拼装；Prompt构建 [1]。\n\n2. 负责把检索结果组织成送给大模型的提示词的步骤是“上下文拼装”和“Prompt构建” [1]。"
+    },
+    {
+      "id": 13,
+      "type": "in",
+      "question": "分块函数 chunkText() 的分块策略是怎样的？它的目标片段长度上限是多少，切分时先按什么切、再按什么切？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 9,
+      "sources": [
+        "RAG知识.pdf#52",
+        "RAG知识.pdf#129",
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732"
+      ],
+      "retrieve_ms": 107.91739984415472,
+      "gen_ms": 1259.3310999218374,
+      "prompt_tokens": 761,
+      "completion_tokens": 191,
+      "cost": 0.001143,
+      "correct": true,
+      "correct_reason": "回答核心结论均可在资料1中找到依据",
+      "cite_total": 5,
+      "cite_valid": 5,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1
+      ],
+      "valid_cited_ids": [
+        1
+      ],
+      "answer": "**子问题清单：**\n1. chunkText() 的分块策略是怎样的？\n2. 目标片段长度上限是多少？\n3. 切分时先按什么切、再按什么切？\n\n**逐条回答：**\n\n1. 分块策略：在保持语义完整的前提下生成长度适中的片段，兼容中英文 [1]。具体步骤为：先按标题粗切；对每段做长度判断，短段直接收集；长段再按句末标点分句；逐句累积至上限，超限截断换新块 [1]。\n\n2. 目标片段长度上限：≤800字符（maxLen 默认值为 800）[1]。\n\n3. 切分顺序：先按标题（`^#{1,6}`）粗切 [1]；再对长段按句末标点正则（。！？；）分句 [1]。"
+    },
+    {
+      "id": 14,
+      "type": "in",
+      "question": "创建 Vectorize 索引时必须指定哪两个关键参数？它支持哪三种距离度量方式，各自的值域和「越接近什么值表示越相似」是怎么定义的？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 8,
+      "sources": [
+        "RAG知识.pdf#66",
+        "RAG知识.pdf#73",
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732"
+      ],
+      "retrieve_ms": 114.81539998203516,
+      "gen_ms": 1390.4526999685913,
+      "prompt_tokens": 645,
+      "completion_tokens": 244,
+      "cost": 0.001133,
+      "correct": true,
+      "correct_reason": "核心结论均有资料依据，未涉及部分如实说明",
+      "cite_total": 6,
+      "cite_valid": 5,
+      "cite_invalid": [
+        1
+      ],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        2
+      ],
+      "answer": "**子问题清单：**\n1. 创建 Vectorize 索引时必须指定哪两个关键参数？\n2. Vectorize 支持哪三种距离度量方式？\n3. 各距离度量方式的值域和「越接近什么值表示越相似」是如何定义的？\n\n---\n\n**1. 创建 Vectorize 索引时必须指定的两个关键参数**\n\n创建索引时需要指定两个关键参数：维度（Dimensions）和距离度量（Distance Metric）[1]。其中维度必须与所使用的嵌入模型输出维度一致[1]。\n\n**2. Vectorize 支持的三种距离度量方式**\n\nVectorize 支持三种距离度量方式[1][2]。资料中明确列出的第一种是余弦相似度（cosine）[2]。资料未涉及另外两种距离度量方式的具体名称。\n\n**3. 各距离度量方式的值域与相似度定义**\n\n关于余弦相似度（cosine）：适用于文本相似度搜索[2]；值域范围为 -1（最不相似）到 1（完全相同）[2]；0 表示正交向量[2]。即越接近 1 表示越相似。\n\n资料未涉及另外两种距离度量方式的值域及相似度定义。"
+    },
+    {
+      "id": 15,
+      "type": "in",
+      "question": "嵌入向量所说的「维度」指什么？为什么配置索引维度时必须与所选嵌入模型的输出维度一致，写成别的数值会有什么后果？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 7,
+      "sources": [
+        "RAG知识.pdf#30",
+        "RAG知识.pdf#29",
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732"
+      ],
+      "retrieve_ms": 117.7359998691827,
+      "gen_ms": 1118.7603999860585,
+      "prompt_tokens": 760,
+      "completion_tokens": 196,
+      "cost": 0.001152,
+      "correct": true,
+      "correct_reason": "回答核心结论均能在资料1、2中找到依据，无编造。",
+      "cite_total": 4,
+      "cite_valid": 4,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        1,
+        2
+      ],
+      "answer": "**子问题清单**\n1. 嵌入向量所说的「维度」指什么？\n2. 为什么配置索引维度时必须与所选嵌入模型的输出维度一致？\n3. 写成别的数值会有什么后果？\n\n**逐条回答**\n\n1. 维度指的是每个文本被嵌入（embedding）后所生成的向量包含的数值个数，例如维度为1024表示每个文本会被表示为一个包含1024个浮点数的向量 [1]。一般来说，维度越高，向量能表达的信息越丰富，检索起来就越精确，但也会带来存储和计算成本的增加 [1]。\n\n2. 因为维度的选择必须与所用嵌入模型的输出一致，实际开发中应严格按照所选嵌入模型的输出维度进行配置，而不是自行选择 [1]。创建索引时也需要考虑维度匹配，即索引维度必须与所使用的嵌入模型输出维度一致 [2]。\n\n3. 如果设置为其他数值，将导致存储和检索时维度不匹配 [1]。"
+    },
+    {
+      "id": 16,
+      "type": "in",
+      "question": "聊天组件在前端是怎么检测用户语言的？语言检测的优先级顺序是什么，默认语言是什么？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 7,
+      "sources": [
+        "RAG知识.pdf#123",
+        "RAG知识.pdf#97",
+        "RAG知识.pdf#107"
+      ],
+      "retrieve_ms": 67.94320000335574,
+      "gen_ms": 1216.8111000210047,
+      "prompt_tokens": 631,
+      "completion_tokens": 138,
+      "cost": 0.000907,
+      "correct": true,
+      "correct_reason": "回答核心结论均可在资料2、3中找到依据",
+      "cite_total": 5,
+      "cite_valid": 4,
+      "cite_invalid": [
+        "2"
+      ],
+      "cite_missing": false,
+      "cited_ids": [
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        3
+      ],
+      "answer": "**子问题清单：**\n1. 聊天组件在前端是怎么检测用户语言的？\n2. 语言检测的优先级顺序是什么？\n3. 默认语言是什么？\n\n**逐条回答：**\n\n1. 客户端需要准确检测用户所用语言，为后续流程打下基础 [2]。最小逻辑是：路径以 `/en/` 开头即英文，否则中文 [2]。此外，widget.js 能够根据页面URL或HTML语言属性自动检测用户语言偏好 [3]。\n\n2. 可扩展优先级为：URL → navigator.language → meta → zh → 默认 [2]。\n\n3. 默认语言为中文（zh）[2]。"
+    },
+    {
+      "id": 17,
+      "type": "cross",
+      "question": "分块时块大小应该怎么定？请结合《RAG知识》里 chunkText 的切分顺序与长度上限，以及《RAG 技术概览》中关于块大小受嵌入模型 token 处理能力限制的说法，说明确定块大小时需要权衡什么。",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 9,
+      "sources": [
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732",
+        "RAG知识.pdf#45",
+        "RAG知识.pdf#129"
+      ],
+      "retrieve_ms": 160.04170011729002,
+      "gen_ms": 1328.76589987427,
+      "prompt_tokens": 770,
+      "completion_tokens": 274,
+      "cost": 0.001318,
+      "correct": true,
+      "correct_reason": "回答核心结论均有资料依据，未编造且未答非所问",
+      "cite_total": 6,
+      "cite_valid": 6,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "answer": "**子问题清单**\n1. 分块时块大小应该怎么定？\n2. 《RAG知识》里 chunkText 的切分顺序与长度上限是什么？\n3. 《RAG 技术概览》中关于块大小受嵌入模型 token 处理能力限制的说法是什么？\n4. 确定块大小时需要权衡什么？\n\n**逐条回答**\n\n1. 分块时块大小应结合嵌入模型的 token 处理能力来确定，并需要在上下文完整性与检索效率之间取得平衡 [1]。好的分块策略需要平衡块的大小、语义完整性和检索效果 [3]。\n\n2. 资料未涉及 chunkText 的切分顺序；关于长度上限，资料提到单行最大处理 Token 数是指每个 chunk 的最大长度限制，超出部分需要进一步切分 [2]。\n\n3. 块的大小取决于所使用的嵌入模型及其处理 token 的能力，例如基于 BERT 的标准 Transformer 编码器模型最多处理 512 个 token，而 OpenAI ada-002 能处理更长的序列，如 8191 个 token [1]。\n\n4. 确定块大小时需要权衡的是：为大语言模型提供足够上下文以进行推理，与实现高效搜索所需的足够具体的文本嵌入 [1]；同时还要平衡块的大小、语义完整性和检索效果 [3]。"
+    },
+    {
+      "id": 18,
+      "type": "cross",
+      "question": "在向量检索时如何利用元数据做过滤？请结合《RAG知识》中 Vectorize 查询 filter 的用法（含支持的过滤操作符）与《RAG 技术概览》中元数据过滤器的说法，说明可以做哪些维度的过滤。",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 7,
+      "sources": [
+        "RAG知识.pdf#30",
+        "RAG知识.pdf#70",
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732"
+      ],
+      "retrieve_ms": 40.29629984870553,
+      "gen_ms": 1612.9038999788463,
+      "prompt_tokens": 705,
+      "completion_tokens": 296,
+      "cost": 0.001297,
+      "correct": false,
+      "correct_reason": "资料未提URL/语言/标签可作过滤维度，属编造",
+      "cite_total": 11,
+      "cite_valid": 8,
+      "cite_invalid": [
+        1,
+        1,
+        1
+      ],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        2,
+        3
+      ],
+      "answer": "**子问题清单**\n1. 在向量检索时如何利用元数据做过滤？\n2. Vectorize 查询 filter 的用法及支持的过滤操作符是什么？\n3. 《RAG 技术概览》中元数据过滤器的说法是什么？\n4. 可以做哪些维度的过滤？\n\n**逐条回答**\n\n1. 在向量检索时，可以先将元数据与向量一起存储，然后使用元数据过滤器来搜索特定日期或来源的信息 [3]。在 Vectorize 中，查询时可以使用元数据过滤 [2]。\n\n2. 资料未涉及 Vectorize 查询 filter 的具体用法及支持的过滤操作符。资料仅提到“在查询时可以使用元数据过滤” [2]，并给出创建元数据索引时支持的元数据类型包括 string、number、boolean [2]，但未说明 filter 的写法或操作符。\n\n3. 《RAG 技术概览》指出，根据所选择的索引类型、数据和搜索需求，可以将元数据与向量一起存储，然后使用元数据过滤器来搜索特定日期或来源的信息 [3]。\n\n4. 可以做以下维度的过滤：\n- 特定日期 [3]\n- 特定来源 [3]\n- URL 字段 [1]\n- 语言字段 [1]\n- 标签字段 [1]\n- string 类型元数据 [2]\n- number 类型元数据 [2]\n- boolean 类型元数据 [2]"
+    },
+    {
+      "id": 19,
+      "type": "cross",
+      "question": "《RAG知识》把语义检索定义为「基于语义理解而非关键词匹配」，而《RAG 技术概览》提出把两种检索方式融合起来。请说明这两种检索方式各自的优势，为什么要融合，以及融合时用什么算法合并两路结果。",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 9,
+      "sources": [
+        "RAG知识.pdf#129",
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732",
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732"
+      ],
+      "retrieve_ms": 139.40929993987083,
+      "gen_ms": 1328.0170999933034,
+      "prompt_tokens": 773,
+      "completion_tokens": 216,
+      "cost": 0.001205,
+      "correct": true,
+      "correct_reason": "回答核心结论均有资料依据，未涉及部分明确说明资料未涉及。",
+      "cite_total": 4,
+      "cite_valid": 4,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        1,
+        2
+      ],
+      "answer": "**子问题清单：**\n1. 语义检索（向量搜索）的优势是什么？\n2. 基于关键词的传统搜索（稀疏检索）的优势是什么？\n3. 为什么要将两种检索方式融合？\n4. 融合时用什么算法合并两路结果？\n\n**逐条回答：**\n\n1. 语义检索基于语义理解而非关键词匹配，使用向量化技术将查询和文档转换为语义向量，通过计算向量相似度找到语义相关的内容 [1]。向量数据库优化了相似度搜索功能 [1]。\n\n2. 资料未涉及基于关键词的传统搜索（稀疏检索）的优势。\n\n3. 融合检索（混合搜索）结合了两种不同的搜索方法：一种是基于关键词的传统搜索方法，使用稀疏检索算法（如tf-idf或行业标准BM25），另一种是现代的语义或向量搜索；这两种方法被融合在一起，以产生一个综合的检索结果 [2]。\n\n4. 融合时通常通过Reciprocal Rank Fusion算法解决，该算法会对检索结果进行重新排名，以产生最终输出 [2]。"
+    },
+    {
+      "id": 20,
+      "type": "cross",
+      "question": "向量检索初筛之后为什么还要再做一次重排（rerank）？请结合《RAG知识》里对 Rerank 模块的定位与《RAG 技术概览》中后处理器、交叉编码器重新排名的做法说明。",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 8,
+      "sources": [
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732",
+        "RAG知识.pdf#43",
+        "RAG知识.pdf#61"
+      ],
+      "retrieve_ms": 128.61920008435845,
+      "gen_ms": 1666.3644001819193,
+      "prompt_tokens": 807,
+      "completion_tokens": 308,
+      "cost": 0.001423,
+      "correct": true,
+      "correct_reason": "回答核心结论均能在资料中找到依据，无编造内容。",
+      "cite_total": 6,
+      "cite_valid": 6,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "answer": "**子问题清单**\n1. 向量检索初筛之后为什么还要再做一次重排（rerank）？\n2. 《RAG知识》里对 Rerank 模块的定位是什么？\n3. 《RAG 技术概览》中后处理器、交叉编码器重新排名的做法是什么？\n\n**逐条回答**\n\n1. 向量检索初筛之后还要再做一次重排，是因为需要结合语义相关性模型对初步检索结果进行二次排序，以提升最终召回质量 [3]；同时，Rerank 模块的加入体现为“向量初筛+语义重排”的演进措施，用于增强系统的灵活性和智能化水平 [2]。\n\n2. 《RAG知识》里对 Rerank 模块的定位是：结合语义相关性模型，对初步检索结果进行二次排序，提升最终召回质量 [3]；并将其作为“向量初筛+语义重排”的演进措施之一 [2]。\n\n3. 《RAG 技术概览》中后处理器、交叉编码器重新排名的做法是：LlamaIndex 提供多种后处理器，可以基于相似度评分、关键词、元数据等过滤结果，或者使用其他模型进行重新排名，如 LLM、句子-转换器交叉编码器、Cohere 重新排名端点，或者基于元数据如日期的新近性来进行 [1]；这是在将检索到的上下文输入到大语言模型（LLM）以得到最终答案之前的最后一步 [1]。"
+    },
+    {
+      "id": 21,
+      "type": "cross",
+      "question": "RAG 的回答怎么做到可追溯？请结合《RAG知识》中检索后构建 sources 列表的做法与《RAG 技术概览》中「参考引用」部分的说明，回答引用在实践中为什么不容易做准、资料提到的缓解手段是什么。",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 10,
+      "sources": [
+        "RAG知识.pdf#87",
+        "RAG知识.pdf#16",
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732"
+      ],
+      "retrieve_ms": 86.42369997687638,
+      "gen_ms": 2228.2201999332756,
+      "prompt_tokens": 812,
+      "completion_tokens": 447,
+      "cost": 0.001706,
+      "correct": true,
+      "correct_reason": "回答核心结论均有资料依据，未编造且如实说明sources列表资料未涉及",
+      "cite_total": 9,
+      "cite_valid": 8,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "answer": "**子问题清单**\n1. RAG 的回答怎么做到可追溯？\n2. 《RAG知识》中检索后构建 sources 列表的做法是什么？\n3. 《RAG 技术概览》中「参考引用」部分说明了什么？\n4. 引用在实践中为什么不容易做准？\n5. 资料提到的缓解手段是什么？\n\n**逐条回答**\n\n1. RAG 的回答要做到可追溯，需要把检索到的上下文组织进提示词并交由模型生成最终回答，同时保证生成结果具备可追溯性 [1]。此外，RAG 本身通过外部检索补充知识并提供可追溯的证据 [2]。\n\n2. 资料未涉及《RAG知识》中检索后构建 sources 列表的具体做法。资料1只提到用户消息先被嵌入为查询向量，用于在向量库中检索相关上下文，并追踪 llmGenerate() 的调用路径、梳理检索到的上下文如何被组织进提示词 [1]；资料2只提到 RAG 采用文档切块→向量检索→拼接提示生成的三步流程，以及提供可追溯的证据 [2]。均未涉及 sources 列表的构建。\n\n3. 《RAG 技术概览》中「参考引用」部分说明：参考引用这一部分没有编号，因为它更像是一个工具而非一种检索改进技术，尽管它非常重要 [3]。如果使用了多个来源来生成答案——无论是由于初始查询的复杂性（不得不执行多个子查询，然后将检索到的上下文合并为一个答案），还是因为在不同文档中找到了单个查询的相关上下文——就会出现一个问题，即是否能准确地反向引用来源 [3]。\n\n4. 引用在实践中不容易做准，是因为当使用多个来源生成答案时，无论是因初始查询复杂而执行多个子查询并合并上下文，还是因在不同文档中找到单个查询的相关上下文，都会产生能否准确反向引用来源的问题 [3]。\n\n5. 资料提到的缓解手段有几种：一是将这个引用任务插入提示中，并要求大语言模型提及所使用来源的 ID [3]；二是将生成响应的部分与索引中的原始文本块匹配，LlamaIndex 为这种情况提供了一种基于模糊匹配的高效解决方案 [3]。"
+    },
+    {
+      "id": 22,
+      "type": "partial",
+      "question": "微调嵌入模型能带来多大的检索质量提升？另外，我想在 8GB 显存的显卡上微调 bge-small-zh，具体的训练参数和显存占用该怎么配置？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 7,
+      "sources": [
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732",
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732",
+        "RAG知识.pdf#25"
+      ],
+      "retrieve_ms": 120.36870000883937,
+      "gen_ms": 1167.925899848342,
+      "prompt_tokens": 704,
+      "completion_tokens": 232,
+      "cost": 0.001168,
+      "correct": true,
+      "correct_reason": "第一问有资料依据，第二问资料未涉及故拒答，无编造。",
+      "cite_total": 2,
+      "cite_valid": 2,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        3
+      ],
+      "answer": "**子问题清单**\n1. 微调嵌入模型能带来多大的检索质量提升？\n2. 在 8GB 显存显卡上微调 bge-small-zh，训练参数和显存占用该如何配置？\n\n**逐条回答**\n\n1. 微调嵌入模型能带来多大的检索质量提升？\n资料显示，对 bge-large-en-v1.5 进行微调后，测试结果表明检索质量提高了 2% [1]。\n\n2. 在 8GB 显存显卡上微调 bge-small-zh，训练参数和显存占用该如何配置？\n资料未涉及 bge-small-zh 在 8GB 显存显卡上的微调训练参数与显存占用配置。资料仅提供了部分通用参数示例，如 EMBED_DIM 为 1024、EMBEDDING_BATCH_SIZE 为 10（Qwen）/1（Gemini）、UP_LOAD_BATCH_SIZE 为每批 300 个项目 [3]，但这些并非针对 bge-small-zh 或 8GB 显存场景的微调配置。"
+    },
+    {
+      "id": 23,
+      "type": "partial",
+      "question": "RAG 能减少幻觉，「幻觉」具体指什么？资料里提到的「信实度」指标是怎么算出来的，公式是什么？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 9,
+      "sources": [
+        "RAG知识.pdf#16",
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732",
+        "RAG知识.pdf#131"
+      ],
+      "retrieve_ms": 91.30700002424419,
+      "gen_ms": 1103.0425000935793,
+      "prompt_tokens": 751,
+      "completion_tokens": 122,
+      "cost": 0.000995,
+      "correct": true,
+      "correct_reason": "幻觉定义有据，信实度公式资料未涉及故拒答",
+      "cite_total": 2,
+      "cite_valid": 2,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        2,
+        3
+      ],
+      "answer": "**子问题清单：**\n1. 「幻觉」具体指什么？\n2. 「信实度」指标是怎么算出来的，公式是什么？\n\n**逐条回答：**\n\n1. 「幻觉」具体指什么？\n幻觉（Hallucination）指模型生成看似合理但实际错误信息的现象 [3]。\n\n2. 「信实度」指标是怎么算出来的，公式是什么？\n资料未涉及「信实度」的具体计算公式。资料仅提到 Ragas 主要利用信实度和答案相关性作为评估生成答案质量的指标 [2]，但未给出信实度的计算方法或公式。"
+    },
+    {
+      "id": 24,
+      "type": "partial",
+      "question": "RAG 系统该从哪些维度评估效果？另外，资料里提到的 ragas 框架，它计算各指标的具体代码实现是什么？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 7,
+      "sources": [
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732",
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732",
+        "RAG知识.pdf#15"
+      ],
+      "retrieve_ms": 112.47609998099506,
+      "gen_ms": 1253.5783001221716,
+      "prompt_tokens": 741,
+      "completion_tokens": 245,
+      "cost": 0.0012309999999999999,
+      "correct": true,
+      "correct_reason": "评估维度有资料依据，代码实现资料未涉及故拒答",
+      "cite_total": 3,
+      "cite_valid": 3,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        1,
+        2
+      ],
+      "answer": "**子问题清单：**\n1. RAG 系统该从哪些维度评估效果？\n2. 资料里提到的 ragas 框架，它计算各指标的具体代码实现是什么？\n\n---\n\n**子问题1：RAG 系统该从哪些维度评估效果？**\n\nRAG 系统的性能评估通常涉及多个独立的指标，包括整体答案的相关性、答案的根据性、信实度以及检索到的上下文的相关性等 [1]。其中，Ragas 主要利用信实度和答案相关性作为评估生成答案质量的指标，并使用传统的上下文精确度和召回率来评估 RAG 架构的检索效果 [1]。此外，还有更高级的方法考虑到了不仅仅是命中率，还有平均倒数排名（一种搜索引擎常用的指标）以及生成答案的信实度和相关性指标 [2]。\n\n---\n\n**子问题2：资料里提到的 ragas 框架，它计算各指标的具体代码实现是什么？**\n\n资料未涉及 ragas 框架计算各指标的具体代码实现。资料中仅提到 Ragas 主要利用信实度和答案相关性作为评估生成答案质量的指标，并使用传统的上下文精确度和召回率来评估检索效果 [1]，但未给出任何代码实现细节。"
+    },
+    {
+      "id": 25,
+      "type": "partial",
+      "question": "查询路由（query routing）是怎么工作的，它能做出哪些选择？另外，本项目《RAG知识》里的 /chat 接口有没有用查询路由，要用的话该怎么改？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 8,
+      "sources": [
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732",
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732",
+        "RAG知识.pdf#68"
+      ],
+      "retrieve_ms": 100.28489981777966,
+      "gen_ms": 1449.0553999785334,
+      "prompt_tokens": 774,
+      "completion_tokens": 235,
+      "cost": 0.0012439999999999999,
+      "correct": true,
+      "correct_reason": "前两问有资料依据，后两问资料未涉及故拒答",
+      "cite_total": 5,
+      "cite_valid": 5,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1
+      ],
+      "valid_cited_ids": [
+        1
+      ],
+      "answer": "**子问题清单**\n1. 查询路由是怎么工作的？\n2. 查询路由能做出哪些选择？\n3. 本项目《RAG知识》里的 /chat 接口有没有用查询路由？\n4. 如果要用查询路由，该怎么改？\n\n**逐条回答**\n\n1. 查询路由是一种基于LLM的决策步骤，用于确定针对用户的查询接下来应采取的行动 [1]。\n\n2. 通常的选项包括概括回答、针对某个数据索引执行搜索，或尝试多条不同的途径，然后将它们的结果综合成一个答案 [1]。查询路由器还用于选择合适的索引或更广泛的数据存储位置来处理用户查询，这可能涉及多个数据来源，比如传统的向量存储、图数据库或关系型数据库，或者是一个索引层级结构 [1]。在多文档存储情况下，一个常见的设置是一个概要索引和另一个文档块向量的索引 [1]。设置查询路由器涉及确定它能做出的选择 [1]。\n\n3. 资料未涉及本项目《RAG知识》里 /chat 接口是否使用查询路由。\n\n4. 资料未涉及本项目《RAG知识》里 /chat 接口若要使用查询路由应如何修改。"
+    },
+    {
+      "id": 26,
+      "type": "out",
+      "question": "LLaMA 使用的 RoPE（旋转位置编码）和《Attention Is All You Need》里的正弦位置编码相比，优势和局限分别是什么？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 5,
+      "sources": [
+        "Transformer--Attention Is All You Need.html#https://zhuanlan.zhihu.com/p/689083488",
+        "Transformer--Attention Is All You Need.html#https://zhuanlan.zhihu.com/p/689083488",
+        "Redis全套学习笔记.pdf#45"
+      ],
+      "retrieve_ms": 125.73309987783432,
+      "gen_ms": 1870.6370999570936,
+      "prompt_tokens": 728,
+      "completion_tokens": 305,
+      "cost": 0.001338,
+      "correct": true,
+      "correct_reason": "资料无RoPE内容，回答明确拒答相关部分",
+      "cite_total": 6,
+      "cite_valid": 6,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        1,
+        2
+      ],
+      "answer": "**子问题清单**\n1. LLaMA 使用的 RoPE（旋转位置编码）是什么？\n2. 《Attention Is All You Need》里的正弦位置编码是什么？\n3. RoPE 相比正弦位置编码的优势是什么？\n4. RoPE 相比正弦位置编码的局限是什么？\n\n**逐条回答**\n\n1. 资料未涉及 LLaMA 使用的 RoPE（旋转位置编码）的具体定义、机制或实现。\n\n2. 《Attention Is All You Need》里的正弦位置编码使用正弦和余弦函数生成位置表示，公式为 PE(pos,2i)=sin(pos/10002i/dmodel)、PE(pos,2i+1)=cos(pos/10002i/dmodel)，其中 pos 是位置，i 是维度 [1]。位置编码的每个维度都对应一个正弦曲线，波长形成从 2π 到 10000·2π 的几何级数 [1]。选择这个函数是因为假定模型可以很容易依赖相对位置来学会注意力，因为对于任何固定的偏移量 k，PEpos+k 可以用 PEpos 的线性函数来表征 [1]。还尝试了使用学习的位置嵌入，发现这两个版本效果基本相同 [1][2]。最终选择正弦版本，是因为它可以让模型推断出比训练期间遇到的序列更长的序列 [1][2]。\n\n3. 资料未涉及 RoPE 相比正弦位置编码的优势。\n\n4. 资料未涉及 RoPE 相比正弦位置编码的局限。"
+    },
+    {
+      "id": 27,
+      "type": "out",
+      "question": "BERT 的 MLM（掩码语言模型）预训练任务是怎么构造训练样本的？掩码比例通常设为多少？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 8,
+      "sources": [
+        "Transformer--Attention Is All You Need.html#https://zhuanlan.zhihu.com/p/689083488",
+        "RAG知识.pdf#130",
+        "Transformer--Attention Is All You Need.html#https://zhuanlan.zhihu.com/p/689083488"
+      ],
+      "retrieve_ms": 105.5322999600321,
+      "gen_ms": 1002.495100023225,
+      "prompt_tokens": 805,
+      "completion_tokens": 190,
+      "cost": 0.001185,
+      "correct": true,
+      "correct_reason": "资料未涉及BERT MLM，回答明确拒答",
+      "cite_total": 3,
+      "cite_valid": 3,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "answer": "**子问题清单：**\n1. BERT 的 MLM 预训练任务如何构造训练样本？\n2. MLM 的掩码比例通常设为多少？\n\n**逐条回答：**\n\n1. 关于 MLM 训练样本的构造方式：资料未涉及 BERT 的 MLM 掩码语言模型预训练任务的具体构造方法。\n\n2. 关于掩码比例：资料未涉及 MLM 的掩码比例设置。\n\n补充说明：现有资料中【资料1】提到了标签平滑值 ϵls=0.1 [1]，【资料2】给出了 BLEU、ROUGE 等评估指标及预训练、知识蒸馏、LoRA 等术语定义 [2]，【资料3】介绍了 Transformer 架构及翻译任务上的 BLEU 得分 [3]，但均未涉及 BERT 的 MLM 任务构造或掩码比例。"
+    },
+    {
+      "id": 28,
+      "type": "out",
+      "question": "LoRA 微调是怎么用低秩分解把可训练参数降下来的？rank 和 alpha 一般怎么取？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 8,
+      "sources": [
+        "RAG知识.pdf#130",
+        "Redis全套学习笔记.pdf#2",
+        "RAG 技术概览.html#https://zhuanlan.zhihu.com/p/678893732"
+      ],
+      "retrieve_ms": 107.64859989285469,
+      "gen_ms": 1171.8359000515193,
+      "prompt_tokens": 713,
+      "completion_tokens": 136,
+      "cost": 0.000985,
+      "correct": true,
+      "correct_reason": "资料仅提LoRA定义，未涉具体机制与rank/alpha取值，回答拒答正确。",
+      "cite_total": 1,
+      "cite_valid": 1,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1
+      ],
+      "valid_cited_ids": [
+        1
+      ],
+      "answer": "**子问题清单**\n1. LoRA 微调是怎么用低秩分解把可训练参数降下来的？\n2. rank 和 alpha 一般怎么取？\n\n**逐条回答**\n\n1. LoRA 微调是怎么用低秩分解把可训练参数降下来的？\n资料未涉及……（现有资料仅说明 LoRA 是一种高效的模型微调方法，通过注入低秩分解矩阵减少训练参数 [1]，但没有说明其具体如何用低秩分解降低可训练参数。）\n\n2. rank 和 alpha 一般怎么取？\n资料未涉及……（现有资料未提及 rank 和 alpha 的取值方法或经验范围。）"
+    },
+    {
+      "id": 29,
+      "type": "out",
+      "question": "Kubernetes 的调度器在为 Pod 选择节点时会考虑哪些因素？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 8,
+      "sources": [
+        "Redis全套学习笔记.pdf#104",
+        "Redis全套学习笔记.pdf#103",
+        "RAG知识.pdf#85"
+      ],
+      "retrieve_ms": 103.86229981668293,
+      "gen_ms": 1439.1398001462221,
+      "prompt_tokens": 577,
+      "completion_tokens": 83,
+      "cost": 0.0007430000000000001,
+      "correct": true,
+      "correct_reason": "资料与问题无关，回答正确拒答",
+      "cite_total": 3,
+      "cite_valid": 3,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [],
+      "valid_cited_ids": [],
+      "answer": "**子问题清单：**\n1. Kubernetes 调度器为 Pod 选择节点时会考虑哪些因素？\n\n**逐条回答：**\n\n资料未涉及 Kubernetes 调度器为 Pod 选择节点时考虑的因素。所给资料分别涉及 Redis 集群槽位与故障恢复【资料1】【资料2】以及 RAG 系统的调试端点【资料3】，均与 Kubernetes 调度器无关。"
+    },
+    {
+      "id": 30,
+      "type": "out",
+      "question": "如何用 Redis 实现一个可靠的分布式锁？需要注意哪些问题？",
+      "prompt": "v2",
+      "top_k": 3,
+      "n_recall": 10,
+      "n_dedup": 8,
+      "sources": [
+        "Redis全套学习笔记.pdf#110",
+        "Redis全套学习笔记.pdf#111",
+        "Redis全套学习笔记.pdf#6"
+      ],
+      "retrieve_ms": 74.82760003767908,
+      "gen_ms": 1827.4087000172585,
+      "prompt_tokens": 743,
+      "completion_tokens": 357,
+      "cost": 0.001457,
+      "correct": true,
+      "correct_reason": "回答核心结论均能在资料中找到依据，未涉及部分明确说明资料未涉及。",
+      "cite_total": 9,
+      "cite_valid": 8,
+      "cite_invalid": [
+        3
+      ],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        2
+      ],
+      "answer": "**子问题清单**\n1. 如何用 Redis 实现分布式锁？\n2. 需要注意哪些问题？\n\n**逐条回答**\n\n1. 如何用 Redis 实现分布式锁？\n- 分布式锁是为解决跨 JVM 的互斥机制来控制共享资源访问的问题 [1]。\n- 主流实现方案包括基于数据库、基于缓存（redis 等）、基于 zookeeper [1]。\n- 其中性能上 redis 最高，可靠性上 zookeeper 最高 [1]。\n- 使用 Redis 实现分布式锁需要用到命令：`set key value NX PX 有效期(毫秒)` [2]。\n- 该命令表示：当 key 不存在的时候，设置其值为 value，且同时设置其有效期 [2]。\n- 示例：`set sku:1:info \"ok\" NX PX 10000`，表示当 `sku:1:info` 不存在的时候，设置值为 ok，且有效期为 1 万毫秒 [2]。\n- 上锁过程：执行 `set key value NX PX 有效期(毫秒)` 命令，返回 ok 表示执行成功，则获取锁成功；多个客户端并发执行此命令的时候，redis 可确保只有一个可以执行成功 [2]。\n\n2. 需要注意哪些问题？\n- 资料未涉及“如何用 Redis 实现一个可靠的分布式锁”中关于可靠性保障的完整注意事项。\n- 资料仅提及需要设置过期时间，并列出相关问题：为什么要设置过期时间？如果设置的有效期太短怎么办？ [3]\n- 资料未涉及锁误删、锁续期、Redlock、释放锁的原子性等具体注意事项。"
+    }
+  ]
+}

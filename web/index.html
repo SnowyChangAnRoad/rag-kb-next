@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<!--
+  Day13：RAG 知识库前端（双标签页）
+
+  由 api/main.py 末尾的 app.mount("/", StaticFiles(WEB_DIR, html=True)) 挂成同源，
+  所以所有接口都写【相对路径】（/chat/stream、/files ...），不写 http://127.0.0.1:8000。
+  打开方式：uvicorn 起服务后访问 http://127.0.0.1:8000/
+
+  三个标签页对应的后端契约（Day11–12 已冻结，前端只许照着写）：
+    GET  /health             → {status, collection, chunks, default_top_k}
+    GET  /documents          → {collection, n_documents, documents:[{source,chunks,pages,chars}]}
+    POST /chat/stream        → SSE 帧流：meta → sources → delta… → done（【POST】，见卡 1 说明）
+    POST /files              → {filename, pages, skipped, chunks, total, elapsed_ms}
+    POST /feedback           → {trace_id, value, ts...}（写 data/traces/scores.jsonl）
+
+  本文件里的 TODO-A ~ TODO-H 是你要填的（8 个，分 3 张卡）。
+  其余代码（标签切换、DOM 工具、健康检查）已给，不用改。
+  【Day13 收尾批改】改了 3 处，搜索「Day13 修」可看理由：
+    ① 来源行 id="src-${slot}" → data-slot（多条回答同号会撞 id，点角标闪错行）
+    ② 删掉 renderSources 里的 .cite 逐个绑定（正文未到时选不到，是死代码）
+    ③ 新增题型下拉 #qtype：原来 qtype 写死 "in"，前端复现不了 cross/partial 口径
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAG 知识库</title>
+<!-- 本地 vendor，不走 CDN：离线可用，Day14 录屏不怕断网 -->
+<script src="/vendor/marked.min.js"></script>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #fff; --line: #e3e6ea; --text: #1f2328;
+    --muted: #6b7280; --brand: #2563eb; --brand-soft: #eff4ff;
+    --warn: #b45309; --ok: #15803d;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.65 -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+  }
+  header {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 22px; background: var(--card); border-bottom: 1px solid var(--line);
+  }
+  header h1 { margin: 0; font-size: 17px; }
+  #health { margin-left: auto; font-size: 13px; color: var(--muted); }
+  #health .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+                 background: var(--muted); margin-right: 6px; }
+  #health.ok .dot { background: var(--ok); }
+  #health.bad .dot { background: #dc2626; }
+
+  nav.tabs { display: flex; gap: 6px; padding: 10px 22px 0; }
+  nav.tabs button {
+    border: 1px solid transparent; border-bottom: none; background: transparent;
+    padding: 9px 18px; font-size: 14px; cursor: pointer; border-radius: 8px 8px 0 0;
+    color: var(--muted);
+  }
+  nav.tabs button.active {
+    background: var(--card); border-color: var(--line); color: var(--text); font-weight: 600;
+  }
+  main { padding: 0 22px 22px; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 18px; margin-top: 12px;
+  }
+
+  /* ---------- 问答页 ---------- */
+  #messages { min-height: 320px; }
+  .msg { margin-bottom: 16px; }
+  .msg .who { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .msg.user .bubble {
+    background: var(--brand-soft); border: 1px solid #dbe6ff; border-radius: 10px;
+    padding: 9px 13px; display: inline-block; max-width: 100%;
+  }
+  .msg.bot .bubble { background: #fbfbfc; border: 1px solid var(--line);
+                     border-radius: 10px; padding: 12px 15px; }
+  .msg.bot .bubble :first-child { margin-top: 0; }
+  .msg.bot .bubble :last-child { margin-bottom: 0; }
+  .msg.bot .bubble table { border-collapse: collapse; }
+  .msg.bot .bubble td, .msg.bot .bubble th { border: 1px solid var(--line); padding: 4px 8px; }
+  .cite {
+    color: var(--brand); cursor: pointer; font-size: 11px; font-weight: 700;
+    vertical-align: super; padding: 0 1px; text-decoration: none;
+  }
+  .cite:hover { text-decoration: underline; }
+  .cursor::after { content: "▍"; color: var(--brand); animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .sources { margin-top: 12px; border-top: 1px dashed var(--line); padding-top: 10px; }
+  .sources h4 { margin: 0 0 8px; font-size: 13px; color: var(--muted); font-weight: 600; }
+  .src {
+    display: flex; gap: 10px; font-size: 13px; padding: 6px 8px; border-radius: 8px;
+    align-items: baseline; cursor: pointer;
+  }
+  .src:hover { background: #f1f3f6; }
+  /* 只留 .flash：来源行改用 data-slot 后没有 id 了，:target 永远不会命中 */
+  .src.flash { background: var(--brand-soft); }
+  .src .slot {
+    flex: none; font-weight: 700; color: var(--brand); background: var(--brand-soft);
+    border-radius: 5px; padding: 1px 6px; font-size: 12px;
+  }
+  .src .where { color: var(--text); font-weight: 600; }
+  .src .meta { color: var(--muted); font-size: 12px; }
+  .src .preview { color: var(--muted); }
+
+  .stats { margin-top: 8px; font-size: 12px; color: var(--muted); }
+  .fb { margin-top: 10px; display: flex; gap: 8px; }
+  .fb button {
+    border: 1px solid var(--line); background: #fff; border-radius: 8px;
+    padding: 4px 12px; cursor: pointer; font-size: 14px;
+  }
+  .fb button:hover { border-color: var(--brand); }
+  .fb button[disabled] { opacity: .5; cursor: default; }
+
+  form#chat-form { display: flex; gap: 10px; margin-top: 6px; }
+  textarea#question {
+    flex: 1; resize: vertical; min-height: 52px; padding: 10px 12px;
+    border: 1px solid var(--line); border-radius: 10px; font: inherit;
+  }
+  select#qtype {
+    align-self: stretch; padding: 0 8px; border: 1px solid var(--line);
+    border-radius: 10px; background: #fff; color: var(--muted); font: inherit; font-size: 13px;
+  }
+  button.primary {
+    border: none; background: var(--brand); color: #fff; border-radius: 10px;
+    padding: 0 20px; font-size: 14px; cursor: pointer;
+  }
+  button.primary[disabled] { opacity: .5; cursor: default; }
+  button.ghost {
+    border: 1px solid var(--line); background: #fff; border-radius: 10px;
+    padding: 0 16px; cursor: pointer;
+  }
+
+  /* ---------- 知识库页 ---------- */
+  .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  .row + .row { margin-top: 12px; }
+  #upload-result { font-size: 13px; margin-top: 10px; }
+  #upload-result .ok { color: var(--ok); }
+  #upload-result .warn { color: var(--warn); }
+  #upload-result.error { color: #dc2626; }
+  table.docs { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 4px; }
+  table.docs th, table.docs td {
+    text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line);
+  }
+  table.docs th { color: var(--muted); font-size: 12px; font-weight: 600; }
+  table.docs td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .empty { color: var(--muted); font-size: 13px; padding: 10px 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>RAG 知识库</h1>
+  <div id="health"><span class="dot"></span><span id="health-text">检测中…</span></div>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" data-tab="chat">问答</button>
+  <button class="tab" data-tab="knowledge">知识库</button>
+</nav>
+
+<main>
+  <!-- ================= 标签页 ①：问答 ================= -->
+  <section id="tab-chat" class="panel active">
+    <div class="card">
+      <div id="messages"></div>
+      <form id="chat-form">
+        <textarea id="question" rows="2"
+                  placeholder="问点库里有的东西…（Ctrl/Cmd + Enter 发送）"></textarea>
+        <select id="qtype" title="题型：只写进 trace 供复盘/评测分组；Day14 起不再影响条数（统一 RERANK_TOP_K=3）">
+          <option value="in">库内 in</option>
+          <option value="cross">跨文档 cross</option>
+          <option value="partial">部分覆盖 partial</option>
+          <option value="out">库外 out</option>
+        </select>
+        <button class="primary" id="send" type="submit">发送</button>
+        <button class="ghost" id="stop" type="button" hidden>停止</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ================= 标签页 ②：知识库 ================= -->
+  <section id="tab-knowledge" class="panel">
+    <div class="card">
+      <div class="row">
+        <input type="file" id="file" accept="application/pdf">
+        <button class="primary" id="upload" type="button">上传并入库</button>
+        <span style="color:var(--muted);font-size:13px">仅 .pdf，≤20MB；重传同名文件是幂等覆盖</span>
+      </div>
+      <div id="upload-result"></div>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <strong style="font-size:14px">库内文档</strong>
+        <span id="docs-count" style="color:var(--muted);font-size:13px"></span>
+        <button class="ghost" id="refresh-docs" type="button" style="margin-left:auto">刷新列表</button>
+      </div>
+      <div id="docs-box"><div class="empty">加载中…</div></div>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ============================================================
+   0. 已给：DOM 引用 / 标签切换 / 健康检查（不用改）
+   ============================================================ */
+const $ = (id) => document.getElementById(id);
+const els = {
+  health: $("health"), healthText: $("health-text"),
+  messages: $("messages"), form: $("chat-form"), question: $("question"),
+  qtype: $("qtype"),
+  send: $("send"), stop: $("stop"),
+  file: $("file"), upload: $("upload"), uploadResult: $("upload-result"),
+  docsBox: $("docs-box"), docsCount: $("docs-count"), refreshDocs: $("refresh-docs"),
+};
+
+document.querySelectorAll(".tab").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach((b) => b.classList.toggle("active", b === btn));
+    document.querySelectorAll(".panel").forEach((p) => {
+      p.classList.toggle("active", p.id === "tab-" + btn.dataset.tab);
+    });
+  });
+});
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g,
+    (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+async function checkHealth() {
+  try {
+    const r = await fetch("/health");
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const h = await r.json();
+    els.health.className = "ok";
+    els.healthText.textContent = `${h.collection} · ${h.chunks} 块 · top_k=${h.default_top_k}`;
+  } catch (e) {
+    els.health.className = "bad";
+    els.healthText.textContent = "后端未就绪：" + e.message;
+  }
+}
+
+/** 往消息区加一条消息，返回可继续操作的节点。 */
+function addMessage(who, html = "") {
+  const div = document.createElement("div");
+  div.className = "msg " + (who === "我" ? "user" : "bot");
+  div.innerHTML = `<div class="who">${escapeHtml(who)}</div><div class="bubble">${html}</div>`;
+  els.messages.appendChild(div);
+  div.scrollIntoView({ block: "end" });
+  return div.querySelector(".bubble");
+}
+
+/* ============================================================
+   卡 1：SSE 解帧器（今天的主角）
+   ============================================================
+
+   为什么不能用 EventSource（今天第一道通关题）：
+     EventSource 这个 API 【只能发 GET、不能带请求体、不能自定义 header】，
+     而后端的 /chat/stream 是 POST + JSON body（ChatRequest）。
+     所以只能用 fetch 拿 response.body（一个 ReadableStream），自己把字节流
+     "解"成 SSE 帧 —— 后端 Day12 手拼帧（sse_frame），前端今天手解帧，正好对称。
+
+   一帧长这样（后端 sse_frame 的输出，注意结尾那个空行）：
+     event: delta\n
+     data: {"text":"向量"}\n
+     \n                       ← 帧结束标记
+   多帧连在一起就是： ...\n\ndata: ...\n\n ...（即帧与帧之间恰好是 "\n\n"）
+   ============================================================ */
+
+/**
+ * TODO-C（卡1）：把「一帧」的原始文本解析成 { event, data }。
+ *
+ * 输入示例（已被切掉尾部的空行、也去掉了换行符两端的 \r）：
+ *   'event: delta\ndata: {"text":"向量"}'
+ * 期望返回：
+ *   { event: "delta", data: { text: "向量" } }
+ *
+ * 提示：
+ *   1) 按 "\n" 切成行，逐行看前缀：以 "event:" 开头的是事件名，以 "data:" 开头的是数据
+ *   2) 事件名默认值给 "message"（SSE 协议里不写 event: 就是默认事件）
+ *   3) 数据要 JSON.parse；解析失败就返回 null（丢弃这一帧，别让一个坏帧炸掉整条流）
+ *   4) 行首可能有空格，建议 line.trim()；只取第一个冒号后的内容
+ *
+ * 注意：本项目的 data 一定是单行 JSON（后端用 json.dumps 不带换行），
+ *       所以不用处理 SSE 协议里「多个 data: 行拼成一行」那种复杂情况。
+ */
+function parseFrame(raw) {
+  let event = "message"; // SSE 默认事件名
+  let dataStr = null;
+
+  // TODO-C ✅ 逐行看前缀；本项目的 data 一定是单行 JSON，不需要拼多行 data:
+  for (const rawLine of raw.split("\n")) {
+    const line = rawLine.trim();
+    if (!line) continue; // 跳过空行
+
+    const idx = line.indexOf(":");
+    if (idx === -1) continue; // 没有冒号，忽略
+
+    const field = line.slice(0, idx).trim();
+    const value = line.slice(idx + 1).trim(); // 只取第一个冒号后的内容
+
+    if (field === "event") {
+      event = value || "message";
+    } else if (field === "data") {
+      dataStr = value;
+    }
+  }
+
+  if (dataStr === null) return null; // 没有 data，丢弃这一帧
+
+  try {
+    return { event, data: JSON.parse(dataStr) };
+  } catch (e) {
+    return null; // 坏帧直接丢弃，避免炸掉整条流
+  }
+}
+
+/**
+ * TODO-A（卡1）：读流 + 增量解码
+ * TODO-B（卡1）：切帧（关键是半帧缓冲）
+ *
+ * 目标：异步生成器，逐个 yield parseFrame 出来的帧对象。
+ *
+ * 骨架（照着填，两处 TODO 见下方）：
+ *
+ *   async function* sseFrames(response) {
+ *     const reader = response.body.getReader();
+ *     const decoder = new TextDecoder("utf-8");
+ *     let buffer = "";
+ *     while (true) {
+ *       const { value, done } = await reader.read();
+ *       if (done) break;
+ *       // ---- TODO-A ----
+ *       // 这里把 value（Uint8Array）解码后追加到 buffer。
+ *       // 【必须】decoder.decode(value, { stream: true }) —— 加 {stream:true}
+ *       //   理由：一个中文字符在 UTF-8 里是 3 个字节，可能正好被 chunk 边界劈成两半；
+ *       //   不带 stream:true 会把半个字符解成乱码 U+FFFD，且【不会报错】。
+ *       // ---- TODO-B ----
+ *       // 这里把 buffer 里【完整】的帧切出来，逐个 yield parseFrame(...)；
+ *       //   做法：以 "\n\n" 分割，最后一段 pop() 出来【留回 buffer】——
+ *       //   因为它很可能只是半帧（下一块数据还没到）。
+ *       //   若不留回 buffer 而是直接处理，"半帧"会 JSON.parse 失败被丢掉 → 偶发丢字。
+ *     }
+ *     // 收尾：流结束了，buffer 里可能还剩最后一帧（正常情况后端每帧都以空行结尾，
+ *     //   所以 buffer 应为空；这里做一次防御性 flush，非空才解析）
+ *   }
+ */
+async function* sseFrames(response) {
+  if (!response.body) {
+    throw new Error("response.body is null");
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder("utf-8");
+  let buffer = "";
+
+  try {
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+
+      // TODO-A ✅ 增量解码：必须带 { stream: true }
+      // 中文一个字 = 3 个 UTF-8 字节，chunk 边界可能正好切在字符中间。
+      // 不带 stream:true 时 TextDecoder 会立刻把半个字符吐成 U+FFFD（乱码），
+      // 且【不报错】—— 属于最难查的那类错（偶发丢字 / 乱码）。
+      // stream:true 让解码器把不完整的字节序列留在内部缓冲，等下一块拼齐再吐。
+      buffer += decoder.decode(value, { stream: true });
+
+      // TODO-B ✅ 切帧：以 "\n\n" 分割，最后一段【留回 buffer】
+      // 因为后端一次 write 不保证正好等于一帧（TCP 分片 / 反代聚合都会改边界），
+      // 最后一段很可能只是半帧 —— 直接 parseFrame 会 JSON.parse 失败被丢掉 → 偶发丢字。
+      const frames = buffer.split("\n\n");
+      buffer = frames.pop() ?? "";
+
+      for (const frame of frames) {
+        if (frame.length > 0) {
+          const parsed = parseFrame(frame);
+          if (parsed) yield parsed;
+        }
+      }
+    }
+
+    // 收尾：flush decoder 中可能残留的字节
+    buffer += decoder.decode();
+
+    // 防御性 flush：处理流结束时 buffer 中可能剩下的最后一帧
+    if (buffer.length > 0) {
+      const frames = buffer.split("\n\n");
+      buffer = frames.pop() ?? "";
+
+      for (const frame of frames) {
+        if (frame.length > 0) {
+          const parsed = parseFrame(frame);
+          if (parsed) yield parsed;
+        }
+      }
+
+      if (buffer.length > 0) {
+        const parsed = parseFrame(buffer);
+        if (parsed) yield parsed;
+      }
+    }
+  } finally {
+    reader.releaseLock();
+  }
+}
+
+/* ============================================================
+   卡 2：问答标签页（流式渲染 / 来源角标 / 反馈）
+   ============================================================ */
+
+/** 已给：把一条来源渲染成一行（DOM 样板，不用改）。
+ *
+ * 【Day13 修】id 换成 data-slot：原来写 id="src-${s.slot}"，而每条回答的 slot 都从 1 开始，
+ * 两条消息就出现两个 src-1 —— HTML 里 id 必须全局唯一，getElementById 只返回文档中
+ * 第一个匹配元素，于是点第二条回答的 [1] 会闪到第一条的来源行上。
+ * 「第 n 条来源」是消息内的局部概念，不该用全局唯一 id 表达。
+ */
+function sourceRow(s) {
+  const dist = s.distance == null ? "—" : Number(s.distance).toFixed(3);
+  const rer = s.rerank_score == null ? "—" : Number(s.rerank_score).toFixed(3);
+  return `<div class="src" data-slot="${s.slot}">
+      <span class="slot">[${s.slot}]</span>
+      <span>
+        <span class="where">${escapeHtml(s.source)} ${escapeHtml(s.where)}</span>
+        <span class="meta">· 向量距离 ${dist} · 精排 ${rer} · ${escapeHtml(s.chunk_id)}</span><br>
+        <span class="preview">${escapeHtml(s.preview)}…</span>
+      </span>
+    </div>`;
+}
+
+/**
+ * TODO-E（卡2）：把 Markdown 文本渲染成 HTML，并把 [1] [2] 这类引用变成可点角标。
+ *
+ * 要求：
+ *   1) 用 marked 渲染：const html = marked.parse(md)
+ *   2) 回答里的 [n] 要能看到、能点击，点击后滚到对应的来源行（.src#src-n）
+ *      提示：在【markdown 源文本】上先替换再交给 marked 最省事（marked 默认允许行内 HTML）：
+ *        md.replace(/\[(\d+)\]/g, '<sup class="cite" data-slot="$1">[$1]</sup>')
+ *      注意替换顺序：必须先替换再 parse，反过来会把 <sup> 当纯文本转义掉。
+ *   3) 返回 HTML 字符串（不要直接操作 DOM）
+ */
+function renderAnswer(md) {
+  if (md == null) return "";                    // 防御：null / undefined
+  const withCites = String(md).replace(
+    /\[(\d+)\]/g,                               // ① 纯数字方括号：[1] [12]
+    '<sup class="cite" data-slot="$1">[$1]</sup>' // ② $1 由正则捕获组回填
+  );
+  return marked.parse(withCites);
+  // 顺序说明：必须【先替换、再 parse】。反过来的话 marked 会把 <sup> 当纯文本转义成
+  // &lt;sup&gt; 显示在页面上（marked 默认允许行内 HTML，所以先替换的标签能原样保留）。
+}
+
+// 引用角标 / 来源行 点击 → 定位并高亮来源行。
+// 用【事件委托】挂在 messages 上而不是逐个绑：流式下每次 delta 都全量重渲染 bubble.innerHTML，
+// 新建的 <sup> 上没有任何监听器 —— 逐个绑必然失效，委托则天然免疫重渲染。
+// 两个入口：
+//   ① .cite（正文角标 [n]）→ 找【本条消息内】与之配对的来源行
+//   ② .src （来源行自身）  → 就是它自己
+// ②是 Day14 补的：来源区标题写着「点角标或这里可定位」，但行上原先没有任何监听 —— 是句假承诺。
+els.messages.addEventListener("click", (e) => {
+  const cite = e.target.closest(".cite");       // ③ 从点击目标往上找最近的 .cite
+  const src = e.target.closest(".src");         //    没点到 .cite 时再看是不是点在来源行上
+  // ④ 就近查找：只在【这条消息】内部找来源行。不能用 document.getElementById ——
+  //    那是全局查找，多条回答同号时会命中上面那条旧消息（Day13 修掉的 bug）。
+  const t = cite
+    ? cite.closest(".msg")?.querySelector(`.src[data-slot="${cite.dataset.slot}"]`)
+    : src;
+  if (!t) return;                               // 来源可能被删/还没渲染，静默返回
+  // ⑤ 高亮 + 滚动 + 延时撤销（与 renderSources 里的写法一致）
+  t.classList.add("flash");
+  t.scrollIntoView({ block: "center", behavior: "smooth" });
+  setTimeout(() => t.classList.remove("flash"), 1200);
+});
+
+/**
+ * TODO-D（卡2）：流式问答主流程 —— fetch POST + 消费帧 + 按事件名分发。
+ *
+ * 骨架：
+ *   async function streamChat(question, qtype) {
+ *     // 1) 建 UI：用户气泡 + 助手气泡（留着 bubble 节点后续往里追加）
+ *     //    const bubble = addMessage("助手", '<span class="cursor"></span>');
+ *     // 2) 中断控制：const ac = new AbortController();
+ *     //    els.stop.hidden = false; els.stop.onclick = () => ac.abort();
+ *     //    （记得在 finally 里复原按钮状态）
+ *     // 3) 发起请求：
+ *     //    const resp = await fetch("/chat/stream", {
+ *     //      method: "POST",
+ *     //      headers: { "Content-Type": "application/json" },
+ *     //      body: JSON.stringify({ question, qtype, prompt_version: "v2", dedupe: true }),
+ *     //      signal: ac.signal,
+ *     //    });
+ *     //    非 2xx 时：读 resp.json() 的 detail 抛出来（后端参数校验失败会返 400）
+ *     // 4) 消费帧：for await (const frame of sseFrames(resp)) { switch (frame.event) { ... } }
+ *     //      - "meta"    → 先记下来（trace_id / top_k / 各段耗时），done 时一起显示
+ *     //      - "sources" → 调 renderSources(frame.data.sources)（来源比正文先到，所以先渲染）
+ *     //      - "delta"   → 增量文本：累积到 ansText，然后 bubble.innerHTML = renderAnswer(ansText)
+ *     //      - "done"    → 收尾：画统计条 + 反馈按钮（见 TODO-F）
+ *     // 5) 出错（含 abort）要在气泡里给出可见提示，别静默失败
+ *   }
+ *
+ * 两个容易忽略的点：
+ *   - 【顺序契约】sources 一定在 delta 之前到（后端保证）。所以不要写成「先攒 delta、
+ *     等 done 再渲染来源」——那样 [n] 角标点下去时来源还没画出来。状态机要顺着事件顺序走。
+ *   - 流式下每次 delta 都全量重渲染 markdown 是【可以接受】的（答案通常几百字，
+ *     几百字 × 几十次渲染 = 无感）。真正要避免的是每个 token 都去重排整个页面。
+ */
+async function streamChat(question, qtype = "in") {
+  // 1) 建 UI：用户气泡 + 助手气泡（bubble 节点留着后续往里追加）
+  addMessage("我", escapeHtml(question));
+  const bubble = addMessage("助手", '<span class="cursor"></span>');
+
+  // 2) 中断控制：AbortController 的 signal 交给 fetch，abort() 后
+  //    await reader.read() 会抛 AbortError，for await 直接跳出
+  const ac = new AbortController();
+  els.send.disabled = true;
+  els.stop.hidden = false;
+  els.stop.onclick = () => ac.abort();
+
+  let meta = null;      // meta 帧（检索段耗时）先记下，done 时和生成段一起显示
+  let ansText = "";     // 累积的正文：流式下每次 delta 全量重渲染 markdown
+
+  try {
+    // 3) POST 发起请求（EventSource 做不到：只能 GET、不能带 body）
+    const resp = await fetch("/chat/stream", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question, qtype, prompt_version: "v2", dedupe: true }),
+      signal: ac.signal,
+    });
+
+    if (!resp.ok) {
+      // 非 2xx：后端参数校验失败会返 400 + {detail}，把它读出来抛给用户看
+      let detail = "HTTP " + resp.status;
+      try {
+        const j = await resp.json();
+        if (j && j.detail) detail = typeof j.detail === "string" ? j.detail : JSON.stringify(j.detail);
+      } catch (_) { /* 响应不是 JSON（如 500 的 HTML 错误页），就用状态码兜底 */ }
+      throw new Error(detail);
+    }
+
+    // 4) 消费帧：状态机顺着【事件顺序】走，不攒到 done 再画
+    for await (const frame of sseFrames(resp)) {
+      switch (frame.event) {
+        case "meta":
+          meta = frame.data;                 // 只记，不渲染
+          break;
+
+        case "sources":
+          // 来源【一定】在 delta 之前到（后端保证），所以这里先画出来：
+          // 等 [1] 出现在正文里时，出处已经可点了。
+          renderSources(bubble, frame.data.sources || []);
+          break;
+
+        case "delta":
+          ansText += frame.data.text || "";
+          bubble.innerHTML = renderAnswer(ansText);
+          // 光标放进最后一个块级元素内部，让它跟在文字后面而不是另起一行
+          {
+            const last = bubble.lastElementChild;
+            const cursor = document.createElement("span");
+            cursor.className = "cursor";
+            if (last && /^(P|LI|H[1-6]|TD|BLOCKQUOTE|DIV)$/.test(last.tagName)) last.appendChild(cursor);
+            else bubble.appendChild(cursor);
+          }
+          break;
+
+        case "done":
+          bubble.innerHTML = renderAnswer(ansText);   // 收尾渲染：去掉闪烁光标
+          renderStatsAndFeedback(bubble, meta, frame.data);
+          break;
+
+        default:
+          break;                             // 未知事件忽略，别让新事件炸掉老前端
+      }
+    }
+  } catch (err) {
+    // 5) 出错必须可见，别静默失败
+    if (err.name === "AbortError") {
+      bubble.innerHTML = renderAnswer(ansText)
+        + '<div class="empty">（已停止生成 —— 注意：服务端那条 trace 可能不会落盘）</div>';
+    } else {
+      bubble.innerHTML = `<div class="empty" style="color:#dc2626">请求失败：${escapeHtml(err.message)}</div>`;
+    }
+  } finally {
+    els.send.disabled = false;               // 复原按钮状态（含 abort / 异常路径）
+    els.stop.hidden = true;
+    els.stop.onclick = null;
+  }
+}
+
+/** 已给：把来源列表画进助手气泡（DOM 样板，不用改）；TODO-D 里调用它。
+ *
+ * 【Day13 修】删掉了原来在这里的 `querySelectorAll(".cite").forEach(...)` 逐个绑定：
+ * 它执行时正文还没到（气泡里只有一个光标 span），一个 .cite 都选不到 —— 是死代码，
+ * 真正生效的是上面挂在 els.messages 上的事件委托。留着只会让人以为这里才是正主。
+ */
+function renderSources(bubble, sources) {
+  const box = document.createElement("div");
+  box.className = "sources";
+  box.innerHTML = `<h4>来源（${sources.length} 条，点角标或这里可定位）</h4>`
+    + sources.map(sourceRow).join("");
+  bubble.parentElement.appendChild(box);
+  return box;
+}
+
+/**
+ * TODO-F（卡2）：收尾 —— 统计条 + 👍👎 反馈按钮（回写本地 trace，不是 Langfuse）。
+ *
+ * 要求：
+ *   1) 在助手气泡下方加一行小字统计，例如：
+ *      `检索 ${retrieve_ms}ms · 生成 ${gen_ms}ms · prompt ${prompt_tokens} / completion ${completion_tokens} tok · ¥${cost.toFixed(6)}`
+ *      数据来自 meta（retrieve_ms）与 done（gen_ms / prompt_tokens / completion_tokens / cost）
+ *   2) 加两个按钮 👍 / 👎；点击时：
+ *      fetch("/feedback", { method:"POST", headers:{"Content-Type":"application/json"},
+ *        body: JSON.stringify({ trace_id, value: "up" | "down", note: "" }) })
+ *      成功后把两个按钮 disable（一条 trace 只回写一次），并把按钮文字改成「已反馈 👍」
+ *   3) trace_id 为 null 时（请求时 trace:false）不渲染反馈按钮，并说明原因
+ *
+ * 为什么要它：Day10 的 score 就落 data/traces/scores.jsonl；这个按钮是那份数据的
+ * 【唯一采集入口】—— 没有它，总验收第 3 条「≥3 条用户反馈 score」无从产生。
+ */
+function renderStatsAndFeedback(bubble, meta, done) {
+  const m = meta || {};                  // meta 帧：检索段耗时
+  const d = done || {};                  // done 帧：生成段耗时 / token / 成本
+  const num = (v, digits = 0) => (v == null ? "—" : Number(v).toFixed(digits));
+  const cost = Number(d.cost || 0);
+
+  // 1) 统计条 —— 检索 9% / 生成 91% 这个构成就是 Day10 的实测结论，前端把它显式画出来
+  const stats = document.createElement("div");
+  stats.className = "stats";
+  stats.textContent =
+    `检索 ${num(m.retrieve_ms)}ms（召回 ${num(m.recall_ms)} + 精排/去重 ${num(m.rerank_ms)}） · ` +
+    `生成 ${num(d.gen_ms)}ms · ` +
+    `prompt ${num(d.prompt_tokens)} / completion ${num(d.completion_tokens)} tok · ` +
+    `¥${cost.toFixed(6)}`;
+  bubble.parentElement.appendChild(stats);
+
+  // 2) 反馈按钮：trace_id 是回写的唯一钥匙（add_score 靠它 join 到那条 trace）
+  const traceId = d.trace_id || m.trace_id || null;
+  const fb = document.createElement("div");
+  fb.className = "fb";
+  bubble.parentElement.appendChild(fb);
+
+  if (!traceId) {
+    // 3) 请求时带了 trace:false → 没写 traces.jsonl → 没有可 join 的 trace，
+    //    此时渲染按钮只会造出一条「孤儿反馈」，所以干脆不渲染，并说明原因。
+    fb.innerHTML = '<span class="empty">本条未埋点（trace:false）：没有 trace_id，反馈无处回写</span>';
+    return;
+  }
+
+  const mkBtn = (value, label) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = label;
+    b.onclick = () => send(value);
+    return b;
+  };
+  const up = mkBtn("up", "👍 有用");
+  const down = mkBtn("down", "👎 没用");
+  const status = document.createElement("span");
+  status.className = "empty";
+  fb.append(up, down, status);
+
+  async function send(value) {
+    // 一条 trace 只回写一次：先 disable 再发请求，避免连点造出多条 score
+    up.disabled = true;
+    down.disabled = true;
+    status.textContent = "提交中…";
+    try {
+      const r = await fetch("/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ trace_id: traceId, value, note: "" }),
+      });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      if (value === "up") up.textContent = "已反馈 👍"; else down.textContent = "已反馈 👎";
+      status.textContent = `已记入 data/traces/scores.jsonl · trace ${traceId}`;
+    } catch (e) {
+      // 失败要能重试：把按钮放开，否则一次网络抖动就永远反馈不了
+      up.disabled = false;
+      down.disabled = false;
+      status.textContent = "反馈失败：" + e.message;
+    }
+  }
+}
+
+/* ============================================================
+   卡 3：知识库标签页（上传 / 文档列表）
+   ============================================================ */
+
+/**
+ * TODO-G（卡3）：上传 PDF 并展示入库回执。
+ *
+ * 骨架：
+ *   async function uploadPdf(file) {
+ *     // 1) 校验：没有选中文件就提示并 return；非 .pdf 也提前拦（后端也会拦，双保险）
+ *     // 2) 组装 FormData：
+ *     //    const fd = new FormData();
+ *     //    fd.append("file", file);
+ *     //    【关键】不要手写 Content-Type！必须让浏览器自动带 boundary，
+ *     //    手写 "multipart/form-data" 会缺 boundary → 后端收不到文件（400 或 422）
+ *     // 3) const r = await fetch("/files", { method: "POST", body: fd });
+ *     // 4) 成功：把 {pages, skipped, chunks, total, elapsed_ms} 渲染成一句话，
+ *     //    必须【解释清楚丢页】（skipped>0 要说剔了多少页，这是 Day11 定下的口径）
+ *     //    然后：刷新文档列表（调 loadDocuments）
+ *     // 5) 失败：读 r.json() 的 detail 显示错误，别只显示 "上传失败"
+ *   }
+ */
+async function uploadPdf(file) {
+  // 1) 前置校验：没选文件 / 不是 pdf 就地拦掉（后端也会拦，这里是双保险 + 省一次上传）
+  if (!file) {
+    els.uploadResult.className = "error";
+    els.uploadResult.textContent = "请先选择一个 PDF 文件";
+    return;
+  }
+  if (!/\.pdf$/i.test(file.name)) {
+    els.uploadResult.className = "error";
+    els.uploadResult.textContent = `只接受 .pdf 文件，收到「${file.name}」`;
+    return;
+  }
+  if (file.size > 20 * 1024 * 1024) {   // 与后端 UPLOAD_MAX_MB=20 对齐
+    els.uploadResult.className = "error";
+    els.uploadResult.textContent =
+      `文件过大：${(file.size / 1024 / 1024).toFixed(1)}MB > 上限 20MB`;
+    return;
+  }
+
+  els.upload.disabled = true;
+  els.uploadResult.className = "";
+  els.uploadResult.textContent =
+    `上传中…（${file.name}，${(file.size / 1024 / 1024).toFixed(2)}MB，解析 + 编码需要几秒到几十秒）`;
+
+  try {
+    // 2) FormData：文件名交给浏览器自动填，Content-Type 也【不要手写】——
+    //    multipart 必须带 boundary，手写 "multipart/form-data" 会缺 boundary
+    //    → 后端解析不出文件（400/422）。让浏览器自己设，它会把 boundary 一起带上。
+    const fd = new FormData();
+    fd.append("file", file);
+
+    const r = await fetch("/files", { method: "POST", body: fd });
+
+    let j = null;
+    try { j = await r.json(); } catch (_) { /* 非 JSON 响应，下面用状态码兜底 */ }
+    if (!r.ok) {
+      const detail = j && j.detail
+        ? (typeof j.detail === "string" ? j.detail : JSON.stringify(j.detail))
+        : "HTTP " + r.status;
+      throw new Error(detail);
+    }
+
+    // 4) 成功回执：必须【解释清楚丢页】—— pages 是抽到文字的页数，skipped 是被剔掉的页数
+    //    （目录页 / 残页 / 扫描件没抽出文字），静默丢数据是上传接口最忌讳的行为
+    els.uploadResult.className = "";
+    els.uploadResult.innerHTML =
+      `<span class="ok">✅ ${escapeHtml(j.filename)} 入库完成</span>：`
+      + `本次写入 <strong>${j.chunks}</strong> 块，`
+      + `库内合计 ${j.total} 块，耗时 ${Number(j.elapsed_ms).toFixed(0)}ms`
+      + `<br>共 ${j.pages} 页抽到了文字`
+      + (j.skipped > 0
+          ? `，<span class="warn">剔除 ${j.skipped} 页</span>（目录页 / 残页，或扫描件没抽出文字）`
+          : "，无剔除页");
+
+    els.file.value = "";          // 清空选择：否则再点一次「上传」浏览器不会触发 change
+    await loadDocuments();        // 列表立刻反映新库状态
+  } catch (e) {
+    // 5) 失败要显示后端 detail（例如「只接受 .pdf 文件」），不是一个笼统的「上传失败」
+    els.uploadResult.className = "error";
+    els.uploadResult.textContent = "上传失败：" + e.message;
+  } finally {
+    els.upload.disabled = false;
+  }
+}
+
+/**
+ * TODO-H（卡3）：拉取并渲染文档列表。
+ *
+ * 骨架：
+ *   async function loadDocuments() {
+ *     // 1) fetch("/documents") → {collection, n_documents, documents:[...]}
+ *     // 2) 渲染成表格：来源 / 块数 / 页数 / 字数；按块数降序（后端已排好）
+ *     // 3) 头部显示 n_documents 与总块数
+ *     // 4) 空库时显示「库是空的」而不是一张空表
+ *     // 5) 失败时在 docsBox 里显示错误文案
+ *   }
+ */
+async function loadDocuments() {
+  els.docsBox.innerHTML = '<div class="empty">加载中…</div>';
+
+  try {
+    const r = await fetch("/documents");
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const d = await r.json();
+
+    const docs = d.documents || [];
+    const totalChunks = docs.reduce((s, x) => s + (x.chunks || 0), 0);
+
+    // 3) 头部：份数 + 总块数（与 /health 的 chunks 应当一致，对不上就说明有并发写入）
+    els.docsCount.textContent = `共 ${d.n_documents} 份 · ${totalChunks} 块 · 集合 ${d.collection}`;
+
+    // 4) 空库要明说，而不是画一张空表
+    if (docs.length === 0) {
+      els.docsBox.innerHTML =
+        '<div class="empty">库是空的：可以在上面传一个 PDF，或调 POST /ingest 从 chunks.jsonl 重建</div>';
+      return;
+    }
+
+    // 2) 表格：后端已按块数降序排好，前端不再重排
+    els.docsBox.innerHTML = `<table class="docs">
+      <thead><tr><th>来源</th><th>块数</th><th>页数</th><th>字数</th></tr></thead>
+      <tbody>${docs.map((x) => `<tr>
+        <td>${escapeHtml(x.source)}</td>
+        <td class="num">${x.chunks}</td>
+        <td class="num">${x.pages ? x.pages : "—"}</td>
+        <td class="num">${Number(x.chars || 0).toLocaleString()}</td>
+      </tr>`).join("")}</tbody>
+    </table>`;
+  } catch (e) {
+    // 5) 失败时把错误留在框里（别让「加载中…」一直转）
+    els.docsCount.textContent = "";
+    els.docsBox.innerHTML = `<div class="empty">加载文档列表失败：${escapeHtml(e.message)}</div>`;
+  }
+}
+
+/* ============================================================
+   已给：事件绑定（不用改）
+   ============================================================ */
+els.form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const q = els.question.value.trim();
+  if (!q) return;
+  els.question.value = "";
+  // 题型由下拉决定：Day14 起只作为 trace 的元数据（供复盘/评测分组），不再影响条数
+  streamChat(q, els.qtype.value);
+});
+els.question.addEventListener("keydown", (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === "Enter") els.form.requestSubmit();
+});
+els.upload.addEventListener("click", () => uploadPdf(els.file.files[0]));
+els.refreshDocs.addEventListener("click", loadDocuments);
+
+// 页面加载：探活 + 拉文档列表
+checkHealth();
+loadDocuments();
+</script>
+</body>
+</html>

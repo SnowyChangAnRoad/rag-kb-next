@@ -1,0 +1,13 @@
+# Day1 安装：pip install -r requirements.txt
+# 复用 9 月环境：torch 2.14.0+cu130 / transformers 5.16.1 已装，不在此重复列出
+chromadb==1.5.9
+openai==3.13.0
+python-dotenv==1.2.2
+# Day11 服务化：FastAPI + uvicorn
+fastapi==0.141.1
+uvicorn==0.52.1
+# Day12 上传接口：UploadFile / File(...) 的必需依赖（缺它 FastAPI 启动即报
+# "Form data requires python-multipart to be installed"）
+python-multipart==0.0.32
+# Day12 上传解析：与 scripts/03_load_pdf.py 同一份（文本型 PDF，不做 OCR）
+pdfplumber==0.11.10

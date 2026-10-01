@@ -1,0 +1,30 @@
+{"id": 1, "type": "in", "question": "RAG 系统根据提出动因和特点可以分为哪几类？NaiveRAG 的提出动因和主要特点是什么？", "expect": "RAG知识.pdf 第16页"}
+{"id": 2, "type": "in", "question": "和传统大语言模型相比，RAG 解决了哪些关键问题？", "expect": "RAG知识.pdf 第13页"}
+{"id": 3, "type": "in", "question": "Cloudflare 提供的 RAG 参考架构，其实现通常分为哪两个核心阶段？", "expect": "RAG知识.pdf 第15页"}
+{"id": 4, "type": "in", "question": "向量数据库（Vectorize）中存储一个向量，通常包含哪几个关键组成部分？", "expect": "RAG知识.pdf 第21页"}
+{"id": 5, "type": "in", "question": "为什么《RAGHandbook》建议中国大陆用户选择千问而不是 Gemini？", "expect": "RAG知识.pdf 第21页"}
+{"id": 6, "type": "partial", "question": "RAG 能减少幻觉，一个重要原因是它把检索到的资料\"喂\"给生成模型。请问：检索到的上下文是如何与用户问题一起交给大模型，再由大模型利用\"自注意力\"生成回答的？请结合 RAG 的查询响应流程和 Transformer 的自注意力原理说明。", "expect": "需同时引用 RAG知识.pdf 与 Transformer论文"}
+{"id": 7, "type": "cross", "question": "把一段文本变成向量再检索，为什么比直接用关键词匹配更可能召回语义相关的内容？请结合向量嵌入（embedding）与语义检索的原理说明。", "expect": "需同时引用 RAG知识.pdf（语义检索）与 RAG 技术概览（向量化）"}
+{"id": 8, "type": "cross", "question": "为提高检索质量，高级 RAG 常把复杂的用户问题拆成多个子查询分别检索再综合。请结合 RAG 技术概览中把问题分解为子查询（多查询检索）的做法，以及 RAG知识中 Advanced RAG 将查询重写、扩展归为预检索阶段的说法，说明：把复杂问题拆成子查询属于检索的哪个阶段？它的作用是什么？", "expect": "需同时引用 RAG知识.pdf 与 RAG 技术概览"}
+{"id": 9, "type": "out", "question": "什么是扩散模型？Stable Diffusion 是如何一步步生成图像的？", "expect": "库外，应拒答"}
+{"id": 10, "type": "out", "question": "图神经网络（GNN）的核心思想是什么？它和 Transformer 有什么联系？", "expect": "库外，应拒答"}
+{"id": 11, "type": "cross", "question": "检索得到一批候选文档之后，在把它们送进大模型之前还能做哪些进一步处理来提升质量？这些处理在 RAG 流程里属于哪个阶段？", "expect": "需同时引用 RAG 技术概览（后处理器/重新排名）与 RAG知识.pdf（ModularRAG 的 PostRetrieval 模块）"}
+{"id": 12, "type": "in", "question": "《RAG知识》第 4 章列出了 RAG 流水线从内容接入到答案返回的主要处理步骤。请按顺序说明这些步骤，并指出其中哪几步负责把检索结果组织成送给大模型的提示词。", "expect": "RAG知识.pdf 第24页"}
+{"id": 13, "type": "in", "question": "分块函数 chunkText() 的分块策略是怎样的？它的目标片段长度上限是多少，切分时先按什么切、再按什么切？", "expect": "RAG知识.pdf 第52页"}
+{"id": 14, "type": "in", "question": "创建 Vectorize 索引时必须指定哪两个关键参数？它支持哪三种距离度量方式，各自的值域和「越接近什么值表示越相似」是怎么定义的？", "expect": "RAG知识.pdf 第66页"}
+{"id": 15, "type": "in", "question": "嵌入向量所说的「维度」指什么？为什么配置索引维度时必须与所选嵌入模型的输出维度一致，写成别的数值会有什么后果？", "expect": "RAG知识.pdf 第30页"}
+{"id": 16, "type": "in", "question": "聊天组件在前端是怎么检测用户语言的？语言检测的优先级顺序是什么，默认语言是什么？", "expect": "RAG知识.pdf 第123页"}
+{"id": 17, "type": "cross", "question": "分块时块大小应该怎么定？请结合《RAG知识》里 chunkText 的切分顺序与长度上限，以及《RAG 技术概览》中关于块大小受嵌入模型 token 处理能力限制的说法，说明确定块大小时需要权衡什么。", "expect": "需同时引用 RAG知识.pdf（分块算法 chunkText）与 RAG 技术概览（分块与嵌入模型 token 上限）"}
+{"id": 18, "type": "cross", "question": "在向量检索时如何利用元数据做过滤？请结合《RAG知识》中 Vectorize 查询 filter 的用法（含支持的过滤操作符）与《RAG 技术概览》中元数据过滤器的说法，说明可以做哪些维度的过滤。", "expect": "需同时引用 RAG知识.pdf（第75页 检索结果排序与过滤）与 RAG 技术概览（元数据过滤器）"}
+{"id": 19, "type": "cross", "question": "《RAG知识》把语义检索定义为「基于语义理解而非关键词匹配」，而《RAG 技术概览》提出把两种检索方式融合起来。请说明这两种检索方式各自的优势，为什么要融合，以及融合时用什么算法合并两路结果。", "expect": "需同时引用 RAG知识.pdf（语义检索定义）与 RAG 技术概览（融合检索/混合搜索与 RRF）"}
+{"id": 20, "type": "cross", "question": "向量检索初筛之后为什么还要再做一次重排（rerank）？请结合《RAG知识》里对 Rerank 模块的定位与《RAG 技术概览》中后处理器、交叉编码器重新排名的做法说明。", "expect": "需同时引用 RAG知识.pdf（向量重排 rerank）与 RAG 技术概览（后处理器/交叉编码器重新排名）"}
+{"id": 21, "type": "cross", "question": "RAG 的回答怎么做到可追溯？请结合《RAG知识》中检索后构建 sources 列表的做法与《RAG 技术概览》中「参考引用」部分的说明，回答引用在实践中为什么不容易做准、资料提到的缓解手段是什么。", "expect": "需同时引用 RAG知识.pdf（第79页 上下文拼接与来源列表）与 RAG 技术概览（参考引用）"}
+{"id": 22, "type": "partial", "question": "微调嵌入模型能带来多大的检索质量提升？另外，我想在 8GB 显存的显卡上微调 bge-small-zh，具体的训练参数和显存占用该怎么配置？", "expect": "部分覆盖：需引用 RAG 技术概览（嵌入模型微调收益）；8GB 显存微调做法库中无"}
+{"id": 23, "type": "partial", "question": "RAG 能减少幻觉，「幻觉」具体指什么？资料里提到的「信实度」指标是怎么算出来的，公式是什么？", "expect": "部分覆盖：需引用 RAG知识.pdf（幻觉定义）；信实度计算公式库中无"}
+{"id": 24, "type": "partial", "question": "RAG 系统该从哪些维度评估效果？另外，资料里提到的 ragas 框架，它计算各指标的具体代码实现是什么？", "expect": "部分覆盖：需引用 RAG 技术概览（RAG 评估维度）；ragas 代码实现库中无"}
+{"id": 25, "type": "partial", "question": "查询路由（query routing）是怎么工作的，它能做出哪些选择？另外，本项目《RAG知识》里的 /chat 接口有没有用查询路由，要用的话该怎么改？", "expect": "部分覆盖：需引用 RAG 技术概览（查询路由）与 RAG知识.pdf（ModularRAG 的路由算子）；本项目改造做法库中无"}
+{"id": 26, "type": "out", "question": "LLaMA 使用的 RoPE（旋转位置编码）和《Attention Is All You Need》里的正弦位置编码相比，优势和局限分别是什么？", "expect": "库外，应拒答"}
+{"id": 27, "type": "out", "question": "BERT 的 MLM（掩码语言模型）预训练任务是怎么构造训练样本的？掩码比例通常设为多少？", "expect": "库外，应拒答"}
+{"id": 28, "type": "out", "question": "LoRA 微调是怎么用低秩分解把可训练参数降下来的？rank 和 alpha 一般怎么取？", "expect": "库外，应拒答"}
+{"id": 29, "type": "out", "question": "Kubernetes 的调度器在为 Pod 选择节点时会考虑哪些因素？", "expect": "库外，应拒答"}
+{"id": 30, "type": "out", "question": "如何用 Redis 实现一个可靠的分布式锁？需要注意哪些问题？", "expect": "库外，应拒答"}
