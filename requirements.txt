@@ -11,3 +11,7 @@ uvicorn==0.52.1
 python-multipart==0.0.32
 # Day12 上传解析：与 scripts/03_load_pdf.py 同一份（文本型 PDF，不做 OCR）
 pdfplumber==0.11.10
+# W1 卡2 混合检索：BM25 稀疏检索 + 中文分词
+# rank_bm25 的 BM25Okapi 只吃【已分词的 token list】；jieba 负责中文切词
+rank_bm25==0.2.2
+jieba==0.42.1

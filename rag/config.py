@@ -57,6 +57,45 @@ CROSS_TOP_K = 5         # Day9 已否：cross 单独放宽 top_k 是纯负收益
 CROSS_TYPES = {"cross"}
 SOURCE_CAP = 2          # Day10 新增：同一 source 在 top-k 里最多占几条（治同源垄断）
 
+# ---------------- BM25参数 ----------------
+BM25_K1 = 1.5         # 词频饱和的速度
+BM25_B = 0.75         # 长度归一化强度
+BM25_TOKENS_CACHE = DATA_DIR / "processed" / "bm25_tokens.jsonl"
+
+# ---------------- 混合检索参数（W1 卡4） ----------------
+# RRF 公式：RRF(d) = Σ 1/(RRF_K + rank_i(d))，rank 从 1 开始，只吃名次不吃分数。
+# RRF_K 越大 → 名次差异被抹得越平（k=60 时第1名只比第2名高 1.6%）
+#          → 结果越偏向「两路共识」的块，而不是「单路排名极高」的块。
+# 60 = Cormack 2009 原始论文取值，也是 ES / Qdrant / Weaviate 的内置默认，别改。
+RRF_K = 60
+# 每路候选深度【故意不设常量】：dense 与 BM25 都取 RECALL_K。
+# 理由＝卡7 的 A/B 里 baseline 的候选数也是 RECALL_K，两边同源才能保证
+# 「唯一的实验变量是召回段有没有 BM25」，而不是混进「候选数变了」这个第二变量。
+
+# ---------------- 检索模式开关（W1 卡9） ----------------
+# "dense"  = 只走向量召回（W0 至今的服务默认行为）
+# "hybrid" = 向量 + BM25，RRF 融合（卡4 实现）
+#
+# ⚠️ 默认仍锁 "dense"，不切 —— 这不是保守，是卡7/卡8 的实测结论：
+#   · in 组 recall@5 的 Δ 只有 +0.04167，而 in 组 8 题 gold 共 24 块 → 1/24 = 0.04167，
+#     即整轮「提升」= 多命中 1 个 chunk；
+#   · 那 1 块（id16 RAG知识_p123_c001）在 hybrid 全量 #4，RERANK_TOP_K=3 → 没进 prompt，
+#     对交付给 LLM 的原料【无可观测影响】；
+#   · recall@3 / nDCG@3 / MRR 三列 Δ 全 0；cross / partial 两组八个指标全 1.0（饱和）。
+#   代价却是实付的：召回中位 7.42 → 9.68ms（+30%），外加一份 BM25 索引的内存。
+#   零收益 + 确定成本 → 默认路径不该切。
+# 要切，必须由 W2 的切分粒度 / embedding 改动重新给出证据（卡8 的瓶颈定位：
+# 74% 的 gold 块两路合计都够不着，改融合规则的天花板 = 43 块里的 11 块）。
+RETRIEVAL_MODE = "dense"
+
+# ---------------- W1 评估数据（卡5/卡6） ----------------
+# tune 集 20 题：W1 的 A/B 只准用它。frozen_v1.jsonl（10 题）W5 前不看逐题结果。
+TESTSET_TUNE_JSONL = DATA_DIR / "testset_tune.jsonl"
+# 页级 gold 落盘处：由 python -m rag.gold 生成，卡7 直接读它，不重算。
+# 用 .json 而非 .jsonl：需要放 meta（测试集指纹 / 块指纹 / 版本号），
+# 而 jsonl 的每一行都得是同构记录，塞不下干净的头部。
+GOLD_TUNE_JSON = DATA_DIR / "gold_tune.json"
+
 # ---------------- Prompt 模板（Day7 版：真实编号 [k] + 有条件拒答） ----------------
 # Day10 卡 4：拒答门槛实验。所有 system prompt 都收进 PROMPTS、由 pipeline 按版本取用，
 SYSTEM_PROMPT_V1 = (

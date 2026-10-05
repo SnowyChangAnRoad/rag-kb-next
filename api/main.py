@@ -50,7 +50,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from rag.config import (
-    CHUNK_SIZE, RERANK_TOP_K, SOURCE_CAP, UPLOAD_DIR, UPLOAD_MAX_MB, WEB_DIR,
+    CHUNK_SIZE, RERANK_TOP_K, RETRIEVAL_MODE, SOURCE_CAP, UPLOAD_DIR, UPLOAD_MAX_MB, WEB_DIR,
     resolve_prompt,                     # TODO-9 用：路由层在建流前做参数校验
 )
 from rag.ingest import build_index, load_chunks, save_chunks
@@ -221,7 +221,10 @@ def health(request: Request) -> dict:
         raise HTTPException(status_code=503, detail="服务尚未就绪：collection 未加载")
     return {
         "status": "ok", "collection": collection.name,
-        "chunks": collection.count(), "default_top_k": RERANK_TOP_K}
+        "chunks": collection.count(), "default_top_k": RERANK_TOP_K,
+        # W1 卡9：召回路径现在是生效路径上的真变量，就该被报出来。
+        # 直接读 config：这是【服务默认值】，不是某次请求实际用的值（那在 /chat 返回里）。
+        "retrieval_mode": RETRIEVAL_MODE}
 
 
 def to_sources(hits: list[dict]) -> list[SourceItem]:

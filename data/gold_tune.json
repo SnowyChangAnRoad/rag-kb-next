@@ -1,0 +1,368 @@
+{
+  "version": "gold_tune_v1",
+  "testset": "testset_tune.jsonl",
+  "testset_sha256": "77feeb79bde269cb19bfb2925a6b2e7b1c3e42572b567e1e4b099d2651428da8",
+  "chunks": "chunks.jsonl",
+  "chunks_sha256": "199749aba2829aa7008ad33391f6a8157dd10f9492f58cb32cfef5aa316f6dde",
+  "generated_at": "2026-10-02 17:26:14",
+  "n_questions": 20,
+  "records": [
+    {
+      "id": 1,
+      "type": "in",
+      "question": "RAG 系统根据提出动因和特点可以分为哪几类？NaiveRAG 的提出动因和主要特点是什么？",
+      "expect": "RAG知识.pdf 第16页",
+      "unit": "page",
+      "gold": [
+        "RAG知识_p016_c001",
+        "RAG知识_p016_c002",
+        "RAG知识_p016_c003",
+        "RAG知识_p016_c004"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": 16,
+        "n_chunks": 4
+      }
+    },
+    {
+      "id": 2,
+      "type": "in",
+      "question": "和传统大语言模型相比，RAG 解决了哪些关键问题？",
+      "expect": "RAG知识.pdf 第13页",
+      "unit": "page",
+      "gold": [
+        "RAG知识_p013_c001",
+        "RAG知识_p013_c002",
+        "RAG知识_p013_c003"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": 13,
+        "n_chunks": 3
+      }
+    },
+    {
+      "id": 3,
+      "type": "in",
+      "question": "Cloudflare 提供的 RAG 参考架构，其实现通常分为哪两个核心阶段？",
+      "expect": "RAG知识.pdf 第15页",
+      "unit": "page",
+      "gold": [
+        "RAG知识_p015_c001",
+        "RAG知识_p015_c002",
+        "RAG知识_p015_c003",
+        "RAG知识_p015_c004"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": 15,
+        "n_chunks": 4
+      }
+    },
+    {
+      "id": 4,
+      "type": "in",
+      "question": "向量数据库（Vectorize）中存储一个向量，通常包含哪几个关键组成部分？",
+      "expect": "RAG知识.pdf 第21页",
+      "unit": "page",
+      "gold": [
+        "RAG知识_p021_c001",
+        "RAG知识_p021_c002",
+        "RAG知识_p021_c003",
+        "RAG知识_p021_c004"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": 21,
+        "n_chunks": 4
+      }
+    },
+    {
+      "id": 5,
+      "type": "in",
+      "question": "为什么《RAGHandbook》建议中国大陆用户选择千问而不是 Gemini？",
+      "expect": "RAG知识.pdf 第21页",
+      "unit": "page",
+      "gold": [
+        "RAG知识_p021_c001",
+        "RAG知识_p021_c002",
+        "RAG知识_p021_c003",
+        "RAG知识_p021_c004"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": 21,
+        "n_chunks": 4
+      }
+    },
+    {
+      "id": 7,
+      "type": "cross",
+      "question": "把一段文本变成向量再检索，为什么比直接用关键词匹配更可能召回语义相关的内容？请结合向量嵌入（embedding）与语义检索的原理说明。",
+      "expect": "需同时引用 RAG知识.pdf（语义检索）与 RAG 技术概览（向量化）",
+      "unit": "source",
+      "gold": [
+        "RAG 技术概览.html",
+        "RAG知识.pdf"
+      ],
+      "detail": {
+        "files": [
+          "RAG 技术概览.html",
+          "RAG知识.pdf"
+        ],
+        "page": null,
+        "n_chunks": 401
+      }
+    },
+    {
+      "id": 8,
+      "type": "cross",
+      "question": "为提高检索质量，高级 RAG 常把复杂的用户问题拆成多个子查询分别检索再综合。请结合 RAG 技术概览中把问题分解为子查询（多查询检索）的做法，以及 RAG知识中 Advanced RAG 将查询重写、扩展归为预检索阶段的说法，说明：把复杂问题拆成子查询属于检索的哪个阶段？它的作用是什么？",
+      "expect": "需同时引用 RAG知识.pdf 与 RAG 技术概览",
+      "unit": "source",
+      "gold": [
+        "RAG 技术概览.html",
+        "RAG知识.pdf"
+      ],
+      "detail": {
+        "files": [
+          "RAG 技术概览.html",
+          "RAG知识.pdf"
+        ],
+        "page": null,
+        "n_chunks": 401
+      }
+    },
+    {
+      "id": 9,
+      "type": "out",
+      "question": "什么是扩散模型？Stable Diffusion 是如何一步步生成图像的？",
+      "expect": "库外，应拒答",
+      "unit": null,
+      "gold": [],
+      "detail": {
+        "files": [],
+        "page": null,
+        "n_chunks": 0
+      }
+    },
+    {
+      "id": 10,
+      "type": "out",
+      "question": "图神经网络（GNN）的核心思想是什么？它和 Transformer 有什么联系？",
+      "expect": "库外，应拒答",
+      "unit": null,
+      "gold": [],
+      "detail": {
+        "files": [],
+        "page": null,
+        "n_chunks": 0
+      }
+    },
+    {
+      "id": 11,
+      "type": "cross",
+      "question": "检索得到一批候选文档之后，在把它们送进大模型之前还能做哪些进一步处理来提升质量？这些处理在 RAG 流程里属于哪个阶段？",
+      "expect": "需同时引用 RAG 技术概览（后处理器/重新排名）与 RAG知识.pdf（ModularRAG 的 PostRetrieval 模块）",
+      "unit": "source",
+      "gold": [
+        "RAG 技术概览.html",
+        "RAG知识.pdf"
+      ],
+      "detail": {
+        "files": [
+          "RAG 技术概览.html",
+          "RAG知识.pdf"
+        ],
+        "page": null,
+        "n_chunks": 401
+      }
+    },
+    {
+      "id": 12,
+      "type": "in",
+      "question": "《RAG知识》第 4 章列出了 RAG 流水线从内容接入到答案返回的主要处理步骤。请按顺序说明这些步骤，并指出其中哪几步负责把检索结果组织成送给大模型的提示词。",
+      "expect": "RAG知识.pdf 第24页",
+      "unit": "page",
+      "gold": [
+        "RAG知识_p024_c001",
+        "RAG知识_p024_c002"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": 24,
+        "n_chunks": 2
+      }
+    },
+    {
+      "id": 15,
+      "type": "in",
+      "question": "嵌入向量所说的「维度」指什么？为什么配置索引维度时必须与所选嵌入模型的输出维度一致，写成别的数值会有什么后果？",
+      "expect": "RAG知识.pdf 第30页",
+      "unit": "page",
+      "gold": [
+        "RAG知识_p030_c001",
+        "RAG知识_p030_c002",
+        "RAG知识_p030_c003",
+        "RAG知识_p030_c004",
+        "RAG知识_p030_c005"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": 30,
+        "n_chunks": 5
+      }
+    },
+    {
+      "id": 16,
+      "type": "in",
+      "question": "聊天组件在前端是怎么检测用户语言的？语言检测的优先级顺序是什么，默认语言是什么？",
+      "expect": "RAG知识.pdf 第123页",
+      "unit": "page",
+      "gold": [
+        "RAG知识_p123_c001",
+        "RAG知识_p123_c002",
+        "RAG知识_p123_c003"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": 123,
+        "n_chunks": 3
+      }
+    },
+    {
+      "id": 18,
+      "type": "cross",
+      "question": "在向量检索时如何利用元数据做过滤？请结合《RAG知识》中 Vectorize 查询 filter 的用法（含支持的过滤操作符）与《RAG 技术概览》中元数据过滤器的说法，说明可以做哪些维度的过滤。",
+      "expect": "需同时引用 RAG知识.pdf（第75页 检索结果排序与过滤）与 RAG 技术概览（元数据过滤器）",
+      "unit": "source",
+      "gold": [
+        "RAG 技术概览.html",
+        "RAG知识.pdf"
+      ],
+      "detail": {
+        "files": [
+          "RAG 技术概览.html",
+          "RAG知识.pdf"
+        ],
+        "page": 75,
+        "n_chunks": 401
+      }
+    },
+    {
+      "id": 21,
+      "type": "cross",
+      "question": "RAG 的回答怎么做到可追溯？请结合《RAG知识》中检索后构建 sources 列表的做法与《RAG 技术概览》中「参考引用」部分的说明，回答引用在实践中为什么不容易做准、资料提到的缓解手段是什么。",
+      "expect": "需同时引用 RAG知识.pdf（第79页 上下文拼接与来源列表）与 RAG 技术概览（参考引用）",
+      "unit": "source",
+      "gold": [
+        "RAG 技术概览.html",
+        "RAG知识.pdf"
+      ],
+      "detail": {
+        "files": [
+          "RAG 技术概览.html",
+          "RAG知识.pdf"
+        ],
+        "page": 79,
+        "n_chunks": 401
+      }
+    },
+    {
+      "id": 22,
+      "type": "partial",
+      "question": "微调嵌入模型能带来多大的检索质量提升？另外，我想在 8GB 显存的显卡上微调 bge-small-zh，具体的训练参数和显存占用该怎么配置？",
+      "expect": "部分覆盖：需引用 RAG 技术概览（嵌入模型微调收益）；8GB 显存微调做法库中无",
+      "unit": "source",
+      "gold": [
+        "RAG 技术概览.html"
+      ],
+      "detail": {
+        "files": [
+          "RAG 技术概览.html"
+        ],
+        "page": null,
+        "n_chunks": 64
+      }
+    },
+    {
+      "id": 23,
+      "type": "partial",
+      "question": "RAG 能减少幻觉，「幻觉」具体指什么？资料里提到的「信实度」指标是怎么算出来的，公式是什么？",
+      "expect": "部分覆盖：需引用 RAG知识.pdf（幻觉定义）；信实度计算公式库中无",
+      "unit": "source",
+      "gold": [
+        "RAG知识.pdf"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": null,
+        "n_chunks": 337
+      }
+    },
+    {
+      "id": 25,
+      "type": "partial",
+      "question": "查询路由（query routing）是怎么工作的，它能做出哪些选择？另外，本项目《RAG知识》里的 /chat 接口有没有用查询路由，要用的话该怎么改？",
+      "expect": "部分覆盖：需引用 RAG 技术概览（查询路由）与 RAG知识.pdf（ModularRAG 的路由算子）；本项目改造做法库中无",
+      "unit": "source",
+      "gold": [
+        "RAG 技术概览.html",
+        "RAG知识.pdf"
+      ],
+      "detail": {
+        "files": [
+          "RAG 技术概览.html",
+          "RAG知识.pdf"
+        ],
+        "page": null,
+        "n_chunks": 401
+      }
+    },
+    {
+      "id": 27,
+      "type": "out",
+      "question": "BERT 的 MLM（掩码语言模型）预训练任务是怎么构造训练样本的？掩码比例通常设为多少？",
+      "expect": "库外，应拒答",
+      "unit": null,
+      "gold": [],
+      "detail": {
+        "files": [],
+        "page": null,
+        "n_chunks": 0
+      }
+    },
+    {
+      "id": 30,
+      "type": "out",
+      "question": "如何用 Redis 实现一个可靠的分布式锁？需要注意哪些问题？",
+      "expect": "库外，应拒答",
+      "unit": null,
+      "gold": [],
+      "detail": {
+        "files": [],
+        "page": null,
+        "n_chunks": 0
+      }
+    }
+  ]
+}
