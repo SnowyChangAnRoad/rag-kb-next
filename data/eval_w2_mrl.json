@@ -1,0 +1,4028 @@
+{
+  "experiment": "w2_mrl_truncation_1024_512_256",
+  "generated_at": "2026-10-10 17:50:54",
+  "params": {
+    "RECALL_K": 10,
+    "RERANK_TOP_K": 3,
+    "SOURCE_CAP": 2,
+    "mode": "dense",
+    "metric_layer": "post_dedupe_pre_quota",
+    "embed_key": "qwen3-0.6b",
+    "grid": {
+      "qwen3__1024": "raw",
+      "qwen3__512": "512",
+      "qwen3__256": "256"
+    },
+    "baseline": "qwen3__1024"
+  },
+  "fingerprints": {
+    "testset": "testset_tune.jsonl",
+    "testset_sha256": "77feeb79bde269cb19bfb2925a6b2e7b1c3e42572b567e1e4b099d2651428da8",
+    "gold": "gold_tune.json",
+    "gold_sha256": "d6ec3c428d6d39f54a12bcf06ca252d0fee2371747ffed82b3b778ce8ee1ed1c"
+  },
+  "metrics": {
+    "qwen3__1024": {
+      "by_type": {
+        "in": {
+          "n": 8,
+          "n_scored": 8,
+          "mrr": 0.9375,
+          "recall@3": 0.32708333333333334,
+          "ndcg@3": 0.49494260285990505,
+          "recall@5": 0.36875,
+          "ndcg@5": 0.4632005950372776,
+          "recall@10": 0.36875,
+          "ndcg@10": 0.4632005950372776
+        },
+        "cross": {
+          "n": 5,
+          "n_scored": 5,
+          "mrr": 1.0,
+          "recall@3": 0.9,
+          "ndcg@3": 0.9226294385530917,
+          "recall@5": 0.9,
+          "ndcg@5": 0.9226294385530917,
+          "recall@10": 0.9,
+          "ndcg@10": 0.9226294385530917
+        },
+        "partial": {
+          "n": 3,
+          "n_scored": 3,
+          "mrr": 1.0,
+          "recall@3": 1.0,
+          "ndcg@3": 1.0,
+          "recall@5": 1.0,
+          "ndcg@5": 1.0,
+          "recall@10": 1.0,
+          "ndcg@10": 1.0
+        }
+      },
+      "all_with_gold": {
+        "n": 16,
+        "n_scored": 16,
+        "mrr": 0.96875,
+        "recall@3": 0.6322916666666667,
+        "ndcg@3": 0.7232930009777937,
+        "recall@5": 0.653125,
+        "ndcg@5": 0.7074219970664799,
+        "recall@10": 0.653125,
+        "ndcg@10": 0.7074219970664799
+      },
+      "n_no_gold": 0
+    },
+    "qwen3__512": {
+      "by_type": {
+        "in": {
+          "n": 8,
+          "n_scored": 8,
+          "mrr": 0.9375,
+          "recall@3": 0.32708333333333334,
+          "ndcg@3": 0.49494260285990505,
+          "recall@5": 0.36875,
+          "ndcg@5": 0.4632005950372776,
+          "recall@10": 0.36875,
+          "ndcg@10": 0.4632005950372776
+        },
+        "cross": {
+          "n": 5,
+          "n_scored": 5,
+          "mrr": 1.0,
+          "recall@3": 0.9,
+          "ndcg@3": 0.9226294385530917,
+          "recall@5": 0.9,
+          "ndcg@5": 0.9226294385530917,
+          "recall@10": 0.9,
+          "ndcg@10": 0.9226294385530917
+        },
+        "partial": {
+          "n": 3,
+          "n_scored": 3,
+          "mrr": 1.0,
+          "recall@3": 1.0,
+          "ndcg@3": 1.0,
+          "recall@5": 1.0,
+          "ndcg@5": 1.0,
+          "recall@10": 1.0,
+          "ndcg@10": 1.0
+        }
+      },
+      "all_with_gold": {
+        "n": 16,
+        "n_scored": 16,
+        "mrr": 0.96875,
+        "recall@3": 0.6322916666666667,
+        "ndcg@3": 0.7232930009777937,
+        "recall@5": 0.653125,
+        "ndcg@5": 0.7074219970664799,
+        "recall@10": 0.653125,
+        "ndcg@10": 0.7074219970664799
+      },
+      "n_no_gold": 0
+    },
+    "qwen3__256": {
+      "by_type": {
+        "in": {
+          "n": 8,
+          "n_scored": 8,
+          "mrr": 0.9375,
+          "recall@3": 0.36875,
+          "ndcg@3": 0.5242725232363273,
+          "recall@5": 0.36875,
+          "ndcg@5": 0.46726709710113146,
+          "recall@10": 0.36875,
+          "ndcg@10": 0.46726709710113146
+        },
+        "cross": {
+          "n": 5,
+          "n_scored": 5,
+          "mrr": 1.0,
+          "recall@3": 0.9,
+          "ndcg@3": 0.9226294385530917,
+          "recall@5": 0.9,
+          "ndcg@5": 0.9226294385530917,
+          "recall@10": 0.9,
+          "ndcg@10": 0.9226294385530917
+        },
+        "partial": {
+          "n": 3,
+          "n_scored": 3,
+          "mrr": 1.0,
+          "recall@3": 1.0,
+          "ndcg@3": 1.0,
+          "recall@5": 1.0,
+          "ndcg@5": 1.0,
+          "recall@10": 1.0,
+          "ndcg@10": 1.0
+        }
+      },
+      "all_with_gold": {
+        "n": 16,
+        "n_scored": 16,
+        "mrr": 0.96875,
+        "recall@3": 0.653125,
+        "ndcg@3": 0.7379579611660048,
+        "recall@5": 0.653125,
+        "ndcg@5": 0.7094552480984069,
+        "recall@10": 0.653125,
+        "ndcg@10": 0.7094552480984069
+      },
+      "n_no_gold": 0
+    }
+  },
+  "latency": {
+    "qwen3__1024": {
+      "recall_mean_ms": 54.802320001181215,
+      "recall_med_ms": 53.511949998210184,
+      "rerank_mean_ms": 21.888574999320554,
+      "rerank_med_ms": 22.042999997211155,
+      "total_med_ms": 75.9551500013913
+    },
+    "qwen3__512": {
+      "recall_mean_ms": 55.79982499984908,
+      "recall_med_ms": 54.288649997033644,
+      "rerank_mean_ms": 21.191604998602998,
+      "rerank_med_ms": 20.540599995001685,
+      "total_med_ms": 76.20014999702107
+    },
+    "qwen3__256": {
+      "recall_mean_ms": 54.840149998199195,
+      "recall_med_ms": 53.883499997027684,
+      "rerank_mean_ms": 21.26721500098938,
+      "rerank_med_ms": 20.594600006006658,
+      "total_med_ms": 74.63239999924554
+    }
+  },
+  "storage": {
+    "qwen3__1024": {
+      "dim": 1024,
+      "count": 932,
+      "vector_mb": 3.817472
+    },
+    "qwen3__512": {
+      "dim": 512,
+      "count": 932,
+      "vector_mb": 1.908736
+    },
+    "qwen3__256": {
+      "dim": 256,
+      "count": 932,
+      "vector_mb": 0.954368
+    }
+  },
+  "per_question": {
+    "qwen3__1024": [
+      {
+        "id": 1,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 4,
+        "hit_ranks": [
+          2,
+          3
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p015_c004",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9993,
+            "in_gold": false,
+            "preview": "eWorkers的无服务器和边缘计算能力，结合Queues\n的异步处理、WorkersAI的嵌入与生成、Vectorize的高效检索以及D1的数据持久化，\n开发"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p016_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9988,
+            "in_gold": true,
+            "preview": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p016_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9533,
+            "in_gold": true,
+            "preview": "策，单轮静态流程已无法满足需求，希望结\n合检索与规划能力。\n主要特点：采用多智能体架构，由主智能体协调子智能体，具备动态决策能力（自主判\n断何时检索、何时生成）"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p017_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8278,
+            "in_gold": false,
+            "preview": "2.4. 小结 7\n类AI应用提供了坚实的基础。\n2.4 小结\nRAG技术通过将信息检索与生成式AI相结合，解决了传统大语言模型的知识截止、幻\n觉等问题。通过离"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG 技术概览_web_c041",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.4993,
+            "in_gold": false,
+            "preview": "上下文和答案的三元组进行的。具体实施细节请参考相关指南49。这种技术被用于通过微调 API 对 OpenAI 大语言模型进行微调，同时也用于开源模型 Llama"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG 技术概览_web_c002",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.2806,
+            "in_gold": false,
+            "preview": "tion, RAG）的概念，请直接跳转到高级 RAG 部分。检索增强生成（Retrieval Augmented Generation, RAG）是一种技术，它"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c044",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.1767,
+            "in_gold": false,
+            "preview": "，它提供了一个快捷的工具，可以利用公共数据集来评估你的架构。结论我努力概述了 RAG 的核心算法方法，并通过一些示例展示它们，希望这能激发你在自己的 RAG 架"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG 技术概览_web_c007",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.1023,
+            "in_gold": false,
+            "preview": "以连接到各种数据源，从Youtube到Notion都能涵盖。A scheme by author, as well all the schemes furthe"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG 技术概览_web_c012",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0385,
+            "in_gold": false,
+            "preview": "choices[0].message[\"content\"]\nreturn answer在改进RAG管道的方法中，优化提示词（Prompt Engineering"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 3,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p013_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.999,
+            "in_gold": true,
+            "preview": "方式解决了传统大语言模型的关键问题：\n传统LLM的局限性：\n・ 知识截止点：模型训练数据有时间限制，无法获取最新信息\n・ 幻觉问题：模型可能生成看似合理但实际错"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p017_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9841,
+            "in_gold": false,
+            "preview": "2.4. 小结 7\n类AI应用提供了坚实的基础。\n2.4 小结\nRAG技术通过将信息检索与生成式AI相结合，解决了传统大语言模型的知识截止、幻\n觉等问题。通过离"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG 技术概览_web_c002",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9497,
+            "in_gold": false,
+            "preview": "tion, RAG）的概念，请直接跳转到高级 RAG 部分。检索增强生成（Retrieval Augmented Generation, RAG）是一种技术，它"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p016_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8606,
+            "in_gold": false,
+            "preview": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG 技术概览_web_c044",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.5908,
+            "in_gold": false,
+            "preview": "，它提供了一个快捷的工具，可以利用公共数据集来评估你的架构。结论我努力概述了 RAG 的核心算法方法，并通过一些示例展示它们，希望这能激发你在自己的 RAG 架"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG 技术概览_web_c041",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.4163,
+            "in_gold": false,
+            "preview": "上下文和答案的三元组进行的。具体实施细节请参考相关指南49。这种技术被用于通过微调 API 对 OpenAI 大语言模型进行微调，同时也用于开源模型 Llama"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c035",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.3757,
+            "in_gold": false,
+            "preview": "作方式的方案，其中包括了查询的路由处理和代理的智能行为模式。这个复杂方案的一个缺点可以通过图像来理解 —— 由于需要在代理内部与大语言模型（LLM）进行多轮迭代"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG 技术概览_web_c012",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.3329,
+            "in_gold": false,
+            "preview": "choices[0].message[\"content\"]\nreturn answer在改进RAG管道的方法中，优化提示词（Prompt Engineering"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG 技术概览_web_c007",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.3217,
+            "in_gold": false,
+            "preview": "以连接到各种数据源，从Youtube到Notion都能涵盖。A scheme by author, as well all the schemes furthe"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 4,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p015_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9998,
+            "in_gold": true,
+            "preview": "re官方提供的RAG参考架构示例，旨在帮助理解主流无服务器\nRAG系统的设计思路，并非本项目实际采用的架构。实际部署时可根据自身需求进行\n调整和优化。详情请参考"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p020_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9971,
+            "in_gold": false,
+            "preview": "内容、智能检索与生成、异常处理和降级策略，便于扩展和维护，\n适合构建高可用、智能化的聊天机器人系统。\n3.3 Cloudflare RAG 参考架构\nCloud"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p013_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9963,
+            "in_gold": false,
+            "preview": "第 2 章\nRAG 原理与核心概念\nRAG（检索增强生成）技术通过结合信息检索和生成式AI，有效解决了传统大语言模型\n的知识截止、幻觉等问题。本章将深入解析RA"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p018_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9906,
+            "in_gold": false,
+            "preview": "器人采用了现代化的无服务器架构，整个系统可以分为数据源层、\n数据处理层、存储层、计算层、AI服务层和展示层等核心层次。整个系统的数据流程可\n以分为数据摄取阶段（"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p017_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.7982,
+            "in_gold": false,
+            "preview": "2.4. 小结 7\n类AI应用提供了坚实的基础。\n2.4 小结\nRAG技术通过将信息检索与生成式AI相结合，解决了传统大语言模型的知识截止、幻\n觉等问题。通过离"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p023_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.5153,
+            "in_gold": false,
+            "preview": "3.6. 小结 13\n3.6 小结\n通过本章的介绍，您已经对RAG聊天机器人的整体架构和核心技术栈有了清晰的认识。\nCloudflareWorkers和Vect"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p020_c004",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.1722,
+            "in_gold": false,
+            "preview": "全球200多个数据中心的边缘计算能力，提供低延迟响应；架构\n简洁，组件解耦，便于扩展和维护；按使用量计费，具备良好的成本效益。\n通过采用这种架构，开发者可以快速"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p109_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.0264,
+            "in_gold": false,
+            "preview": "第 20 章\nCloudflare 部署\n本章节将介绍如何利用Cloudflare平台部署RAG系统和聊天机器人。内容涵盖\nCloudflareWorkers的"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 4,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p021_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9994,
+            "in_gold": true,
+            "preview": "个阶段：\n3.4.1.1 数据流设计\n1. 向量生成流程：\n1 Markdown 文档 ￫ 文本分块 ￫ 嵌入模型 ￫ 向量表示 ￫ Vectorize 存储\n"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p066_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9952,
+            "in_gold": false,
+            "preview": "56 第11章：使用CloudflareVectorize构建向量数据库\n11.3 创建 Vectorize 索引\n在使用Vectorize之前，需要先创建一个"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p065_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9906,
+            "in_gold": false,
+            "preview": "（检索增强生成）系统中，Vectorize扮演着关键角色：\n1. 向量存储：存储由嵌入模型生成的文档向量\n2. 相似度搜索：根据用户查询向量快速检索最相关的文档"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p065_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9363,
+            "in_gold": false,
+            "preview": "第 11 章\n使用 Cloudflare Vectorize 构建向量数\n据库\nCloudflareVectorize是构建RAG系统的核心组件，它提供了全球分"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p037_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8749,
+            "in_gold": false,
+            "preview": "第 7 章\nVectorize 数据结构说明\n本章聚焦CloudflareVectorize中向量数据的组织与生命周期，包括条目结构、元数据\n最小集、命名/ID"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p071_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.7326,
+            "in_gold": false,
+            "preview": "：\n・ Vectorize始终有免费额度，适合原型和实验。\n・ 超出免费额度后，按实际查询和存储维度计费。\n・ 不对数据传输/出口计费。\n・ 通过HTTPAPI"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p030_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.7178,
+            "in_gold": false,
+            "preview": "ngler vectorize create ‑‑help\n完整参数列表可通过 查看。建议根据实际嵌入模\n型和业务需求合理设置参数，确保索引性能和检索效果。\n5"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p048_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.5262,
+            "in_gold": false,
+            "preview": "38 第8章：嵌入生成与向量化\n1 interface VectorizeVector {\n2 id: string; // 向量唯一标识符\n3 values:"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG知识_p047_c004",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.4784,
+            "in_gold": false,
+            "preview": "eVectorize之前，需要遵循其特定的数据结构。下面的\nTypeScript接口定义了向量对象的基本格式，包括唯一标识符、向量值数组、可选的元\n数据和命名空"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 4,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p021_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9974,
+            "in_gold": true,
+            "preview": "3.4. 核心技术栈介绍 11\n里云提供的大语言模型和嵌入模型，特别适合中文内容处理，而Gemini是Google提\n供的多模态AI模型，适合处理多种类型的内容"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p082_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.6298,
+            "in_gold": false,
+            "preview": "72 第14章：大语言模型集成\n答功能。\n14.2 RAG 系统中的千问集成\n在RAG（检索增强生成）系统中集成千问大语言模型，旨在将强大的生成能力与知识检\n索"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p011_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.6261,
+            "in_gold": false,
+            "preview": "第 1 章\n引言\n在人工智能技术日新月异的今天，越来越多的人希望能够拥有属于自己的智能助手，提\n升工作效率、优化知识管理，甚至打造个人品牌。《RAGHandbo"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p081_c004",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.512,
+            "in_gold": false,
+            "preview": "hoices'][0]['text'])\n19 else:\n20 print(f\"Error: {response.status_code} ‑ {respon"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p062_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.1813,
+            "in_gold": false,
+            "preview": "第 10 章\nQwen 向量嵌入机制\n本文将深入解析Gemini与Qwen两大主流嵌入接口的批量处理能力、吞吐性能优化、\nfast‑ingest.ts\n向量维度"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p081_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.0981,
+            "in_gold": false,
+            "preview": "第 14 章\n大语言模型集成\n本章节介绍如何在检索增强生成（RAG）系统中集成大语言模型，包括API接入、提示\n词工程与优化、以及模型参数调优等关键环节。通过合"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c002",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0863,
+            "in_gold": false,
+            "preview": "tion, RAG）的概念，请直接跳转到高级 RAG 部分。检索增强生成（Retrieval Augmented Generation, RAG）是一种技术，它"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p083_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.0408,
+            "in_gold": false,
+            "preview": "14.2. RAG系统中的千问集成 73\n6 { role: 'system', content: '请用中文回答，并在末尾列出来源路径。' },\n7 { ro"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG 技术概览_web_c041",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0316,
+            "in_gold": false,
+            "preview": "上下文和答案的三元组进行的。具体实施细节请参考相关指南49。这种技术被用于通过微调 API 对 OpenAI 大语言模型进行微调，同时也用于开源模型 Llama"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "RAG 技术概览_web_c012",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0183,
+            "in_gold": false,
+            "preview": "choices[0].message[\"content\"]\nreturn answer在改进RAG管道的方法中，优化提示词（Prompt Engineering"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "type": "cross",
+        "unit": "source",
+        "n_gold": 2,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p129_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9689,
+            "in_gold": true,
+            "preview": "。与\n传统关系数据库不同，向量数据库优化了相似度搜索功能。\n・ 语义检索（SemanticSearch）：基于语义理解而非关键词匹配的信息检索技术。语\n义检索使"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG 技术概览_web_c008",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.884,
+            "in_gold": true,
+            "preview": "型把用户的查询转换成向量，然后根据这个向量在索引中进行搜索。系统会找到最相关的前k个结果，从数据库中提取相应的文本段，然后把这些文本段作为上下文信息输入到大语言"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p065_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8141,
+            "in_gold": true,
+            "preview": "（检索增强生成）系统中，Vectorize扮演着关键角色：\n1. 向量存储：存储由嵌入模型生成的文档向量\n2. 相似度搜索：根据用户查询向量快速检索最相关的文档"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p078_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.6826,
+            "in_gold": true,
+            "preview": "bedder = createEmbedder(env);\n2 const [qv] = await embedder.embed([message], Num"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p044_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.6558,
+            "in_gold": true,
+            "preview": "第 8 章\n嵌入生成与向量化\n向量化是RAG系统的核心环节，它将文本转换为高维向量表示，使语义相似的内容在\n向量空间中距离更近。本章将详细介绍如何选择合适的嵌入"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG 技术概览_web_c014",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.627,
+            "in_gold": true,
+            "preview": "先，我们需要创建一个向量索引，这个索引代表了我们文档的内容。然后，在程序运行时，我们会搜索这些向量与查询向量之间的最小余弦距离，以找到语义上最接近的匹配。1.1"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p047_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.5922,
+            "in_gold": true,
+            "preview": "，向量的高效存储与检索是实现智能问答和内容发现的基础。通过\nCloudflareVectorize，可以将生成的文本向量安全地存储在向量数据库中，并利用其\n对余"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG 技术概览_web_c020",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.4711,
+            "in_gold": true,
+            "preview": "展上下文，二是递归地将文档分割成多个包含较小子块的大型父块。2.4.1 句子窗口检索12 在这种方案中，文档中的每个句子都被单独嵌入向量，这样做可以提高查询到上"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG 技术概览_web_c017",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.4125,
+            "in_gold": true,
+            "preview": "部分是搜索索引，它用来存储我们在前一步骤中生成的向量化内容。最基础的实现方式是使用flat索引，它通过暴力法计算查询向量与所有块向量之间的距离。一个高效的搜索索"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "type": "cross",
+        "unit": "source",
+        "n_gold": 2,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p016_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9826,
+            "in_gold": true,
+            "preview": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG 技术概览_web_c024",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9381,
+            "in_gold": true,
+            "preview": "来需要通过过滤、重新排名或进行一些转换来进一步优化这些结果。LlamaIndex提供了多种后处理器，可以基于相似度评分、关键词、元数据等过滤结果，或者使用其他模"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG 技术概览_web_c002",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9372,
+            "in_gold": true,
+            "preview": "tion, RAG）的概念，请直接跳转到高级 RAG 部分。检索增强生成（Retrieval Augmented Generation, RAG）是一种技术，它"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p016_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8245,
+            "in_gold": true,
+            "preview": "策，单轮静态流程已无法满足需求，希望结\n合检索与规划能力。\n主要特点：采用多智能体架构，由主智能体协调子智能体，具备动态决策能力（自主判\n断何时检索、何时生成）"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG 技术概览_web_c013",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.7827,
+            "in_gold": true,
+            "preview": "”选择。高级RAG现在，我们来深入了解高级RAG技术的概述。这里是一个展示核心步骤和相关算法的示意图。为了保持示意图的清晰易懂，一些逻辑循环和复杂的多步骤智能体"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p013_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.7074,
+            "in_gold": true,
+            "preview": "第 2 章\nRAG 原理与核心概念\nRAG（检索增强生成）技术通过结合信息检索和生成式AI，有效解决了传统大语言模型\n的知识截止、幻觉等问题。本章将深入解析RA"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c035",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.6379,
+            "in_gold": true,
+            "preview": "作方式的方案，其中包括了查询的路由处理和代理的智能行为模式。这个复杂方案的一个缺点可以通过图像来理解 —— 由于需要在代理内部与大语言模型（LLM）进行多轮迭代"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG 技术概览_web_c007",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.1339,
+            "in_gold": true,
+            "preview": "以连接到各种数据源，从Youtube到Notion都能涵盖。A scheme by author, as well all the schemes furthe"
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "type": "cross",
+        "unit": "source",
+        "n_gold": 2,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG 技术概览_web_c024",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9939,
+            "in_gold": true,
+            "preview": "来需要通过过滤、重新排名或进行一些转换来进一步优化这些结果。LlamaIndex提供了多种后处理器，可以基于相似度评分、关键词、元数据等过滤结果，或者使用其他模"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p016_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9864,
+            "in_gold": true,
+            "preview": "序、摘要压缩）等多阶段处理，显著提升检索相关性和生成质量。\n3. ModularRAG\n提出动因：随着检索器、LLM等组件快速迭代，传统管道难以快速集成新功能，"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p089_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9474,
+            "in_gold": true,
+            "preview": "15.6. 小结 79\n15.6 小结\n下表总结了RAG流程各阶段的输入、输出及作用：\n阶段 输入 输出 作用\n嵌入 用户消息 查询向量 用于向量检索\n检索 查"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p024_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9047,
+            "in_gold": true,
+            "preview": "第 4 章\nRAG 流水线总览\n本章充当导航：快速把握系统各阶段职责，并指向后续详细章节。核心链路：内容→\n向量化→索引→检索→Prompt→回答。带你快速了解"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG 技术概览_web_c001",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9019,
+            "in_gold": true,
+            "preview": "深度好文！最全的大模型 RAG 技术概览 - 知乎欢迎关注 @AI技术社区 ，专注大模型、学术论文、算法实战案例本文是对检索增强生成（Retrieval Aug"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p087_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8222,
+            "in_gold": true,
+            "preview": "第 15 章\n答案生成流程\n本章将详细解析RAG（检索增强生成）系统中答案生成的完整流程。内容涵盖从用户消\n息嵌入、相关知识检索、提示词构建，到大模型生成最终回"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c035",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.6851,
+            "in_gold": true,
+            "preview": "作方式的方案，其中包括了查询的路由处理和代理的智能行为模式。这个复杂方案的一个缺点可以通过图像来理解 —— 由于需要在代理内部与大语言模型（LLM）进行多轮迭代"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG 技术概览_web_c007",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.4097,
+            "in_gold": true,
+            "preview": "以连接到各种数据源，从Youtube到Notion都能涵盖。A scheme by author, as well all the schemes furthe"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG 技术概览_web_c012",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.179,
+            "in_gold": true,
+            "preview": "choices[0].message[\"content\"]\nreturn answer在改进RAG管道的方法中，优化提示词（Prompt Engineering"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 2,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p024_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9999,
+            "in_gold": true,
+            "preview": "第 4 章\nRAG 流水线总览\n本章充当导航：快速把握系统各阶段职责，并指向后续详细章节。核心链路：内容→\n向量化→索引→检索→Prompt→回答。带你快速了解"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p087_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9941,
+            "in_gold": false,
+            "preview": "第 15 章\n答案生成流程\n本章将详细解析RAG（检索增强生成）系统中答案生成的完整流程。内容涵盖从用户消\n息嵌入、相关知识检索、提示词构建，到大模型生成最终回"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p089_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9929,
+            "in_gold": false,
+            "preview": "15.6. 小结 79\n15.6 小结\n下表总结了RAG流程各阶段的输入、输出及作用：\n阶段 输入 输出 作用\n嵌入 用户消息 查询向量 用于向量检索\n检索 查"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG 技术概览_web_c007",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9784,
+            "in_gold": false,
+            "preview": "以连接到各种数据源，从Youtube到Notion都能涵盖。A scheme by author, as well all the schemes furthe"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG 技术概览_web_c002",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9679,
+            "in_gold": false,
+            "preview": "tion, RAG）的概念，请直接跳转到高级 RAG 部分。检索增强生成（Retrieval Augmented Generation, RAG）是一种技术，它"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p016_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9334,
+            "in_gold": false,
+            "preview": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c035",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.8991,
+            "in_gold": false,
+            "preview": "作方式的方案，其中包括了查询的路由处理和代理的智能行为模式。这个复杂方案的一个缺点可以通过图像来理解 —— 由于需要在代理内部与大语言模型（LLM）进行多轮迭代"
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 5,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p030_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9941,
+            "in_gold": true,
+            "preview": "20 第5章：环境准备与依赖安装\n向量维度指的是每个文本被嵌入（embedding）后所生成的向量包含的数值个数。例\n如，维度为1024表示每个文本会被表示为一"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p029_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9841,
+            "in_gold": false,
+            "preview": "中用于存储和检索文档\n向量。\n创建索引时需要考虑以下因素：\n1. 维度匹配：索引维度必须与所使用的嵌入模型输出维度一致\n2. 距离度量：根据应用场景选择合适的距"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p040_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.867,
+            "in_gold": false,
+            "preview": "引生成待删ID列表，提升删除效率。\n7.7 容量与维度规划\n下面将详细介绍EMBED_DIM（嵌入维度）、分块策略、元数据大小、写入频率等核心\n变量的影响及建议"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p066_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.7994,
+            "in_gold": false,
+            "preview": "56 第11章：使用CloudflareVectorize构建向量数据库\n11.3 创建 Vectorize 索引\n在使用Vectorize之前，需要先创建一个"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p044_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.3693,
+            "in_gold": false,
+            "preview": "适的嵌入模型\n生成执行向量化的核心在于选择合适的嵌入模型：\n・ 千问（Qwen）提供的模型：特别适合中文内容，支持丰富的上下文理解与生成。\n・ Gemini的通"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p025_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.2613,
+            "in_gold": false,
+            "preview": "个关键参数，以下表格汇总常用配置及示例：\n名称 描述 示例\nEMBED_DIM 向量维度（索引/模型 1024\n一致）\nEMBED‑ 单次嵌入批大小 10(Qw"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p110_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.1413,
+            "in_gold": false,
+            "preview": "website‑rag ‑‑dimensions 1024\n20.2.2 向量索引配置\nEMBED_DIM\n确保向量索引的维度与应用配置中的 保持一致，否则会导"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p109_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.0063,
+            "in_gold": false,
+            "preview": "en\"\n13 # 确保与 Vectorize 索引维度匹配\n14 EMBED_DIM = 1024\n15 # 用于生成的 LLM 模型\n16 LLM_MODEL"
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 3,
+        "hit_ranks": [
+          1,
+          4
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p123_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9922,
+            "in_gold": true,
+            "preview": "简化语言检测：仅根据URL部分 判断为英文，其他均为中文。\n・ 一致的过滤逻辑：检索阶段应用与客户端相同的检测规则。\n/en/\n・ 明确的语言边界：将所有不包含"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p078_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.982,
+            "in_gold": false,
+            "preview": "bedder = createEmbedder(env);\n2 const [qv] = await embedder.embed([message], Num"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p097_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.972,
+            "in_gold": false,
+            "preview": "验稳定性。\n{width=1920height=2995}\n多语言流程的每个环节都依赖于语言标记的准确传递，下面将逐步解析关键实现细节。\n17.2 关键环节解析"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p123_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9579,
+            "in_gold": true,
+            "preview": "22.4. 如何为聊天组件支持多语言？ 113\n・ 增量处理：只处理指定的文档，不影响其他已存在的向量数据\n这种方式特别适合以下场景：\n・ 修正博客文章中的错误"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p107_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8991,
+            "in_gold": false,
+            "preview": "tLanguage() {\n2 // 尝试多种方式检测语言\n3 const htmlLang = document.documentElement.lang;\n"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p099_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.867,
+            "in_gold": false,
+            "preview": "User/Assistantvs用户/助手）\n・ 指令用语\n模型生成后，前端渲染阶段根据语言标记进行本地化处理。\n17.2.5 回答与前端渲染\n{ answer"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p100_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.5475,
+            "in_gold": false,
+            "preview": "标签 上下文清晰\n为进一步提升体验，建议持续优化如下方面。\n17.6 改进建议概览\n多语言流程仍有优化空间，建议：\n1. localStorage记忆语言偏好。"
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "type": "cross",
+        "unit": "source",
+        "n_gold": 2,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p092_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9977,
+            "in_gold": true,
+            "preview": " 向量检索上下文\ngetRelevantDocuments\n使用 函数从向量数据库中检索相关内容：\n1 export async function getRel"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p030_c004",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9973,
+            "in_gold": true,
+            "preview": "筛选”、“按标签过滤”等复杂查询，提升检索的灵活性和性能。\n为了支持基于元数据的过滤查询，需要为常用的元数据字段创建索引：\n1 # 为 URL 字段创建元数据索"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p070_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9927,
+            "in_gold": true,
+            "preview": "60 第11章：使用CloudflareVectorize构建向量数据库\n11.6.1 创建元数据索引\n1 npx wrangler vectorize cre"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p074_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.979,
+            "in_gold": true,
+            "preview": "ECTORIZE.query(queryVector, {\n6 topK: 5, // 返回最相似的 5 个结果\n7 returnValues: false, "
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p073_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9573,
+            "in_gold": true,
+            "preview": "第 12 章\n检索系统实现\n检索系统是RAG架构的核心组件之一，它决定了系统能否从海量知识中快速准确地找\n到与用户查询最相关的信息。本章将深入探讨各种相似度搜索"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p075_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.945,
+            "in_gold": true,
+            "preview": "{\n13 language: { $eq: \"zh\" },\n14 tags: { $in: [\"AI\", \"RAG\"] }\n15 }\n16 });\n17\n18 "
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p022_c005",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8856,
+            "in_gold": true,
+            "preview": "动优化索引，支持单索引多达500万个向量，满足大规模应用需\n求。计费方式透明，按查询和存储维度计费，无隐藏费用。丰富的元数据支持和命名空\n间机制，进一步提升了数"
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "type": "cross",
+        "unit": "source",
+        "n_gold": 2,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG 技术概览_web_c002",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9809,
+            "in_gold": true,
+            "preview": "tion, RAG）的概念，请直接跳转到高级 RAG 部分。检索增强生成（Retrieval Augmented Generation, RAG）是一种技术，它"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p017_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9803,
+            "in_gold": true,
+            "preview": "2.4. 小结 7\n类AI应用提供了坚实的基础。\n2.4 小结\nRAG技术通过将信息检索与生成式AI相结合，解决了传统大语言模型的知识截止、幻\n觉等问题。通过离"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG 技术概览_web_c041",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9724,
+            "in_gold": true,
+            "preview": "上下文和答案的三元组进行的。具体实施细节请参考相关指南49。这种技术被用于通过微调 API 对 OpenAI 大语言模型进行微调，同时也用于开源模型 Llama"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p016_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9598,
+            "in_gold": true,
+            "preview": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG 技术概览_web_c044",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9274,
+            "in_gold": true,
+            "preview": "，它提供了一个快捷的工具，可以利用公共数据集来评估你的架构。结论我努力概述了 RAG 的核心算法方法，并通过一些示例展示它们，希望这能激发你在自己的 RAG 架"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG 技术概览_web_c027",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9241,
+            "in_gold": true,
+            "preview": "不同，但我认为LlamaIndex的解决方案在这里更为强大。参考引用这一部分没有编号，因为它更像是一个工具而非一种检索改进技术，尽管它非常重要。如果我们使用了多"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p015_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9137,
+            "in_gold": true,
+            "preview": "2.3. RAG参考架构 5\n个文本块添加元数据（如标题、来源、时间）。接着，利用嵌入模型将这些文本块转换\n为高维向量，捕捉其语义信息，并将向量存入向量数据库以"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG 技术概览_web_c006",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.8697,
+            "in_gold": true,
+            "preview": "：研究方向 +学校/公司+知乎，即可。然后就可以拉你进群了。方式①、添加微信号：mlc2060，备注：技术交流 方式②、微信搜索公众号：机器学习社区，后台回复："
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG知识_p013_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8549,
+            "in_gold": true,
+            "preview": "第 2 章\nRAG 原理与核心概念\nRAG（检索增强生成）技术通过结合信息检索和生成式AI，有效解决了传统大语言模型\n的知识截止、幻觉等问题。本章将深入解析RA"
+          }
+        ]
+      },
+      {
+        "id": 22,
+        "type": "partial",
+        "unit": "source",
+        "n_gold": 1,
+        "hit_ranks": [
+          1,
+          2,
+          4,
+          8,
+          9
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG 技术概览_web_c037",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9922,
+            "in_gold": true,
+            "preview": "回答用户问题的LLM）— 幸运的是，后者非常擅长少样本学习。目前一个重要的优势是我们能够使用像 GPT-4 这样的高端大语言模型来创造高质量的合成数据集。但同时"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG 技术概览_web_c040",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.3504,
+            "in_gold": true,
+            "preview": "-3.5-turbo 进行微调，训练它处理这些问题与答案对。通过这种方式，使用 ragas48 框架进行的 RAG 架构评估显示，信实度指标提高了 5%，意味着"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p025_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.3407,
+            "in_gold": false,
+            "preview": "个关键参数，以下表格汇总常用配置及示例：\n名称 描述 示例\nEMBED_DIM 向量维度（索引/模型 1024\n一致）\nEMBED‑ 单次嵌入批大小 10(Qw"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG 技术概览_web_c015",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.2422,
+            "in_gold": true,
+            "preview": "块的大小，这取决于你使用的嵌入模型及其处理token的能力。例如，基于BERT的标准Transformer编码器模型最多处理512个token，而OpenAI "
+          },
+          {
+            "rank": 5,
+            "chunk_id": "Transformer--Attention Is All You Need_web_c095",
+            "source": "Transformer--Attention Is All You Need.html",
+            "rerank_score": 0.0888,
+            "in_gold": false,
+            "preview": "前发布的所有单一模型，其训练成本不到之前最先进模型的1/4。为英法翻译训练的Transformer（大）模型使用的Dropout是Pdrop=0.1，而不是 0"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "Transformer--Attention Is All You Need_web_c097",
+            "source": "Transformer--Attention Is All You Need.html",
+            "rerank_score": 0.0737,
+            "in_gold": false,
+            "preview": "精度浮点容量的估计值相乘来估计用于训练模型的浮点运算的数量。Pdrop=0.1，而不是 0.3。对于基本模型，我们使用通过平均最后5个checkpionts获得"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "Transformer--Attention Is All You Need_web_c099",
+            "source": "Transformer--Attention Is All You Need.html",
+            "rerank_score": 0.046,
+            "in_gold": false,
+            "preview": "力比最佳设置差0.9BLEU，但质量也会因为有太多头而下降。在表3行(B)中，我们观察到减小注意力key大小dk会损害模型质量。这表明确定兼容性并不容易，比点积"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG 技术概览_web_c058",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0216,
+            "in_gold": true,
+            "preview": "onse_synthesizers/root.html43 https://docs.llamaindex.ai/en/stable/examples/fine"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG 技术概览_web_c047",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0121,
+            "in_gold": true,
+            "preview": "o/learn/chunking-strategies/6 https://docs.llamaindex.ai/en/stable/api_reference"
+          }
+        ]
+      },
+      {
+        "id": 23,
+        "type": "partial",
+        "unit": "source",
+        "n_gold": 1,
+        "hit_ranks": [
+          1,
+          2,
+          4,
+          5
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p016_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9533,
+            "in_gold": true,
+            "preview": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p128_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.7607,
+            "in_gold": true,
+            "preview": "与其他所有位置进行信息\n交互。\n23.2 RAG 相关技术\n・ 检索增强生成（RAG‑Retrieval‑AugmentedGeneration）：一种混合AI"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG 技术概览_web_c041",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.7592,
+            "in_gold": false,
+            "preview": "上下文和答案的三元组进行的。具体实施细节请参考相关指南49。这种技术被用于通过微调 API 对 OpenAI 大语言模型进行微调，同时也用于开源模型 Llama"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p017_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.5804,
+            "in_gold": true,
+            "preview": "2.4. 小结 7\n类AI应用提供了坚实的基础。\n2.4 小结\nRAG技术通过将信息检索与生成式AI相结合，解决了传统大语言模型的知识截止、幻\n觉等问题。通过离"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p013_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.5148,
+            "in_gold": true,
+            "preview": "第 2 章\nRAG 原理与核心概念\nRAG（检索增强生成）技术通过结合信息检索和生成式AI，有效解决了传统大语言模型\n的知识截止、幻觉等问题。本章将深入解析RA"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG 技术概览_web_c044",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.3183,
+            "in_gold": false,
+            "preview": "，它提供了一个快捷的工具，可以利用公共数据集来评估你的架构。结论我努力概述了 RAG 的核心算法方法，并通过一些示例展示它们，希望这能激发你在自己的 RAG 架"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c060",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0078,
+            "in_gold": false,
+            "preview": "gas.io/en/latest/index.html49 https://docs.llamaindex.ai/en/stable/examples/fine"
+          }
+        ]
+      },
+      {
+        "id": 25,
+        "type": "partial",
+        "unit": "source",
+        "n_gold": 2,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG 技术概览_web_c030",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9952,
+            "in_gold": true,
+            "preview": "angchain 也支持31 OpenAI 功能性 API。图片还有其他聊天引擎类型，如ReAct Agent32，本部分内容会在第7节中详细介绍。6. 查询路"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG 技术概览_web_c024",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9208,
+            "in_gold": true,
+            "preview": "来需要通过过滤、重新排名或进行一些转换来进一步优化这些结果。LlamaIndex提供了多种后处理器，可以基于相似度评分、关键词、元数据等过滤结果，或者使用其他模"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG 技术概览_web_c034",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.7957,
+            "in_gold": true,
+            "preview": "顶级代理，负责将查询任务分配给各个文档代理，并合成最终答案。每个文档代理配备了两种工具 —— 向量存储索引和摘要索引，它会根据接收到的查询决定使用哪个工具。对于"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG 技术概览_web_c006",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.4791,
+            "in_gold": true,
+            "preview": "：研究方向 +学校/公司+知乎，即可。然后就可以拉你进群了。方式①、添加微信号：mlc2060，备注：技术交流 方式②、微信搜索公众号：机器学习社区，后台回复："
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p083_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.1357,
+            "in_gold": true,
+            "preview": "14.2. RAG系统中的千问集成 73\n6 { role: 'system', content: '请用中文回答，并在末尾列出来源路径。' },\n7 { ro"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG 技术概览_web_c028",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.1097,
+            "in_gold": true,
+            "preview": "ndex为这种情况提供了一种基于模糊匹配的高效解决方案26。如果你没有听说过模糊匹配，这是一种非常强大的字符串匹配技术27。 5. 对话引擎在构建一个能够对单个"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p081_c004",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.0967,
+            "in_gold": true,
+            "preview": "hoices'][0]['text'])\n19 else:\n20 print(f\"Error: {response.status_code} ‑ {respon"
+          }
+        ]
+      }
+    ],
+    "qwen3__512": [
+      {
+        "id": 1,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 4,
+        "hit_ranks": [
+          2,
+          3
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p015_c004",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9993,
+            "in_gold": false,
+            "preview": "eWorkers的无服务器和边缘计算能力，结合Queues\n的异步处理、WorkersAI的嵌入与生成、Vectorize的高效检索以及D1的数据持久化，\n开发"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p016_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9988,
+            "in_gold": true,
+            "preview": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p016_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9533,
+            "in_gold": true,
+            "preview": "策，单轮静态流程已无法满足需求，希望结\n合检索与规划能力。\n主要特点：采用多智能体架构，由主智能体协调子智能体，具备动态决策能力（自主判\n断何时检索、何时生成）"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p017_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8278,
+            "in_gold": false,
+            "preview": "2.4. 小结 7\n类AI应用提供了坚实的基础。\n2.4 小结\nRAG技术通过将信息检索与生成式AI相结合，解决了传统大语言模型的知识截止、幻\n觉等问题。通过离"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG 技术概览_web_c041",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.4993,
+            "in_gold": false,
+            "preview": "上下文和答案的三元组进行的。具体实施细节请参考相关指南49。这种技术被用于通过微调 API 对 OpenAI 大语言模型进行微调，同时也用于开源模型 Llama"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG 技术概览_web_c002",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.2806,
+            "in_gold": false,
+            "preview": "tion, RAG）的概念，请直接跳转到高级 RAG 部分。检索增强生成（Retrieval Augmented Generation, RAG）是一种技术，它"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c044",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.1767,
+            "in_gold": false,
+            "preview": "，它提供了一个快捷的工具，可以利用公共数据集来评估你的架构。结论我努力概述了 RAG 的核心算法方法，并通过一些示例展示它们，希望这能激发你在自己的 RAG 架"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p013_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.15,
+            "in_gold": false,
+            "preview": "第 2 章\nRAG 原理与核心概念\nRAG（检索增强生成）技术通过结合信息检索和生成式AI，有效解决了传统大语言模型\n的知识截止、幻觉等问题。本章将深入解析RA"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG 技术概览_web_c012",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0385,
+            "in_gold": false,
+            "preview": "choices[0].message[\"content\"]\nreturn answer在改进RAG管道的方法中，优化提示词（Prompt Engineering"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 3,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p013_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.999,
+            "in_gold": true,
+            "preview": "方式解决了传统大语言模型的关键问题：\n传统LLM的局限性：\n・ 知识截止点：模型训练数据有时间限制，无法获取最新信息\n・ 幻觉问题：模型可能生成看似合理但实际错"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG 技术概览_web_c002",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9497,
+            "in_gold": false,
+            "preview": "tion, RAG）的概念，请直接跳转到高级 RAG 部分。检索增强生成（Retrieval Augmented Generation, RAG）是一种技术，它"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p016_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8606,
+            "in_gold": false,
+            "preview": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG 技术概览_web_c044",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.5908,
+            "in_gold": false,
+            "preview": "，它提供了一个快捷的工具，可以利用公共数据集来评估你的架构。结论我努力概述了 RAG 的核心算法方法，并通过一些示例展示它们，希望这能激发你在自己的 RAG 架"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG 技术概览_web_c041",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.4163,
+            "in_gold": false,
+            "preview": "上下文和答案的三元组进行的。具体实施细节请参考相关指南49。这种技术被用于通过微调 API 对 OpenAI 大语言模型进行微调，同时也用于开源模型 Llama"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG 技术概览_web_c035",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.3757,
+            "in_gold": false,
+            "preview": "作方式的方案，其中包括了查询的路由处理和代理的智能行为模式。这个复杂方案的一个缺点可以通过图像来理解 —— 由于需要在代理内部与大语言模型（LLM）进行多轮迭代"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c012",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.3329,
+            "in_gold": false,
+            "preview": "choices[0].message[\"content\"]\nreturn answer在改进RAG管道的方法中，优化提示词（Prompt Engineering"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG 技术概览_web_c007",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.3217,
+            "in_gold": false,
+            "preview": "以连接到各种数据源，从Youtube到Notion都能涵盖。A scheme by author, as well all the schemes furthe"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 4,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p015_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9998,
+            "in_gold": true,
+            "preview": "re官方提供的RAG参考架构示例，旨在帮助理解主流无服务器\nRAG系统的设计思路，并非本项目实际采用的架构。实际部署时可根据自身需求进行\n调整和优化。详情请参考"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p020_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9971,
+            "in_gold": false,
+            "preview": "内容、智能检索与生成、异常处理和降级策略，便于扩展和维护，\n适合构建高可用、智能化的聊天机器人系统。\n3.3 Cloudflare RAG 参考架构\nCloud"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p013_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9963,
+            "in_gold": false,
+            "preview": "第 2 章\nRAG 原理与核心概念\nRAG（检索增强生成）技术通过结合信息检索和生成式AI，有效解决了传统大语言模型\n的知识截止、幻觉等问题。本章将深入解析RA"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p018_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9906,
+            "in_gold": false,
+            "preview": "器人采用了现代化的无服务器架构，整个系统可以分为数据源层、\n数据处理层、存储层、计算层、AI服务层和展示层等核心层次。整个系统的数据流程可\n以分为数据摄取阶段（"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p017_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.7982,
+            "in_gold": false,
+            "preview": "2.4. 小结 7\n类AI应用提供了坚实的基础。\n2.4 小结\nRAG技术通过将信息检索与生成式AI相结合，解决了传统大语言模型的知识截止、幻\n觉等问题。通过离"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p023_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.5153,
+            "in_gold": false,
+            "preview": "3.6. 小结 13\n3.6 小结\n通过本章的介绍，您已经对RAG聊天机器人的整体架构和核心技术栈有了清晰的认识。\nCloudflareWorkers和Vect"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p020_c004",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.1722,
+            "in_gold": false,
+            "preview": "全球200多个数据中心的边缘计算能力，提供低延迟响应；架构\n简洁，组件解耦，便于扩展和维护；按使用量计费，具备良好的成本效益。\n通过采用这种架构，开发者可以快速"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p109_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.0264,
+            "in_gold": false,
+            "preview": "第 20 章\nCloudflare 部署\n本章节将介绍如何利用Cloudflare平台部署RAG系统和聊天机器人。内容涵盖\nCloudflareWorkers的"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 4,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p021_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9994,
+            "in_gold": true,
+            "preview": "个阶段：\n3.4.1.1 数据流设计\n1. 向量生成流程：\n1 Markdown 文档 ￫ 文本分块 ￫ 嵌入模型 ￫ 向量表示 ￫ Vectorize 存储\n"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p065_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9906,
+            "in_gold": false,
+            "preview": "（检索增强生成）系统中，Vectorize扮演着关键角色：\n1. 向量存储：存储由嵌入模型生成的文档向量\n2. 相似度搜索：根据用户查询向量快速检索最相关的文档"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p065_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9363,
+            "in_gold": false,
+            "preview": "第 11 章\n使用 Cloudflare Vectorize 构建向量数\n据库\nCloudflareVectorize是构建RAG系统的核心组件，它提供了全球分"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p037_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8749,
+            "in_gold": false,
+            "preview": "第 7 章\nVectorize 数据结构说明\n本章聚焦CloudflareVectorize中向量数据的组织与生命周期，包括条目结构、元数据\n最小集、命名/ID"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p071_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.7326,
+            "in_gold": false,
+            "preview": "：\n・ Vectorize始终有免费额度，适合原型和实验。\n・ 超出免费额度后，按实际查询和存储维度计费。\n・ 不对数据传输/出口计费。\n・ 通过HTTPAPI"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p030_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.7178,
+            "in_gold": false,
+            "preview": "ngler vectorize create ‑‑help\n完整参数列表可通过 查看。建议根据实际嵌入模\n型和业务需求合理设置参数，确保索引性能和检索效果。\n5"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p048_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.5262,
+            "in_gold": false,
+            "preview": "38 第8章：嵌入生成与向量化\n1 interface VectorizeVector {\n2 id: string; // 向量唯一标识符\n3 values:"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p047_c004",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.4784,
+            "in_gold": false,
+            "preview": "eVectorize之前，需要遵循其特定的数据结构。下面的\nTypeScript接口定义了向量对象的基本格式，包括唯一标识符、向量值数组、可选的元\n数据和命名空"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG知识_p022_c005",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.4364,
+            "in_gold": false,
+            "preview": "动优化索引，支持单索引多达500万个向量，满足大规模应用需\n求。计费方式透明，按查询和存储维度计费，无隐藏费用。丰富的元数据支持和命名空\n间机制，进一步提升了数"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 4,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p021_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9974,
+            "in_gold": true,
+            "preview": "3.4. 核心技术栈介绍 11\n里云提供的大语言模型和嵌入模型，特别适合中文内容处理，而Gemini是Google提\n供的多模态AI模型，适合处理多种类型的内容"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p082_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.6298,
+            "in_gold": false,
+            "preview": "72 第14章：大语言模型集成\n答功能。\n14.2 RAG 系统中的千问集成\n在RAG（检索增强生成）系统中集成千问大语言模型，旨在将强大的生成能力与知识检\n索"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p081_c004",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.512,
+            "in_gold": false,
+            "preview": "hoices'][0]['text'])\n19 else:\n20 print(f\"Error: {response.status_code} ‑ {respon"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG 技术概览_web_c004",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.2767,
+            "in_gold": false,
+            "preview": "了ChatGPT发布的启发，并在2023年获得了广泛的采用。本文的宗旨在于系统整理并介绍关键的高级检索增强生成（Retrieval Augmented Gene"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p062_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.1813,
+            "in_gold": false,
+            "preview": "第 10 章\nQwen 向量嵌入机制\n本文将深入解析Gemini与Qwen两大主流嵌入接口的批量处理能力、吞吐性能优化、\nfast‑ingest.ts\n向量维度"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p081_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.0981,
+            "in_gold": false,
+            "preview": "第 14 章\n大语言模型集成\n本章节介绍如何在检索增强生成（RAG）系统中集成大语言模型，包括API接入、提示\n词工程与优化、以及模型参数调优等关键环节。通过合"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c002",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0863,
+            "in_gold": false,
+            "preview": "tion, RAG）的概念，请直接跳转到高级 RAG 部分。检索增强生成（Retrieval Augmented Generation, RAG）是一种技术，它"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p018_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.0647,
+            "in_gold": false,
+            "preview": "第 3 章\n技术栈选择与架构设计\n良好的架构设计是构建高效、可扩展的RAG系统的基础。本章将深入探讨我们为聊天\n机器人选择的技术栈，包括CloudflareWo"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG 技术概览_web_c012",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0183,
+            "in_gold": false,
+            "preview": "choices[0].message[\"content\"]\nreturn answer在改进RAG管道的方法中，优化提示词（Prompt Engineering"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "type": "cross",
+        "unit": "source",
+        "n_gold": 2,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p129_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9689,
+            "in_gold": true,
+            "preview": "。与\n传统关系数据库不同，向量数据库优化了相似度搜索功能。\n・ 语义检索（SemanticSearch）：基于语义理解而非关键词匹配的信息检索技术。语\n义检索使"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG 技术概览_web_c008",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.884,
+            "in_gold": true,
+            "preview": "型把用户的查询转换成向量，然后根据这个向量在索引中进行搜索。系统会找到最相关的前k个结果，从数据库中提取相应的文本段，然后把这些文本段作为上下文信息输入到大语言"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p065_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8141,
+            "in_gold": true,
+            "preview": "（检索增强生成）系统中，Vectorize扮演着关键角色：\n1. 向量存储：存储由嵌入模型生成的文档向量\n2. 相似度搜索：根据用户查询向量快速检索最相关的文档"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p092_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.7853,
+            "in_gold": true,
+            "preview": " 向量检索上下文\ngetRelevantDocuments\n使用 函数从向量数据库中检索相关内容：\n1 export async function getRel"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p044_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.6558,
+            "in_gold": true,
+            "preview": "第 8 章\n嵌入生成与向量化\n向量化是RAG系统的核心环节，它将文本转换为高维向量表示，使语义相似的内容在\n向量空间中距离更近。本章将详细介绍如何选择合适的嵌入"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG 技术概览_web_c014",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.627,
+            "in_gold": true,
+            "preview": "先，我们需要创建一个向量索引，这个索引代表了我们文档的内容。然后，在程序运行时，我们会搜索这些向量与查询向量之间的最小余弦距离，以找到语义上最接近的匹配。1.1"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c019",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.6252,
+            "in_gold": true,
+            "preview": "LM为每个块生成一个假设性问题，并将这些问题以向量形式嵌入。在运行时，针对这个问题向量的索引进行查询搜索（用问题向量替换我们索引中的块向量），检索后将原始文本块"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p047_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.5922,
+            "in_gold": true,
+            "preview": "，向量的高效存储与检索是实现智能问答和内容发现的基础。通过\nCloudflareVectorize，可以将生成的文本向量安全地存储在向量数据库中，并利用其\n对余"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG 技术概览_web_c017",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.4125,
+            "in_gold": true,
+            "preview": "部分是搜索索引，它用来存储我们在前一步骤中生成的向量化内容。最基础的实现方式是使用flat索引，它通过暴力法计算查询向量与所有块向量之间的距离。一个高效的搜索索"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "type": "cross",
+        "unit": "source",
+        "n_gold": 2,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p016_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9826,
+            "in_gold": true,
+            "preview": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG 技术概览_web_c024",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9381,
+            "in_gold": true,
+            "preview": "来需要通过过滤、重新排名或进行一些转换来进一步优化这些结果。LlamaIndex提供了多种后处理器，可以基于相似度评分、关键词、元数据等过滤结果，或者使用其他模"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG 技术概览_web_c001",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.8418,
+            "in_gold": true,
+            "preview": "深度好文！最全的大模型 RAG 技术概览 - 知乎欢迎关注 @AI技术社区 ，专注大模型、学术论文、算法实战案例本文是对检索增强生成（Retrieval Aug"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p016_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8245,
+            "in_gold": true,
+            "preview": "策，单轮静态流程已无法满足需求，希望结\n合检索与规划能力。\n主要特点：采用多智能体架构，由主智能体协调子智能体，具备动态决策能力（自主判\n断何时检索、何时生成）"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p013_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.7074,
+            "in_gold": true,
+            "preview": "第 2 章\nRAG 原理与核心概念\nRAG（检索增强生成）技术通过结合信息检索和生成式AI，有效解决了传统大语言模型\n的知识截止、幻觉等问题。本章将深入解析RA"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG 技术概览_web_c035",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.6379,
+            "in_gold": true,
+            "preview": "作方式的方案，其中包括了查询的路由处理和代理的智能行为模式。这个复杂方案的一个缺点可以通过图像来理解 —— 由于需要在代理内部与大语言模型（LLM）进行多轮迭代"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c006",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.5922,
+            "in_gold": true,
+            "preview": "：研究方向 +学校/公司+知乎，即可。然后就可以拉你进群了。方式①、添加微信号：mlc2060，备注：技术交流 方式②、微信搜索公众号：机器学习社区，后台回复："
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p080_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.5727,
+            "in_gold": true,
+            "preview": "化回退策略：可根据历史检索效果动态调整topK或过滤规则。\n・ 增强多语言支持：完善metadata.language标注，减少依赖URL规则。\n・ 上下文拼接"
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "type": "cross",
+        "unit": "source",
+        "n_gold": 2,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG 技术概览_web_c024",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9939,
+            "in_gold": true,
+            "preview": "来需要通过过滤、重新排名或进行一些转换来进一步优化这些结果。LlamaIndex提供了多种后处理器，可以基于相似度评分、关键词、元数据等过滤结果，或者使用其他模"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p016_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9864,
+            "in_gold": true,
+            "preview": "序、摘要压缩）等多阶段处理，显著提升检索相关性和生成质量。\n3. ModularRAG\n提出动因：随着检索器、LLM等组件快速迭代，传统管道难以快速集成新功能，"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p089_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9474,
+            "in_gold": true,
+            "preview": "15.6. 小结 79\n15.6 小结\n下表总结了RAG流程各阶段的输入、输出及作用：\n阶段 输入 输出 作用\n嵌入 用户消息 查询向量 用于向量检索\n检索 查"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p024_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9047,
+            "in_gold": true,
+            "preview": "第 4 章\nRAG 流水线总览\n本章充当导航：快速把握系统各阶段职责，并指向后续详细章节。核心链路：内容→\n向量化→索引→检索→Prompt→回答。带你快速了解"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG 技术概览_web_c001",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9019,
+            "in_gold": true,
+            "preview": "深度好文！最全的大模型 RAG 技术概览 - 知乎欢迎关注 @AI技术社区 ，专注大模型、学术论文、算法实战案例本文是对检索增强生成（Retrieval Aug"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p087_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8222,
+            "in_gold": true,
+            "preview": "第 15 章\n答案生成流程\n本章将详细解析RAG（检索增强生成）系统中答案生成的完整流程。内容涵盖从用户消\n息嵌入、相关知识检索、提示词构建，到大模型生成最终回"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c035",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.6851,
+            "in_gold": true,
+            "preview": "作方式的方案，其中包括了查询的路由处理和代理的智能行为模式。这个复杂方案的一个缺点可以通过图像来理解 —— 由于需要在代理内部与大语言模型（LLM）进行多轮迭代"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG 技术概览_web_c007",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.4097,
+            "in_gold": true,
+            "preview": "以连接到各种数据源，从Youtube到Notion都能涵盖。A scheme by author, as well all the schemes furthe"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG 技术概览_web_c012",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.179,
+            "in_gold": true,
+            "preview": "choices[0].message[\"content\"]\nreturn answer在改进RAG管道的方法中，优化提示词（Prompt Engineering"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 2,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p024_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9999,
+            "in_gold": true,
+            "preview": "第 4 章\nRAG 流水线总览\n本章充当导航：快速把握系统各阶段职责，并指向后续详细章节。核心链路：内容→\n向量化→索引→检索→Prompt→回答。带你快速了解"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p087_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9941,
+            "in_gold": false,
+            "preview": "第 15 章\n答案生成流程\n本章将详细解析RAG（检索增强生成）系统中答案生成的完整流程。内容涵盖从用户消\n息嵌入、相关知识检索、提示词构建，到大模型生成最终回"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p089_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9929,
+            "in_gold": false,
+            "preview": "15.6. 小结 79\n15.6 小结\n下表总结了RAG流程各阶段的输入、输出及作用：\n阶段 输入 输出 作用\n嵌入 用户消息 查询向量 用于向量检索\n检索 查"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG 技术概览_web_c007",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9784,
+            "in_gold": false,
+            "preview": "以连接到各种数据源，从Youtube到Notion都能涵盖。A scheme by author, as well all the schemes furthe"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p016_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9334,
+            "in_gold": false,
+            "preview": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p015_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9019,
+            "in_gold": false,
+            "preview": "2.3. RAG参考架构 5\n个文本块添加元数据（如标题、来源、时间）。接着，利用嵌入模型将这些文本块转换\n为高维向量，捕捉其语义信息，并将向量存入向量数据库以"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c001",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.8615,
+            "in_gold": false,
+            "preview": "深度好文！最全的大模型 RAG 技术概览 - 知乎欢迎关注 @AI技术社区 ，专注大模型、学术论文、算法实战案例本文是对检索增强生成（Retrieval Aug"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p013_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8333,
+            "in_gold": false,
+            "preview": "第 2 章\nRAG 原理与核心概念\nRAG（检索增强生成）技术通过结合信息检索和生成式AI，有效解决了传统大语言模型\n的知识截止、幻觉等问题。本章将深入解析RA"
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 5,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p030_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9941,
+            "in_gold": true,
+            "preview": "20 第5章：环境准备与依赖安装\n向量维度指的是每个文本被嵌入（embedding）后所生成的向量包含的数值个数。例\n如，维度为1024表示每个文本会被表示为一"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p029_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9841,
+            "in_gold": false,
+            "preview": "中用于存储和检索文档\n向量。\n创建索引时需要考虑以下因素：\n1. 维度匹配：索引维度必须与所使用的嵌入模型输出维度一致\n2. 距离度量：根据应用场景选择合适的距"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p040_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.867,
+            "in_gold": false,
+            "preview": "引生成待删ID列表，提升删除效率。\n7.7 容量与维度规划\n下面将详细介绍EMBED_DIM（嵌入维度）、分块策略、元数据大小、写入频率等核心\n变量的影响及建议"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p066_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.7994,
+            "in_gold": false,
+            "preview": "56 第11章：使用CloudflareVectorize构建向量数据库\n11.3 创建 Vectorize 索引\n在使用Vectorize之前，需要先创建一个"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p063_c005",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.3844,
+            "in_gold": false,
+            "preview": "需统一，以下代码用于截断或补零，确保写入向量库时维度一致：\n1 if (vec.length > EMBED_DIM) vec = vec.slice(0, E"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p025_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.2613,
+            "in_gold": false,
+            "preview": "个关键参数，以下表格汇总常用配置及示例：\n名称 描述 示例\nEMBED_DIM 向量维度（索引/模型 1024\n一致）\nEMBED‑ 单次嵌入批大小 10(Qw"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p110_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.1413,
+            "in_gold": false,
+            "preview": "website‑rag ‑‑dimensions 1024\n20.2.2 向量索引配置\nEMBED_DIM\n确保向量索引的维度与应用配置中的 保持一致，否则会导"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p109_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.0063,
+            "in_gold": false,
+            "preview": "en\"\n13 # 确保与 Vectorize 索引维度匹配\n14 EMBED_DIM = 1024\n15 # 用于生成的 LLM 模型\n16 LLM_MODEL"
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 3,
+        "hit_ranks": [
+          1,
+          4
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p123_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9922,
+            "in_gold": true,
+            "preview": "简化语言检测：仅根据URL部分 判断为英文，其他均为中文。\n・ 一致的过滤逻辑：检索阶段应用与客户端相同的检测规则。\n/en/\n・ 明确的语言边界：将所有不包含"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p097_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.972,
+            "in_gold": false,
+            "preview": "验稳定性。\n{width=1920height=2995}\n多语言流程的每个环节都依赖于语言标记的准确传递，下面将逐步解析关键实现细节。\n17.2 关键环节解析"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p107_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9711,
+            "in_gold": false,
+            "preview": "19.4. Widget组件实现详解 97\n19.4.1 自适应界面设计\nwidget.js\n实现了跨平台的响应式设计，能够自动适应桌面端和移动端：\n・ 桌面端"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p123_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9579,
+            "in_gold": true,
+            "preview": "22.4. 如何为聊天组件支持多语言？ 113\n・ 增量处理：只处理指定的文档，不影响其他已存在的向量数据\n这种方式特别适合以下场景：\n・ 修正博客文章中的错误"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p099_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.867,
+            "in_gold": false,
+            "preview": "User/Assistantvs用户/助手）\n・ 指令用语\n模型生成后，前端渲染阶段根据语言标记进行本地化处理。\n17.2.5 回答与前端渲染\n{ answer"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p100_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.5475,
+            "in_gold": false,
+            "preview": "标签 上下文清晰\n为进一步提升体验，建议持续优化如下方面。\n17.6 改进建议概览\n多语言流程仍有优化空间，建议：\n1. localStorage记忆语言偏好。"
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "type": "cross",
+        "unit": "source",
+        "n_gold": 2,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p092_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9977,
+            "in_gold": true,
+            "preview": " 向量检索上下文\ngetRelevantDocuments\n使用 函数从向量数据库中检索相关内容：\n1 export async function getRel"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p030_c004",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9973,
+            "in_gold": true,
+            "preview": "筛选”、“按标签过滤”等复杂查询，提升检索的灵活性和性能。\n为了支持基于元数据的过滤查询，需要为常用的元数据字段创建索引：\n1 # 为 URL 字段创建元数据索"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p070_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9927,
+            "in_gold": true,
+            "preview": "60 第11章：使用CloudflareVectorize构建向量数据库\n11.6.1 创建元数据索引\n1 npx wrangler vectorize cre"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p074_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.979,
+            "in_gold": true,
+            "preview": "ECTORIZE.query(queryVector, {\n6 topK: 5, // 返回最相似的 5 个结果\n7 returnValues: false, "
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p073_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9573,
+            "in_gold": true,
+            "preview": "第 12 章\n检索系统实现\n检索系统是RAG架构的核心组件之一，它决定了系统能否从海量知识中快速准确地找\n到与用户查询最相关的信息。本章将深入探讨各种相似度搜索"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p075_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.945,
+            "in_gold": true,
+            "preview": "{\n13 language: { $eq: \"zh\" },\n14 tags: { $in: [\"AI\", \"RAG\"] }\n15 }\n16 });\n17\n18 "
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p022_c005",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8856,
+            "in_gold": true,
+            "preview": "动优化索引，支持单索引多达500万个向量，满足大规模应用需\n求。计费方式透明，按查询和存储维度计费，无隐藏费用。丰富的元数据支持和命名空\n间机制，进一步提升了数"
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "type": "cross",
+        "unit": "source",
+        "n_gold": 2,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG 技术概览_web_c002",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9809,
+            "in_gold": true,
+            "preview": "tion, RAG）的概念，请直接跳转到高级 RAG 部分。检索增强生成（Retrieval Augmented Generation, RAG）是一种技术，它"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p017_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9803,
+            "in_gold": true,
+            "preview": "2.4. 小结 7\n类AI应用提供了坚实的基础。\n2.4 小结\nRAG技术通过将信息检索与生成式AI相结合，解决了传统大语言模型的知识截止、幻\n觉等问题。通过离"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG 技术概览_web_c041",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9724,
+            "in_gold": true,
+            "preview": "上下文和答案的三元组进行的。具体实施细节请参考相关指南49。这种技术被用于通过微调 API 对 OpenAI 大语言模型进行微调，同时也用于开源模型 Llama"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p016_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9689,
+            "in_gold": true,
+            "preview": "策，单轮静态流程已无法满足需求，希望结\n合检索与规划能力。\n主要特点：采用多智能体架构，由主智能体协调子智能体，具备动态决策能力（自主判\n断何时检索、何时生成）"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p016_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9598,
+            "in_gold": true,
+            "preview": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG 技术概览_web_c027",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9241,
+            "in_gold": true,
+            "preview": "不同，但我认为LlamaIndex的解决方案在这里更为强大。参考引用这一部分没有编号，因为它更像是一个工具而非一种检索改进技术，尽管它非常重要。如果我们使用了多"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p015_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9137,
+            "in_gold": true,
+            "preview": "2.3. RAG参考架构 5\n个文本块添加元数据（如标题、来源、时间）。接着，利用嵌入模型将这些文本块转换\n为高维向量，捕捉其语义信息，并将向量存入向量数据库以"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG 技术概览_web_c006",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.8697,
+            "in_gold": true,
+            "preview": "：研究方向 +学校/公司+知乎，即可。然后就可以拉你进群了。方式①、添加微信号：mlc2060，备注：技术交流 方式②、微信搜索公众号：机器学习社区，后台回复："
+          }
+        ]
+      },
+      {
+        "id": 22,
+        "type": "partial",
+        "unit": "source",
+        "n_gold": 1,
+        "hit_ranks": [
+          1,
+          2,
+          4,
+          7
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG 技术概览_web_c037",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9922,
+            "in_gold": true,
+            "preview": "回答用户问题的LLM）— 幸运的是，后者非常擅长少样本学习。目前一个重要的优势是我们能够使用像 GPT-4 这样的高端大语言模型来创造高质量的合成数据集。但同时"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG 技术概览_web_c040",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.3504,
+            "in_gold": true,
+            "preview": "-3.5-turbo 进行微调，训练它处理这些问题与答案对。通过这种方式，使用 ragas48 框架进行的 RAG 架构评估显示，信实度指标提高了 5%，意味着"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p025_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.3407,
+            "in_gold": false,
+            "preview": "个关键参数，以下表格汇总常用配置及示例：\n名称 描述 示例\nEMBED_DIM 向量维度（索引/模型 1024\n一致）\nEMBED‑ 单次嵌入批大小 10(Qw"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG 技术概览_web_c015",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.2422,
+            "in_gold": true,
+            "preview": "块的大小，这取决于你使用的嵌入模型及其处理token的能力。例如，基于BERT的标准Transformer编码器模型最多处理512个token，而OpenAI "
+          },
+          {
+            "rank": 5,
+            "chunk_id": "Transformer--Attention Is All You Need_web_c096",
+            "source": "Transformer--Attention Is All You Need.html",
+            "rerank_score": 0.1561,
+            "in_gold": false,
+            "preview": "设置为输入长度 + 50，但在可能的情况下提前终止[38]。表 2 总结了我们的结果，并将我们的翻译质量和训练成本与文献中的其他模型架构进行了比较。我们通过将训"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "Transformer--Attention Is All You Need_web_c099",
+            "source": "Transformer--Attention Is All You Need.html",
+            "rerank_score": 0.046,
+            "in_gold": false,
+            "preview": "力比最佳设置差0.9BLEU，但质量也会因为有太多头而下降。在表3行(B)中，我们观察到减小注意力key大小dk会损害模型质量。这表明确定兼容性并不容易，比点积"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c047",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0121,
+            "in_gold": true,
+            "preview": "o/learn/chunking-strategies/6 https://docs.llamaindex.ai/en/stable/api_reference"
+          }
+        ]
+      },
+      {
+        "id": 23,
+        "type": "partial",
+        "unit": "source",
+        "n_gold": 1,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p016_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9533,
+            "in_gold": true,
+            "preview": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG 技术概览_web_c041",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.7592,
+            "in_gold": false,
+            "preview": "上下文和答案的三元组进行的。具体实施细节请参考相关指南49。这种技术被用于通过微调 API 对 OpenAI 大语言模型进行微调，同时也用于开源模型 Llama"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG 技术概览_web_c044",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.3183,
+            "in_gold": false,
+            "preview": "，它提供了一个快捷的工具，可以利用公共数据集来评估你的架构。结论我努力概述了 RAG 的核心算法方法，并通过一些示例展示它们，希望这能激发你在自己的 RAG 架"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG 技术概览_web_c002",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.1052,
+            "in_gold": false,
+            "preview": "tion, RAG）的概念，请直接跳转到高级 RAG 部分。检索增强生成（Retrieval Augmented Generation, RAG）是一种技术，它"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG 技术概览_web_c060",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0078,
+            "in_gold": false,
+            "preview": "gas.io/en/latest/index.html49 https://docs.llamaindex.ai/en/stable/examples/fine"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG 技术概览_web_c062",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0012,
+            "in_gold": false,
+            "preview": "ng/blob/main/evaluate.ipynb56 https://github.com/openai/openai-cookbook/blob/mai"
+          }
+        ]
+      },
+      {
+        "id": 25,
+        "type": "partial",
+        "unit": "source",
+        "n_gold": 2,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG 技术概览_web_c030",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9952,
+            "in_gold": true,
+            "preview": "angchain 也支持31 OpenAI 功能性 API。图片还有其他聊天引擎类型，如ReAct Agent32，本部分内容会在第7节中详细介绍。6. 查询路"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG 技术概览_web_c024",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9208,
+            "in_gold": true,
+            "preview": "来需要通过过滤、重新排名或进行一些转换来进一步优化这些结果。LlamaIndex提供了多种后处理器，可以基于相似度评分、关键词、元数据等过滤结果，或者使用其他模"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG 技术概览_web_c035",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.6885,
+            "in_gold": true,
+            "preview": "作方式的方案，其中包括了查询的路由处理和代理的智能行为模式。这个复杂方案的一个缺点可以通过图像来理解 —— 由于需要在代理内部与大语言模型（LLM）进行多轮迭代"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG 技术概览_web_c002",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.2509,
+            "in_gold": true,
+            "preview": "tion, RAG）的概念，请直接跳转到高级 RAG 部分。检索增强生成（Retrieval Augmented Generation, RAG）是一种技术，它"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p017_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.1968,
+            "in_gold": true,
+            "preview": "2.4. 小结 7\n类AI应用提供了坚实的基础。\n2.4 小结\nRAG技术通过将信息检索与生成式AI相结合，解决了传统大语言模型的知识截止、幻\n觉等问题。通过离"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p083_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.1357,
+            "in_gold": true,
+            "preview": "14.2. RAG系统中的千问集成 73\n6 { role: 'system', content: '请用中文回答，并在末尾列出来源路径。' },\n7 { ro"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c028",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.1097,
+            "in_gold": true,
+            "preview": "ndex为这种情况提供了一种基于模糊匹配的高效解决方案26。如果你没有听说过模糊匹配，这是一种非常强大的字符串匹配技术27。 5. 对话引擎在构建一个能够对单个"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p081_c004",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.0967,
+            "in_gold": true,
+            "preview": "hoices'][0]['text'])\n19 else:\n20 print(f\"Error: {response.status_code} ‑ {respon"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG 技术概览_web_c007",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0685,
+            "in_gold": true,
+            "preview": "以连接到各种数据源，从Youtube到Notion都能涵盖。A scheme by author, as well all the schemes furthe"
+          }
+        ]
+      }
+    ],
+    "qwen3__256": [
+      {
+        "id": 1,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 4,
+        "hit_ranks": [
+          2,
+          3
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p015_c004",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9993,
+            "in_gold": false,
+            "preview": "eWorkers的无服务器和边缘计算能力，结合Queues\n的异步处理、WorkersAI的嵌入与生成、Vectorize的高效检索以及D1的数据持久化，\n开发"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p016_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9988,
+            "in_gold": true,
+            "preview": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p016_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9533,
+            "in_gold": true,
+            "preview": "策，单轮静态流程已无法满足需求，希望结\n合检索与规划能力。\n主要特点：采用多智能体架构，由主智能体协调子智能体，具备动态决策能力（自主判\n断何时检索、何时生成）"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p017_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8278,
+            "in_gold": false,
+            "preview": "2.4. 小结 7\n类AI应用提供了坚实的基础。\n2.4 小结\nRAG技术通过将信息检索与生成式AI相结合，解决了传统大语言模型的知识截止、幻\n觉等问题。通过离"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG 技术概览_web_c041",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.4993,
+            "in_gold": false,
+            "preview": "上下文和答案的三元组进行的。具体实施细节请参考相关指南49。这种技术被用于通过微调 API 对 OpenAI 大语言模型进行微调，同时也用于开源模型 Llama"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG 技术概览_web_c002",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.2806,
+            "in_gold": false,
+            "preview": "tion, RAG）的概念，请直接跳转到高级 RAG 部分。检索增强生成（Retrieval Augmented Generation, RAG）是一种技术，它"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c044",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.1767,
+            "in_gold": false,
+            "preview": "，它提供了一个快捷的工具，可以利用公共数据集来评估你的架构。结论我努力概述了 RAG 的核心算法方法，并通过一些示例展示它们，希望这能激发你在自己的 RAG 架"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p013_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.15,
+            "in_gold": false,
+            "preview": "第 2 章\nRAG 原理与核心概念\nRAG（检索增强生成）技术通过结合信息检索和生成式AI，有效解决了传统大语言模型\n的知识截止、幻觉等问题。本章将深入解析RA"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG 技术概览_web_c012",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0385,
+            "in_gold": false,
+            "preview": "choices[0].message[\"content\"]\nreturn answer在改进RAG管道的方法中，优化提示词（Prompt Engineering"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 3,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p013_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.999,
+            "in_gold": true,
+            "preview": "方式解决了传统大语言模型的关键问题：\n传统LLM的局限性：\n・ 知识截止点：模型训练数据有时间限制，无法获取最新信息\n・ 幻觉问题：模型可能生成看似合理但实际错"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG 技术概览_web_c002",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9497,
+            "in_gold": false,
+            "preview": "tion, RAG）的概念，请直接跳转到高级 RAG 部分。检索增强生成（Retrieval Augmented Generation, RAG）是一种技术，它"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p016_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8606,
+            "in_gold": false,
+            "preview": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG 技术概览_web_c044",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.5908,
+            "in_gold": false,
+            "preview": "，它提供了一个快捷的工具，可以利用公共数据集来评估你的架构。结论我努力概述了 RAG 的核心算法方法，并通过一些示例展示它们，希望这能激发你在自己的 RAG 架"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p016_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.5125,
+            "in_gold": false,
+            "preview": "策，单轮静态流程已无法满足需求，希望结\n合检索与规划能力。\n主要特点：采用多智能体架构，由主智能体协调子智能体，具备动态决策能力（自主判\n断何时检索、何时生成）"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG 技术概览_web_c041",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.4163,
+            "in_gold": false,
+            "preview": "上下文和答案的三元组进行的。具体实施细节请参考相关指南49。这种技术被用于通过微调 API 对 OpenAI 大语言模型进行微调，同时也用于开源模型 Llama"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c035",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.3757,
+            "in_gold": false,
+            "preview": "作方式的方案，其中包括了查询的路由处理和代理的智能行为模式。这个复杂方案的一个缺点可以通过图像来理解 —— 由于需要在代理内部与大语言模型（LLM）进行多轮迭代"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG 技术概览_web_c012",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.3329,
+            "in_gold": false,
+            "preview": "choices[0].message[\"content\"]\nreturn answer在改进RAG管道的方法中，优化提示词（Prompt Engineering"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG 技术概览_web_c007",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.3217,
+            "in_gold": false,
+            "preview": "以连接到各种数据源，从Youtube到Notion都能涵盖。A scheme by author, as well all the schemes furthe"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 4,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p015_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9998,
+            "in_gold": true,
+            "preview": "re官方提供的RAG参考架构示例，旨在帮助理解主流无服务器\nRAG系统的设计思路，并非本项目实际采用的架构。实际部署时可根据自身需求进行\n调整和优化。详情请参考"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p020_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9971,
+            "in_gold": false,
+            "preview": "内容、智能检索与生成、异常处理和降级策略，便于扩展和维护，\n适合构建高可用、智能化的聊天机器人系统。\n3.3 Cloudflare RAG 参考架构\nCloud"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p013_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9963,
+            "in_gold": false,
+            "preview": "第 2 章\nRAG 原理与核心概念\nRAG（检索增强生成）技术通过结合信息检索和生成式AI，有效解决了传统大语言模型\n的知识截止、幻觉等问题。本章将深入解析RA"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p018_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9906,
+            "in_gold": false,
+            "preview": "器人采用了现代化的无服务器架构，整个系统可以分为数据源层、\n数据处理层、存储层、计算层、AI服务层和展示层等核心层次。整个系统的数据流程可\n以分为数据摄取阶段（"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p017_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.7982,
+            "in_gold": false,
+            "preview": "2.4. 小结 7\n类AI应用提供了坚实的基础。\n2.4 小结\nRAG技术通过将信息检索与生成式AI相结合，解决了传统大语言模型的知识截止、幻\n觉等问题。通过离"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p024_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.5198,
+            "in_gold": false,
+            "preview": "第 4 章\nRAG 流水线总览\n本章充当导航：快速把握系统各阶段职责，并指向后续详细章节。核心链路：内容→\n向量化→索引→检索→Prompt→回答。带你快速了解"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p023_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.5153,
+            "in_gold": false,
+            "preview": "3.6. 小结 13\n3.6 小结\n通过本章的介绍，您已经对RAG聊天机器人的整体架构和核心技术栈有了清晰的认识。\nCloudflareWorkers和Vect"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p065_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.291,
+            "in_gold": false,
+            "preview": "第 11 章\n使用 Cloudflare Vectorize 构建向量数\n据库\nCloudflareVectorize是构建RAG系统的核心组件，它提供了全球分"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG知识_p109_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.0264,
+            "in_gold": false,
+            "preview": "第 20 章\nCloudflare 部署\n本章节将介绍如何利用Cloudflare平台部署RAG系统和聊天机器人。内容涵盖\nCloudflareWorkers的"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 4,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p021_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9994,
+            "in_gold": true,
+            "preview": "个阶段：\n3.4.1.1 数据流设计\n1. 向量生成流程：\n1 Markdown 文档 ￫ 文本分块 ￫ 嵌入模型 ￫ 向量表示 ￫ Vectorize 存储\n"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p066_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9952,
+            "in_gold": false,
+            "preview": "56 第11章：使用CloudflareVectorize构建向量数据库\n11.3 创建 Vectorize 索引\n在使用Vectorize之前，需要先创建一个"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p065_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9906,
+            "in_gold": false,
+            "preview": "（检索增强生成）系统中，Vectorize扮演着关键角色：\n1. 向量存储：存储由嵌入模型生成的文档向量\n2. 相似度搜索：根据用户查询向量快速检索最相关的文档"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p065_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9363,
+            "in_gold": false,
+            "preview": "第 11 章\n使用 Cloudflare Vectorize 构建向量数\n据库\nCloudflareVectorize是构建RAG系统的核心组件，它提供了全球分"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p037_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8749,
+            "in_gold": false,
+            "preview": "第 7 章\nVectorize 数据结构说明\n本章聚焦CloudflareVectorize中向量数据的组织与生命周期，包括条目结构、元数据\n最小集、命名/ID"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p030_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.7178,
+            "in_gold": false,
+            "preview": "ngler vectorize create ‑‑help\n完整参数列表可通过 查看。建议根据实际嵌入模\n型和业务需求合理设置参数，确保索引性能和检索效果。\n5"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p048_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.5262,
+            "in_gold": false,
+            "preview": "38 第8章：嵌入生成与向量化\n1 interface VectorizeVector {\n2 id: string; // 向量唯一标识符\n3 values:"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p047_c004",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.4784,
+            "in_gold": false,
+            "preview": "eVectorize之前，需要遵循其特定的数据结构。下面的\nTypeScript接口定义了向量对象的基本格式，包括唯一标识符、向量值数组、可选的元\n数据和命名空"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG知识_p022_c005",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.4364,
+            "in_gold": false,
+            "preview": "动优化索引，支持单索引多达500万个向量，满足大规模应用需\n求。计费方式透明，按查询和存储维度计费，无隐藏费用。丰富的元数据支持和命名空\n间机制，进一步提升了数"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 4,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p021_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9974,
+            "in_gold": true,
+            "preview": "3.4. 核心技术栈介绍 11\n里云提供的大语言模型和嵌入模型，特别适合中文内容处理，而Gemini是Google提\n供的多模态AI模型，适合处理多种类型的内容"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p044_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9219,
+            "in_gold": false,
+            "preview": "适的嵌入模型\n生成执行向量化的核心在于选择合适的嵌入模型：\n・ 千问（Qwen）提供的模型：特别适合中文内容，支持丰富的上下文理解与生成。\n・ Gemini的通"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p082_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.6298,
+            "in_gold": false,
+            "preview": "72 第14章：大语言模型集成\n答功能。\n14.2 RAG 系统中的千问集成\n在RAG（检索增强生成）系统中集成千问大语言模型，旨在将强大的生成能力与知识检\n索"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p081_c004",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.512,
+            "in_gold": false,
+            "preview": "hoices'][0]['text'])\n19 else:\n20 print(f\"Error: {response.status_code} ‑ {respon"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p100_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.2309,
+            "in_gold": false,
+            "preview": "标签 上下文清晰\n为进一步提升体验，建议持续优化如下方面。\n17.6 改进建议概览\n多语言流程仍有优化空间，建议：\n1. localStorage记忆语言偏好。"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p062_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.1277,
+            "in_gold": false,
+            "preview": "004 text‑embedding‑v4\ninput[]\n批处理 不支持（单文本） 支持批量\n（上限10）\n并发策略 高并发抵消单请求 适中并发+批量摊薄\n延"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c002",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0863,
+            "in_gold": false,
+            "preview": "tion, RAG）的概念，请直接跳转到高级 RAG 部分。检索增强生成（Retrieval Augmented Generation, RAG）是一种技术，它"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG 技术概览_web_c012",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0183,
+            "in_gold": false,
+            "preview": "choices[0].message[\"content\"]\nreturn answer在改进RAG管道的方法中，优化提示词（Prompt Engineering"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG知识_p097_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.0121,
+            "in_gold": false,
+            "preview": "第 17 章\n多语言支持\n本章系统说明语言标记（languageflag）在RAG系统中的生命周期：客户端语言检测\n→向量检索过滤→Prompt构建→模型生成→"
+          },
+          {
+            "rank": 10,
+            "chunk_id": "RAG知识_p022_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.0002,
+            "in_gold": false,
+            "preview": "12 第3章：技术栈选择与架构设计\n4 metadata: {\n5 url: \"https://jimmysong.io/blog/launch‑ai‑reso"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "type": "cross",
+        "unit": "source",
+        "n_gold": 2,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p129_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9689,
+            "in_gold": true,
+            "preview": "。与\n传统关系数据库不同，向量数据库优化了相似度搜索功能。\n・ 语义检索（SemanticSearch）：基于语义理解而非关键词匹配的信息检索技术。语\n义检索使"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG 技术概览_web_c008",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.884,
+            "in_gold": true,
+            "preview": "型把用户的查询转换成向量，然后根据这个向量在索引中进行搜索。系统会找到最相关的前k个结果，从数据库中提取相应的文本段，然后把这些文本段作为上下文信息输入到大语言"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p065_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8141,
+            "in_gold": true,
+            "preview": "（检索增强生成）系统中，Vectorize扮演着关键角色：\n1. 向量存储：存储由嵌入模型生成的文档向量\n2. 相似度搜索：根据用户查询向量快速检索最相关的文档"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p088_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.7866,
+            "in_gold": true,
+            "preview": "78 第15章：答案生成流程\n6 ‑‑‑ 对话历史 ‑‑‑\n7 用户：...\n8 助手：...\n9\n10 ‑‑‑ 问题 ‑‑‑\n11 <用户当前问题>\n12\n1"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p044_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.6558,
+            "in_gold": true,
+            "preview": "第 8 章\n嵌入生成与向量化\n向量化是RAG系统的核心环节，它将文本转换为高维向量表示，使语义相似的内容在\n向量空间中距离更近。本章将详细介绍如何选择合适的嵌入"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG 技术概览_web_c014",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.627,
+            "in_gold": true,
+            "preview": "先，我们需要创建一个向量索引，这个索引代表了我们文档的内容。然后，在程序运行时，我们会搜索这些向量与查询向量之间的最小余弦距离，以找到语义上最接近的匹配。1.1"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p029_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.5898,
+            "in_gold": true,
+            "preview": "ding‑v4模型（输出维度为1024）。各参数说明如下：\nwebsite‑rag\n・ ：索引名称，需唯一，用于后续绑定和引用。\n‑‑dimensions\n・ "
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG 技术概览_web_c017",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.4125,
+            "in_gold": true,
+            "preview": "部分是搜索索引，它用来存储我们在前一步骤中生成的向量化内容。最基础的实现方式是使用flat索引，它通过暴力法计算查询向量与所有块向量之间的距离。一个高效的搜索索"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG知识_p128_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.0901,
+            "in_gold": true,
+            "preview": "与其他所有位置进行信息\n交互。\n23.2 RAG 相关技术\n・ 检索增强生成（RAG‑Retrieval‑AugmentedGeneration）：一种混合AI"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "type": "cross",
+        "unit": "source",
+        "n_gold": 2,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p016_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9826,
+            "in_gold": true,
+            "preview": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG 技术概览_web_c024",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9381,
+            "in_gold": true,
+            "preview": "来需要通过过滤、重新排名或进行一些转换来进一步优化这些结果。LlamaIndex提供了多种后处理器，可以基于相似度评分、关键词、元数据等过滤结果，或者使用其他模"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG 技术概览_web_c002",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9372,
+            "in_gold": true,
+            "preview": "tion, RAG）的概念，请直接跳转到高级 RAG 部分。检索增强生成（Retrieval Augmented Generation, RAG）是一种技术，它"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p016_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8245,
+            "in_gold": true,
+            "preview": "策，单轮静态流程已无法满足需求，希望结\n合检索与规划能力。\n主要特点：采用多智能体架构，由主智能体协调子智能体，具备动态决策能力（自主判\n断何时检索、何时生成）"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG 技术概览_web_c013",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.7827,
+            "in_gold": true,
+            "preview": "”选择。高级RAG现在，我们来深入了解高级RAG技术的概述。这里是一个展示核心步骤和相关算法的示意图。为了保持示意图的清晰易懂，一些逻辑循环和复杂的多步骤智能体"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p013_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.7074,
+            "in_gold": true,
+            "preview": "第 2 章\nRAG 原理与核心概念\nRAG（检索增强生成）技术通过结合信息检索和生成式AI，有效解决了传统大语言模型\n的知识截止、幻觉等问题。本章将深入解析RA"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c006",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.5922,
+            "in_gold": true,
+            "preview": "：研究方向 +学校/公司+知乎，即可。然后就可以拉你进群了。方式①、添加微信号：mlc2060，备注：技术交流 方式②、微信搜索公众号：机器学习社区，后台回复："
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "type": "cross",
+        "unit": "source",
+        "n_gold": 2,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG 技术概览_web_c024",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9939,
+            "in_gold": true,
+            "preview": "来需要通过过滤、重新排名或进行一些转换来进一步优化这些结果。LlamaIndex提供了多种后处理器，可以基于相似度评分、关键词、元数据等过滤结果，或者使用其他模"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p016_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9864,
+            "in_gold": true,
+            "preview": "序、摘要压缩）等多阶段处理，显著提升检索相关性和生成质量。\n3. ModularRAG\n提出动因：随着检索器、LLM等组件快速迭代，传统管道难以快速集成新功能，"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p089_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9474,
+            "in_gold": true,
+            "preview": "15.6. 小结 79\n15.6 小结\n下表总结了RAG流程各阶段的输入、输出及作用：\n阶段 输入 输出 作用\n嵌入 用户消息 查询向量 用于向量检索\n检索 查"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p024_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9047,
+            "in_gold": true,
+            "preview": "第 4 章\nRAG 流水线总览\n本章充当导航：快速把握系统各阶段职责，并指向后续详细章节。核心链路：内容→\n向量化→索引→检索→Prompt→回答。带你快速了解"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG 技术概览_web_c001",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9019,
+            "in_gold": true,
+            "preview": "深度好文！最全的大模型 RAG 技术概览 - 知乎欢迎关注 @AI技术社区 ，专注大模型、学术论文、算法实战案例本文是对检索增强生成（Retrieval Aug"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p087_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8222,
+            "in_gold": true,
+            "preview": "第 15 章\n答案生成流程\n本章将详细解析RAG（检索增强生成）系统中答案生成的完整流程。内容涵盖从用户消\n息嵌入、相关知识检索、提示词构建，到大模型生成最终回"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c035",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.6851,
+            "in_gold": true,
+            "preview": "作方式的方案，其中包括了查询的路由处理和代理的智能行为模式。这个复杂方案的一个缺点可以通过图像来理解 —— 由于需要在代理内部与大语言模型（LLM）进行多轮迭代"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG 技术概览_web_c007",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.4097,
+            "in_gold": true,
+            "preview": "以连接到各种数据源，从Youtube到Notion都能涵盖。A scheme by author, as well all the schemes furthe"
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG 技术概览_web_c012",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.179,
+            "in_gold": true,
+            "preview": "choices[0].message[\"content\"]\nreturn answer在改进RAG管道的方法中，优化提示词（Prompt Engineering"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 2,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p024_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9999,
+            "in_gold": true,
+            "preview": "第 4 章\nRAG 流水线总览\n本章充当导航：快速把握系统各阶段职责，并指向后续详细章节。核心链路：内容→\n向量化→索引→检索→Prompt→回答。带你快速了解"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p087_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9941,
+            "in_gold": false,
+            "preview": "第 15 章\n答案生成流程\n本章将详细解析RAG（检索增强生成）系统中答案生成的完整流程。内容涵盖从用户消\n息嵌入、相关知识检索、提示词构建，到大模型生成最终回"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p089_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9929,
+            "in_gold": false,
+            "preview": "15.6. 小结 79\n15.6 小结\n下表总结了RAG流程各阶段的输入、输出及作用：\n阶段 输入 输出 作用\n嵌入 用户消息 查询向量 用于向量检索\n检索 查"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG 技术概览_web_c007",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9784,
+            "in_gold": false,
+            "preview": "以连接到各种数据源，从Youtube到Notion都能涵盖。A scheme by author, as well all the schemes furthe"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p016_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9334,
+            "in_gold": false,
+            "preview": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG 技术概览_web_c001",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.8615,
+            "in_gold": false,
+            "preview": "深度好文！最全的大模型 RAG 技术概览 - 知乎欢迎关注 @AI技术社区 ，专注大模型、学术论文、算法实战案例本文是对检索增强生成（Retrieval Aug"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p013_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8333,
+            "in_gold": false,
+            "preview": "第 2 章\nRAG 原理与核心概念\nRAG（检索增强生成）技术通过结合信息检索和生成式AI，有效解决了传统大语言模型\n的知识截止、幻觉等问题。本章将深入解析RA"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p086_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.554,
+            "in_gold": false,
+            "preview": "76 第14章：大语言模型集成\n14.6 小结\n通过本章的介绍，您已经掌握了如何在RAG系统中集成大语言模型，包括API接入、\n提示词工程和模型参数调优等关键环"
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 5,
+        "hit_ranks": [
+          1
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p030_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9941,
+            "in_gold": true,
+            "preview": "20 第5章：环境准备与依赖安装\n向量维度指的是每个文本被嵌入（embedding）后所生成的向量包含的数值个数。例\n如，维度为1024表示每个文本会被表示为一"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p029_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9841,
+            "in_gold": false,
+            "preview": "中用于存储和检索文档\n向量。\n创建索引时需要考虑以下因素：\n1. 维度匹配：索引维度必须与所使用的嵌入模型输出维度一致\n2. 距离度量：根据应用场景选择合适的距"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p040_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.867,
+            "in_gold": false,
+            "preview": "引生成待删ID列表，提升删除效率。\n7.7 容量与维度规划\n下面将详细介绍EMBED_DIM（嵌入维度）、分块策略、元数据大小、写入频率等核心\n变量的影响及建议"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p066_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.7994,
+            "in_gold": false,
+            "preview": "56 第11章：使用CloudflareVectorize构建向量数据库\n11.3 创建 Vectorize 索引\n在使用Vectorize之前，需要先创建一个"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p063_c005",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.3844,
+            "in_gold": false,
+            "preview": "需统一，以下代码用于截断或补零，确保写入向量库时维度一致：\n1 if (vec.length > EMBED_DIM) vec = vec.slice(0, E"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p025_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.2613,
+            "in_gold": false,
+            "preview": "个关键参数，以下表格汇总常用配置及示例：\n名称 描述 示例\nEMBED_DIM 向量维度（索引/模型 1024\n一致）\nEMBED‑ 单次嵌入批大小 10(Qw"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p110_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.1413,
+            "in_gold": false,
+            "preview": "website‑rag ‑‑dimensions 1024\n20.2.2 向量索引配置\nEMBED_DIM\n确保向量索引的维度与应用配置中的 保持一致，否则会导"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p109_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.0063,
+            "in_gold": false,
+            "preview": "en\"\n13 # 确保与 Vectorize 索引维度匹配\n14 EMBED_DIM = 1024\n15 # 用于生成的 LLM 模型\n16 LLM_MODEL"
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "type": "in",
+        "unit": "page",
+        "n_gold": 3,
+        "hit_ranks": [
+          1,
+          3
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p123_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9922,
+            "in_gold": true,
+            "preview": "简化语言检测：仅根据URL部分 判断为英文，其他均为中文。\n・ 一致的过滤逻辑：检索阶段应用与客户端相同的检测规则。\n/en/\n・ 明确的语言边界：将所有不包含"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p097_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.972,
+            "in_gold": false,
+            "preview": "验稳定性。\n{width=1920height=2995}\n多语言流程的每个环节都依赖于语言标记的准确传递，下面将逐步解析关键实现细节。\n17.2 关键环节解析"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p123_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9579,
+            "in_gold": true,
+            "preview": "22.4. 如何为聊天组件支持多语言？ 113\n・ 增量处理：只处理指定的文档，不影响其他已存在的向量数据\n这种方式特别适合以下场景：\n・ 修正博客文章中的错误"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p107_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.8991,
+            "in_gold": false,
+            "preview": "tLanguage() {\n2 // 尝试多种方式检测语言\n3 const htmlLang = document.documentElement.lang;\n"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p099_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.867,
+            "in_gold": false,
+            "preview": "User/Assistantvs用户/助手）\n・ 指令用语\n模型生成后，前端渲染阶段根据语言标记进行本地化处理。\n17.2.5 回答与前端渲染\n{ answer"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p100_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.5475,
+            "in_gold": false,
+            "preview": "标签 上下文清晰\n为进一步提升体验，建议持续优化如下方面。\n17.6 改进建议概览\n多语言流程仍有优化空间，建议：\n1. localStorage记忆语言偏好。"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p093_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.2983,
+            "in_gold": false,
+            "preview": "lishPrompt : chinesePrompt;\n9\n10 // 添加对话历史（如果存在）\n11 if (history.length > 0) {\n12"
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "type": "cross",
+        "unit": "source",
+        "n_gold": 2,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p092_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9977,
+            "in_gold": true,
+            "preview": " 向量检索上下文\ngetRelevantDocuments\n使用 函数从向量数据库中检索相关内容：\n1 export async function getRel"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p030_c004",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9973,
+            "in_gold": true,
+            "preview": "筛选”、“按标签过滤”等复杂查询，提升检索的灵活性和性能。\n为了支持基于元数据的过滤查询，需要为常用的元数据字段创建索引：\n1 # 为 URL 字段创建元数据索"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p070_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9927,
+            "in_gold": true,
+            "preview": "60 第11章：使用CloudflareVectorize构建向量数据库\n11.6.1 创建元数据索引\n1 npx wrangler vectorize cre"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p074_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.979,
+            "in_gold": true,
+            "preview": "ECTORIZE.query(queryVector, {\n6 topK: 5, // 返回最相似的 5 个结果\n7 returnValues: false, "
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p073_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9573,
+            "in_gold": true,
+            "preview": "第 12 章\n检索系统实现\n检索系统是RAG架构的核心组件之一，它决定了系统能否从海量知识中快速准确地找\n到与用户查询最相关的信息。本章将深入探讨各种相似度搜索"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p075_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.945,
+            "in_gold": true,
+            "preview": "{\n13 language: { $eq: \"zh\" },\n14 tags: { $in: [\"AI\", \"RAG\"] }\n15 }\n16 });\n17\n18 "
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "type": "cross",
+        "unit": "source",
+        "n_gold": 2,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p017_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9803,
+            "in_gold": true,
+            "preview": "2.4. 小结 7\n类AI应用提供了坚实的基础。\n2.4 小结\nRAG技术通过将信息检索与生成式AI相结合，解决了传统大语言模型的知识截止、幻\n觉等问题。通过离"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG 技术概览_web_c041",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9724,
+            "in_gold": true,
+            "preview": "上下文和答案的三元组进行的。具体实施细节请参考相关指南49。这种技术被用于通过微调 API 对 OpenAI 大语言模型进行微调，同时也用于开源模型 Llama"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG知识_p016_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9598,
+            "in_gold": true,
+            "preview": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG 技术概览_web_c027",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9241,
+            "in_gold": true,
+            "preview": "不同，但我认为LlamaIndex的解决方案在这里更为强大。参考引用这一部分没有编号，因为它更像是一个工具而非一种检索改进技术，尽管它非常重要。如果我们使用了多"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p128_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9185,
+            "in_gold": true,
+            "preview": "与其他所有位置进行信息\n交互。\n23.2 RAG 相关技术\n・ 检索增强生成（RAG‑Retrieval‑AugmentedGeneration）：一种混合AI"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG知识_p015_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9137,
+            "in_gold": true,
+            "preview": "2.3. RAG参考架构 5\n个文本块添加元数据（如标题、来源、时间）。接着，利用嵌入模型将这些文本块转换\n为高维向量，捕捉其语义信息，并将向量存入向量数据库以"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG 技术概览_web_c001",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9124,
+            "in_gold": true,
+            "preview": "深度好文！最全的大模型 RAG 技术概览 - 知乎欢迎关注 @AI技术社区 ，专注大模型、学术论文、算法实战案例本文是对检索增强生成（Retrieval Aug"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG 技术概览_web_c006",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.8697,
+            "in_gold": true,
+            "preview": "：研究方向 +学校/公司+知乎，即可。然后就可以拉你进群了。方式①、添加微信号：mlc2060，备注：技术交流 方式②、微信搜索公众号：机器学习社区，后台回复："
+          },
+          {
+            "rank": 9,
+            "chunk_id": "RAG 技术概览_web_c060",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.018,
+            "in_gold": true,
+            "preview": "gas.io/en/latest/index.html49 https://docs.llamaindex.ai/en/stable/examples/fine"
+          }
+        ]
+      },
+      {
+        "id": 22,
+        "type": "partial",
+        "unit": "source",
+        "n_gold": 1,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          8
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG 技术概览_web_c037",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9922,
+            "in_gold": true,
+            "preview": "回答用户问题的LLM）— 幸运的是，后者非常擅长少样本学习。目前一个重要的优势是我们能够使用像 GPT-4 这样的高端大语言模型来创造高质量的合成数据集。但同时"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG 技术概览_web_c040",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.3504,
+            "in_gold": true,
+            "preview": "-3.5-turbo 进行微调，训练它处理这些问题与答案对。通过这种方式，使用 ragas48 框架进行的 RAG 架构评估显示，信实度指标提高了 5%，意味着"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG 技术概览_web_c015",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.2422,
+            "in_gold": true,
+            "preview": "块的大小，这取决于你使用的嵌入模型及其处理token的能力。例如，基于BERT的标准Transformer编码器模型最多处理512个token，而OpenAI "
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG 技术概览_web_c063",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.1037,
+            "in_gold": true,
+            "preview": "b/llama_packs/rag_evaluator59 https://blog.langchain.dev/weblangchain/60 https:/"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "Transformer--Attention Is All You Need_web_c095",
+            "source": "Transformer--Attention Is All You Need.html",
+            "rerank_score": 0.0888,
+            "in_gold": false,
+            "preview": "前发布的所有单一模型，其训练成本不到之前最先进模型的1/4。为英法翻译训练的Transformer（大）模型使用的Dropout是Pdrop=0.1，而不是 0"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "Transformer--Attention Is All You Need_web_c097",
+            "source": "Transformer--Attention Is All You Need.html",
+            "rerank_score": 0.0737,
+            "in_gold": false,
+            "preview": "精度浮点容量的估计值相乘来估计用于训练模型的浮点运算的数量。Pdrop=0.1，而不是 0.3。对于基本模型，我们使用通过平均最后5个checkpionts获得"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "Transformer--Attention Is All You Need_web_c099",
+            "source": "Transformer--Attention Is All You Need.html",
+            "rerank_score": 0.046,
+            "in_gold": false,
+            "preview": "力比最佳设置差0.9BLEU，但质量也会因为有太多头而下降。在表3行(B)中，我们观察到减小注意力key大小dk会损害模型质量。这表明确定兼容性并不容易，比点积"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG 技术概览_web_c058",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0216,
+            "in_gold": true,
+            "preview": "onse_synthesizers/root.html43 https://docs.llamaindex.ai/en/stable/examples/fine"
+          }
+        ]
+      },
+      {
+        "id": 23,
+        "type": "partial",
+        "unit": "source",
+        "n_gold": 1,
+        "hit_ranks": [
+          1,
+          2,
+          5
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG知识_p016_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.9533,
+            "in_gold": true,
+            "preview": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG知识_p128_c003",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.7607,
+            "in_gold": true,
+            "preview": "与其他所有位置进行信息\n交互。\n23.2 RAG 相关技术\n・ 检索增强生成（RAG‑Retrieval‑AugmentedGeneration）：一种混合AI"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG 技术概览_web_c041",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.7592,
+            "in_gold": false,
+            "preview": "上下文和答案的三元组进行的。具体实施细节请参考相关指南49。这种技术被用于通过微调 API 对 OpenAI 大语言模型进行微调，同时也用于开源模型 Llama"
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG 技术概览_web_c044",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.3183,
+            "in_gold": false,
+            "preview": "，它提供了一个快捷的工具，可以利用公共数据集来评估你的架构。结论我努力概述了 RAG 的核心算法方法，并通过一些示例展示它们，希望这能激发你在自己的 RAG 架"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p118_c002",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.0086,
+            "in_gold": true,
+            "preview": "已经了解了测试、监控和持续改进在RAG系统中的重要性。我们\n重点讲解了功能测试、模型与流量监控、性能指标以及用户反馈收集与迭代优化等关键\n内容。这些实践将帮助您"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG 技术概览_web_c060",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.0078,
+            "in_gold": false,
+            "preview": "gas.io/en/latest/index.html49 https://docs.llamaindex.ai/en/stable/examples/fine"
+          }
+        ]
+      },
+      {
+        "id": 25,
+        "type": "partial",
+        "unit": "source",
+        "n_gold": 2,
+        "hit_ranks": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "hits": [
+          {
+            "rank": 1,
+            "chunk_id": "RAG 技术概览_web_c030",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9952,
+            "in_gold": true,
+            "preview": "angchain 也支持31 OpenAI 功能性 API。图片还有其他聊天引擎类型，如ReAct Agent32，本部分内容会在第7节中详细介绍。6. 查询路"
+          },
+          {
+            "rank": 2,
+            "chunk_id": "RAG 技术概览_web_c024",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.9208,
+            "in_gold": true,
+            "preview": "来需要通过过滤、重新排名或进行一些转换来进一步优化这些结果。LlamaIndex提供了多种后处理器，可以基于相似度评分、关键词、元数据等过滤结果，或者使用其他模"
+          },
+          {
+            "rank": 3,
+            "chunk_id": "RAG 技术概览_web_c006",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.4791,
+            "in_gold": true,
+            "preview": "：研究方向 +学校/公司+知乎，即可。然后就可以拉你进群了。方式①、添加微信号：mlc2060，备注：技术交流 方式②、微信搜索公众号：机器学习社区，后台回复："
+          },
+          {
+            "rank": 4,
+            "chunk_id": "RAG知识_p024_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.1883,
+            "in_gold": true,
+            "preview": "第 4 章\nRAG 流水线总览\n本章充当导航：快速把握系统各阶段职责，并指向后续详细章节。核心链路：内容→\n向量化→索引→检索→Prompt→回答。带你快速了解"
+          },
+          {
+            "rank": 5,
+            "chunk_id": "RAG知识_p083_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.1357,
+            "in_gold": true,
+            "preview": "14.2. RAG系统中的千问集成 73\n6 { role: 'system', content: '请用中文回答，并在末尾列出来源路径。' },\n7 { ro"
+          },
+          {
+            "rank": 6,
+            "chunk_id": "RAG 技术概览_web_c028",
+            "source": "RAG 技术概览.html",
+            "rerank_score": 0.1097,
+            "in_gold": true,
+            "preview": "ndex为这种情况提供了一种基于模糊匹配的高效解决方案26。如果你没有听说过模糊匹配，这是一种非常强大的字符串匹配技术27。 5. 对话引擎在构建一个能够对单个"
+          },
+          {
+            "rank": 7,
+            "chunk_id": "RAG知识_p081_c004",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.0967,
+            "in_gold": true,
+            "preview": "hoices'][0]['text'])\n19 else:\n20 print(f\"Error: {response.status_code} ‑ {respon"
+          },
+          {
+            "rank": 8,
+            "chunk_id": "RAG知识_p086_c001",
+            "source": "RAG知识.pdf",
+            "rerank_score": 0.0174,
+            "in_gold": true,
+            "preview": "76 第14章：大语言模型集成\n14.6 小结\n通过本章的介绍，您已经掌握了如何在RAG系统中集成大语言模型，包括API接入、\n提示词工程和模型参数调优等关键环"
+          }
+        ]
+      }
+    ]
+  }
+}

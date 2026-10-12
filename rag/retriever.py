@@ -14,9 +14,10 @@ import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 from .config import (
-    DB_PATH, DEFAULT_K, RECALL_K, RERANKER_MODEL_PATH, COLLECTION_NAME,
+    DB_PATH, DEFAULT_EMBED, DEFAULT_VARIANT, RECALL_K, RERANKER_MODEL_PATH,
+    resolve_variant,
 )
-from .embedding import BGEEmbeddingFunction
+from .embedding import encode_query, get_embedder
 
 
 # ------------------------------------------------------------
@@ -27,20 +28,46 @@ def get_client() -> chromadb.ClientAPI:
     return chromadb.PersistentClient(path=str(DB_PATH))
 
 
-def get_collection(client=None):
-    """已给：取 day6_kb（cosine 空间），不存在则创建空库。"""
+def get_collection(client=None, model_key: str = DEFAULT_EMBED,
+                   variant: str = DEFAULT_VARIANT):
+    """已给：取某个嵌入模型某一档 collection（cosine 空间），不存在则创建空库。
+
+    variant 是第二个轴，它同时决定两件事 —— 库名 与 向量维度（都挂在
+    config.EMBED_MODELS[model_key]["variants"][variant] 下）：
+      · bge：raw（原文库）/ ctx（语境前缀库，卡5）；
+      · qwen3：raw(1024) / 512 / 256（MRL 截断，卡6）。
+    默认 raw，所以 W1/W2 已有的调用（api/cli/eval/fusion）一行都不用改。
+
+    ⚠️ 一条硬约束：variant 只切档，【不切模型】。库名与嵌入模型同挂在一条记录里，
+    就是因为"建某档时换了模型、查询时还用旧模型"这类错只能靠结构拦住 ——
+    collection 的维度在第一次写入时就被 HNSW 定死：
+      · 维度不同      → HNSW 直接报错（幸运，当场拦住）；
+      · 维度相同但换模型 / 换了截断位置 → 两套不可比的向量混进同一空间，距离失去意义
+        且【不报错】（危险）。
+    embedding_function 只服务 upsert（建库）侧的自动编码，也必须按【本档维度】截断；
+    查询侧的编码见 retrieve()。
+    """
     client = client or get_client()
+    v = resolve_variant(model_key, variant)
     return client.get_or_create_collection(
-        name=COLLECTION_NAME,
-        embedding_function=BGEEmbeddingFunction(),
+        name=v["collection"],
+        embedding_function=get_embedder(model_key, variant),
         metadata={"hnsw:space": "cosine"},
     )
 
 
-def retrieve(collection, question: str, k: int = RECALL_K) -> list[dict]:
+def retrieve(collection, question: str, k: int = RECALL_K,
+             model_key: str = DEFAULT_EMBED,
+             variant: str = DEFAULT_VARIANT) -> list[dict]:
     # 向量召回，返回长度 k 的 hits，每项含 chunk_id / distance / text / 元数据。
-    # 注意 query 会先过 BGE 编码（走 GPU），所以这一步的耗时里既有模型前向也有 HNSW 检索。
-    output = collection.query(query_texts=[question], n_results=k)
+    # 查询向量在这里【显式】编码、用 query_embeddings 传，不再走 query_texts，两个理由：
+    #   ① instruction-aware 模型的指令只能加在查询侧，而 Chroma 的 embedding_function
+    #      被 add/query 共用、分不出该不该加指令（W2 卡3 的根因）；
+    #   ② 卡6 的 MRL 截断必须在【查询向量】上也做一遍 —— 两侧维度不一致就没法比距离。
+    # 注意 query 会先过嵌入模型（走 GPU），所以这一步的耗时里既有模型前向也有 HNSW 检索。
+    # ⚠️ variant 必须与 collection 的档一致（它决定查询向量截到多少维）。
+    qvec = encode_query(model_key, [question], variant)
+    output = collection.query(query_embeddings=qvec, n_results=k)
     hits = []
     for dist, doc, meta, cid in zip(
         output["distances"][0], output["documents"][0],

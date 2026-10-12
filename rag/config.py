@@ -22,7 +22,7 @@ TRACES_DIR = DATA_DIR / "traces"
 TRACES_JSONL = TRACES_DIR / "traces.jsonl"
 SCORES_JSONL = TRACES_DIR / "scores.jsonl"
 
-COLLECTION_NAME = "day6_kb"     # 正式库（Day14 交付时 932 块）；day2_kb 是 Day1–2 玩具库，别碰
+# COLLECTION_NAME 挪到下方「嵌入模型注册表」处派生（W2 卡3：库名跟着默认嵌入模型走）
 BATCH_SIZE = 64                 # 入库分批大小
 DEFAULT_K = 5                   # 未精排时的默认召回数（Day6/07 的口径）
 
@@ -32,8 +32,106 @@ CHUNK_SIZE = 300                # 932 块库的口径（实测 max char_count=33
                                 # 上传必须用同一个值：口径不同 → 块长分布不同 → 精排/去重表现不可比
 UPLOAD_MAX_MB = 20              # 上传大小上限（避免一次请求吃掉内存与显存）
 
-# 本地模型：bge-small-zh 是 9 月已下（嵌入），bge-reranker-base 是 Day8 新下（精排）
-EMBED_MODEL_PATH = r"c:\Users\xx\Desktop\python\Agent学习\PyTorch\HuggingFace\models\bge-small-zh"
+# ---------------- 嵌入模型注册表（W2 卡3） ----------------
+# 形态：key → 该模型需要的【全部】信息，一条记录就是一个模型。
+# 为什么不用平行常量（EMBED_MODEL_PATH / EMBED_MODEL_PATH_V2 / EMBED_DIM / ...）：
+#   平行数组的经典病是「加一个模型要改 N 处、漏改一处不报错」——最典型的是忘配 V2 的 dim，
+#   于是按 512 建库、1024 维向量一塞才炸（或更糟：不炸但错）。收成一条记录后，
+#   新增模型只加一条，别处一行不动。（与 W1 卡3「BM25 token 缓存判据缺字段 → 静默失效」同族。）
+#
+# 字段语义：
+#   variants  {档名: {"dim": 该档实际写进 collection / 实际用于编码查询的维度,
+#                     "collection": Chroma 库名}}
+#            · "raw" 是默认档（原文库 + 模型原生维度），每个模型都必须有；
+#            · bge（mrl=False）只有 raw / ctx 两档，dim 都是原生 512 —— 不许截；
+#            · qwen3（mrl=True）有 raw(1024) / 512 / 256 三档（卡6 的 MRL 截断）。
+#            为什么维度必须挂在【档】上、而不是记在模型记录上：HNSW 的维度在首次写入时定死，
+#            且查询侧必须与建库侧同维度截断 —— 两者不同维度会当场报错（幸运），
+#            而同维度却不同截断位置则不报错、只是静默失准（危险）。
+#   pooling  "cls"（BERT 系，取第 0 个 token）/ "last"（因果 LM，取最后一个真实 token）
+#   query_instruction  只加在【查询侧】；None = 该模型 query/doc 同编码
+#   mrl    是否支持套娃表征截断（卡6 的开关，防止误截 BGE）
+#   多档库：见各模型的 variants。同一模型可以有多档库，但【绝不跨模型共用库】。
+#
+# 为什么查询侧的编码必须显式做、不能交给 Chroma 的 embedding_function 自动做：
+#   Chroma 的 EmbeddingFunction.__call__ 被 add 和 query【共用】，它不告诉你是哪一种，
+#   于是「指令只加查询侧」这个要求根本落不下去（W2 卡3 的根因）。
+EMBED_MODELS = {
+    "bge-small-zh": {
+        "path": r"c:\Users\xx\Desktop\python\Agent学习\PyTorch\HuggingFace\models\bge-small-zh",
+        "pooling": "cls",
+        "query_instruction": None,
+        "mrl": False,
+        # raw = W1/W2 对照基线（932 块原文）；ctx = 语境前缀库（documents = 前缀 + 正文，
+        # 见 17_contextual.py）。两档共用同一个嵌入模型与同一个维度 → 只有"块带不带前缀"
+        # 这一个变量（卡5）。
+        "variants": {
+            "raw": {"dim": 512, "collection": "day6_kb"},
+            "ctx": {"dim": 512, "collection": "day6_kb_ctx"},
+        },
+    },
+    "qwen3-0.6b": {
+        "path": r"c:\Users\xx\Desktop\python\Agent学习\PyTorch\HuggingFace\models\Qwen3-Embedding-0.6B",
+        "pooling": "last",
+        "query_instruction": (
+            "Instruct: Given a web search query, retrieve relevant passages that answer the query\n"
+            "Query: "
+        ),
+        "mrl": True,
+        # 卡6：MRL 三档。同一份权重、同一套池化与指令，唯一变量 = 截到多少维。
+        # 三个库名必须互不相同 —— 往 1024 的库里塞 512 维向量会被 HNSW 当场拦下，
+        # 但"塞进另一个维度相同的库"不会，所以库名与维度必须成对出现（见 _validate_registry）。
+        "variants": {
+            "raw": {"dim": 1024, "collection": "qwen3_kb"},
+            "512": {"dim": 512, "collection": "qwen3_kb_512"},
+            "256": {"dim": 256, "collection": "qwen3_kb_256"},
+        },
+    },
+}
+DEFAULT_EMBED = "bge-small-zh"
+DEFAULT_VARIANT = "raw"
+
+
+def resolve_variant(model_key: str, variant: str = DEFAULT_VARIANT) -> dict:
+    """取某模型某一档的 {"dim", "collection"}；取不到立即失败并列出可用档。"""
+    spec = EMBED_MODELS[model_key]
+    try:
+        return spec["variants"][variant]
+    except KeyError:
+        raise KeyError(
+            f"{model_key!r} 没有 variant={variant!r}（现有：{sorted(spec['variants'])}）"
+        ) from None
+
+
+def _validate_registry() -> None:
+    """结构拦两道（导入即跑，配置写错在进程启动时就炸，而不是跑到中途）：
+        ① 每个模型必须有默认档 DEFAULT_VARIANT；
+        ② 截断只准出现在 mrl=True 的模型上 —— 没做 MRL 训练的模型截断后表征质量会崩，
+           而这种崩不会报错，只会让检索结果悄悄变差。
+    """
+    for key, spec in EMBED_MODELS.items():
+        raw = spec["variants"].get(DEFAULT_VARIANT)
+        if raw is None:
+            raise ValueError(f"EMBED_MODELS[{key!r}] 缺默认档 variant={DEFAULT_VARIANT!r}")
+        for name, v in spec["variants"].items():
+            if v["dim"] > raw["dim"]:
+                raise ValueError(
+                    f"{key!r}.variants[{name!r}].dim={v['dim']} 超过默认档的 {raw['dim']} 维")
+            if v["dim"] != raw["dim"] and not spec["mrl"]:
+                raise ValueError(
+                    f"{key!r}（mrl=False）的 variant={name!r} 截到 {v['dim']} 维 —— "
+                    f"未做 MRL 训练的模型截断后表征会崩（不报错，只是变差）")
+
+
+_validate_registry()
+
+# 正式库（Day14 交付时 932 块）；day2_kb 是 Day1–2 玩具库，别碰。
+# 由注册表派生 = 同一个事实只写一处：默认嵌入模型换了，库名跟着换。
+COLLECTION_NAME = resolve_variant(DEFAULT_EMBED)["collection"]
+EMBED_MODEL_PATH = EMBED_MODELS[DEFAULT_EMBED]["path"]   # 兼容壳：旧 import 原样可用
+
+# 本地模型：bge-reranker-base 是 Day8 新下（精排）。精排模型不参与本次注册表
+# ——它不建库、不进 collection，与嵌入模型的「一条记录」形态不是同一个问题（卡4 再议）。
 RERANKER_MODEL_PATH = r"c:\Users\xx\Desktop\python\Agent学习\PyTorch\HuggingFace\models\bge-reranker-base"
 
 # LLM：deepseek-v4-flash。注意 v4 默认开思考模式——temperature/top_p 不报错但不生效，
@@ -44,9 +142,16 @@ THINKING_DISABLED = {"thinking": {"type": "disabled"}}
 # top3 完全相同、指标却不同，说明采样噪声盖过了实验变量。做实验要先锁死随机源。
 TEMPERATURE = 0
 
-# 计价（元 / 百万 token），Day9 起把成本算进基线表（缓存命中价低得多，这里按未命中估）
-PRICE_IN_PER_M = 1.0
-PRICE_OUT_PER_M = 2.0
+# 计价（元 / 百万 token）。Day9 起把成本算进基线表。
+# 2026-10-08 卡5 校正：原 PRICE_OUT_PER_M=2.0 与 DeepSeek 实际价不符，且缺"缓存命中"这一档。
+# ⚠️ 口径断点（不是 bug，是换算基础变了）：Day9/Day10 已落盘的成本数（eval_day10*.json、基线表）
+#    按 OUT=2.0 计，与本次之后的数字【不可直接并列】，对比成本列必须先换算。
+# ⚠️ 缓存命中价只有未命中的 1/50 —— 长前缀场景（卡5 语境前缀：每块都携带数万 token 的文档上下文）
+#    里，成本主项是【命中 token】而非未命中 token。"按未命中估"会高估近 50 倍，
+#    于是"前缀给大一点"的决策会被系统性吓退。这一档必须单独计价。
+PRICE_IN_PER_M = 1.0            # 输入·缓存未命中
+PRICE_CACHE_HIT_PER_M = 0.02    # 输入·缓存命中（DeepSeek 自动前缀缓存，usage.prompt_cache_hit_tokens）
+PRICE_OUT_PER_M = 4.0
 
 # ---------------- 检索参数（Day9 A/B 实验的变量都在这三行） ----------------
 RECALL_K = 10           # 第一阶段：向量候选池深度（要大于精排数，才有得排）

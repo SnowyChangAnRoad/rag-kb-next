@@ -28,12 +28,13 @@ k=60 时 1/61=0.01639、1/63=0.01587 —— 名次差异只有 1.6%，所以
     python -m rag.fusion        # 自检：同一 query 的 dense / BM25 / 融合 三路对照
 """
 from .bm25 import bm25_search
-from .config import RECALL_K, RRF_K
+from .config import DEFAULT_EMBED, DEFAULT_VARIANT, RECALL_K, RRF_K
 from .retriever import get_collection, retrieve
 
 
 def hybrid_retrieve(collection, question: str, k: int = RECALL_K,
-                    mode: str = "hybrid") -> list[dict]:
+                    mode: str = "hybrid", model_key: str = DEFAULT_EMBED,
+                    variant: str = DEFAULT_VARIANT) -> list[dict]:
     """TODO：dense top-N ⊕ BM25 top-N → RRF → top-k。返回与 retrieve() 同构的 hits。
 
     参数：
@@ -109,10 +110,10 @@ def hybrid_retrieve(collection, question: str, k: int = RECALL_K,
 
     # 基线分支（已给）：只走向量一路，与 retrieve() 的回调口径完全一致
     if mode == "dense":
-        return retrieve(collection, question, k)
+        return retrieve(collection, question, k, model_key, variant)
 
     # ------------------ TODO-1：两路召回 ------------------
-    dense_hits = retrieve(collection, question, RECALL_K)
+    dense_hits = retrieve(collection, question, RECALL_K, model_key, variant)
     bm25_hits = bm25_search(question, RECALL_K)
 
     # ------------------ TODO-2：RRF 累加 ------------------
