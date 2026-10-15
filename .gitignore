@@ -10,7 +10,9 @@ __pycache__/
 data/raw/
 data/uploads/
 
-# 学习文件
+# 学习文档（计划 / 修订说明 / 自测题等）
+docs/
 .trae/
-RAG深度强化阶段计划.md
-answers.txt
+
+# 实验报告与归档（阶段性产出，如 W3 的 reports/w3_logs）
+reports/

@@ -15,3 +15,9 @@ pdfplumber==0.11.10
 # rank_bm25 的 BM25Okapi 只吃【已分词的 token list】；jieba 负责中文切词
 rank_bm25==0.2.2
 jieba==0.42.1
+# W3 卡1 MCP server 化：官方 Python SDK
+# ⚠️ 必须是 2.x —— 2026-07-28 spec 随 SDK v2 发布且为 breaking change（v2 把
+# FastMCP 改名为 MCPServer，import 路径从 mcp.server.fastmcp 变成 mcp.server.mcpserver）。
+# 装到 v1 会出现「照新文档写、import 就对不上」。
+# 注：pip 不接受 "mcp>=2.*" 这种写法（`.*` 只能配 == / !=），要么 >=2，要么钉死版本。
+mcp==2.3.0

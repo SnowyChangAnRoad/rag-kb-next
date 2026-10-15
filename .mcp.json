@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "rag-kb": {
+      "type": "stdio",
+      "command": "C:\\Users\\xx\\Desktop\\python\\.venv\\Scripts\\python.exe",
+      "args": ["C:\\Users\\xx\\Desktop\\python\\Agent学习\\RAG\\rag-kb-next\\mcp_server\\server.py"]
+    }
+  }
+}

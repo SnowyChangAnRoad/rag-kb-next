@@ -33,7 +33,7 @@ class RAGPipeline:
     # ------------------------------------------------------------
     def _retrieve(self, question: str, dedupe: bool,
                   top_k: int | None, quota_cap: int | None, span,
-                  mode: str | None = None) -> tuple:
+                  mode: str | None = None, min_score: float = 0.0) -> tuple:
         """召回 → 精排 → 去重 → 配额截断，返回 (hits, recall, ranked, recall_ms, rerank_ms, k)。
 
         为什么 Day12 要把这段从 answer() 里抽出来：
@@ -51,6 +51,12 @@ class RAGPipeline:
                走的就是 retrieve，于是服务路径与卡7 的实验脚本共用【除召回段以外的
                全部代码】。一旦这里分叉成两条调用链，卡7 的 A/B 结论就不再适用于
                服务路径 —— 那个 A/B 的前提正是「两组只有召回段不同」。
+
+        min_score（W3 卡2）：相关性阈值，只保留 rerank_score ≥ min_score 的块。
+            默认 0.0 = 不过滤 ⇒ 实验脚本与评测的默认行为不变（W2 基线冻结）；
+            MCP 服务路径显式传 0.05（实测：库外问题 top1 ≤ 0.01，库内 top1 ≥ 0.2553）。
+            用显式参数而不是改默认值：这样「服务要不要过滤」与「评测基线是多少」
+            是两个可分别回答的问题，卡7 还能顺手量出阈值对指标的影响。
         """
         mode = mode or RETRIEVAL_MODE
         with span("retrieval"):                       # 父 span：整段检索
@@ -63,6 +69,12 @@ class RAGPipeline:
                 if dedupe:
                     ranked = dedupe_adjacent(ranked)            # 去重腾出槽位
             t2 = time.perf_counter()
+
+        # 相关性阈值过滤：砍掉「检索到了但明显不相关」的块。
+        # 与去重互不影响 —— dedupe_adjacent 按 (doc_id, seq) 判定，不看列表位置。
+        # 放在这里只是为了让链子单向：精排 → 去重 → 阈值 → 截断。
+        if min_score > 0:
+            ranked = [h for h in ranked if h.get("rerank_score", 0.0) >= min_score]
 
         # 截断放在去重之后：显式给了 top_k 就用它，否则统一用 RERANK_TOP_K。
         # 【Day14 修正】原写法在 top_k=None（= API/前端默认）时让 cross 题走 CROSS_TOP_K=5，
@@ -86,7 +98,7 @@ class RAGPipeline:
     def answer(self, question: str, qtype: str = "in",
                dedupe: bool = True, top_k: int | None = None,
                quota_cap: int | None = None, prompt_version: str = "v1",
-               mode: str | None = None, tracer=None) -> dict:
+               mode: str | None = None, tracer=None, min_score: float = 0.0) -> dict:
         """跑完整链路并返回结构化结果。
 
         参数：
@@ -97,6 +109,7 @@ class RAGPipeline:
             prompt_version  system prompt 的版本（config.PROMPTS 的键，Day10 卡 4 的变量）
             mode       召回路径："dense" / "hybrid"；None = config.RETRIEVAL_MODE（默认 dense）。
                        W1 卡9 新增。默认不切 hybrid 的理由写在 config 那行注释里。
+            min_score  相关性阈值，透传给 _retrieve；默认 0.0 = 不过滤（W2 基线冻结）。
             tracer     rag.trace.Tracer 实例（Day10 卡 5）；None = 不埋点。
                        传了就返回 trace_id，并在 data/traces/traces.jsonl 追加一条记录。
                        为什么是可选参数而不是默认开：eval 的 90 次调用不该产 90 条 trace 噪声。
@@ -110,7 +123,7 @@ class RAGPipeline:
         span = tr.span if tr else nullspan
 
         hits, recall, ranked, recall_ms, rerank_ms, k, mode = self._retrieve(
-            question, dedupe, top_k, quota_cap, span, mode)
+            question, dedupe, top_k, quota_cap, span, mode, min_score)
         # prompt 版本在这里解析成正文再往下传：快速失败——版本写错时直接报错，
         # 而不是把空 system prompt 发出去、拿一堆莫名其妙的答案回来做实验。
         system_prompt = resolve_prompt(prompt_version)
