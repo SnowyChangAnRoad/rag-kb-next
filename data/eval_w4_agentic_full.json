@@ -1,0 +1,2493 @@
+{
+  "experiment": "w4_agentic_ab",
+  "stage_scope": "full(20)",
+  "generated_at": "2026-10-19 18:40:34",
+  "params": {
+    "RETRIEVAL_MODE": "dense",
+    "RECALL_K": 10,
+    "RRF_K": 60,
+    "RERANK_TOP_K": 3,
+    "cache_threshold": 0.9,
+    "retrieval_params": {
+      "mode": "dense",
+      "top_k": 3,
+      "quota_cap": null,
+      "dedupe": true,
+      "min_score": 0.0,
+      "RECALL_K": 10,
+      "RERANK_TOP_K": 3,
+      "RRF_K": 60
+    },
+    "groups": {
+      "A": {
+        "max_rounds": 1,
+        "use_gate": false,
+        "use_rewrite": false,
+        "use_cache": false
+      },
+      "B": {
+        "max_rounds": 2,
+        "use_gate": false,
+        "use_rewrite": true,
+        "use_cache": false
+      },
+      "C": {
+        "max_rounds": 3,
+        "use_gate": true,
+        "use_rewrite": true,
+        "use_cache": false
+      },
+      "D": {
+        "max_rounds": 3,
+        "use_gate": true,
+        "use_rewrite": true,
+        "use_cache": true
+      }
+    }
+  },
+  "fingerprints": {
+    "testset": "testset_tune.jsonl",
+    "testset_sha256": "77feeb79bde269cb19bfb2925a6b2e7b1c3e42572b567e1e4b099d2651428da8",
+    "gold": "gold_tune.json",
+    "gold_sha256": "d6ec3c428d6d39f54a12bcf06ca252d0fee2371747ffed82b3b778ce8ee1ed1c",
+    "trace_file": "w4_agentic_traces_full.jsonl"
+  },
+  "aggregate": {
+    "by_stage": {
+      "A": {
+        "n": 20,
+        "llm_calls": 1.0,
+        "tokens": 850.0,
+        "cost": 0.0012104499999999999,
+        "total_ms": 1357.4407850042917,
+        "retrieve_times": 1.0,
+        "cache_hits": 0,
+        "totals": {
+          "llm_calls": 20,
+          "tokens": 17000,
+          "cost": 0.024208999999999998,
+          "total_ms": 27148.815700085834,
+          "retrieve_times": 20
+        },
+        "terminate_reasons": {
+          "cap": 20
+        }
+      },
+      "B": {
+        "n": 20,
+        "llm_calls": 2.0,
+        "tokens": 1739.65,
+        "cost": 0.00120155,
+        "total_ms": 2232.228129991563,
+        "retrieve_times": 2.0,
+        "cache_hits": 0,
+        "totals": {
+          "llm_calls": 40,
+          "tokens": 34793,
+          "cost": 0.024031,
+          "total_ms": 44644.56259983126,
+          "retrieve_times": 40
+        },
+        "terminate_reasons": {
+          "cap": 20
+        }
+      },
+      "C": {
+        "n": 20,
+        "llm_calls": 3.85,
+        "tokens": 2218.3,
+        "cost": 0.0012168,
+        "total_ms": 3706.059470010223,
+        "retrieve_times": 1.4,
+        "cache_hits": 0,
+        "totals": {
+          "llm_calls": 77,
+          "tokens": 44366,
+          "cost": 0.024336,
+          "total_ms": 74121.18940020446,
+          "retrieve_times": 28
+        },
+        "terminate_reasons": {
+          "self_eval_sufficient": 13,
+          "gate_no_retrieve": 2,
+          "query_repeat": 2,
+          "cap": 3
+        }
+      },
+      "D1": {
+        "n": 20,
+        "llm_calls": 3.95,
+        "tokens": 2299.0,
+        "cost": 0.0012093,
+        "total_ms": 3865.9487100027036,
+        "retrieve_times": 1.5,
+        "cache_hits": 0,
+        "totals": {
+          "llm_calls": 79,
+          "tokens": 45980,
+          "cost": 0.024186,
+          "total_ms": 77318.97420005407,
+          "retrieve_times": 30
+        },
+        "terminate_reasons": {
+          "self_eval_sufficient": 13,
+          "gate_no_retrieve": 2,
+          "cap": 4,
+          "query_repeat": 1
+        }
+      },
+      "D2": {
+        "n": 20,
+        "llm_calls": 0.2,
+        "tokens": 27.5,
+        "cost": 9.335e-05,
+        "total_ms": 272.9399150062818,
+        "retrieve_times": 0.0,
+        "cache_hits": 18,
+        "totals": {
+          "llm_calls": 4,
+          "tokens": 550,
+          "cost": 0.0018670000000000002,
+          "total_ms": 5458.798300125636,
+          "retrieve_times": 0
+        },
+        "terminate_reasons": {
+          "cache_hit": 18,
+          "gate_no_retrieve": 2
+        }
+      }
+    },
+    "ratios_vs_A": {
+      "A": {
+        "llm_calls": 1.0,
+        "tokens": 1.0,
+        "cost": 1.0,
+        "total_ms": 1.0,
+        "retrieve_times": 1.0
+      },
+      "B": {
+        "llm_calls": 2.0,
+        "tokens": 2.0466470588235293,
+        "cost": 0.9926473625511174,
+        "total_ms": 1.6444386780263904,
+        "retrieve_times": 2.0
+      },
+      "C": {
+        "llm_calls": 3.85,
+        "tokens": 2.6097647058823528,
+        "cost": 1.005245982898922,
+        "total_ms": 2.7301813168951643,
+        "retrieve_times": 1.4
+      },
+      "D1": {
+        "llm_calls": 3.95,
+        "tokens": 2.704705882352941,
+        "cost": 0.9990499401049198,
+        "total_ms": 2.84796858375703,
+        "retrieve_times": 1.5
+      },
+      "D2": {
+        "llm_calls": 0.2,
+        "tokens": 0.03235294117647059,
+        "cost": 0.07712007930934778,
+        "total_ms": 0.20106948164624278,
+        "retrieve_times": 0.0
+      }
+    },
+    "method": "总额比 sum(趟)/sum(A)"
+  },
+  "invariants": {
+    "d2_cache": {
+      "checked": 20,
+      "n_d1_wrote": 18,
+      "n_d2_hit": 18,
+      "rows": [
+        {
+          "qid": "1",
+          "qtype": "in",
+          "d1_terminate": "self_eval_sufficient",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "1",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "10",
+          "qtype": "out",
+          "d1_terminate": "cap",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "10",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "11",
+          "qtype": "cross",
+          "d1_terminate": "gate_no_retrieve",
+          "d1_cache_wrote": false,
+          "d2_cache_hit": false,
+          "d2_matched_qid": null,
+          "d2_answer_eq_d1": false
+        },
+        {
+          "qid": "12",
+          "qtype": "in",
+          "d1_terminate": "self_eval_sufficient",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "12",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "15",
+          "qtype": "in",
+          "d1_terminate": "self_eval_sufficient",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "15",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "16",
+          "qtype": "in",
+          "d1_terminate": "self_eval_sufficient",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "16",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "18",
+          "qtype": "cross",
+          "d1_terminate": "self_eval_sufficient",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "18",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "2",
+          "qtype": "in",
+          "d1_terminate": "self_eval_sufficient",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "2",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "21",
+          "qtype": "cross",
+          "d1_terminate": "self_eval_sufficient",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "21",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "22",
+          "qtype": "partial",
+          "d1_terminate": "cap",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "22",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "23",
+          "qtype": "partial",
+          "d1_terminate": "query_repeat",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "23",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "25",
+          "qtype": "partial",
+          "d1_terminate": "self_eval_sufficient",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "25",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "27",
+          "qtype": "out",
+          "d1_terminate": "cap",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "27",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "3",
+          "qtype": "in",
+          "d1_terminate": "self_eval_sufficient",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "3",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "30",
+          "qtype": "out",
+          "d1_terminate": "self_eval_sufficient",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "30",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "4",
+          "qtype": "in",
+          "d1_terminate": "self_eval_sufficient",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "4",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "5",
+          "qtype": "in",
+          "d1_terminate": "self_eval_sufficient",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "5",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "7",
+          "qtype": "cross",
+          "d1_terminate": "gate_no_retrieve",
+          "d1_cache_wrote": false,
+          "d2_cache_hit": false,
+          "d2_matched_qid": null,
+          "d2_answer_eq_d1": false
+        },
+        {
+          "qid": "8",
+          "qtype": "cross",
+          "d1_terminate": "self_eval_sufficient",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "8",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "9",
+          "qtype": "out",
+          "d1_terminate": "cap",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "9",
+          "d2_answer_eq_d1": true
+        }
+      ],
+      "note": "命中率只落盘、人工核对（不 raise）。D2 未命中可能是 gate_no_retrieve / 0 命中路径 —— 这两条按设计不入缓存，D2 结构上不可能命中；只需核对「D1 写了缓存（d1_cache_wrote=True）的题 D2 是否都命中」"
+    },
+    "d1_eq_c": {
+      "checked": 20,
+      "mismatched": [
+        {
+          "qid": "1",
+          "fields": [
+            "answer"
+          ]
+        },
+        {
+          "qid": "10",
+          "fields": [
+            "answer",
+            "hits_list"
+          ]
+        },
+        {
+          "qid": "11",
+          "fields": [
+            "answer"
+          ]
+        },
+        {
+          "qid": "12",
+          "fields": [
+            "answer"
+          ]
+        },
+        {
+          "qid": "15",
+          "fields": [
+            "answer"
+          ]
+        },
+        {
+          "qid": "16",
+          "fields": [
+            "answer"
+          ]
+        },
+        {
+          "qid": "18",
+          "fields": [
+            "answer"
+          ]
+        },
+        {
+          "qid": "21",
+          "fields": [
+            "answer"
+          ]
+        },
+        {
+          "qid": "22",
+          "fields": [
+            "answer"
+          ]
+        },
+        {
+          "qid": "23",
+          "fields": [
+            "answer",
+            "hits_list"
+          ]
+        },
+        {
+          "qid": "25",
+          "fields": [
+            "answer",
+            "hits_list"
+          ]
+        },
+        {
+          "qid": "27",
+          "fields": [
+            "hits_list"
+          ]
+        },
+        {
+          "qid": "30",
+          "fields": [
+            "answer",
+            "hits_list",
+            "llm_calls"
+          ]
+        },
+        {
+          "qid": "4",
+          "fields": [
+            "answer"
+          ]
+        },
+        {
+          "qid": "5",
+          "fields": [
+            "answer"
+          ]
+        },
+        {
+          "qid": "7",
+          "fields": [
+            "answer"
+          ]
+        },
+        {
+          "qid": "8",
+          "fields": [
+            "answer"
+          ]
+        },
+        {
+          "qid": "9",
+          "fields": [
+            "hits_list",
+            "terminate_reason"
+          ]
+        }
+      ],
+      "ok": false
+    },
+    "d2_eq_d1": {
+      "checked": 18,
+      "mismatched": [],
+      "ok": true
+    },
+    "passed": false
+  },
+  "per_question": [
+    {
+      "qid": "1",
+      "qtype": "in",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 915,
+      "cost": 0.001386,
+      "total_ms": 1435.883899917826,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p015_c004",
+        "RAG知识_p016_c001",
+        "RAG知识_p016_c003"
+      ],
+      "answer_preview": "RAG 系统根据提出动因和主要特点可分为三类：NaiveRAG、AdvancedRAG，以及采用多智能体架构的一类（资料中该部分标题未完整显示，但描述为多智能体架构、主智能体协调子智能体、具备动态决策"
+    },
+    {
+      "qid": "1",
+      "qtype": "in",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1797,
+      "cost": 0.00123,
+      "total_ms": 1621.526600094512,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p015_c004",
+        "RAG知识_p016_c001",
+        "RAG知识_p016_c003"
+      ],
+      "answer_preview": "RAG 系统根据提出动因和主要特点可分为 NaiveRAG、AdvancedRAG 等类别 [1][2]。其中，NaiveRAG 的提出动因是 LLM 容易出现“幻觉”，参数化知识难以更新，需要外部检"
+    },
+    {
+      "qid": "1",
+      "qtype": "in",
+      "stage": "C",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1605,
+      "cost": 0.001234,
+      "total_ms": 2569.666300085373,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p015_c004",
+        "RAG知识_p016_c001",
+        "RAG知识_p016_c003"
+      ],
+      "answer_preview": "RAG 系统根据提出动因和主要特点可分为 NaiveRAG、AdvancedRAG 等类别 [1][2]。其中 NaiveRAG 的提出动因是：LLM 容易出现“幻觉”，参数化知识难以更新，需要外部检"
+    },
+    {
+      "qid": "1",
+      "qtype": "in",
+      "stage": "D1",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 1605,
+      "cost": 0.001234,
+      "total_ms": 3338.1458000512794,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p015_c004",
+        "RAG知识_p016_c001",
+        "RAG知识_p016_c003"
+      ],
+      "answer_preview": "RAG 系统根据提出动因和主要特点可分为 NaiveRAG、AdvancedRAG 等类别 [1][2]。其中 NaiveRAG 的提出动因是：LLM 容易出现“幻觉”，参数化知识难以更新，需要外部检"
+    },
+    {
+      "qid": "1",
+      "qtype": "in",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 4.892600001767278,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p015_c004",
+        "RAG知识_p016_c001",
+        "RAG知识_p016_c003"
+      ],
+      "answer_preview": "RAG 系统根据提出动因和主要特点可分为 NaiveRAG、AdvancedRAG 等类别 [1][2]。其中 NaiveRAG 的提出动因是：LLM 容易出现“幻觉”，参数化知识难以更新，需要外部检"
+    },
+    {
+      "qid": "2",
+      "qtype": "in",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 985,
+      "cost": 0.001654,
+      "total_ms": 1953.3072999911383,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p013_c002",
+        "RAG 技术概览_web_c002",
+        "RAG知识_p081_c001"
+      ],
+      "answer_preview": "和传统大语言模型相比，RAG 解决了以下关键问题：\n\n1. **知识截止点问题**：传统LLM的训练数据有时间限制，无法获取最新信息；RAG通过引入外部知识库，在生成回答前先检索相关信息，显著提高了回"
+    },
+    {
+      "qid": "2",
+      "qtype": "in",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1849,
+      "cost": 0.0016020000000000001,
+      "total_ms": 2128.3998999278992,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p013_c002",
+        "RAG 技术概览_web_c002",
+        "RAG知识_p017_c001"
+      ],
+      "answer_preview": "和传统大语言模型相比，RAG 解决了以下关键问题：\n\n1. **知识截止点问题**：传统LLM的训练数据有时间限制，无法获取最新信息；RAG通过引入外部知识库，在生成回答前先检索相关信息，显著提高了回"
+    },
+    {
+      "qid": "2",
+      "qtype": "in",
+      "stage": "C",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1711,
+      "cost": 0.00163,
+      "total_ms": 3053.90289996285,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p013_c002",
+        "RAG 技术概览_web_c002",
+        "RAG知识_p081_c001"
+      ],
+      "answer_preview": "和传统大语言模型相比，RAG 解决了以下关键问题：\n\n1. **知识截止点问题**：传统LLM的训练数据有时间限制，无法获取最新信息；RAG通过引入外部知识库，在生成回答前先检索相关信息，显著提高了回"
+    },
+    {
+      "qid": "2",
+      "qtype": "in",
+      "stage": "D1",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 1711,
+      "cost": 0.00163,
+      "total_ms": 3205.222399905324,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p013_c002",
+        "RAG 技术概览_web_c002",
+        "RAG知识_p081_c001"
+      ],
+      "answer_preview": "和传统大语言模型相比，RAG 解决了以下关键问题：\n\n1. **知识截止点问题**：传统LLM的训练数据有时间限制，无法获取最新信息；RAG通过引入外部知识库，在生成回答前先检索相关信息，显著提高了回"
+    },
+    {
+      "qid": "2",
+      "qtype": "in",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 5.98130002617836,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p013_c002",
+        "RAG 技术概览_web_c002",
+        "RAG知识_p081_c001"
+      ],
+      "answer_preview": "和传统大语言模型相比，RAG 解决了以下关键问题：\n\n1. **知识截止点问题**：传统LLM的训练数据有时间限制，无法获取最新信息；RAG通过引入外部知识库，在生成回答前先检索相关信息，显著提高了回"
+    },
+    {
+      "qid": "3",
+      "qtype": "in",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 817,
+      "cost": 0.0010119999999999999,
+      "total_ms": 1089.3154999939725,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p015_c002",
+        "RAG知识_p013_c001",
+        "RAG 技术概览_web_c041"
+      ],
+      "answer_preview": "Cloudflare 提供的 RAG 参考架构中，RAG 系统的实现通常分为两个核心阶段：知识库构建阶段（Knowledge Seeding）和实时查询响应阶段 [1][2]。其中，知识库构建阶段负责"
+    },
+    {
+      "qid": "3",
+      "qtype": "in",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1644,
+      "cost": 0.000909,
+      "total_ms": 1903.2590000424534,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p013_c001",
+        "RAG知识_p015_c002",
+        "RAG知识_p013_c003"
+      ],
+      "answer_preview": "Cloudflare 提供的 RAG 参考架构，其实现通常分为两个核心阶段：知识库构建阶段（KnowledgeSeeding）和查询响应阶段 [2]。RAG 系统的主要阶段也表述为知识库构建（离线处理"
+    },
+    {
+      "qid": "3",
+      "qtype": "in",
+      "stage": "C",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1541,
+      "cost": 0.00102,
+      "total_ms": 2157.7906999737024,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p015_c002",
+        "RAG知识_p013_c001",
+        "RAG 技术概览_web_c041"
+      ],
+      "answer_preview": "Cloudflare 提供的 RAG 参考架构中，RAG 系统的实现通常分为两个核心阶段：知识库构建阶段（Knowledge Seeding）和实时查询响应阶段 [1][2]。其中，知识库构建阶段会将"
+    },
+    {
+      "qid": "3",
+      "qtype": "in",
+      "stage": "D1",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 1541,
+      "cost": 0.00102,
+      "total_ms": 2445.2829998917878,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p015_c002",
+        "RAG知识_p013_c001",
+        "RAG 技术概览_web_c041"
+      ],
+      "answer_preview": "Cloudflare 提供的 RAG 参考架构中，RAG 系统的实现通常分为两个核心阶段：知识库构建阶段（Knowledge Seeding）和实时查询响应阶段 [1][2]。其中，知识库构建阶段会将"
+    },
+    {
+      "qid": "3",
+      "qtype": "in",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 5.6449000257998705,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p015_c002",
+        "RAG知识_p013_c001",
+        "RAG 技术概览_web_c041"
+      ],
+      "answer_preview": "Cloudflare 提供的 RAG 参考架构中，RAG 系统的实现通常分为两个核心阶段：知识库构建阶段（Knowledge Seeding）和实时查询响应阶段 [1][2]。其中，知识库构建阶段会将"
+    },
+    {
+      "qid": "4",
+      "qtype": "in",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 810,
+      "cost": 0.00111,
+      "total_ms": 1214.7291000001132,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p021_c003",
+        "RAG知识_p066_c001",
+        "RAG知识_p065_c003"
+      ],
+      "answer_preview": "向量数据库（Vectorize）中存储的向量通常包含以下关键组成部分：\n\n1. **向量ID**：唯一标识符，通常基于文档路径和块索引生成 [1]\n2. **向量值**：由嵌入模型生成的数值数组 [1"
+    },
+    {
+      "qid": "4",
+      "qtype": "in",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1647,
+      "cost": 0.0009660000000000001,
+      "total_ms": 1891.2270000437275,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p021_c003",
+        "RAG知识_p065_c003",
+        "RAG知识_p066_c001"
+      ],
+      "answer_preview": "向量数据库（Vectorize）中存储的向量通常包含以下关键组成部分：向量ID（唯一标识符，通常基于文档路径和块索引生成）、向量值（由嵌入模型生成的数值数组）、元数据（与向量关联的描述性信息）、命名空"
+    },
+    {
+      "qid": "4",
+      "qtype": "in",
+      "stage": "C",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1489,
+      "cost": 0.00111,
+      "total_ms": 2752.020299900323,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p021_c003",
+        "RAG知识_p066_c001",
+        "RAG知识_p065_c003"
+      ],
+      "answer_preview": "向量数据库（Vectorize）中存储的向量通常包含以下关键组成部分：\n\n1. **向量ID**：唯一标识符，通常基于文档路径和块索引生成 [1]\n2. **向量值**：由嵌入模型生成的数值数组 [1"
+    },
+    {
+      "qid": "4",
+      "qtype": "in",
+      "stage": "D1",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 1453,
+      "cost": 0.0009660000000000001,
+      "total_ms": 1925.7708000950515,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p021_c003",
+        "RAG知识_p066_c001",
+        "RAG知识_p065_c003"
+      ],
+      "answer_preview": "向量数据库（Vectorize）中存储的向量通常包含以下关键组成部分：向量ID（唯一标识符，通常基于文档路径和块索引生成）、向量值（由嵌入模型生成的数值数组）、元数据（与向量关联的描述性信息）、命名空"
+    },
+    {
+      "qid": "4",
+      "qtype": "in",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 8.057700004428625,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p021_c003",
+        "RAG知识_p066_c001",
+        "RAG知识_p065_c003"
+      ],
+      "answer_preview": "向量数据库（Vectorize）中存储的向量通常包含以下关键组成部分：向量ID（唯一标识符，通常基于文档路径和块索引生成）、向量值（由嵌入模型生成的数值数组）、元数据（与向量关联的描述性信息）、命名空"
+    },
+    {
+      "qid": "5",
+      "qtype": "in",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 850,
+      "cost": 0.0012339999999999999,
+      "total_ms": 1134.2372000217438,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p021_c001",
+        "RAG知识_p044_c002",
+        "RAG知识_p020_c004"
+      ],
+      "answer_preview": "《RAGHandbook》建议中国大陆用户选择千问而不是 Gemini，原因有两点：\n\n1. **服务可访问性**：Google 的服务在中国被封禁，而千问可正常使用 [1]。\n2. **中文处理表现"
+    },
+    {
+      "qid": "5",
+      "qtype": "in",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1700,
+      "cost": 0.001094,
+      "total_ms": 2080.917099956423,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p021_c001",
+        "RAG知识_p020_c004",
+        "RAG知识_p044_c002"
+      ],
+      "answer_preview": "《RAGHandbook》建议中国大陆用户选择千问而不是 Gemini，原因有两点：一是 Google 的服务在中国被封禁，而千问更适合中文内容处理 [1]；二是千问的嵌入模型和大语言模型都提供高质量"
+    },
+    {
+      "qid": "5",
+      "qtype": "in",
+      "stage": "C",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1540,
+      "cost": 0.00123,
+      "total_ms": 2430.6987000163645,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p021_c001",
+        "RAG知识_p044_c002",
+        "RAG知识_p020_c004"
+      ],
+      "answer_preview": "《RAGHandbook》建议中国大陆用户选择千问而不是 Gemini，原因包括：\n\n1. Google 的服务在中国被封禁，而千问更适合中国大陆用户使用 [1]。\n2. 千问的嵌入模型（如 text"
+    },
+    {
+      "qid": "5",
+      "qtype": "in",
+      "stage": "D1",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 1489,
+      "cost": 0.001026,
+      "total_ms": 2928.505099960603,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p021_c001",
+        "RAG知识_p044_c002",
+        "RAG知识_p020_c004"
+      ],
+      "answer_preview": "资料中给出的原因是：对于中国大陆用户，建议使用千问模型，因为 Google 的服务在中国被封禁，而且千问 text-embedding-v4 模型在中文处理上表现更佳 [1]。此外，千问的嵌入模型和大"
+    },
+    {
+      "qid": "5",
+      "qtype": "in",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 8.06450005620718,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p021_c001",
+        "RAG知识_p044_c002",
+        "RAG知识_p020_c004"
+      ],
+      "answer_preview": "资料中给出的原因是：对于中国大陆用户，建议使用千问模型，因为 Google 的服务在中国被封禁，而且千问 text-embedding-v4 模型在中文处理上表现更佳 [1]。此外，千问的嵌入模型和大"
+    },
+    {
+      "qid": "7",
+      "qtype": "cross",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 635,
+      "cost": 0.000884,
+      "total_ms": 1201.8174000550061,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p129_c002",
+        "RAG知识_p097_c003",
+        "RAG 技术概览_web_c008"
+      ],
+      "answer_preview": "资料中没有相关内容。\n\n现有资料仅提到语义检索“使用向量化技术将查询和文档转换为语义向量，通过计算向量相似度找到语义相关的内容”[1]，以及检索时“把用户的查询转换成向量，然后根据这个向量在索引中进行"
+    },
+    {
+      "qid": "7",
+      "qtype": "cross",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1502,
+      "cost": 0.00124,
+      "total_ms": 2824.2671999614686,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p129_c002",
+        "RAG知识_p097_c003",
+        "RAG知识_p088_c001"
+      ],
+      "answer_preview": "把文本转成向量再检索，比关键词匹配更可能召回语义相关内容，原因在于：\n\n- 语义检索基于语义理解而非关键词匹配，它使用向量化技术将查询和文档转换为语义向量，再通过计算向量相似度找到语义相关的内容 [1"
+    },
+    {
+      "qid": "7",
+      "qtype": "cross",
+      "stage": "C",
+      "terminate_reason": "gate_no_retrieve",
+      "llm_calls": 2,
+      "retrieve_times": 0,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 181,
+      "cost": 0.000559,
+      "total_ms": 2541.7482000775635,
+      "prompt_variant": "v1-noretr",
+      "fused_ids": [],
+      "answer_preview": "把文本变成向量再检索，本质是把“字面匹配”换成“语义空间中的近邻搜索”。向量嵌入模型把文本映射为高维向量，使语义相近的文本在向量空间中距离更近；检索时计算查询向量与文档向量的相似度（如余弦相似度），返"
+    },
+    {
+      "qid": "7",
+      "qtype": "cross",
+      "stage": "D1",
+      "terminate_reason": "gate_no_retrieve",
+      "llm_calls": 2,
+      "retrieve_times": 0,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 256,
+      "cost": 0.0008590000000000001,
+      "total_ms": 2739.125999971293,
+      "prompt_variant": "v1-noretr",
+      "fused_ids": [],
+      "answer_preview": "把文本变成向量再检索，核心是**用连续向量表示语义，而不是只比较字面是否相同**。\n\n1. **向量嵌入（embedding）**：模型把一段文本映射到高维向量空间，使语义相近的文本在空间中距离更近。"
+    },
+    {
+      "qid": "7",
+      "qtype": "cross",
+      "stage": "D2",
+      "terminate_reason": "gate_no_retrieve",
+      "llm_calls": 2,
+      "retrieve_times": 0,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 246,
+      "cost": 0.0008190000000000001,
+      "total_ms": 2358.252900070511,
+      "prompt_variant": "v1-noretr",
+      "fused_ids": [],
+      "answer_preview": "把文本转成向量再检索，核心在于**向量嵌入把“字面”映射为“语义”**：\n\n1. **嵌入模型编码语义**：文本经 embedding 模型输出一个稠密向量，训练目标使语义相近的文本在向量空间中距离更"
+    },
+    {
+      "qid": "8",
+      "qtype": "cross",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 957,
+      "cost": 0.001317,
+      "total_ms": 1552.760099992156,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c025",
+        "RAG知识_p016_c001",
+        "RAG知识_p077_c004"
+      ],
+      "answer_preview": "把复杂问题拆成子查询属于**预检索阶段**：Advanced RAG 将查询重写、扩展等归入预检索处理 [2]；而将复杂查询分解为多个更简单、具体的子查询，正是对用户查询进行改写/扩展的一种做法 [1"
+    },
+    {
+      "qid": "8",
+      "qtype": "cross",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1911,
+      "cost": 0.00122,
+      "total_ms": 2117.089500068687,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c025",
+        "RAG 技术概览_web_c026",
+        "RAG知识_p016_c001"
+      ],
+      "answer_preview": "把复杂问题拆成子查询属于**预检索阶段**：Advanced RAG 在预检索阶段引入查询重写/扩展等处理 [3]。其作用是提高检索质量：对复杂查询，LLM 可将其分解为若干更简单、更具体的子查询，分"
+    },
+    {
+      "qid": "8",
+      "qtype": "cross",
+      "stage": "C",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1791,
+      "cost": 0.001429,
+      "total_ms": 2916.933999978937,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c025",
+        "RAG知识_p016_c001",
+        "RAG知识_p077_c004"
+      ],
+      "answer_preview": "把复杂问题拆成子查询属于**预检索阶段**：Advanced RAG 将查询重写、扩展等归入预检索处理 [2]；而将复杂查询分解为多个更简单、具体的子查询，正是对用户查询进行改写/扩展的一种做法 [1"
+    },
+    {
+      "qid": "8",
+      "qtype": "cross",
+      "stage": "D1",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 1759,
+      "cost": 0.001301,
+      "total_ms": 3493.5280000790954,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c025",
+        "RAG知识_p016_c001",
+        "RAG知识_p077_c004"
+      ],
+      "answer_preview": "把复杂问题拆成子查询属于**预检索阶段**：Advanced RAG 将查询重写、扩展等归入预检索处理 [2]；而将复杂查询分解为多个更简单、更具体的子查询，正是对用户查询进行改写/扩展的一种做法 ["
+    },
+    {
+      "qid": "8",
+      "qtype": "cross",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 6.965199951082468,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c025",
+        "RAG知识_p016_c001",
+        "RAG知识_p077_c004"
+      ],
+      "answer_preview": "把复杂问题拆成子查询属于**预检索阶段**：Advanced RAG 将查询重写、扩展等归入预检索处理 [2]；而将复杂查询分解为多个更简单、更具体的子查询，正是对用户查询进行改写/扩展的一种做法 ["
+    },
+    {
+      "qid": "9",
+      "qtype": "out",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 737,
+      "cost": 0.000749,
+      "total_ms": 837.4130000593141,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c008",
+        "Transformer--Attention Is All You Need_web_c010",
+        "Transformer--Attention Is All You Need_web_c105"
+      ],
+      "answer_preview": "资料中没有相关内容。"
+    },
+    {
+      "qid": "9",
+      "qtype": "out",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1656,
+      "cost": 0.000772,
+      "total_ms": 1740.272399969399,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c008",
+        "Transformer--Attention Is All You Need_web_c010",
+        "RAG知识_p087_c001"
+      ],
+      "answer_preview": "资料中没有相关内容。"
+    },
+    {
+      "qid": "9",
+      "qtype": "out",
+      "stage": "C",
+      "terminate_reason": "query_repeat",
+      "llm_calls": 6,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 3983,
+      "cost": 0.0007769999999999999,
+      "total_ms": 5017.501800088212,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c008",
+        "Transformer--Attention Is All You Need_web_c013",
+        "Transformer--Attention Is All You Need_web_c010"
+      ],
+      "answer_preview": "资料中没有相关内容。"
+    },
+    {
+      "qid": "9",
+      "qtype": "out",
+      "stage": "D1",
+      "terminate_reason": "cap",
+      "llm_calls": 6,
+      "retrieve_times": 3,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 4114,
+      "cost": 0.000772,
+      "total_ms": 4760.066600050777,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c008",
+        "Transformer--Attention Is All You Need_web_c010",
+        "RAG知识_p087_c001"
+      ],
+      "answer_preview": "资料中没有相关内容。"
+    },
+    {
+      "qid": "9",
+      "qtype": "out",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 6.542999995872378,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c008",
+        "Transformer--Attention Is All You Need_web_c010",
+        "RAG知识_p087_c001"
+      ],
+      "answer_preview": "资料中没有相关内容。"
+    },
+    {
+      "qid": "10",
+      "qtype": "out",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 810,
+      "cost": 0.000978,
+      "total_ms": 1005.5428000632674,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c010",
+        "Transformer--Attention Is All You Need_web_c004",
+        "RAG知识_p013_c001"
+      ],
+      "answer_preview": "资料中没有相关内容。提供的资料主要涉及 Transformer 的并行化、背景、RNN/LSTM/GRU 的序列建模局限，以及 RAG 技术，未包含图神经网络（GNN）的核心思想，也未说明 GNN 与"
+    },
+    {
+      "qid": "10",
+      "qtype": "out",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1726,
+      "cost": 0.00095,
+      "total_ms": 1769.1942000528798,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c010",
+        "Transformer--Attention Is All You Need_web_c011",
+        "Transformer--Attention Is All You Need_web_c004"
+      ],
+      "answer_preview": "资料中没有相关内容。提供的资料只涉及 Transformer 的并行化、自注意力机制及其相对 RNN/CNN 的优势，未提及图神经网络（GNN）的核心思想，也未讨论 GNN 与 Transformer"
+    },
+    {
+      "qid": "10",
+      "qtype": "out",
+      "stage": "C",
+      "terminate_reason": "cap",
+      "llm_calls": 6,
+      "retrieve_times": 3,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 4087,
+      "cost": 0.0007819999999999999,
+      "total_ms": 5199.589499970898,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c011",
+        "Transformer--Attention Is All You Need_web_c080",
+        "Transformer--Attention Is All You Need_web_c010"
+      ],
+      "answer_preview": "资料中没有相关内容。"
+    },
+    {
+      "qid": "10",
+      "qtype": "out",
+      "stage": "D1",
+      "terminate_reason": "cap",
+      "llm_calls": 6,
+      "retrieve_times": 3,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 4145,
+      "cost": 0.000941,
+      "total_ms": 5064.498099964112,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c011",
+        "Transformer--Attention Is All You Need_web_c087",
+        "Transformer--Attention Is All You Need_web_c010"
+      ],
+      "answer_preview": "资料中没有相关内容。提供的资料均围绕 Transformer 的自注意力机制、并行化、长程依赖路径等展开，未涉及图神经网络（GNN）的核心思想，也未讨论 GNN 与 Transformer 的联系。"
+    },
+    {
+      "qid": "10",
+      "qtype": "out",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 6.632099975831807,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c011",
+        "Transformer--Attention Is All You Need_web_c087",
+        "Transformer--Attention Is All You Need_web_c010"
+      ],
+      "answer_preview": "资料中没有相关内容。提供的资料均围绕 Transformer 的自注意力机制、并行化、长程依赖路径等展开，未涉及图神经网络（GNN）的核心思想，也未讨论 GNN 与 Transformer 的联系。"
+    },
+    {
+      "qid": "11",
+      "qtype": "cross",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 942,
+      "cost": 0.0013319999999999999,
+      "total_ms": 1438.737599994056,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c024",
+        "RAG知识_p016_c002",
+        "RAG知识_p013_c002"
+      ],
+      "answer_preview": "检索得到候选文档后、送入大模型前，可以进一步做过滤、重新排名或转换等优化：可基于相似度评分、关键词、元数据等过滤结果，也可用 LLM、句子-转换器交叉编码器、Cohere 重新排名端点等模型重新排名，"
+    },
+    {
+      "qid": "11",
+      "qtype": "cross",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1922,
+      "cost": 0.001352,
+      "total_ms": 2113.1333999801427,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c024",
+        "RAG知识_p016_c002",
+        "RAG知识_p013_c002"
+      ],
+      "answer_preview": "检索得到候选文档后、送入大模型前，可以进一步做过滤、重新排名或转换来优化结果；例如基于相似度评分、关键词、元数据等过滤结果，或使用 LLM、句子-转换器交叉编码器、Cohere 重新排名端点、基于元数"
+    },
+    {
+      "qid": "11",
+      "qtype": "cross",
+      "stage": "C",
+      "terminate_reason": "gate_no_retrieve",
+      "llm_calls": 2,
+      "retrieve_times": 0,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 304,
+      "cost": 0.001048,
+      "total_ms": 3001.321400050074,
+      "prompt_variant": "v1-noretr",
+      "fused_ids": [],
+      "answer_preview": "检索得到候选文档后、送进大模型前，通常还可做以下处理来提升质量：\n\n1. **去重与去噪**：删除重复、空白、导航栏、广告、模板化内容等低信息文本。\n2. **相关性重排/过滤**：用重排模型或规则按"
+    },
+    {
+      "qid": "11",
+      "qtype": "cross",
+      "stage": "D1",
+      "terminate_reason": "gate_no_retrieve",
+      "llm_calls": 2,
+      "retrieve_times": 0,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 314,
+      "cost": 0.001088,
+      "total_ms": 3368.235299945809,
+      "prompt_variant": "v1-noretr",
+      "fused_ids": [],
+      "answer_preview": "检索得到候选文档后、送进大模型前，通常还可做以下处理来提升质量：\n\n1. **去重与去噪**：删除重复、空白、导航栏、广告、模板化内容等低信息文本。\n2. **相关性重排/过滤**：用重排模型或规则按"
+    },
+    {
+      "qid": "11",
+      "qtype": "cross",
+      "stage": "D2",
+      "terminate_reason": "gate_no_retrieve",
+      "llm_calls": 2,
+      "retrieve_times": 0,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 304,
+      "cost": 0.001048,
+      "total_ms": 2965.5039999634027,
+      "prompt_variant": "v1-noretr",
+      "fused_ids": [],
+      "answer_preview": "检索得到候选文档后、送进大模型前，通常还可做以下处理来提升质量：\n\n1. **去重与去噪**：删除重复、空白、导航栏、广告、模板化内容等低信息文本。\n2. **相关性重排/过滤**：用重排模型或规则按"
+    },
+    {
+      "qid": "12",
+      "qtype": "in",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 875,
+      "cost": 0.001211,
+      "total_ms": 1136.3664000527933,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p024_c001",
+        "RAG知识_p087_c001",
+        "RAG知识_p089_c001"
+      ],
+      "answer_preview": "《RAG知识》第4章列出的RAG流水线主要处理步骤依次为：Markdown内容 → 解析+Front-matter → 分块chunkText → 批量嵌入（Gemini/Qwen）→ 向量规整/裁剪"
+    },
+    {
+      "qid": "12",
+      "qtype": "in",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1781,
+      "cost": 0.001194,
+      "total_ms": 2509.1736000031233,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p024_c001",
+        "RAG知识_p087_c001",
+        "RAG知识_p058_c002"
+      ],
+      "answer_preview": "《RAG知识》第4章列出的RAG流水线主要处理步骤依次为：Markdown内容 → 解析+Front-matter → 分块chunkText → 批量嵌入（Gemini/Qwen）→ 向量规整/裁剪"
+    },
+    {
+      "qid": "12",
+      "qtype": "in",
+      "stage": "C",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1612,
+      "cost": 0.0012309999999999999,
+      "total_ms": 3212.1443999931216,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p024_c001",
+        "RAG知识_p087_c001",
+        "RAG知识_p089_c001"
+      ],
+      "answer_preview": "按【资料1】第4章，RAG流水线从内容接入到答案生成的主要处理步骤依次为：Markdown内容 → 解析+Front-matter → 分块chunkText → 批量嵌入（Gemini/Qwen） "
+    },
+    {
+      "qid": "12",
+      "qtype": "in",
+      "stage": "D1",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 1659,
+      "cost": 0.0014190000000000001,
+      "total_ms": 3216.936200042255,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p024_c001",
+        "RAG知识_p087_c001",
+        "RAG知识_p089_c001"
+      ],
+      "answer_preview": "《RAG知识》第4章列出的RAG流水线主要处理步骤依次为：1. Markdown内容；2. 解析+Front-matter；3. 分块chunkText；4. 批量嵌入（Gemini/Qwen）；5."
+    },
+    {
+      "qid": "12",
+      "qtype": "in",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 8.510900079272687,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p024_c001",
+        "RAG知识_p087_c001",
+        "RAG知识_p089_c001"
+      ],
+      "answer_preview": "《RAG知识》第4章列出的RAG流水线主要处理步骤依次为：1. Markdown内容；2. 解析+Front-matter；3. 分块chunkText；4. 批量嵌入（Gemini/Qwen）；5."
+    },
+    {
+      "qid": "15",
+      "qtype": "in",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 933,
+      "cost": 0.0014069999999999998,
+      "total_ms": 1410.2614000439644,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p030_c001",
+        "RAG知识_p029_c002",
+        "RAG知识_p040_c002"
+      ],
+      "answer_preview": "“维度”指每个文本被嵌入后所生成的向量包含的数值个数，例如维度为1024表示每个文本会被表示为一个包含1024个浮点数的向量 [1]。维度越高，向量能表达的信息越丰富，检索越精确，但存储和计算成本也会"
+    },
+    {
+      "qid": "15",
+      "qtype": "in",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1881,
+      "cost": 0.001447,
+      "total_ms": 2660.788599983789,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p030_c001",
+        "RAG知识_p029_c002",
+        "RAG知识_p040_c002"
+      ],
+      "answer_preview": "“维度”指每个文本被嵌入后所生成的向量包含的数值个数，例如维度为1024表示每个文本会被表示为一个包含1024个浮点数的向量 [1]。维度越高，向量能表达的信息越丰富，检索越精确，但存储和计算成本也会"
+    },
+    {
+      "qid": "15",
+      "qtype": "in",
+      "stage": "C",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1687,
+      "cost": 0.0014429999999999998,
+      "total_ms": 2466.887900023721,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p030_c001",
+        "RAG知识_p029_c002",
+        "RAG知识_p040_c002"
+      ],
+      "answer_preview": "“维度”指每个文本被嵌入后所生成向量包含的数值个数，例如维度为1024表示每个文本会被表示为一个包含1024个浮点数的向量 [1]。维度越高，向量能表达的信息越丰富，检索越精确，但存储和计算成本也会增"
+    },
+    {
+      "qid": "15",
+      "qtype": "in",
+      "stage": "D1",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 1697,
+      "cost": 0.001483,
+      "total_ms": 3148.942800005898,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p030_c001",
+        "RAG知识_p029_c002",
+        "RAG知识_p040_c002"
+      ],
+      "answer_preview": "“维度”指每个文本被嵌入后所生成向量包含的数值个数，例如维度为1024表示每个文本会被表示为一个包含1024个浮点数的向量 [1]。维度越高，向量能表达的信息越丰富，检索越精确，但存储和计算成本也会增"
+    },
+    {
+      "qid": "15",
+      "qtype": "in",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 6.671399925835431,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p030_c001",
+        "RAG知识_p029_c002",
+        "RAG知识_p040_c002"
+      ],
+      "answer_preview": "“维度”指每个文本被嵌入后所生成向量包含的数值个数，例如维度为1024表示每个文本会被表示为一个包含1024个浮点数的向量 [1]。维度越高，向量能表达的信息越丰富，检索越精确，但存储和计算成本也会增"
+    },
+    {
+      "qid": "16",
+      "qtype": "in",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 753,
+      "cost": 0.0011819999999999999,
+      "total_ms": 1419.0127999754623,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p123_c003",
+        "RAG知识_p097_c002",
+        "RAG知识_p107_c001"
+      ],
+      "answer_preview": "聊天组件前端检测用户语言的方式与优先级如下：\n\n- 客户端需要准确检测用户所用语言，为后续流程打下基础 [2]。\n- 最小逻辑是：路径以 `/en/` 开头即英文，否则中文 [2]。\n- 可扩展的优先"
+    },
+    {
+      "qid": "16",
+      "qtype": "in",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1579,
+      "cost": 0.001226,
+      "total_ms": 2114.4234999082983,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p097_c002",
+        "RAG知识_p123_c003",
+        "RAG知识_p123_c002"
+      ],
+      "answer_preview": "聊天组件前端检测用户语言的方式及优先级如下：\n\n**检测方式**：客户端需要准确检测用户所用语言，为后续流程打下基础 [1]。最小逻辑是：路径以 `/en/` 开头即英文，否则中文 [1]。检索阶段应"
+    },
+    {
+      "qid": "16",
+      "qtype": "in",
+      "stage": "C",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1333,
+      "cost": 0.0011819999999999999,
+      "total_ms": 2663.880700012669,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p123_c003",
+        "RAG知识_p097_c002",
+        "RAG知识_p107_c001"
+      ],
+      "answer_preview": "聊天组件前端检测用户语言的方式与优先级如下：\n\n- 客户端需要准确检测用户所用语言，为后续流程打下基础 [2]。\n- 最小逻辑是：路径以 `/en/` 开头即英文，否则中文 [2]。\n- 可扩展的优先"
+    },
+    {
+      "qid": "16",
+      "qtype": "in",
+      "stage": "D1",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 1340,
+      "cost": 0.00121,
+      "total_ms": 2826.874800026417,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p123_c003",
+        "RAG知识_p097_c002",
+        "RAG知识_p107_c001"
+      ],
+      "answer_preview": "聊天组件前端检测用户语言的方式与优先级如下：\n\n- 客户端需要准确检测用户所用语言，为后续流程打下基础 [2]。\n- 最小逻辑是：路径以 `/en/` 开头即判为英文，否则判为中文 [2]。\n- 可扩"
+    },
+    {
+      "qid": "16",
+      "qtype": "in",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 7.15340010356158,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p123_c003",
+        "RAG知识_p097_c002",
+        "RAG知识_p107_c001"
+      ],
+      "answer_preview": "聊天组件前端检测用户语言的方式与优先级如下：\n\n- 客户端需要准确检测用户所用语言，为后续流程打下基础 [2]。\n- 最小逻辑是：路径以 `/en/` 开头即判为英文，否则判为中文 [2]。\n- 可扩"
+    },
+    {
+      "qid": "18",
+      "qtype": "cross",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 705,
+      "cost": 0.001026,
+      "total_ms": 1393.240400007926,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p030_c004",
+        "RAG知识_p070_c001",
+        "RAG知识_p074_c003"
+      ],
+      "answer_preview": "资料中没有相关内容。\n\n说明：现有资料仅涉及 Vectorize 的元数据索引创建（string/number/boolean 类型）[2]、查询时使用元数据过滤的概述[2]、返回元数据设置[3]，以"
+    },
+    {
+      "qid": "18",
+      "qtype": "cross",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1471,
+      "cost": 0.001046,
+      "total_ms": 2469.0669999690726,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p030_c004",
+        "RAG知识_p070_c001",
+        "RAG知识_p074_c003"
+      ],
+      "answer_preview": "资料中没有相关内容。\n\n说明：现有资料仅涉及 Vectorize 的元数据索引创建（如为 url、language 等字段建索引）[1][2]、支持的元数据类型（string、number、boole"
+    },
+    {
+      "qid": "18",
+      "qtype": "cross",
+      "stage": "C",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 5,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 2788,
+      "cost": 0.0015300000000000001,
+      "total_ms": 4865.87600002531,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p030_c004",
+        "RAG知识_p074_c003",
+        "RAG知识_p070_c002"
+      ],
+      "answer_preview": "在向量检索时，可通过在查询中传入 `filter` 对象实现基于元数据的过滤查询 [2][3]。例如查询时设置 `filter: { url: { $eq: \"/blog/post-1\" } }`，并"
+    },
+    {
+      "qid": "18",
+      "qtype": "cross",
+      "stage": "D1",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 5,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 2784,
+      "cost": 0.001514,
+      "total_ms": 4942.813300061971,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p030_c004",
+        "RAG知识_p074_c003",
+        "RAG知识_p070_c002"
+      ],
+      "answer_preview": "在向量检索时，可通过在查询中传入 `filter` 对象实现基于元数据的过滤查询 [2][3]。例如查询时设置 `filter: { url: { $eq: \"/blog/post-1\" } }`，并"
+    },
+    {
+      "qid": "18",
+      "qtype": "cross",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 5.630900035612285,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p030_c004",
+        "RAG知识_p074_c003",
+        "RAG知识_p070_c002"
+      ],
+      "answer_preview": "在向量检索时，可通过在查询中传入 `filter` 对象实现基于元数据的过滤查询 [2][3]。例如查询时设置 `filter: { url: { $eq: \"/blog/post-1\" } }`，并"
+    },
+    {
+      "qid": "21",
+      "qtype": "cross",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1036,
+      "cost": 0.001771,
+      "total_ms": 2583.877799916081,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p087_c001",
+        "RAG知识_p016_c001",
+        "RAG 技术概览_web_c027"
+      ],
+      "answer_preview": "**可追溯的实现方式**\n\nRAG 系统在检索后会构建 sources 列表，把检索到的上下文组织进提示词并交由模型生成回答，从而使生成结果具备可追溯性 [1]。在引用层面，实践中可采用两种做法：一是"
+    },
+    {
+      "qid": "21",
+      "qtype": "cross",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1987,
+      "cost": 0.0017590000000000001,
+      "total_ms": 2967.013999936171,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c027",
+        "RAG知识_p087_c001",
+        "RAG知识_p016_c001"
+      ],
+      "answer_preview": "RAG 回答的可追溯性，核心在于生成答案时保留并回指所依据的来源。资料指出，RAG 的提出动因之一就是让模型能提供可追溯的证据 [3]；答案生成流程也强调要确保生成结果具备可追溯性 [2]。\n\n关于《"
+    },
+    {
+      "qid": "21",
+      "qtype": "cross",
+      "stage": "C",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1780,
+      "cost": 0.001703,
+      "total_ms": 3712.924599996768,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p087_c001",
+        "RAG知识_p016_c001",
+        "RAG 技术概览_web_c027"
+      ],
+      "answer_preview": "**可追溯的实现方式**\n\nRAG 系统在答案生成流程中，用户消息先被嵌入为查询向量，用于在向量库中检索相关上下文，检索到的上下文再被组织进提示词交由模型生成最终回答，从而保证生成结果具备可追溯性 ["
+    },
+    {
+      "qid": "21",
+      "qtype": "cross",
+      "stage": "D1",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 1771,
+      "cost": 0.001667,
+      "total_ms": 3238.765600020997,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p087_c001",
+        "RAG知识_p016_c001",
+        "RAG 技术概览_web_c027"
+      ],
+      "answer_preview": "**可追溯的实现方式**\n\nRAG 系统在检索后会构建 sources 列表，把检索到的上下文组织进提示词并交由模型生成回答，从而让生成结果具备可追溯性 [1]。在答案生成流程中，用户消息先被嵌入为查"
+    },
+    {
+      "qid": "21",
+      "qtype": "cross",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 10.665799956768751,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p087_c001",
+        "RAG知识_p016_c001",
+        "RAG 技术概览_web_c027"
+      ],
+      "answer_preview": "**可追溯的实现方式**\n\nRAG 系统在检索后会构建 sources 列表，把检索到的上下文组织进提示词并交由模型生成回答，从而让生成结果具备可追溯性 [1]。在答案生成流程中，用户消息先被嵌入为查"
+    },
+    {
+      "qid": "22",
+      "qtype": "partial",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 798,
+      "cost": 0.001143,
+      "total_ms": 1488.5211000218987,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c037",
+        "RAG 技术概览_web_c041",
+        "RAG知识_p025_c002"
+      ],
+      "answer_preview": "根据资料1，对 bge-large-en-v1.5 进行微调后，测试结果显示检索质量提高了 2% [1]。\n\n关于在 8GB 显存显卡上微调 bge-small-zh 的具体训练参数和显存占用配置，资"
+    },
+    {
+      "qid": "22",
+      "qtype": "partial",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1651,
+      "cost": 0.001171,
+      "total_ms": 2190.7875000033528,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c041",
+        "RAG知识_p025_c002",
+        "RAG 技术概览_web_c037"
+      ],
+      "answer_preview": "根据【资料3】，在 LlamaIndex notebook 环境中对 bge-large-en-v1.5 进行微调后，测试结果表明检索质量提高了 2% [3]。\n\n关于在 8GB 显存显卡上微调 bg"
+    },
+    {
+      "qid": "22",
+      "qtype": "partial",
+      "stage": "C",
+      "terminate_reason": "cap",
+      "llm_calls": 6,
+      "retrieve_times": 3,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 3774,
+      "cost": 0.0012070000000000002,
+      "total_ms": 5480.790099943988,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c038",
+        "RAG知识_p025_c002",
+        "RAG 技术概览_web_c037"
+      ],
+      "answer_preview": "根据资料，微调嵌入模型（如 bge-large-en-v1.5）的测试结果显示检索质量提高了 2% [1][3]。另外，交叉编码器微调可使成对得分提升 4% [1]。\n\n关于在 8GB 显存显卡上微调"
+    },
+    {
+      "qid": "22",
+      "qtype": "partial",
+      "stage": "D1",
+      "terminate_reason": "cap",
+      "llm_calls": 6,
+      "retrieve_times": 3,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 3777,
+      "cost": 0.001219,
+      "total_ms": 5777.450900059193,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c038",
+        "RAG知识_p025_c002",
+        "RAG 技术概览_web_c037"
+      ],
+      "answer_preview": "根据资料3，对 bge-large-en-v1.5 编码器进行微调后，测试结果显示检索质量提高了 2% [3]。资料1也提到，交叉编码器微调可使成对得分提升 4% [1]。\n\n关于在 8GB 显存显卡"
+    },
+    {
+      "qid": "22",
+      "qtype": "partial",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 7.286999956704676,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c038",
+        "RAG知识_p025_c002",
+        "RAG 技术概览_web_c037"
+      ],
+      "answer_preview": "根据资料3，对 bge-large-en-v1.5 编码器进行微调后，测试结果显示检索质量提高了 2% [3]。资料1也提到，交叉编码器微调可使成对得分提升 4% [1]。\n\n关于在 8GB 显存显卡"
+    },
+    {
+      "qid": "23",
+      "qtype": "partial",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 796,
+      "cost": 0.000994,
+      "total_ms": 823.5216999892145,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p016_c001",
+        "RAG 技术概览_web_c041",
+        "RAG知识_p131_c001"
+      ],
+      "answer_preview": "「幻觉」指模型生成看似合理但实际错误信息的现象 [3]。RAG 能减少模型幻觉 [1]。\n\n关于「信实度」：资料提到 Ragas 主要利用信实度和答案相关性作为评估生成答案质量的指标 [2]，但资料中"
+    },
+    {
+      "qid": "23",
+      "qtype": "partial",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1713,
+      "cost": 0.00109,
+      "total_ms": 2067.8903999505565,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p016_c001",
+        "RAG知识_p131_c001",
+        "RAG 技术概览_web_c041"
+      ],
+      "answer_preview": "「幻觉」指模型生成看似合理但实际错误信息的现象 [2]。RAG 能减少模型幻觉、提升开放域问答准确率 [1]。\n\n关于「信实度」：资料3只提到评估RAG系统性能时涉及信实度等指标，并指出Ragas主要"
+    },
+    {
+      "qid": "23",
+      "qtype": "partial",
+      "stage": "C",
+      "terminate_reason": "query_repeat",
+      "llm_calls": 6,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 4013,
+      "cost": 0.00109,
+      "total_ms": 4828.106900095008,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p016_c001",
+        "RAG知识_p131_c001",
+        "RAG 技术概览_web_c041"
+      ],
+      "answer_preview": "「幻觉」指模型生成看似合理但实际错误信息的现象 [2]。RAG 能减少模型幻觉、提升开放域问答准确率 [1]。\n\n关于「信实度」：资料3只提到评估RAG系统性能时涉及信实度等指标，并指出Ragas主要"
+    },
+    {
+      "qid": "23",
+      "qtype": "partial",
+      "stage": "D1",
+      "terminate_reason": "query_repeat",
+      "llm_calls": 6,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 4014,
+      "cost": 0.001086,
+      "total_ms": 5440.326499985531,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p016_c001",
+        "RAG知识_p131_c001",
+        "RAG 技术概览_web_c041"
+      ],
+      "answer_preview": "「幻觉」指模型生成看似合理但实际错误信息的现象 [2]。RAG 能减少模型幻觉、提升开放域问答准确率 [1]。\n\n关于「信实度」：资料3只提到评估 RAG 系统时会用信实度等指标，并说 Ragas 主"
+    },
+    {
+      "qid": "23",
+      "qtype": "partial",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 7.785700028762221,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p016_c001",
+        "RAG知识_p131_c001",
+        "RAG 技术概览_web_c041"
+      ],
+      "answer_preview": "「幻觉」指模型生成看似合理但实际错误信息的现象 [2]。RAG 能减少模型幻觉、提升开放域问答准确率 [1]。\n\n关于「信实度」：资料3只提到评估 RAG 系统时会用信实度等指标，并说 Ragas 主"
+    },
+    {
+      "qid": "25",
+      "qtype": "partial",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 884,
+      "cost": 0.001289,
+      "total_ms": 1499.662599992007,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c030",
+        "RAG 技术概览_web_c024",
+        "RAG 技术概览_web_c034"
+      ],
+      "answer_preview": "查询路由是一种基于LLM的决策步骤，用于确定针对用户查询接下来应采取的行动 [1]。它通常的选项包括：概括回答、针对某个数据索引执行搜索，或尝试多条不同的途径并将结果综合成一个答案 [1]。查询路由器"
+    },
+    {
+      "qid": "25",
+      "qtype": "partial",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1851,
+      "cost": 0.001509,
+      "total_ms": 2957.026100018993,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c030",
+        "RAG 技术概览_web_c034",
+        "RAG 技术概览_web_c024"
+      ],
+      "answer_preview": "查询路由是一种基于LLM的决策步骤，用于确定针对用户查询接下来应采取的行动[1]。它通常可做出的选择包括：概括回答、针对某个数据索引执行搜索，或尝试多条不同途径并将结果综合成一个答案[1]。查询路由器"
+    },
+    {
+      "qid": "25",
+      "qtype": "partial",
+      "stage": "C",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 5,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 3279,
+      "cost": 0.001469,
+      "total_ms": 5676.993099972606,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c030",
+        "RAG 技术概览_web_c024",
+        "RAG 技术概览_web_c034"
+      ],
+      "answer_preview": "查询路由是一种基于LLM的决策步骤，用于确定针对用户查询接下来应采取的行动 [1]。它通常的选项包括：概括回答、针对某个数据索引执行搜索，或尝试多条不同的途径并将结果综合成一个答案 [1]。查询路由器"
+    },
+    {
+      "qid": "25",
+      "qtype": "partial",
+      "stage": "D1",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 5,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 3236,
+      "cost": 0.001485,
+      "total_ms": 4983.431000029668,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c030",
+        "RAG 技术概览_web_c034",
+        "RAG 技术概览_web_c024"
+      ],
+      "answer_preview": "查询路由是一种基于LLM的决策步骤，用于确定针对用户查询接下来应采取的行动 [1]。它通常的选项包括：概括回答、针对某个数据索引执行搜索，或尝试多条不同的途径并将结果综合成一个答案 [1]。查询路由器"
+    },
+    {
+      "qid": "25",
+      "qtype": "partial",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 11.163500021211803,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c030",
+        "RAG 技术概览_web_c034",
+        "RAG 技术概览_web_c024"
+      ],
+      "answer_preview": "查询路由是一种基于LLM的决策步骤，用于确定针对用户查询接下来应采取的行动 [1]。它通常的选项包括：概括回答、针对某个数据索引执行搜索，或尝试多条不同的途径并将结果综合成一个答案 [1]。查询路由器"
+    },
+    {
+      "qid": "27",
+      "qtype": "out",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 788,
+      "cost": 0.0007999999999999999,
+      "total_ms": 433.7087000021711,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c093",
+        "RAG知识_p130_c001",
+        "Transformer--Attention Is All You Need_web_c003"
+      ],
+      "answer_preview": "资料中没有相关内容。"
+    },
+    {
+      "qid": "27",
+      "qtype": "out",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1735,
+      "cost": 0.0007999999999999999,
+      "total_ms": 1896.3382999645546,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c093",
+        "Transformer--Attention Is All You Need_web_c003",
+        "RAG知识_p130_c001"
+      ],
+      "answer_preview": "资料中没有相关内容。"
+    },
+    {
+      "qid": "27",
+      "qtype": "out",
+      "stage": "C",
+      "terminate_reason": "cap",
+      "llm_calls": 6,
+      "retrieve_times": 3,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 4170,
+      "cost": 0.0007999999999999999,
+      "total_ms": 5828.461199998856,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c093",
+        "RAG知识_p130_c001",
+        "Transformer--Attention Is All You Need_web_c003"
+      ],
+      "answer_preview": "资料中没有相关内容。"
+    },
+    {
+      "qid": "27",
+      "qtype": "out",
+      "stage": "D1",
+      "terminate_reason": "cap",
+      "llm_calls": 6,
+      "retrieve_times": 3,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 4176,
+      "cost": 0.0007999999999999999,
+      "total_ms": 5806.245599989779,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c003",
+        "Transformer--Attention Is All You Need_web_c093",
+        "RAG知识_p130_c001"
+      ],
+      "answer_preview": "资料中没有相关内容。"
+    },
+    {
+      "qid": "27",
+      "qtype": "out",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 7.727799937129021,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c003",
+        "Transformer--Attention Is All You Need_web_c093",
+        "RAG知识_p130_c001"
+      ],
+      "answer_preview": "资料中没有相关内容。"
+    },
+    {
+      "qid": "30",
+      "qtype": "out",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 974,
+      "cost": 0.00173,
+      "total_ms": 2096.898899995722,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Redis全套学习笔记_p110_c003",
+        "Redis全套学习笔记_p111_c001",
+        "Redis全套学习笔记_p006_c002"
+      ],
+      "answer_preview": "**实现方式**：使用 Redis 的 `set key value NX PX 有效期(毫秒)` 命令实现分布式锁。该命令表示当 key 不存在时设置其值为 value，并同时设置有效期；返回 ok"
+    },
+    {
+      "qid": "30",
+      "qtype": "out",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1790,
+      "cost": 0.001454,
+      "total_ms": 2622.7672999957576,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Redis全套学习笔记_p110_c003",
+        "Redis全套学习笔记_p111_c001",
+        "Redis全套学习笔记_p006_c002"
+      ],
+      "answer_preview": "**实现方式**：使用 Redis 的 `set key value NX PX 有效期(毫秒)` 命令实现分布式锁。该命令表示当 key 不存在时设置其值为 value，并同时设置有效期；返回 ok"
+    },
+    {
+      "qid": "30",
+      "qtype": "out",
+      "stage": "C",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1698,
+      "cost": 0.001862,
+      "total_ms": 3743.9507000381127,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Redis全套学习笔记_p110_c003",
+        "Redis全套学习笔记_p111_c001",
+        "Redis全套学习笔记_p006_c002"
+      ],
+      "answer_preview": "**实现方式**：使用 Redis 的 `set key value NX PX 有效期(毫秒)` 命令实现分布式锁。该命令表示当 key 不存在时设置其值为 value，并同时设置有效期；返回 ok"
+    },
+    {
+      "qid": "30",
+      "qtype": "out",
+      "stage": "D1",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 5,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 3139,
+      "cost": 0.0014659999999999999,
+      "total_ms": 4668.80639991723,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Redis全套学习笔记_p110_c003",
+        "Redis全套学习笔记_p111_c001",
+        "Redis全套学习笔记_p006_c002"
+      ],
+      "answer_preview": "**实现方式**：使用 Redis 的 `set key value NX PX 有效期(毫秒)` 命令实现分布式锁。该命令表示当 key 不存在时设置其值为 value，并同时设置有效期；返回 ok"
+    },
+    {
+      "qid": "30",
+      "qtype": "out",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 9.663700009696186,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Redis全套学习笔记_p110_c003",
+        "Redis全套学习笔记_p111_c001",
+        "Redis全套学习笔记_p006_c002"
+      ],
+      "answer_preview": "**实现方式**：使用 Redis 的 `set key value NX PX 有效期(毫秒)` 命令实现分布式锁。该命令表示当 key 不存在时设置其值为 value，并同时设置有效期；返回 ok"
+    }
+  ]
+}

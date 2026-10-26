@@ -95,6 +95,27 @@ class RAGPipeline:
         # 不是调用方传进来的 None）—— 结果里要能看到【这一跑真正用了哪条召回路径】。
         return hits, recall, ranked, (t1 - t0) * 1000, (t2 - t1) * 1000, k, mode
 
+    # ------------------------------------------------------------
+    # 公开检索入口（W4 卡2）
+    # ------------------------------------------------------------
+    def retrieve(self, question: str, dedupe: bool = True,
+                 top_k: int | None = None, quota_cap: int | None = None,
+                 span=nullspan, mode: str | None = None,
+                 min_score: float = 0.0) -> tuple:
+        """把一次「召回 → 精排 → 去重 → 截断」暴露给外部调用方（agentic 主循环）。
+
+        为什么是薄封装而不是把 _retrieve 改名成公开：
+            _ 前缀在本项目里的含义是「只在类内部、且只有 answer/answer_stream 会走」。
+            直接公开它，等于把「检索段的参数组合」也交出去 —— 而 agentic 那一轮
+            C/D 组与 A 组的唯一变量必须是【检索了几轮】，检索段参数必须逐字对齐
+            pipeline.answer() 里的那一组（dedupe / top_k / quota_cap / min_score）。
+
+        返回与 _retrieve 完全一致：`(hits, recall, ranked, recall_ms, rerank_ms, k, mode)`。
+        span 由调用方给：agentic 传 trace.nullspan（它不埋 W1–W3 的 trace，只落轨迹文件），
+        这样逐段 span 明细丢失，但 recall_ms / rerank_ms 仍由返回值带回来。
+        """
+        return self._retrieve(question, dedupe, top_k, quota_cap, span, mode, min_score)
+
     def answer(self, question: str, qtype: str = "in",
                dedupe: bool = True, top_k: int | None = None,
                quota_cap: int | None = None, prompt_version: str = "v1",

@@ -1,0 +1,2052 @@
+{
+  "experiment": "frozen_v2_generation_v1",
+  "generated_at": "2026-10-24 20:25:39",
+  "judge": {
+    "model": "qwen3.8-max",
+    "temperature": 0,
+    "base_url": "https://ws-rbtvfl1mut97g4dq.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+    "extra_body": {
+      "enable_thinking": false
+    },
+    "principle_pass_threshold": 0.6
+  },
+  "generation": {
+    "model": "deepseek-v4-flash",
+    "mode": "dense",
+    "dedupe": true,
+    "top_k": 3,
+    "quota_cap": 2,
+    "prompt": {
+      "fact": "v2",
+      "principle": "v1-noretr"
+    }
+  },
+  "fingerprints": {
+    "frozen_v2_sha256": "5d466ec84e5bf38fa5ab3ed478f8262e825b1f4c8197eca4db2ccb47cd3e0e19",
+    "chunks_sha256": "199749aba2829aa7008ad33391f6a8157dd10f9492f58cb32cfef5aa316f6dde"
+  },
+  "summary": {
+    "n": 30,
+    "answer_acc": 0.9,
+    "by_type": {
+      "partial": {
+        "n": 5,
+        "correct": 5,
+        "rate": 1.0
+      },
+      "in": {
+        "n": 8,
+        "correct": 8,
+        "rate": 1.0
+      },
+      "cross": {
+        "n": 7,
+        "correct": 7,
+        "rate": 1.0
+      },
+      "out": {
+        "n": 5,
+        "correct": 5,
+        "rate": 1.0
+      },
+      "principle": {
+        "n": 5,
+        "correct": 2,
+        "rate": 0.4
+      }
+    },
+    "fact_n": 25,
+    "cite_n": 20,
+    "cite_acc": 0.9906542056074766,
+    "cite_total": 107,
+    "cite_valid": 106,
+    "cite_at_k": 0.7333333333333333,
+    "slot_valid": 44,
+    "slot_total": 60,
+    "zero_cite_n": 2,
+    "principle_n": 5,
+    "principle_pass": 2,
+    "principle_coverage_mean": 0.65,
+    "avg_retrieve_ms": 114.29670800454915,
+    "avg_gen_ms": 1667.7988366379093,
+    "gen_prompt_tokens": 18707,
+    "gen_completion_tokens": 6506,
+    "gen_cost": 0.044731,
+    "judge_prompt_tokens": 52053,
+    "judge_completion_tokens": 1625,
+    "judge_cost": 0.0448924
+  },
+  "records": [
+    {
+      "id": 6,
+      "type": "partial",
+      "kind": "fact",
+      "question": "RAG 能减少幻觉，一个重要原因是它把检索到的资料\"喂\"给生成模型。请问：检索到的上下文是如何与用户问题一起交给大模型，再由大模型利用\"自注意力\"生成回答的？请结合 RAG 的查询响应流程和 Transformer 的自注意力原理说明。",
+      "answer": "**子问题清单：**\n1. RAG 的查询响应流程中，检索到的上下文是如何与用户问题一起交给大模型的？\n2. 大模型如何利用“自注意力”机制生成回答？\n3. 检索上下文“喂”给生成模型与减少幻觉之间的关系？\n\n**逐条回答：**\n\n**子问题1：检索到的上下文如何与用户问题一起交给大模型？**\n资料未涉及查询响应阶段“检索上下文与用户问题拼接后输入大模型”的具体步骤。资料1仅说明 Naive RAG 采用“文档切块→向量检索→拼接提示生成”三步流程 [1]，资料2仅说明 RAG 工作流程分为知识库构建（离线处理）和查询响应（实时处理）两个阶段 [2]，但均未展开查询响应中上下文与问题如何拼接、以何种提示格式交给大模型。资料未涉及该细节。\n\n**子问题2：大模型如何利用“自注意力”机制生成回答？**\n资料未涉及大模型在生成回答时如何利用自注意力处理检索上下文。资料3讨论的是 Transformer 自注意力的一般特性：自注意力可以产生更具可解释性的模型，单个注意力头学习执行不同任务，许多头表现出与句子句法和语义结构相关的行为 [3]；当 n 小于表征维度 d 时自注意力层比循环层更快 [3]；可将自注意力限制为仅考虑大小为 r 的邻域以处理长序列 [3]。但资料3并未说明这些机制如何应用于 RAG 中“检索上下文+用户问题”的生成过程。资料未涉及该结合说明。\n\n**子问题3：检索上下文“喂”给生成模型与减少幻觉之间的关系？**\n资料1指出，RAG 提出动因是 LLM 容易出现“幻觉”、参数化知识难以更新，需要外部检索补充知识并提供可追溯的证据 [1]；RAG 能够减少模型幻觉，提升开放域问答的准确率 [1]。资料2指出，传统 LLM 存在幻觉问题，可能生成看似合理但实际错误的信息，RAG 通过引入外部知识库，让 AI 模型在生成回答前先检索相关信息，从而显著提高回答的准确性和时效性 [2]。但资料未从“自注意力如何利用检索上下文”的机制层面解释减少幻觉的原理。资料未涉及该机制性解释。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p016_c001",
+          "distance": 0.30606842041015625,
+          "text": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档切块→向量检索→拼接提示生成），支持一体化端到\n端微调（如RAG‑Sequence和RAG‑Token），能够减少模型幻觉，提升开放域问答的准\n确率。\n2. AdvancedRAG\n提出动因：用户查询与知识库语义不完全对齐，NaiveRAG检索噪声较多、生成质量\n有限。\n主要特点：引入预检索（如查询重写/扩展）、检索（语义向量检索）、后检索（结果重排\n序、摘要压缩）等多阶段处理，显著提升检索相关性和生成质量。\n",
+          "page": 16,
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p016",
+          "char_count": 287,
+          "rerank_score": 0.9965165853500366
+        },
+        {
+          "chunk_id": "RAG知识_p013_c002",
+          "distance": 0.3562428951263428,
+          "text": "方式解决了传统大语言模型的关键问题：\n传统LLM的局限性：\n・ 知识截止点：模型训练数据有时间限制，无法获取最新信息\n・ 幻觉问题：模型可能生成看似合理但实际错误的信息\n・ 领域专业性不足：对特定领域的深度知识掌握有限\n・ 个性化缺失：无法基于用户的个人知识库进行回答\nRAG的解决方案：\nRAG通过引入外部知识库，让AI模型在生成回答前先检索相关信息，从而显著提高回\n答的准确性和时效性。这种方法特别适合构建个人数字分身，因为它可以基于你的个人\n文档、博客文章、经验总结等生成符合你风格和观点的回答。\n2.2 RAG 的工作流程\nRAG系统的工作流程分为两个主要阶段：知识库构建（离线处理）和查询响应（实时\n处理）。\n",
+          "char_count": 310,
+          "doc_id": "RAG知识_p013",
+          "page": 13,
+          "source": "RAG知识.pdf",
+          "rerank_score": 0.9830850958824158
+        },
+        {
+          "chunk_id": "Transformer--Attention Is All You Need_web_c076",
+          "distance": 0.3491209149360657,
+          "text": "的方法）。作为附带的好处，自注意力可以产生更多可解释的模型。我们对模型检查了其注意力分布，并在附录中展示和讨论了相关示例。不仅单个注意力头清楚地学习执行不同的任务，而且许多似乎表现出与句子的句法和语义结构相关的行为。n小于表征维度d时，自注意力层比循环层更快，这通常是机器翻译中最先进模型使用的句子表示的情况，例如word-piece [38]和byte-pair [31] 表征法。为了提高涉及非常长序列的任务的计算性能，自注意力可以限制为仅考虑大小为r的邻域。输入序列以各自的输出位置为中心。这会将最大路径长度增加到O(n/r)。我们计划在未来的工作中进一步研究这种方法。内核宽度k的单个卷积层不会连接所有输入和输出位置对。",
+          "char_count": 314,
+          "url": "https://zhuanlan.zhihu.com/p/689083488",
+          "title": "经典译文：Transformer--Attention Is All You Need",
+          "doc_id": "Transformer--Attention Is All You Need_web",
+          "source": "Transformer--Attention Is All You Need.html",
+          "rerank_score": 0.971563994884491
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 404.8518999479711,
+      "gen_ms": 4549.274000106379,
+      "prompt_tokens": 855,
+      "completion_tokens": 494,
+      "cost": 0.0028309999999999997,
+      "correct": true,
+      "reason": "回答准确指出资料不足以支撑问题，未编造内容。",
+      "cite_total": 7,
+      "cite_valid": 7,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 1324,
+          "completion_tokens": 23
+        },
+        {
+          "prompt_tokens": 1378,
+          "completion_tokens": 34
+        }
+      ],
+      "judge_cost": 0.0022756
+    },
+    {
+      "id": 13,
+      "type": "in",
+      "kind": "fact",
+      "question": "分块函数 chunkText() 的分块策略是怎样的？它的目标片段长度上限是多少，切分时先按什么切、再按什么切？",
+      "answer": "**子问题清单：**\n1. chunkText() 的分块策略是怎样的？\n2. 目标片段长度上限是多少？\n3. 切分时先按什么切、再按什么切？\n\n**逐条回答：**\n\n1. 分块策略：在保持语义完整的前提下生成长度适中、兼容中英文的片段；先按标题粗切，对每段做长度判断，短段直接收集，长段再按句末标点分句，逐句累积至上限，超限截断换新块 [1]。好的分块策略需平衡块大小、语义完整性和检索效果 [2]。\n\n2. 目标片段长度上限：≤800字符（maxLen 默认 800）[1]。\n\n3. 切分顺序：先按标题（`^#{1,6}`）粗切，再对长段按句末标点（。！？；）分句 [1]。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p052_c001",
+          "distance": 0.24727821350097656,
+          "text": "42 第9章：Markdown向量映射\n9.2 分块算法 chunkText()\n目标：在保持语义完整的前提下生成长度适中（≤800字符）的片段，兼容中英文。\n策略：\n^#{1,6}\n1. 先按标题（ ）粗切\n2. 对每段做长度判断，短段直接收集\n/[ !? ;]\\{}s*/\n3. 长段再按句末标点正则 。！？ ； 分句\nmaxLen\n4. 逐句累积至 ，超限截断换新块\n核心实现（节选）：\n1 export function chunkText(input: string, maxLen = 800): string[] {\n",
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p052",
+          "char_count": 266,
+          "page": 52,
+          "rerank_score": 0.9990600943565369
+        },
+        {
+          "chunk_id": "RAG知识_p129_c001",
+          "distance": 0.3908960819244385,
+          "text": "23.3. 提示工程技术 119\n算机能够理解和处理语义信息。\n・ 嵌入模型（EmbeddingModel）：专门用于生成向量表示的机器学习模型。嵌入模\n型将离散的符号（如单词、句子）转换为连续的向量表示，捕获其语义特征。\n・ 文档分块（Chunking）：将长文档分割成较小、语义相对完整的文本片段的技术。\n分块是RAG系统中的关键步骤，好的分块策略需要平衡块的大小、语义完整性和检\n索效果。\n・ 向量数据库（VectorDatabase）：专门存储和检索高维向量数据的数据库系统。与\n传统关系数据库不同，向量数据库优化了相似度搜索功能。\n",
+          "doc_id": "RAG知识_p129",
+          "page": 129,
+          "source": "RAG知识.pdf",
+          "char_count": 271,
+          "rerank_score": 0.6397360563278198
+        },
+        {
+          "chunk_id": "RAG 技术概览_web_c014",
+          "distance": 0.35062700510025024,
+          "text": "先，我们需要创建一个向量索引，这个索引代表了我们文档的内容。然后，在程序运行时，我们会搜索这些向量与查询向量之间的最小余弦距离，以找到语义上最接近的匹配。1.1 分块Transformer 模型的输入序列长度是固定的，即使输入上下文窗口很大，用一个句子或几个句子的向量来代表它们的语义含义，通常比对几页文本进行平均向量化更为有效。因此，需要对数据进行分块处理，将文档切分成合适大小的段落，同时保持其原有意义不变（例如，将文本划分为句子或段落，而不是将单个句子切割成两部分）。市面上有多种文本分割工具可用于此任务。需要考虑的一个参数是块的大小，这取决于你使用的嵌入模型及其处理token的能力。",
+          "source": "RAG 技术概览.html",
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "doc_id": "RAG 技术概览_web",
+          "char_count": 296,
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "rerank_score": 0.024053551256656647
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 127.75869993492961,
+      "gen_ms": 1378.3187998924404,
+      "prompt_tokens": 761,
+      "completion_tokens": 197,
+      "cost": 0.001549,
+      "correct": true,
+      "reason": "回答内容均可在资料中找到依据，无矛盾或编造。",
+      "cite_total": 4,
+      "cite_valid": 4,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        1,
+        2
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 959,
+          "completion_tokens": 24
+        },
+        {
+          "prompt_tokens": 1013,
+          "completion_tokens": 34
+        }
+      ],
+      "judge_cost": 0.0016936
+    },
+    {
+      "id": 14,
+      "type": "in",
+      "kind": "fact",
+      "question": "创建 Vectorize 索引时必须指定哪两个关键参数？它支持哪三种距离度量方式，各自的值域和「越接近什么值表示越相似」是怎么定义的？",
+      "answer": "**子问题清单：**\n1. 创建 Vectorize 索引时必须指定哪两个关键参数？\n2. Vectorize 支持哪三种距离度量方式？\n3. 各距离度量的值域及“越接近什么值表示越相似”如何定义？\n\n**逐条回答：**\n\n1. 创建索引时需指定两个关键参数：维度（Dimensions），必须与所用嵌入模型输出维度一致；距离度量（Distance Metric），用于计算向量相似度 [1]。\n\n2. Vectorize 支持三种距离度量方式，其中资料明确列出的是余弦相似度（cosine） [2]；资料1仅说明支持三种方式但未列出全部名称 [1]，因此另外两种的具体名称资料未涉及。\n\n3. 余弦相似度的范围为 -1（最不相似）到 1（完全相同），0 表示正交向量，越接近 1 表示越相似 [2]。其余两种距离度量的值域及相似性定义资料未涉及。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p066_c001",
+          "distance": 0.21616190671920776,
+          "text": "56 第11章：使用CloudflareVectorize构建向量数据库\n11.3 创建 Vectorize 索引\n在使用Vectorize之前，需要先创建一个索引。索引是Vectorize中存储向量的基本\n单位。\n11.3.1 索引配置参数\n创建索引时需要指定两个关键参数：\n1. 维度（Dimensions）：向量的维度大小，必须与所使用的嵌入模型输出维度一致\n2. 距离度量（DistanceMetric）：用于计算向量相似度的度量方式\n11.3.2 距离度量类型\nVectorize支持三种距离度量方式：\n",
+          "doc_id": "RAG知识_p066",
+          "page": 66,
+          "source": "RAG知识.pdf",
+          "char_count": 257,
+          "rerank_score": 0.999220609664917
+        },
+        {
+          "chunk_id": "RAG知识_p073_c003",
+          "distance": 0.3230830430984497,
+          "text": "eVectorize支持三种距离度量方式，适用于不同场景：\n1. 余弦相似度（cosine）：\n・ 适用于文本相似度搜索\n・ 范围：‑1（最不相似）到1（完全相同）\n・ 0表示正交向量\n63",
+          "char_count": 95,
+          "page": 73,
+          "doc_id": "RAG知识_p073",
+          "source": "RAG知识.pdf",
+          "rerank_score": 0.9939024448394775
+        },
+        {
+          "chunk_id": "RAG 技术概览_web_c017",
+          "distance": 0.3367140293121338,
+          "text": "部分是搜索索引，它用来存储我们在前一步骤中生成的向量化内容。最基础的实现方式是使用flat索引，它通过暴力法计算查询向量与所有块向量之间的距离。一个高效的搜索索引，针对超过10000个元素的大规模检索进行了优化，例如使用faiss、nmslib或annoy这样的向量索引。这些索引采用近似最近邻方法，如聚类、树状结构或HNSW算法。还有一些像OpenSearch或ElasticSearch这样的托管解决方案和向量数据库，它们在幕后处理第1步中描述的数据摄入过程，例如Pinecone、Weaviate或Chroma。根据您选择的索引类型、数据和搜索需求，您还可以将元数据与向量一起存储，然后使用元数据过滤器来搜索特定日期或来源的信息。",
+          "char_count": 318,
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "source": "RAG 技术概览.html",
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "doc_id": "RAG 技术概览_web",
+          "rerank_score": 0.02595735713839531
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 69.44980006664991,
+      "gen_ms": 1596.9487999100238,
+      "prompt_tokens": 645,
+      "completion_tokens": 203,
+      "cost": 0.001457,
+      "correct": true,
+      "reason": "回答依据资料准确作答，未编造缺失信息。",
+      "cite_total": 4,
+      "cite_valid": 4,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        1,
+        2
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 859,
+          "completion_tokens": 22
+        },
+        {
+          "prompt_tokens": 913,
+          "completion_tokens": 34
+        }
+      ],
+      "judge_cost": 0.0015295999999999999
+    },
+    {
+      "id": 17,
+      "type": "cross",
+      "kind": "fact",
+      "question": "分块时块大小应该怎么定？请结合《RAG知识》里 chunkText 的切分顺序与长度上限，以及《RAG 技术概览》中关于块大小受嵌入模型 token 处理能力限制的说法，说明确定块大小时需要权衡什么。",
+      "answer": "**子问题清单**\n1. 分块时块大小应如何确定？\n2. 《RAG知识》中 chunkText 的切分顺序与长度上限是什么？\n3. 《RAG 技术概览》中块大小受嵌入模型 token 处理能力限制的说法是什么？\n4. 确定块大小时需要权衡什么？\n\n**逐条回答**\n1. 分块是RAG系统中的关键步骤，好的分块策略需要平衡块的大小、语义完整性和检索效果 [3]。块大小取决于所使用的嵌入模型及其处理token的能力 [1]。\n2. 资料未涉及 chunkText 的具体切分顺序；资料仅说明单行最大处理Token数是指每个chunk的最大长度限制，超出部分需要进一步切分 [2]。\n3. 基于BERT的标准Transformer编码器模型最多处理512个token，而OpenAI ada-002能处理更长的序列，如8191个token [1]。\n4. 需要权衡的是为大语言模型提供足够上下文以进行推理，与实现高效搜索所需的足够具体的文本嵌入 [1]；同时要平衡块的大小、语义完整性和检索效果 [3]。",
+      "hits": [
+        {
+          "chunk_id": "RAG 技术概览_web_c015",
+          "distance": 0.23652219772338867,
+          "text": "块的大小，这取决于你使用的嵌入模型及其处理token的能力。例如，基于BERT的标准Transformer编码器模型最多处理512个token，而OpenAI ada-002能处理更长的序列，如8191个token。但这里需要权衡的是为大语言模型提供足够上下文以进行推理，与实现高效搜索所需的足够具体的文本嵌入。关于选择块大小的研究5，可以在LlamaIndex的NodeParser6类中找到，该类提供了一些高级选项，比如定义自己的文本分割器、元数据、节点/块关系等。1.2 向量化接下来的步骤是选择一个模型来嵌入这些文本块。有很多种模型可以选择，我推荐使用像bge-large7或E58嵌入系列这样的搜索优化模型。",
+          "char_count": 309,
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "doc_id": "RAG 技术概览_web",
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "source": "RAG 技术概览.html",
+          "rerank_score": 0.9961755275726318
+        },
+        {
+          "chunk_id": "RAG知识_p045_c003",
+          "distance": 0.40332359075546265,
+          "text": "上限，并不是限制整个文件可以被拆分成多少份。比如千问模型的\n最大行数为10，表示你可以一次性批量提交最多10个文本块（chunk）进行嵌入生\n成。如果你的文件被拆分成30个chunk，可以分3次批量提交，每次不超过10个。单\n行最大处理Token数则是指每个chunk的最大长度限制，超出部分需要进一步切分。\n最大行数限制的是每次批量请求的chunk数量，不是文件总共能拆分多少chunk。\n35",
+          "source": "RAG知识.pdf",
+          "char_count": 198,
+          "doc_id": "RAG知识_p045",
+          "page": 45,
+          "rerank_score": 0.907312273979187
+        },
+        {
+          "chunk_id": "RAG知识_p129_c001",
+          "distance": 0.40809059143066406,
+          "text": "23.3. 提示工程技术 119\n算机能够理解和处理语义信息。\n・ 嵌入模型（EmbeddingModel）：专门用于生成向量表示的机器学习模型。嵌入模\n型将离散的符号（如单词、句子）转换为连续的向量表示，捕获其语义特征。\n・ 文档分块（Chunking）：将长文档分割成较小、语义相对完整的文本片段的技术。\n分块是RAG系统中的关键步骤，好的分块策略需要平衡块的大小、语义完整性和检\n索效果。\n・ 向量数据库（VectorDatabase）：专门存储和检索高维向量数据的数据库系统。与\n传统关系数据库不同，向量数据库优化了相似度搜索功能。\n",
+          "doc_id": "RAG知识_p129",
+          "char_count": 271,
+          "page": 129,
+          "source": "RAG知识.pdf",
+          "rerank_score": 0.6469064354896545
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 132.6866999734193,
+      "gen_ms": 1569.4858999922872,
+      "prompt_tokens": 770,
+      "completion_tokens": 241,
+      "cost": 0.0017339999999999999,
+      "correct": true,
+      "reason": "回答均能在资料中找到依据，无编造内容。",
+      "cite_total": 6,
+      "cite_valid": 6,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 994,
+          "completion_tokens": 22
+        },
+        {
+          "prompt_tokens": 1048,
+          "completion_tokens": 37
+        }
+      ],
+      "judge_cost": 0.0017516000000000003
+    },
+    {
+      "id": 19,
+      "type": "cross",
+      "kind": "fact",
+      "question": "《RAG知识》把语义检索定义为「基于语义理解而非关键词匹配」，而《RAG 技术概览》提出把两种检索方式融合起来。请说明这两种检索方式各自的优势，为什么要融合，以及融合时用什么算法合并两路结果。",
+      "answer": "**子问题清单：**\n1. 语义检索（基于语义理解）的优势是什么？\n2. 关键词检索（稀疏检索）的优势是什么？\n3. 为什么要将两种检索方式融合？\n4. 融合时用什么算法合并两路结果？\n\n**逐条回答：**\n\n1. 语义检索使用向量化技术将查询和文档转换为语义向量，通过计算向量相似度找到语义相关的内容，即基于语义理解而非关键词匹配进行检索 [1]。\n\n2. 资料未涉及关键词检索（稀疏检索）优势的专门说明；仅提及融合检索中一路是基于关键词的传统搜索方法，使用稀疏检索算法（如 tf-idf 或行业标准 BM25）[2]。\n\n3. 融合检索（混合搜索）结合两种不同的搜索方法——基于关键词的传统稀疏检索与语义/向量搜索，将两者融合以产生一个综合的检索结果 [2]。\n\n4. 融合时通常通过 Reciprocal Rank Fusion 算法解决，该算法对检索结果进行重新排名，以产生最终输出 [2]。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p129_c002",
+          "distance": 0.2731702923774719,
+          "text": "。与\n传统关系数据库不同，向量数据库优化了相似度搜索功能。\n・ 语义检索（SemanticSearch）：基于语义理解而非关键词匹配的信息检索技术。语\n义检索使用向量化技术将查询和文档转换为语义向量，通过计算向量相似度找到语\n义相关的内容。\n23.3 提示工程技术\n・ 提示词工程（PromptEngineering）：设计和优化输入提示以引导大语言模型生成\n期望输出的技术。\n・ 零样本提示（Zero‑shotPrompting）：只向模型提供任务描述或问题，而不提供任\n何示例的提示方法。\n・ 单样本提示（One‑shotPrompting）：在提示中为模型提供一个示例的方法。\n",
+          "source": "RAG知识.pdf",
+          "char_count": 292,
+          "page": 129,
+          "doc_id": "RAG知识_p129",
+          "rerank_score": 0.9919379353523254
+        },
+        {
+          "chunk_id": "RAG 技术概览_web_c022",
+          "distance": 0.3191314935684204,
+          "text": "块，因此得名。需要注意的是，这种搜索仅在子节点的索引中进行。想要更深入了解这个方法，可以查看LlamaIndex关于递归检索器和节点引用的教程14。2.5 融合检索或混合搜索这是一个相对较旧的概念，它结合了两种不同的搜索方法：一种是基于关键词的传统搜索方法，使用稀疏检索算法（如tf-idf或行业标准BM25），另一种是现代的语义或向量搜索。这两种方法被融合在一起，以产生一个综合的检索结果。这里的关键是正确结合具有不同相似度评分的检索结果。这个问题通常通过Reciprocal Rank Fusion算法15解决，该算法会对检索结果进行重新排名，以产生最终输出。",
+          "doc_id": "RAG 技术概览_web",
+          "char_count": 282,
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "source": "RAG 技术概览.html",
+          "rerank_score": 0.9908744096755981
+        },
+        {
+          "chunk_id": "RAG 技术概览_web_c002",
+          "distance": 0.3724801540374756,
+          "text": "tion, RAG）的概念，请直接跳转到高级 RAG 部分。检索增强生成（Retrieval Augmented Generation, RAG）是一种技术，它通过从数据源中检索信息来辅助大语言模型（Large Language Model, LLM）生成答案。简而言之，RAG 结合了搜索技术和大语言模型的提示词功能，即向模型提出问题，并以搜索算法找到的信息作为背景上下文，这些查询和检索到的上下文信息都会被整合进发送给大语言模型的提示中。到了2023年，基于大语言模型的系统中，RAG 已成为最受欢迎的架构之一。许多产品几乎完全基于 RAG 构建，范围从结合了网络搜索引擎和大语言模型的问答服务，到数以百计的“与数据对话”的应用程序。",
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "char_count": 319,
+          "doc_id": "RAG 技术概览_web",
+          "source": "RAG 技术概览.html",
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "rerank_score": 0.9688562154769897
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 129.51450003311038,
+      "gen_ms": 1829.9828998278826,
+      "prompt_tokens": 773,
+      "completion_tokens": 215,
+      "cost": 0.001633,
+      "correct": true,
+      "reason": "回答均基于资料，未编造且如实说明缺失信息",
+      "cite_total": 4,
+      "cite_valid": 4,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        1,
+        2
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 1011,
+          "completion_tokens": 23
+        },
+        {
+          "prompt_tokens": 1065,
+          "completion_tokens": 34
+        }
+      ],
+      "judge_cost": 0.0017748
+    },
+    {
+      "id": 20,
+      "type": "cross",
+      "kind": "fact",
+      "question": "向量检索初筛之后为什么还要再做一次重排（rerank）？请结合《RAG知识》里对 Rerank 模块的定位与《RAG 技术概览》中后处理器、交叉编码器重新排名的做法说明。",
+      "answer": "**子问题清单：**\n1. 向量检索初筛之后为什么还要再做一次重排（rerank）？\n2. 《RAG知识》里对 Rerank 模块的定位是什么？\n3. 《RAG 技术概览》中后处理器、交叉编码器重新排名的做法是怎样的？\n\n**逐条回答：**\n\n1. 向量检索初筛之后再做重排，是为了对初步检索结果进行二次排序，结合语义相关性模型提升最终召回质量 [3]；同时 Rerank 模块的加入采用“向量初筛+语义重排”的方式，可增强系统的灵活性和智能化水平 [2]。\n\n2. 《RAG知识》将 Rerank 模块定位为“向量初筛+语义重排”的演进措施 [2]；并明确向量重排（rerank）是结合语义相关性模型，对初步检索结果进行二次排序，以提升最终召回质量 [3]。\n\n3. 《RAG 技术概览》指出，检索结果需要经过滤、重新排名或转换来进一步优化 [1]；LlamaIndex 提供多种后处理器，可基于相似度评分、关键词、元数据等过滤结果，或使用其他模型进行重新排名，如 LLM、句子-转换器交叉编码器、Cohere 重新排名端点，或基于元数据如日期的新近性来进行 [1]；这是在将检索到的上下文输入大语言模型以得到最终答案之前的最后一步 [1]。",
+      "hits": [
+        {
+          "chunk_id": "RAG 技术概览_web_c024",
+          "distance": 0.3209182620048523,
+          "text": "来需要通过过滤、重新排名或进行一些转换来进一步优化这些结果。LlamaIndex提供了多种后处理器，可以基于相似度评分、关键词、元数据等过滤结果，或者使用其他模型进行重新排名，如LLM、句子-转换器交叉编码器18、Cohere重新排名端点19，或者基于元数据如日期的新近性来进行——几乎涵盖了你能想到的所有情况。这是在将检索到的上下文输入到大语言模型（LLM）以得到最终答案之前的最后一步。现在，我们将介绍更高级的RAG技术，如查询转换和路由，这两者都涉及到LLM，因此代表了智能体行为——涵盖了我们RAG管道中涉及到的一些复杂的大语言模型推理逻辑。4. 查询转换查询转换是一组技术，它们使用LLM作为推理引擎来修改用户输入，以此提高检索质量。",
+          "char_count": 322,
+          "doc_id": "RAG 技术概览_web",
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "source": "RAG 技术概览.html",
+          "rerank_score": 0.9978172779083252
+        },
+        {
+          "chunk_id": "RAG知识_p043_c001",
+          "distance": 0.3245161175727844,
+          "text": "7.11. 小结 33\n4. 历史版本回溯（保留版本号字段）\n5. Rerank模块加入（向量初筛+语义重排）\n这些演进措施将进一步增强系统的灵活性和智能化水平。\n7.11 小结\n综上，通过收敛schema、规范ID与URL、限制metadata、批量写入与清空流程标准\n化，能够确保向量层具备可维护性、可观测性与低成本扩展空间。后续重点将聚焦于增\n量更新与质量评估体系的完善，持续提升整体检索能力和数据管理效率。\n33",
+          "doc_id": "RAG知识_p043",
+          "page": 43,
+          "char_count": 210,
+          "source": "RAG知识.pdf",
+          "rerank_score": 0.9883127808570862
+        },
+        {
+          "chunk_id": "RAG知识_p061_c002",
+          "distance": 0.3519074320793152,
+          "text": "h，仅处理有变动的内容，显著提升大规模知识库\n的同步效率。\n・ 向量重排（rerank）：结合语义相关性模型，对初步检索结果进行二次排序，提升最\n终召回质量。\n・ 智能语义段落合并：基于上下文和语义边界，自动合并过短或强相关的片段，优化\n分块粒度。\n・ 内容类型自适应切片：针对不同内容（如FAQ、教程、新闻等）动态调整分块参数，\n实现更细致的处理策略。\n・ 变更监控与自动回滚：集成文件变更监听与异常回退机制，保障数据一致性与系统\n稳定性。\n这些扩展将进一步提升向量化内容管道的智能化与可维护性，为后续大规模知识库和多\n场景AI应用打下坚实基础。\n51",
+          "page": 61,
+          "char_count": 277,
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p061",
+          "rerank_score": 0.9859364032745361
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 123.492700047791,
+      "gen_ms": 1992.6736000925303,
+      "prompt_tokens": 807,
+      "completion_tokens": 309,
+      "cost": 0.0020429999999999997,
+      "correct": true,
+      "reason": "回答核心结论均有资料支撑，无编造或矛盾。",
+      "cite_total": 7,
+      "cite_valid": 7,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 1092,
+          "completion_tokens": 23
+        },
+        {
+          "prompt_tokens": 1146,
+          "completion_tokens": 34
+        }
+      ],
+      "judge_cost": 0.0019044
+    },
+    {
+      "id": 24,
+      "type": "partial",
+      "kind": "fact",
+      "question": "RAG 系统该从哪些维度评估效果？另外，资料里提到的 ragas 框架，它计算各指标的具体代码实现是什么？",
+      "answer": "**子问题清单：**\n1. RAG 系统该从哪些维度评估效果？\n2. 资料里提到的 ragas 框架，它计算各指标的具体代码实现是什么？\n\n**逐条回答：**\n\n**子问题1：RAG 系统该从哪些维度评估效果？**\nRAG 系统的性能评估通常涉及多个独立的指标，包括整体答案的相关性、答案的根据性、信实度以及检索到的上下文的相关性等 [1]。其中 Ragas 主要利用信实度和答案相关性作为评估生成答案质量的指标，并使用传统的上下文精确度和召回率来评估 RAG 架构的检索效果 [1]。此外，还有更高级的方法考虑到不仅仅是命中率，还包括平均倒数排名（一种搜索引擎常用的指标）以及生成答案的信实度和相关性指标 [2]。\n\n**子问题2：资料里提到的 ragas 框架，它计算各指标的具体代码实现是什么？**\n资料未涉及 ragas 框架计算各指标的具体代码实现。资料仅说明 Ragas 利用信实度和答案相关性评估生成答案质量、使用上下文精确度和召回率评估检索效果 [1]，但未给出任何代码实现细节。",
+      "hits": [
+        {
+          "chunk_id": "RAG 技术概览_web_c041",
+          "distance": 0.2799914479255676,
+          "text": "上下文和答案的三元组进行的。具体实施细节请参考相关指南49。这种技术被用于通过微调 API 对 OpenAI 大语言模型进行微调，同时也用于开源模型 Llama2（如原论文所述），在知识密集型任务的指标上实现了约 5% 的提升（与使用 RAG 的 Llama2 65B 相比），并在常识推理任务上也有一定的提升。评估RAG 系统的性能评估通常涉及多个独立的指标，包括整体答案的相关性、答案的根据性、信实度以及检索到的上下文的相关性等。之前提到的 Ragas 主要利用信实度50和答案相关性51作为评估生成答案质量的指标，并使用传统的上下文精确度52和召回率53来评估 RAG 架构的检索效果。",
+          "doc_id": "RAG 技术概览_web",
+          "char_count": 296,
+          "source": "RAG 技术概览.html",
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "rerank_score": 0.9976032376289368
+        },
+        {
+          "chunk_id": "RAG 技术概览_web_c043",
+          "distance": 0.29254090785980225,
+          "text": "很好的例子可以在这里找到55，它在编码器微调部分得到了应用。一个更高级的方法考虑到了不仅仅是命中率，还有平均倒数排名（一种搜索引擎常用的指标）以及生成答案的信实度和相关性指标，这在 OpenAI cookbook56中有展示。LangChain 提供了一个先进的评估框架 LangSmith57，不仅可以实现自定义的评估方法，还可以监控在 RAG 架构内部运行的流程，从而增加系统的透明度。如果你正在使用 LlamaIndex 进行构建，那么有一个 rag_evaluator llama58 包，它提供了一个快捷的工具，可以利用公共数据集来评估你的架构。",
+          "source": "RAG 技术概览.html",
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "char_count": 278,
+          "doc_id": "RAG 技术概览_web",
+          "rerank_score": 0.6406359076499939
+        },
+        {
+          "chunk_id": "RAG知识_p015_c002",
+          "distance": 0.37215638160705566,
+          "text": "re官方提供的RAG参考架构示例，旨在帮助理解主流无服务器\nRAG系统的设计思路，并非本项目实际采用的架构。实际部署时可根据自身需求进行\n调整和优化。详情请参考BuildaRetrievalAugmentedGeneration(RAG)AI。\nCloudflare提供了一套完整的RAG参考架构，展示了如何在无服务器环境中构建高效、\n可扩展的RAG系统。该架构充分利用了Cloudflare的边缘计算平台和相关服务。\n2.3.1 RAG 参考架构的两大阶段\nRAG系统的实现通常分为两个核心阶段，每个阶段都承担着关键的功能：\n・ 知识库构建阶段（KnowledgeSeeding）\n在这一阶段，原始文档会被上传至系统，经过初步处理后，消息被异步推送到队列\n",
+          "source": "RAG知识.pdf",
+          "page": 15,
+          "doc_id": "RAG知识_p015",
+          "char_count": 329,
+          "rerank_score": 0.1677633374929428
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 66.38149986974895,
+      "gen_ms": 1401.1545998509973,
+      "prompt_tokens": 741,
+      "completion_tokens": 241,
+      "cost": 0.001705,
+      "correct": true,
+      "reason": "评估维度有据，代码实现正确拒答。",
+      "cite_total": 4,
+      "cite_valid": 4,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        1,
+        2
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 996,
+          "completion_tokens": 20
+        },
+        {
+          "prompt_tokens": 1050,
+          "completion_tokens": 37
+        }
+      ],
+      "judge_cost": 0.0017507999999999998
+    },
+    {
+      "id": 26,
+      "type": "out",
+      "kind": "fact",
+      "question": "LLaMA 使用的 RoPE（旋转位置编码）和《Attention Is All You Need》里的正弦位置编码相比，优势和局限分别是什么？",
+      "answer": "**子问题清单**\n1. LLaMA 使用的 RoPE（旋转位置编码）的优势是什么？\n2. LLaMA 使用的 RoPE（旋转位置编码）的局限是什么？\n3. 《Attention Is All You Need》里的正弦位置编码的优势是什么？\n4. 《Attention Is All You Need》里的正弦位置编码的局限是什么？\n5. RoPE 与正弦位置编码相比，优势和局限分别是什么？\n\n**逐条回答**\n1. 资料未涉及 LLaMA 使用的 RoPE（旋转位置编码）的优势。\n2. 资料未涉及 LLaMA 使用的 RoPE（旋转位置编码）的局限。\n3. 正弦位置编码可使模型推断出比训练期间遇到的序列更长的序列长度 [1][2]；对于任何固定偏移量 k，PE(pos+k) 可以用 PE(pos) 的线性函数表征，便于模型依赖相对位置学习注意力 [1][2]；尝试使用学习的位置嵌入后发现两个版本效果基本相同 [1][2]。\n4. 资料未涉及正弦位置编码的明确局限；仅提到作者最终选择正弦版本而非学习位置嵌入，是因为正弦版本可推断更长序列 [1][2]。\n5. 资料未涉及 RoPE 与正弦位置编码的对比，因此无法依据资料说明 RoPE 相对正弦位置编码的优势和局限。",
+      "hits": [
+        {
+          "chunk_id": "Transformer--Attention Is All You Need_web_c059",
+          "distance": 0.3614013195037842,
+          "text": "为它可以让模型推断出比训练期间遇到的序列长度更长的序列长度。PE(pos,2i)=sin(pos/10002i/dmodel)PE(pos,2i+1)=cos(pos/10002i/dmodel)其中pos是位置，i是维度。也就是，位置编码的每个维度都对应一个正弦曲线。波长形成从2π到10000·2π的几何级数。我们选择这个函数是因为我们假定模型可以很容易依赖相对位置来学会注意力，因为对于任何固定的偏移量k，PEpos+k可以用PEpos的线性函数来表征。我们还尝试了使用学习的位置嵌入[0]，发现这两个版本效果基本相同（见表3行（E））。我们最终选择正弦版本，是因为他可以让模型推断出比训练期间遇到的序列更长的序列。",
+          "source": "Transformer--Attention Is All You Need.html",
+          "title": "经典译文：Transformer--Attention Is All You Need",
+          "doc_id": "Transformer--Attention Is All You Need_web",
+          "url": "https://zhuanlan.zhihu.com/p/689083488",
+          "char_count": 311,
+          "rerank_score": 0.6893056035041809
+        },
+        {
+          "chunk_id": "Transformer--Attention Is All You Need_web_c057",
+          "distance": 0.38643139600753784,
+          "text": "应一个正弦曲线。波长形成从2π到10000·2π的几何级数。我们选择这个函数是因为我们假定模型可以很容易依赖相对位置来学会注意力，因为对于任何固定的偏移量k，PEpos+k可以用PEpos的线性函数来表征。我们还尝试了使用学习的位置嵌入[0]，发现这两个版本效果基本相同（见表3行（E））。我们最终选择正弦版本，是因为他可以让模型推断出比训练期间遇到的序列更长的序列。我们还尝试使用学习的位置嵌入 [9]，发现这两个版本产生了几乎相同的结果。 我们选择了正弦版本，因为它可以让模型推断出比训练期间遇到的序列长度更长的序列长度。PE(pos,2i+1)=cos(pos/10002i/dmodel)其中pos是位置，i是维度。",
+          "char_count": 312,
+          "url": "https://zhuanlan.zhihu.com/p/689083488",
+          "source": "Transformer--Attention Is All You Need.html",
+          "title": "经典译文：Transformer--Attention Is All You Need",
+          "doc_id": "Transformer--Attention Is All You Need_web",
+          "rerank_score": 0.5316957235336304
+        },
+        {
+          "chunk_id": "Redis全套学习笔记_p045_c004",
+          "distance": 0.3944541811943054,
+          "text": "位上进行，start 和 end 参数，都可以使用负数值：\n比如 -1 表示最后一个位，而 -2 表示倒数第二个位，以此类推。\n注意了：start、end是指bit组的字节的下标数，一个直接对应8个bit，所以[a,b]对应的offset范\n围是[8a,8b+7]\n127.0.0.1:6379> flushdb # 清空db，方便测试\nOK\n更多Java学习视频，请关注公众号：Java充电社",
+          "source": "Redis全套学习笔记.pdf",
+          "page": 45,
+          "doc_id": "Redis全套学习笔记_p045",
+          "char_count": 197,
+          "rerank_score": 0.004198795650154352
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 116.64919997565448,
+      "gen_ms": 1676.2860000599176,
+      "prompt_tokens": 728,
+      "completion_tokens": 281,
+      "cost": 0.001852,
+      "correct": true,
+      "reason": "资料无RoPE信息，回答正确拒答并准确引用正弦编码内容",
+      "cite_total": 10,
+      "cite_valid": 10,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        1,
+        2
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 1075,
+          "completion_tokens": 26
+        },
+        {
+          "prompt_tokens": 1129,
+          "completion_tokens": 37
+        }
+      ],
+      "judge_cost": 0.0018892000000000002
+    },
+    {
+      "id": 28,
+      "type": "out",
+      "kind": "fact",
+      "question": "LoRA 微调是怎么用低秩分解把可训练参数降下来的？rank 和 alpha 一般怎么取？",
+      "answer": "**子问题清单**\n1. LoRA 微调是怎么用低秩分解把可训练参数降下来的？\n2. rank 一般怎么取？\n3. alpha 一般怎么取？\n\n**逐条回答**\n\n1. LoRA 微调是怎么用低秩分解把可训练参数降下来的？\n资料1仅说明 LoRA 是一种高效的模型微调方法，通过注入低秩分解矩阵减少训练参数 [1]；资料未涉及低秩分解降低可训练参数的具体机制。\n\n2. rank 一般怎么取？\n资料未涉及 rank 的取值建议。\n\n3. alpha 一般怎么取？\n资料未涉及 alpha 的取值建议。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p130_c001",
+          "distance": 0.4181487560272217,
+          "text": "120 第23章：术语表\n练的技术。\n・ 预训练（Pre‑training）：在大规模通用数据集上训练模型的过程。\n・ 知识蒸馏（KnowledgeDistillation）：通过让小型模型学习大型模型的输出分布，\n实现知识转移。\n・ 低秩适应（LoRA）：一种高效的模型微调方法，通过注入低秩分解矩阵减少训练\n参数。\n23.5 评估与度量\n・ BLEU分数：用于评估机器翻译和文本生成质量的指标。\n・ ROUGE指标：用于评估文本摘要和机器翻译质量的指标集。\n・ 余弦相似度（CosineSimilarity）：衡量两个向量间夹角余弦值的相似度指标。\n23.6 系统架构与部署\n",
+          "page": 130,
+          "char_count": 290,
+          "doc_id": "RAG知识_p130",
+          "source": "RAG知识.pdf",
+          "rerank_score": 0.7826625108718872
+        },
+        {
+          "chunk_id": "Redis全套学习笔记_p002_c003",
+          "distance": 0.4067280888557434,
+          "text": "元素\nzrange：score升序，获取指定索引范围的元素\nzrevrange：score降序，获取指定索引范围的元素\nzrangebyscore：按照score升序，返回指定score范围内的数据\nzrevrangebyscore：按照score降序，返回指定score范围内的数据\nzincrby：为指定元素的score加上指定的增量\nzrem：删除集合中多个元素\nzremrangebyrank：根据索引范围删除元素\nzremrangebyscore：根据score的范围删除元素\nzcount：统计指定score范围内元素的个数\nzrank：按照score升序，返回某个元素在集合中的排名\n",
+          "page": 2,
+          "source": "Redis全套学习笔记.pdf",
+          "doc_id": "Redis全套学习笔记_p002",
+          "char_count": 299,
+          "rerank_score": 0.12852513790130615
+        },
+        {
+          "chunk_id": "RAG 技术概览_web_c040",
+          "distance": 0.353091299533844,
+          "text": "-3.5-turbo 进行微调，训练它处理这些问题与答案对。通过这种方式，使用 ragas48 框架进行的 RAG 架构评估显示，信实度指标提高了 5%，意味着经过微调的 GPT 3.5-turbo 在利用提供的上下文生成答案方面比原模型表现得更好。Meta AI Research 最近的一篇论文《RA-DIT: Retrieval Augmented Dual Instruction Tuning》展示了一种更为复杂的方法，它提出了一种同时对LLM和检索器（原论文中的双编码器）进行微调的技术，这种微调是基于查询、上下文和答案的三元组进行的。具体实施细节请参考相关指南49。",
+          "doc_id": "RAG 技术概览_web",
+          "source": "RAG 技术概览.html",
+          "char_count": 290,
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "rerank_score": 0.034100424498319626
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 63.14880005083978,
+      "gen_ms": 1072.4575999192894,
+      "prompt_tokens": 713,
+      "completion_tokens": 138,
+      "cost": 0.001265,
+      "correct": true,
+      "reason": "回答准确依据资料，未编造内容",
+      "cite_total": 1,
+      "cite_valid": 1,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1
+      ],
+      "valid_cited_ids": [
+        1
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 871,
+          "completion_tokens": 19
+        },
+        {
+          "prompt_tokens": 925,
+          "completion_tokens": 40
+        }
+      ],
+      "judge_cost": 0.0015548000000000003
+    },
+    {
+      "id": 29,
+      "type": "out",
+      "kind": "fact",
+      "question": "Kubernetes 的调度器在为 Pod 选择节点时会考虑哪些因素？",
+      "answer": "**子问题清单：**\n1. Kubernetes 调度器为 Pod 选择节点时会考虑哪些因素？\n\n**逐条回答：**\n\n1. 资料未涉及 Kubernetes 调度器为 Pod 选择节点时考虑的因素。所给资料分别涉及 Redis 集群槽位与故障恢复【资料1】【资料2】以及 RAG 系统的调试端点【资料3】，均与 Kubernetes 调度无关。",
+      "hits": [
+        {
+          "chunk_id": "Redis全套学习笔记_p104_c005",
+          "distance": 0.4185447692871094,
+          "text": "eysinslot 13519 3\n1) \"k1{g1}\"\n2) \"k2{g1}\"\n3) \"k3{g1}\"\n11.8、故障恢复\n如果主节点下线，从节点是否能够提升为主节点？注意：要等15秒\n下面我们来试试，如下，连接master1，然后将master1停掉\n更多Java学习视频，请关注公众号：Java充电社",
+          "doc_id": "Redis全套学习笔记_p104",
+          "source": "Redis全套学习笔记.pdf",
+          "char_count": 154,
+          "page": 104,
+          "rerank_score": 0.005220125429332256
+        },
+        {
+          "chunk_id": "Redis全套学习笔记_p103_c002",
+          "distance": 0.4143538475036621,
+          "text": "3 从节点没有槽位，slave是用来对master做替补的\n而数据库中的每个key都属于16384个slots中的其中1个，当通过key读写数据的时候，redis需要先根据\nkey计算出key对应的slots，然后根据slots和master的映射关系找到对应的redis节点，key对应的数据\n就在这个节点上面。\n集群中使用公式CRC16(key)%16384计算key属于哪个槽\n11.6、在集群中录入值\n在redis-cli每次录入、查询键值，redis都会计算key对应的插槽，如果不是当前redis节点的插槽，\nredis会报错，并告知应前往的redis实例地址和端口，效果如下，我们连接了6379这个实例来操作k1，\n",
+          "doc_id": "Redis全套学习笔记_p103",
+          "source": "Redis全套学习笔记.pdf",
+          "page": 103,
+          "char_count": 315,
+          "rerank_score": 0.0014550630003213882
+        },
+        {
+          "chunk_id": "RAG知识_p085_c003",
+          "distance": 0.41508322954177856,
+          "text": "error response:', errorText);\n4 throw new Error(`Qwen embed error: ${resp.status} ‑ ${errorText}`);\n5 }\n14.5.3 调试端点\n系统提供了专门的调试端点：\n/debug\n・ ‑用于测试向量查询\n/admin/test‑query\n・ ‑用于测试不同的查询配置\n/network‑debug\n・ ‑用于调试网络问题\n75",
+          "char_count": 211,
+          "page": 85,
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p085",
+          "rerank_score": 0.00017952796770259738
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 85.41439985856414,
+      "gen_ms": 1034.2027000151575,
+      "prompt_tokens": 577,
+      "completion_tokens": 85,
+      "cost": 0.0009170000000000001,
+      "correct": true,
+      "reason": "资料与问题无关，回答明确拒答。",
+      "cite_total": 3,
+      "cite_valid": 3,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [],
+      "valid_cited_ids": [],
+      "judge_usage": [
+        {
+          "prompt_tokens": 694,
+          "completion_tokens": 20
+        },
+        {
+          "prompt_tokens": 748,
+          "completion_tokens": 34
+        }
+      ],
+      "judge_cost": 0.0012615999999999999
+    },
+    {
+      "id": 31,
+      "type": "in",
+      "kind": "fact",
+      "question": "RAG 系统运行过程中，为了保障可观测性，建议记录哪些关键指标？查询阶段和清空操作分别要记录什么？这些指标能帮助发现哪两类问题？",
+      "answer": "**子问题清单：**\n1. RAG 系统运行过程中，为保障可观测性建议记录哪些关键指标？\n2. 查询阶段要记录什么？\n3. 清空操作要记录什么？\n4. 这些指标能帮助发现哪两类问题？\n\n**逐条回答：**\n\n1. 建议记录的关键指标主要包括查询阶段指标和清空操作指标两类 [1]。\n\n2. 查询阶段需记录：命中率（fallback 使用比例）、平均延迟、topK 命中文本有效字符数 [1]。\n\n3. 清空操作需记录：totalDeleted 与耗时 [1]。\n\n4. 这些指标有助于及时发现性能瓶颈和数据异常，指导后续优化 [1]。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p042_c001",
+          "distance": 0.2362055778503418,
+          "text": "32 第7章：Vectorize数据结构说明\n7.8 观测与指标\n为保障系统可观测性，建议在运行过程中记录关键指标。主要包括：\n・ 查询阶段：命中率（fallback使用比例）、平均延迟、topK命中文本有效字符数\n・ 清空操作：totalDeleted与耗时\n这些指标有助于及时发现性能瓶颈和数据异常，指导后续优化。\n7.9 风险与缓解\n在实际运维中，需关注以下风险点，并采取相应缓解措施。下表进行了归纳：\n风险 表现 缓解\n维度不匹配 Upsert抛错 统一EMBED_DIM配\n置并在上传前校验\n长度\n语言混淆 回退结果不稳定 优先metadata过滤，\nURL二次规则兜底\n",
+          "source": "RAG知识.pdf",
+          "page": 42,
+          "doc_id": "RAG知识_p042",
+          "char_count": 291,
+          "rerank_score": 0.9993928670883179
+        },
+        {
+          "chunk_id": "RAG知识_p103_c002",
+          "distance": 0.29520517587661743,
+          "text": "了每一步的动作、命令及产出：\n步骤 动作 命令/行为 产出\n1 统计现状 （可选）采样 基线样本\n查询topK\n2 清空向量库 DELETE 计数日志\n/admin/clear‑ totalDeleted\nall\nnpm run ingest\n3 启动ingest 并发批量写入\n(fast‑ingest)\n4 监控日志 观察 性能与失败样本\nchunks/sec&\n错误率\n5 验证抽查 /admin/test‑ 匹配质量确认\nquery&/debug\n6 记录指标 耗时、总向量、失 迁移过程记录\n败重试数\n93",
+          "char_count": 258,
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p103",
+          "page": 103,
+          "rerank_score": 0.8128673434257507
+        },
+        {
+          "chunk_id": "RAG知识_p118_c002",
+          "distance": 0.3004605770111084,
+          "text": "已经了解了测试、监控和持续改进在RAG系统中的重要性。我们\n重点讲解了功能测试、模型与流量监控、性能指标以及用户反馈收集与迭代优化等关键\n内容。这些实践将帮助您确保系统的稳定性和用户满意度，为持续改进提供有力支持。\n接下来，您可以将这些知识应用到实际项目中，不断提升系统的质量和用户体验。\n108",
+          "page": 118,
+          "doc_id": "RAG知识_p118",
+          "source": "RAG知识.pdf",
+          "char_count": 148,
+          "rerank_score": 0.43014734983444214
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 115.73179997503757,
+      "gen_ms": 1224.9486001674086,
+      "prompt_tokens": 672,
+      "completion_tokens": 149,
+      "cost": 0.001268,
+      "correct": true,
+      "reason": "回答与资料1内容完全一致，无编造或矛盾。",
+      "cite_total": 4,
+      "cite_valid": 4,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1
+      ],
+      "valid_cited_ids": [
+        1
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 802,
+          "completion_tokens": 24
+        },
+        {
+          "prompt_tokens": 856,
+          "completion_tokens": 34
+        }
+      ],
+      "judge_cost": 0.0014424
+    },
+    {
+      "id": 32,
+      "type": "in",
+      "kind": "fact",
+      "question": "选择嵌入模型时需要比较哪些维度？「最大行数」和「单行最大处理 Token 数」分别限制的是什么？要把 30 个 chunk 提交给千问的嵌入接口，应该怎么分批？",
+      "answer": "**子问题清单：**\n1. 选择嵌入模型时需要比较哪些维度？\n2. 「最大行数」和「单行最大处理 Token 数」分别限制的是什么？\n3. 要把 30 个 chunk 提交给千问的嵌入接口，应该怎么分批？\n\n**逐条回答：**\n\n1. 选择嵌入模型时需要比较的维度包括：输出维度、最大行数、单行最大处理 Token 数、支持语种、单价（每百万输入 Token）[2]。此外，块大小还取决于嵌入模型及其处理 token 的能力，需要在为大语言模型提供足够上下文与实现高效搜索所需的足够具体的文本嵌入之间权衡[3]。\n\n2. 「最大行数」限制的是每次批量请求的 chunk 数量，并不是限制整个文件可以被拆分成多少份[1]。「单行最大处理 Token 数」是指每个 chunk 的最大长度限制，超出部分需要进一步切分[1]。\n\n3. 千问嵌入模型的最大行数为 10，即一次性批量提交最多 10 个文本块[1][2]。30 个 chunk 可以分 3 次批量提交，每次不超过 10 个[1]。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p045_c003",
+          "distance": 0.293071985244751,
+          "text": "上限，并不是限制整个文件可以被拆分成多少份。比如千问模型的\n最大行数为10，表示你可以一次性批量提交最多10个文本块（chunk）进行嵌入生\n成。如果你的文件被拆分成30个chunk，可以分3次批量提交，每次不超过10个。单\n行最大处理Token数则是指每个chunk的最大长度限制，超出部分需要进一步切分。\n最大行数限制的是每次批量请求的chunk数量，不是文件总共能拆分多少chunk。\n35",
+          "source": "RAG知识.pdf",
+          "char_count": 198,
+          "doc_id": "RAG知识_p045",
+          "page": 45,
+          "rerank_score": 0.9987550973892212
+        },
+        {
+          "chunk_id": "RAG知识_p045_c001",
+          "distance": 0.30809295177459717,
+          "text": "8.1. 选择合适的嵌入模型 35\n模型/嵌入 输出维度 最大行数 单行最大 支持语种 单价（每\nAPI 处理 百万输入\nToken数 Token）\ntext‑\n千问 2,048、1,5 10 8,192 多语言 $0.07（按\nembedding‑\n36、1,024 文本 1美元≈\nv4\n（默认）、76 7元人民\n（Qwen3‑ 8、512、25 币换算）\nEmbedding 6、128、64\n系列）\nWorkers 1,024 ‑ 512 英文文本 $0.20\nAI‑\n@cf/baai/bge‑\nbase‑en‑\nv1.5\nOpenAI‑ 1,536 ‑ ‑ 多语言 $0.10\n",
+          "char_count": 295,
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p045",
+          "page": 45,
+          "rerank_score": 0.9916841983795166
+        },
+        {
+          "chunk_id": "RAG 技术概览_web_c015",
+          "distance": 0.316012978553772,
+          "text": "块的大小，这取决于你使用的嵌入模型及其处理token的能力。例如，基于BERT的标准Transformer编码器模型最多处理512个token，而OpenAI ada-002能处理更长的序列，如8191个token。但这里需要权衡的是为大语言模型提供足够上下文以进行推理，与实现高效搜索所需的足够具体的文本嵌入。关于选择块大小的研究5，可以在LlamaIndex的NodeParser6类中找到，该类提供了一些高级选项，比如定义自己的文本分割器、元数据、节点/块关系等。1.2 向量化接下来的步骤是选择一个模型来嵌入这些文本块。有很多种模型可以选择，我推荐使用像bge-large7或E58嵌入系列这样的搜索优化模型。",
+          "source": "RAG 技术概览.html",
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "char_count": 309,
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "doc_id": "RAG 技术概览_web",
+          "rerank_score": 0.6495786309242249
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 113.40010003186762,
+      "gen_ms": 1744.1422999836504,
+      "prompt_tokens": 771,
+      "completion_tokens": 249,
+      "cost": 0.001767,
+      "correct": true,
+      "reason": "回答均能在资料中找到依据，无矛盾或编造。",
+      "cite_total": 7,
+      "cite_valid": 7,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 1041,
+          "completion_tokens": 23
+        },
+        {
+          "prompt_tokens": 1095,
+          "completion_tokens": 33
+        }
+      ],
+      "judge_cost": 0.0018208
+    },
+    {
+      "id": 33,
+      "type": "in",
+      "kind": "fact",
+      "question": "嵌入批量处理常见的失败有哪几类？推荐的弹性设计是什么？",
+      "answer": "**子问题清单：**\n1. 嵌入批量处理常见的失败有哪几类？\n2. 推荐的弹性设计是什么？\n\n**逐条回答：**\n\n1. 嵌入批量处理常见失败包括网络、速率限制、批内违规与超时 [1]。\n\n2. 推荐的弹性设计包括：①用 try/catch 包裹批次，失败记录 sourcePath+offset [1]；②指数退避（可扩展，当前仅短暂延时）[1]；③校验长度与数值（NaN/空数组）[1]；④批失败不中断主循环，提高整体覆盖率 [1]。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p064_c001",
+          "distance": 0.25380784273147583,
+          "text": "54 第10章：Qwen向量嵌入机制\n10.5 错误弹性\n嵌入批量处理常见失败包括网络、速率限制、批内违规与超时。推荐如下弹性设计：\n1. try/catch包裹批次，失败记录sourcePath+offset\n2. 指数退避（可扩展，当前仅短暂延时）\n3. 校验长度与数值（NaN/空数组）\n4. 批失败不中断主循环，提高整体覆盖率\n后续将补充性能基线、成本分析与未来扩展建议。\n10.6 小结\n本章对Gemini与Qwen嵌入接口的批量能力、并发策略、维度规整及错误弹性进行了\n系统对比。Gemini适合高并发单文本场景，Qwen则通过批量提升整体效率。合理配\n",
+          "doc_id": "RAG知识_p064",
+          "source": "RAG知识.pdf",
+          "page": 64,
+          "char_count": 283,
+          "rerank_score": 0.999555766582489
+        },
+        {
+          "chunk_id": "RAG知识_p062_c001",
+          "distance": 0.45549535751342773,
+          "text": "第 10 章\nQwen 向量嵌入机制\n本文将深入解析Gemini与Qwen两大主流嵌入接口的批量处理能力、吞吐性能优化、\nfast‑ingest.ts\n向量维度规整及错误弹性设计。通过结合rag‑worker 实践经验，帮助\n开发者系统理解两者在实际应用中的差异与优化策略，为高效构建RAG系统提供参考。\n10.1 提供方能力对比\nGemini与Qwen在嵌入接口设计上有显著差异，以下表格总结了两者在批量处理、并\n发策略、维度控制等方面的能力：\n维度 Geminitext‑ Qwen\nembedding‑004 text‑embedding‑v4\ninput[]\n",
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p062",
+          "page": 62,
+          "char_count": 284,
+          "rerank_score": 0.6825737357139587
+        },
+        {
+          "chunk_id": "Redis全套学习笔记_p110_c002",
+          "distance": 0.471013605594635,
+          "text": "大量的线程对数据库一次性进行读写，从而避免失效时大量的并发\n请求落到底层存储系统上，不适用高并发情况。\n（3）监控缓存过期，提前更新\n监控缓存，发下缓存快过期了，提前对缓存进行更新。\n（4）将缓存失效时间分散开\n比如我们可以在原有的失效时间基础上增加一个随机值，比如1-5分钟随机，这样缓存的过期时间重复率\n就会降低，就很难引发集体失效的事件。\n12.4、分布式锁\n领取月薪4万的Java全栈学习线路图+视频【含50个核心技术栈】\n12.4.1、问题描述\n随着业务发展的需要，原单体单机部署的系统被演化成分布式集群系统后，由于分布式系统多线程、多\n进程且分布在不同机器上，这将使原单机部署情况下的并发控制锁策略失效，单纯的Java API并不能提\n",
+          "source": "Redis全套学习笔记.pdf",
+          "char_count": 324,
+          "page": 110,
+          "doc_id": "Redis全套学习笔记_p110",
+          "rerank_score": 0.003273064736276865
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 108.15929993987083,
+      "gen_ms": 1076.0550999548286,
+      "prompt_tokens": 801,
+      "completion_tokens": 129,
+      "cost": 0.001317,
+      "correct": true,
+      "reason": "回答内容与资料1完全一致，无编造。",
+      "cite_total": 5,
+      "cite_valid": 5,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1
+      ],
+      "valid_cited_ids": [
+        1
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 897,
+          "completion_tokens": 21
+        },
+        {
+          "prompt_tokens": 951,
+          "completion_tokens": 35
+        }
+      ],
+      "judge_cost": 0.0015904
+    },
+    {
+      "id": 34,
+      "type": "in",
+      "kind": "fact",
+      "question": "Vectorize 的「存储向量维度数」是怎么计算的？1,000 个 1536 维向量对应多少存储维度？哪些项目明确不计费？",
+      "answer": "**子问题清单：**\n1. Vectorize 的「存储向量维度数」是怎么计算的？\n2. 1,000 个 1536 维向量对应多少存储维度？\n3. 哪些项目明确不计费？\n\n**逐条回答：**\n\n1. 「存储向量维度数」指索引中存储的所有向量维度总数，即用向量个数乘以每个向量的维度数来计算 [1]。\n\n2. 1,000 个 1536 维向量对应的总存储维度为 1000 × 1536 = 1,536,000 [1]。\n\n3. 明确不计费的项目包括：CPU、内存、索引数量以及“活跃索引小时”；只有实际查询时才会产生查询维度费用，未查询则不计费 [1]。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p071_c001",
+          "distance": 0.22584474086761475,
+          "text": "11.8. 小结 61\n・ 存储向量维度数：索引中存储的所有向量维度总数。例如，索引中有1,000个1536\n1000 * 1536 = 1,536,000\n维向量，则总存储维度为 ，价格约$0.01/每1百万存储\n维度。\nCloudflare不对CPU、内存、索引数量或“活跃索引小时”计费。只有实际查询时才会\n产生查询维度费用，未查询则不计费。详见Vectorize计费文档。对于个人开发者，几\n千个向量的存储和查询通常在免费额度内。对于生产环境，建议定期监控使用情况，避\n免超出免费额度。\n以下是关于Vectorize计费的要点：\n・ Vectorize始终有免费额度，适合原型和实验。\n",
+          "page": 71,
+          "doc_id": "RAG知识_p071",
+          "source": "RAG知识.pdf",
+          "char_count": 297,
+          "rerank_score": 0.9993928670883179
+        },
+        {
+          "chunk_id": "RAG知识_p066_c001",
+          "distance": 0.32737064361572266,
+          "text": "56 第11章：使用CloudflareVectorize构建向量数据库\n11.3 创建 Vectorize 索引\n在使用Vectorize之前，需要先创建一个索引。索引是Vectorize中存储向量的基本\n单位。\n11.3.1 索引配置参数\n创建索引时需要指定两个关键参数：\n1. 维度（Dimensions）：向量的维度大小，必须与所使用的嵌入模型输出维度一致\n2. 距离度量（DistanceMetric）：用于计算向量相似度的度量方式\n11.3.2 距离度量类型\nVectorize支持三种距离度量方式：\n",
+          "char_count": 257,
+          "page": 66,
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p066",
+          "rerank_score": 0.9559813141822815
+        },
+        {
+          "chunk_id": "RAG 技术概览_web_c016",
+          "distance": 0.3542085886001587,
+          "text": "用像bge-large7或E58嵌入系列这样的搜索优化模型。可以查看MTEB排行榜9来获取最新的模型信息。要实现分块和向量化的端到端操作，可以参考LlamaIndex中一个完整的数据输入流程示例10。2.搜索索引2.1向量存储索引图片在这个方案及文中后续内容中，为了保持方案的简洁性，我省略了编码器（Encoder）这一环节，直接将查询内容发送至索引。当然，查询内容在此之前已经被转换成了向量形式。这同样适用于前k个块的处理——索引实际检索的是前k个向量而非块本身，但在这里，我以块的形式呈现它们，因为从索引中提取这些块是一个简单的步骤。在RAG管道中，至关重要的部分是搜索索引，它用来存储我们在前一步骤中生成的向量化内容。",
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "source": "RAG 技术概览.html",
+          "doc_id": "RAG 技术概览_web",
+          "char_count": 312,
+          "rerank_score": 0.05582314357161522
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 108.05230005644262,
+      "gen_ms": 1122.8489000350237,
+      "prompt_tokens": 777,
+      "completion_tokens": 161,
+      "cost": 0.001421,
+      "correct": true,
+      "reason": "回答内容均与资料1完全一致，无编造。",
+      "cite_total": 3,
+      "cite_valid": 3,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1
+      ],
+      "valid_cited_ids": [
+        1
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 967,
+          "completion_tokens": 23
+        },
+        {
+          "prompt_tokens": 1021,
+          "completion_tokens": 34
+        }
+      ],
+      "judge_cost": 0.0017044
+    },
+    {
+      "id": 35,
+      "type": "in",
+      "kind": "fact",
+      "question": "聊天机器人做上下文管理时，「向量检索上下文」和「对话历史管理」分别怎么使用语言元数据过滤器？过滤器超时或结果为空时，回退逻辑是什么？",
+      "answer": "**子问题清单：**\n1. 「向量检索上下文」如何使用语言元数据过滤器？\n2. 「对话历史管理」如何使用语言元数据过滤器？\n3. 过滤器超时或结果为空时，回退逻辑是什么？\n\n**逐条回答：**\n\n1. 「向量检索上下文」使用向量数据库进行向量检索，并使用语言元数据过滤器来提高查询效率 [1]。\n\n2. 「对话历史管理」保存用户对话记录，并使用语言元数据过滤器来提高查询效率 [1]。\n\n3. 如果语言元数据过滤器没有结果，则使用回退机制 [1]。具体而言，使用 metadata.language 服务端过滤（低延迟），超时/空结果进入回退逻辑 [2]。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p092_c001",
+          "distance": 0.2230968475341797,
+          "text": "82 第16章：聊天机器人核心逻辑开发\n・ 支持会话有效期限与自动销毁机制，释放资源\n・ 历史记录访问\n・ 保存用户对话记录，方便查询与上下文构建\n・ 通过检索对话历史实现个性化推荐与响应\n・ 确保用户隐私与数据保护策略得以执行\n上下文管理通过以下方式实现：\n・ 向量检索上下文：使用向量数据库进行向量检索，并使用语言元数据过滤器来提高\n查询效率。如果语言元数据过滤器没有结果，则使用回退机制。\n・ 对话历史管理：保存用户对话记录，并使用语言元数据过滤器来提高查询效率。如\n果语言元数据过滤器没有结果，则使用回退机制。\n16.2.1 向量检索上下文\ngetRelevantDocuments\n",
+          "page": 92,
+          "char_count": 296,
+          "doc_id": "RAG知识_p092",
+          "source": "RAG知识.pdf",
+          "rerank_score": 0.9989350438117981
+        },
+        {
+          "chunk_id": "RAG知识_p079_c001",
+          "distance": 0.332584023475647,
+          "text": "13.3. 回退检索与二次过滤 69\ntopK=8\n1. 设定 经验值（Prompt长度控制）\n2. 使用metadata.language服务器端过滤（低延迟）\n3. 超时/空结果进入回退逻辑\n13.3 回退检索与二次过滤\n1 const all = await VECTORIZE.query(qv, { topK: 8, returnValues: false, includeMetadata: true });\n",
+          "char_count": 211,
+          "page": 79,
+          "doc_id": "RAG知识_p079",
+          "source": "RAG知识.pdf",
+          "rerank_score": 0.9958011507987976
+        },
+        {
+          "chunk_id": "RAG 技术概览_web_c028",
+          "distance": 0.3503498435020447,
+          "text": "ndex为这种情况提供了一种基于模糊匹配的高效解决方案26。如果你没有听说过模糊匹配，这是一种非常强大的字符串匹配技术27。 5. 对话引擎在构建一个能够对单个搜索查询反复有效工作的高效 RAG 系统中，下一个关键进展是聊天逻辑的开发。这种逻辑考虑到对话上下文，其原理类似于LLM时代之前的经典聊天机器人。这种逻辑的开发是为了支持用户提出后续问题、处理上下文中的指代或与先前对话上下文相关的任意命令。为了解决这一问题，研究者们采用了一种查询压缩技术，这种技术在处理用户的查询时同时考虑了聊天的上下文。关于上下文的压缩，有几种不同的方法 — 一种受欢迎且相对简单的方法是使用 ContextChatEngine28。",
+          "doc_id": "RAG 技术概览_web",
+          "source": "RAG 技术概览.html",
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "char_count": 307,
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "rerank_score": 0.6918097138404846
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 115.69690005853772,
+      "gen_ms": 971.7318001203239,
+      "prompt_tokens": 731,
+      "completion_tokens": 148,
+      "cost": 0.001323,
+      "correct": true,
+      "reason": "回答核心结论均有资料支撑，无编造或矛盾。",
+      "cite_total": 4,
+      "cite_valid": 4,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        1,
+        2
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 866,
+          "completion_tokens": 23
+        },
+        {
+          "prompt_tokens": 920,
+          "completion_tokens": 33
+        }
+      ],
+      "judge_cost": 0.0015408000000000002
+    },
+    {
+      "id": 36,
+      "type": "in",
+      "kind": "fact",
+      "question": "什么是「分离式架构」？相比把对话历史和查询混在一起的做法，它在向量检索准确性、对话连贯性、检索效率、扩展性四方面有什么差异？落地时有哪些最佳实践？",
+      "answer": "**子问题清单：**\n1. 什么是「分离式架构」？\n2. 相比混合做法，它在向量检索准确性、对话连贯性、检索效率、扩展性四方面有什么差异？\n3. 落地时有哪些最佳实践？\n\n**逐条回答：**\n\n**1. 什么是「分离式架构」**\n分离式架构指分离关注点，确保向量检索和对话上下文管理在不同阶段处理：纯净的向量检索仅使用当前问题进行向量化、忽略历史对话；智能提示构建则在构建提示时加入对话历史，以增强LLM的上下文理解 [2]。\n\n**2. 四方面差异**\n- 向量检索准确性：传统方法受历史内容干扰，分离式方法精准匹配当前问题 [1]。\n- 对话连贯性：传统方法依赖复合查询，分离式方法在LLM层面保持上下文 [1]。\n- 检索效率：传统方法查询复杂、匹配困难，分离式方法查询简洁、匹配精确 [1]。\n- 扩展性：传统方法难以优化，分离式方法可独立优化各组件 [1]。\n\n**3. 落地最佳实践**\n1. 查询预处理：在向量检索前清理用户输入，移除对话标记词 [1]。\n2. 历史长度控制：限制传递给LLM的对话历史长度，避免超过模型上下文窗口 [1]。\n3. 相关性过滤：基于主题相关性筛选历史对话，而不是简单按时间截取 [1]。\n4. 缓存优化：对频繁的查询进行缓存，提高响应速度 [1]。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p120_c001",
+          "distance": 0.30820900201797485,
+          "text": "110 第22章：常见问题与解决方案\n22.1.3 效果对比\n采用这种分离式架构后：\n场景 传统方法 分离式方法\n向量检索准确性 受历史内容干扰 精准匹配当前问题\n对话连贯性 依赖复合查询 在LLM层面保持上\n下文\n检索效率 查询复杂，匹配困难 查询简洁，匹配精确\n扩展性 难以优化 可独立优化各组件\n22.1.4 最佳实践建议\n1. 查询预处理：在向量检索前清理用户输入，移除对话标记词\n2. 历史长度控制：限制传递给LLM的对话历史长度，避免超过模型上下文窗口\n3. 相关性过滤：基于主题相关性筛选历史对话，而不是简单按时间截取\n4. 缓存优化：对频繁的查询进行缓存，提高响应速度\n",
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p120",
+          "page": 120,
+          "char_count": 293,
+          "rerank_score": 0.9928786158561707
+        },
+        {
+          "chunk_id": "RAG知识_p119_c002",
+          "distance": 0.31158894300460815,
+          "text": "器人时，开发者经常面临一个关键挑战：如何在多轮对话中既保持\n上下文连贯性，又确保向量检索的准确性。这是一个需要仔细平衡的设计问题。\n22.1.1 问题描述\n传统的做法可能会将对话历史与当前用户问题组合成一个复合查询进行向量检索。\n例如：\n这种方法会导致：\n・ 历史对话内容稀释当前问题的语义焦点\n・ 向量匹配时产生噪音，降低检索准确性\n・ 相关文档可能因为历史内容的干扰而被错误排序\n22.1.2 解决方案架构\n推荐的实现方式是分离关注点，确保向量检索和对话上下文管理在不同阶段处理。\n1. 纯净的向量检索：仅使用当前问题进行向量化，忽略历史对话\n2. 智能提示构建：在构建提示时加入对话历史，增强LLM的上下文理解\n109",
+          "page": 119,
+          "source": "RAG知识.pdf",
+          "char_count": 312,
+          "doc_id": "RAG知识_p119",
+          "rerank_score": 0.9518632292747498
+        },
+        {
+          "chunk_id": "RAG 技术概览_web_c017",
+          "distance": 0.3799244165420532,
+          "text": "部分是搜索索引，它用来存储我们在前一步骤中生成的向量化内容。最基础的实现方式是使用flat索引，它通过暴力法计算查询向量与所有块向量之间的距离。一个高效的搜索索引，针对超过10000个元素的大规模检索进行了优化，例如使用faiss、nmslib或annoy这样的向量索引。这些索引采用近似最近邻方法，如聚类、树状结构或HNSW算法。还有一些像OpenSearch或ElasticSearch这样的托管解决方案和向量数据库，它们在幕后处理第1步中描述的数据摄入过程，例如Pinecone、Weaviate或Chroma。根据您选择的索引类型、数据和搜索需求，您还可以将元数据与向量一起存储，然后使用元数据过滤器来搜索特定日期或来源的信息。",
+          "source": "RAG 技术概览.html",
+          "char_count": 318,
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "doc_id": "RAG 技术概览_web",
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "rerank_score": 0.05749328061938286
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 125.06270012818277,
+      "gen_ms": 1601.4572998974472,
+      "prompt_tokens": 857,
+      "completion_tokens": 323,
+      "cost": 0.002149,
+      "correct": true,
+      "reason": "回答内容均可在资料1和资料2中找到依据，无编造。",
+      "cite_total": 6,
+      "cite_valid": 6,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        1,
+        2
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 1171,
+          "completion_tokens": 26
+        },
+        {
+          "prompt_tokens": 1225,
+          "completion_tokens": 33
+        }
+      ],
+      "judge_cost": 0.0020348
+    },
+    {
+      "id": 37,
+      "type": "cross",
+      "kind": "fact",
+      "question": "线上运行时要记录哪些指标？离线评估检索效果又该用哪些指标？这两套指标为什么不能互相替代？",
+      "answer": "**子问题清单**\n1. 线上运行时要记录哪些指标？\n2. 离线评估检索效果该用哪些指标？\n3. 这两套指标为什么不能互相替代？\n\n**逐条回答**\n\n1. 线上运行时建议记录的关键指标包括：查询阶段的命中率（fallback使用比例）、平均延迟、topK命中文本有效字符数；清空操作的totalDeleted与耗时 [1]。迁移/运维过程中还应记录耗时、总向量、失败重试数等过程指标 [3]。\n\n2. 离线评估检索效果通常使用传统的上下文精确度和召回率来评估RAG架构的检索效果 [2]。\n\n3. 资料未涉及“这两套指标为什么不能互相替代”的直接说明。资料仅分别给出了线上观测指标 [1][3] 与离线检索评估指标 [2]，未对二者不可互相替代的原因作出解释。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p042_c001",
+          "distance": 0.3748205900192261,
+          "text": "32 第7章：Vectorize数据结构说明\n7.8 观测与指标\n为保障系统可观测性，建议在运行过程中记录关键指标。主要包括：\n・ 查询阶段：命中率（fallback使用比例）、平均延迟、topK命中文本有效字符数\n・ 清空操作：totalDeleted与耗时\n这些指标有助于及时发现性能瓶颈和数据异常，指导后续优化。\n7.9 风险与缓解\n在实际运维中，需关注以下风险点，并采取相应缓解措施。下表进行了归纳：\n风险 表现 缓解\n维度不匹配 Upsert抛错 统一EMBED_DIM配\n置并在上传前校验\n长度\n语言混淆 回退结果不稳定 优先metadata过滤，\nURL二次规则兜底\n",
+          "char_count": 291,
+          "page": 42,
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p042",
+          "rerank_score": 0.937210738658905
+        },
+        {
+          "chunk_id": "RAG 技术概览_web_c041",
+          "distance": 0.4028637409210205,
+          "text": "上下文和答案的三元组进行的。具体实施细节请参考相关指南49。这种技术被用于通过微调 API 对 OpenAI 大语言模型进行微调，同时也用于开源模型 Llama2（如原论文所述），在知识密集型任务的指标上实现了约 5% 的提升（与使用 RAG 的 Llama2 65B 相比），并在常识推理任务上也有一定的提升。评估RAG 系统的性能评估通常涉及多个独立的指标，包括整体答案的相关性、答案的根据性、信实度以及检索到的上下文的相关性等。之前提到的 Ragas 主要利用信实度50和答案相关性51作为评估生成答案质量的指标，并使用传统的上下文精确度52和召回率53来评估 RAG 架构的检索效果。",
+          "source": "RAG 技术概览.html",
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "char_count": 296,
+          "doc_id": "RAG 技术概览_web",
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "rerank_score": 0.7138307690620422
+        },
+        {
+          "chunk_id": "RAG知识_p103_c002",
+          "distance": 0.38327735662460327,
+          "text": "了每一步的动作、命令及产出：\n步骤 动作 命令/行为 产出\n1 统计现状 （可选）采样 基线样本\n查询topK\n2 清空向量库 DELETE 计数日志\n/admin/clear‑ totalDeleted\nall\nnpm run ingest\n3 启动ingest 并发批量写入\n(fast‑ingest)\n4 监控日志 观察 性能与失败样本\nchunks/sec&\n错误率\n5 验证抽查 /admin/test‑ 匹配质量确认\nquery&/debug\n6 记录指标 耗时、总向量、失 迁移过程记录\n败重试数\n93",
+          "page": 103,
+          "char_count": 258,
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p103",
+          "rerank_score": 0.42727720737457275
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 107.45449992828071,
+      "gen_ms": 1394.895700039342,
+      "prompt_tokens": 745,
+      "completion_tokens": 181,
+      "cost": 0.001469,
+      "correct": true,
+      "reason": "回答均依据资料，第三问正确指出资料未涉及。",
+      "cite_total": 5,
+      "cite_valid": 5,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 933,
+          "completion_tokens": 23
+        },
+        {
+          "prompt_tokens": 987,
+          "completion_tokens": 34
+        }
+      ],
+      "judge_cost": 0.0016500000000000002
+    },
+    {
+      "id": 38,
+      "type": "cross",
+      "kind": "fact",
+      "question": "分块长度为什么不能无限加大？请结合嵌入模型对单块 token 数的限制，以及 Transformer 中自注意力的计算代价两方面说明。",
+      "answer": "**子问题清单：**\n1. 嵌入模型对单块 token 数有什么限制？\n2. Transformer 中自注意力的计算代价与序列长度有何关系？\n3. 综合两方面，分块长度为什么不能无限加大？\n\n**逐条回答：**\n\n1. 嵌入模型对单块 token 数有明确上限：单行最大处理 Token 数是指每个 chunk 的最大长度限制，超出部分需要进一步切分 [3]。因此单个分块的长度不能超过该限制，否则必须再切分 [3]。\n\n2. 资料未涉及自注意力计算代价与序列长度之间的具体关系（如复杂度量级）。资料1/2 仅提到自注意力可限制为只考虑大小为 r 的邻域以提升长序列计算性能，并会使最大路径长度增加到 O(n/r) [1][2]；还提到卷积层通常比循环层昂贵 k 倍 [1][2]。这些内容未直接说明自注意力本身的计算代价随序列长度如何增长。\n\n3. 综合来看，分块长度不能无限加大，至少因为嵌入模型对单个 chunk 设有最大 Token 数限制，超出部分需要进一步切分 [3]。至于自注意力计算代价方面的原因，资料未涉及自注意力计算代价随序列长度增长的具体关系，因此无法据此说明分块长度不能无限加大。",
+      "hits": [
+        {
+          "chunk_id": "Transformer--Attention Is All You Need_web_c064",
+          "distance": 0.3656451106071472,
+          "text": "piece [38]和byte-pair [31] 表征法。为了提高涉及非常长序列的任务的计算性能，自注意力可以限制为仅考虑大小为r的邻域。输入序列以各自的输出位置为中心。这会将最大路径长度增加到O(n/r)。我们计划在未来的工作中进一步研究这种方法。内核宽度k的单个卷积层不会连接所有输入和输出位置对。这样做需要在连续相同内核（contiguous kernels）的情况下堆叠O(n/k)个卷积层，或者在扩张卷积（dilated convolutions[18]）的情况下需要O(logk(n))，从而在网络中增加了任意两个位置之间的最长路径。卷积层通常比循环层昂贵k倍。",
+          "char_count": 288,
+          "doc_id": "Transformer--Attention Is All You Need_web",
+          "source": "Transformer--Attention Is All You Need.html",
+          "title": "经典译文：Transformer--Attention Is All You Need",
+          "url": "https://zhuanlan.zhihu.com/p/689083488",
+          "rerank_score": 0.9777138829231262
+        },
+        {
+          "chunk_id": "Transformer--Attention Is All You Need_web_c089",
+          "distance": 0.3656451106071472,
+          "text": "piece [38]和byte-pair [31] 表征法。为了提高涉及非常长序列的任务的计算性能，自注意力可以限制为仅考虑大小为r的邻域。输入序列以各自的输出位置为中心。这会将最大路径长度增加到O(n/r)。我们计划在未来的工作中进一步研究这种方法。内核宽度k的单个卷积层不会连接所有输入和输出位置对。这样做需要在连续相同内核（contiguous kernels）的情况下堆叠O(n/k)个卷积层，或者在扩张卷积（dilated convolutions[18]）的情况下需要O(logk(n))，从而在网络中增加了任意两个位置之间的最长路径。卷积层通常比循环层昂贵k倍。",
+          "doc_id": "Transformer--Attention Is All You Need_web",
+          "url": "https://zhuanlan.zhihu.com/p/689083488",
+          "source": "Transformer--Attention Is All You Need.html",
+          "title": "经典译文：Transformer--Attention Is All You Need",
+          "char_count": 288,
+          "rerank_score": 0.9777138829231262
+        },
+        {
+          "chunk_id": "RAG知识_p045_c003",
+          "distance": 0.3603339195251465,
+          "text": "上限，并不是限制整个文件可以被拆分成多少份。比如千问模型的\n最大行数为10，表示你可以一次性批量提交最多10个文本块（chunk）进行嵌入生\n成。如果你的文件被拆分成30个chunk，可以分3次批量提交，每次不超过10个。单\n行最大处理Token数则是指每个chunk的最大长度限制，超出部分需要进一步切分。\n最大行数限制的是每次批量请求的chunk数量，不是文件总共能拆分多少chunk。\n35",
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p045",
+          "char_count": 198,
+          "page": 45,
+          "rerank_score": 0.8449215292930603
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 73.89570004306734,
+      "gen_ms": 2186.1661998555064,
+      "prompt_tokens": 710,
+      "completion_tokens": 281,
+      "cost": 0.0018340000000000001,
+      "correct": true,
+      "reason": "回答准确引用资料，并正确指出资料未涉及自注意力计算代价。",
+      "cite_total": 7,
+      "cite_valid": 7,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 1001,
+          "completion_tokens": 26
+        },
+        {
+          "prompt_tokens": 1055,
+          "completion_tokens": 33
+        }
+      ],
+      "judge_cost": 0.0017628
+    },
+    {
+      "id": 39,
+      "type": "cross",
+      "kind": "fact",
+      "question": "多语言检索时，如何用语言元数据做过滤来保证召回的语言一致？过滤失败或结果为空时怎么回退？查询路由解决的是同一个问题吗，两者在流程上是什么关系？",
+      "answer": "**子问题清单**\n1. 多语言检索时如何用语言元数据做过滤以保证召回语言一致？\n2. 过滤失败或结果为空时如何回退？\n3. 查询路由解决的是同一个问题吗？两者在流程上是什么关系？\n\n**逐条回答**\n\n1. 检索阶段采用两级策略：先做带 `filter.metadata.language` 的语言过滤查询，并设置 500ms 超时 [2]；检索结果用于 Prompt 构建，语言分支确保上下文和指令一致 [2]。此外，以 URL 规则“/en/”做客户端二次过滤，可兼容旧数据语言字段缺失 [1]。\n\n2. 语言过滤查询失败、超时或结果为空时，回退到无过滤查询，再做 URL 二次过滤：英文优先保留“/en/”，否则回退中文；中文直接排除“/en/” [2]。回退机制用于保证语言过滤器查询失败或超时的情况下仍能返回相关内容，提升鲁棒性和用户体验 [3]。若仍为空，contexts 允许为空，后续 Answer 逻辑可指示无匹配知识 [1]。\n\n3. 资料未涉及“查询路由”及其与语言过滤/回退流程的关系，无法判断二者是否解决同一问题及流程关系。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p079_c002",
+          "distance": 0.32465583086013794,
+          "text": "se, includeMetadata: true });\n2 const filtered = all.matches.filter(m => language === 'en' ? m.metadata?.url?.includes('/en/') :\n, !m.metadata?.url?.includes('/en/'));\n!\n说明：\n1. 去掉语言过滤扩大召回\n2. 以URL规则“/en/”做客户端二次过滤，兼容旧数据语言字段缺失\n3. 若仍为空→contexts允许空，后续Answer逻辑可指示无匹配知识\n13.4 上下文拼接与来源列表\n检索结果经过二次过滤后，将相关片段拼接为最终上下文，供Prompt使用。常见做法：\n",
+          "doc_id": "RAG知识_p079",
+          "char_count": 321,
+          "page": 79,
+          "source": "RAG知识.pdf",
+          "rerank_score": 0.997285008430481
+        },
+        {
+          "chunk_id": "RAG知识_p099_c001",
+          "distance": 0.28398215770721436,
+          "text": "17.3. 检索回退伪代码示例 89\n17.2.3 检索阶段两级策略\n检索环节采用如下两步策略：\nfilter.metadata.language\n1. 语言过滤查询（带 ，设置500ms超时）。\n/en/\n2. 失败/超时/空结果→无过滤查询+URL二次过滤（英文优先保留 ，否则回\n/en/\n退中文；中文直接排除 ）。\n检索结果用于Prompt构建，语言分支确保上下文和指令一致。\n17.2.4 Prompt 构建语言分支\nbuildPrompt()\n根据语言切换：\n・ System角色设定文本\n・ 对话历史标签（User/Assistantvs用户/助手）\n・ 指令用语\n",
+          "page": 99,
+          "char_count": 290,
+          "doc_id": "RAG知识_p099",
+          "source": "RAG知识.pdf",
+          "rerank_score": 0.9960545301437378
+        },
+        {
+          "chunk_id": "RAG知识_p095_c002",
+          "distance": 0.3113170266151428,
+          "text": "NGUAGE_FILTER_TIMEOUT)\n4 );\n5\n6 queryRes = await Promise.race([queryWithFilter, timeoutPromise]);\n16.3.3 回退机制\n在实际开发中，回退机制用于保证系统在语言过滤器查询失败或超时的情况下，依然能\n够返回相关内容，提升系统的鲁棒性和用户体验。下面代码展示了如何在\ngetRelevantDocuments\n函数中实现回退查询逻辑：\n1 // 在 getRelevantDocuments 函数中实现回退查询\n2 try {\n3 // 尝试使用语言过滤器\n4 // ...\n5 } catch (error) {\n6 // 回退到不使用语言过滤器的查询\n",
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p095",
+          "page": 95,
+          "char_count": 326,
+          "rerank_score": 0.977022647857666
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 106.51339986361563,
+      "gen_ms": 1843.6630999203771,
+      "prompt_tokens": 709,
+      "completion_tokens": 270,
+      "cost": 0.001789,
+      "correct": true,
+      "reason": "回答均依据资料，未涉及内容明确拒答。",
+      "cite_total": 6,
+      "cite_valid": 6,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 998,
+          "completion_tokens": 22
+        },
+        {
+          "prompt_tokens": 1052,
+          "completion_tokens": 34
+        }
+      ],
+      "judge_cost": 0.001752
+    },
+    {
+      "id": 40,
+      "type": "cross",
+      "kind": "fact",
+      "question": "如果要给 RAG 的高频问题做结果缓存，需要防哪些缓存失效问题（缓存穿透、缓存击穿）？Redis 侧分别有哪些解法？加锁时为什么必须给锁设置过期时间？",
+      "answer": "子问题清单：\n1. 给 RAG 高频问题做结果缓存，需要防哪些缓存失效问题（缓存穿透、缓存击穿）？\n2. Redis 侧针对缓存穿透有哪些解法？\n3. Redis 侧针对缓存击穿有哪些解法？\n4. 加锁时为什么必须给锁设置过期时间？\n\n逐条回答：\n\n1. 需要防缓存穿透和缓存击穿。资料未涉及“RAG 高频问题结果缓存”这一具体场景；但资料目录列出了缓存穿透与缓存击穿两类问题及其解决方案 [2]。\n\n2. 缓存穿透的 Redis 侧解法包括：对空值缓存、设置可访问的名单（白名单）、采用布隆过滤器、进行实时监控 [2]。\n\n3. 缓存击穿的解法包括：预先设置热门数据，适时调整过期时间；使用锁 [1][2]。具体做法是：在 Redis 高峰之前，把一些热门数据提前存入 Redis，对缓存中的热门数据进行监控，实时调整过期时间 [1]；缓存中拿不到数据时，不是立即去 DB 中查询，而是去获取分布式锁（比如 Redis 中的 setnx），拿到锁再去 DB 中 load 数据；没有拿到锁的线程休眠一段时间再重试整个获取数据的方法 [1]。\n\n4. 必须给锁设置过期时间，是因为客户端获取锁后，由于系统问题（如系统宕机）会导致锁无法释放，其他客户端就无法获取锁，所以需要给锁指定一个使用期限 [3]。",
+      "hits": [
+        {
+          "chunk_id": "Redis全套学习笔记_p109_c002",
+          "distance": 0.24609726667404175,
+          "text": "成为缓存击穿。\n缓存击穿出现的现象\n数据库访问压力瞬时增大\nredis里面没有出现大量的key过期\nredis正常运行\n12.2.2、解决方案\nkey可能会在某些时间点被超高并发地访问，是一种非常“热点”的数据，这个时候，要考虑一个问题：缓\n存被“击穿”的问题，常见的解决方案如下\n（1）预先设置热门数据，适时调整过期时间\n在redis高峰之前，把一些热门数据提前存入到redis里面，对缓存中的这些热门数据进行监控，实时调\n整过期时间。\n（2）使用锁\n缓存中拿不到数据的时候，此时不是立即去db中查询，而是去获取分布式锁（比如redis中的setnx），\n拿到锁再去db中load数据；没有拿到锁的线程休眠一段时间再重试整个获取数据的方法。\n",
+          "page": 109,
+          "source": "Redis全套学习笔记.pdf",
+          "doc_id": "Redis全套学习笔记_p109",
+          "char_count": 322,
+          "rerank_score": 0.9961755275726318
+        },
+        {
+          "chunk_id": "Redis全套学习笔记_p006_c002",
+          "distance": 0.23287272453308105,
+          "text": "1.1、问题描述\n12.1.2、解决方案\n（1）对空值缓存\n（2）设置可访问的名单（白名单）\n（3）采用布隆过滤器\n（4）进行实时监控\n12.2、缓存击穿\n12.2.1、问题描述\n12.2.2、解决方案\n（1）预先设置热门数据，适时调整过期时间\n（2）使用锁\n12.3、缓存雪崩\n12.3.1、问题描述\n12.3.2、解决方案\n（1）构建多级缓存\n（2）使用锁或队列\n（3）监控缓存过期，提前更新\n（4）将缓存失效时间分散开\n12.4、分布式锁\n12.4.1、问题描述\n12.4.2、分布式锁主流的实现方案\n12.4.3、解决方案：使用redis实现分布式锁\n（1）上锁的过程\n（2）为什么要设置过期时间？\n（3）如果设置的有效期太短怎么办？\n",
+          "source": "Redis全套学习笔记.pdf",
+          "doc_id": "Redis全套学习笔记_p006",
+          "page": 6,
+          "char_count": 322,
+          "rerank_score": 0.9905874133110046
+        },
+        {
+          "chunk_id": "Redis全套学习笔记_p112_c001",
+          "distance": 0.2878285050392151,
+          "text": "（2）为什么要设置过期时间？\n客户端获取锁后，由于系统问题，如系统宕机了，会导致锁无法释放，其他客户端就无法或锁了，所以\n需要给锁指定一个使用期限。\n（3）如果设置的有效期太短怎么办？\n比如有效期设置了10秒，但是10秒不够业务方使用，这种情况客户端需要实现续命的功能，可以解决这\n个问题。\n（4）解决锁误删的问题\n锁存在误删的情况：所谓误删就是自己把别人持有的锁给删掉了。\n更多Java学习视频，请关注公众号：Java充电社",
+          "page": 112,
+          "doc_id": "Redis全套学习笔记_p112",
+          "source": "Redis全套学习笔记.pdf",
+          "char_count": 213,
+          "rerank_score": 0.985042929649353
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 142.37590017728508,
+      "gen_ms": 1835.9328999649733,
+      "prompt_tokens": 793,
+      "completion_tokens": 316,
+      "cost": 0.002057,
+      "correct": true,
+      "reason": "回答均能在资料中找到依据，无编造或矛盾。",
+      "cite_total": 7,
+      "cite_valid": 7,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 1146,
+          "completion_tokens": 23
+        },
+        {
+          "prompt_tokens": 1200,
+          "completion_tokens": 36
+        }
+      ],
+      "judge_cost": 0.0019948
+    },
+    {
+      "id": 41,
+      "type": "partial",
+      "kind": "fact",
+      "question": "全量重索引迁移一般要经过哪些步骤？删除旧数据时要注意什么？另外，迁移期间要做到零停机、可回滚，具体的回滚方案和 SLA 应该怎么设计？",
+      "answer": "**子问题清单：**\n1. 全量重索引迁移一般要经过哪些步骤？\n2. 删除旧数据时要注意什么？\n3. 迁移期间零停机、可回滚的具体回滚方案和 SLA 应如何设计？\n\n**逐条回答：**\n\n**1. 全量重索引迁移一般要经过哪些步骤？**\n资料未完整列出全部步骤，仅涉及部分内容：迁移通常由模型升级（如嵌入模型 Gemini→Qwen 导致向量语义空间不兼容）、维度变更（EMBED_DIM 由 768 调整为 1024，需重新写入一致维度）、分块策略优化（chunkText 改版，标题先切+标点再切，影响上下文粒度）等动因驱动 [2]。步骤表中可见第 7 步为“上线”：切换前端指向更新后的 Worker，产出为“生效” [1]。每一步都需关注产出结果，及时调整策略以保证迁移质量 [1]。\n\n**2. 删除旧数据时要注意什么？**\n清空阶段需通过 Worker 的 `DELETE /admin/clear-all` 接口批量删除旧数据，该操作会循环模拟查询批次（dummyvectortopK=100）并调用 deleteByIds，直到批量返回的 totalDeleted 不足为止，输出的 totalDeleted 可用于确认旧数据体量 [1]。注意：Vectorize 暂无“一键 truncate”，批量删除需控制超时，必要时分多次执行，避免因超时导致删除不完整 [1]。\n\n**3. 零停机、可回滚的具体回滚方案和 SLA 应如何设计？**\n资料未涉及零停机、可回滚的具体回滚方案及 SLA 设计。资料仅提及上线时切换前端指向更新后的 Worker 使其生效 [1]，以及迁移需结合实际需求进行评估 [2]，未给出回滚方案或 SLA 指标。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p104_c001",
+          "distance": 0.25157350301742554,
+          "text": "94 第18章：全量重索引迁移指南\n步骤 动作 命令/行为 产出\n7 上线 切换前端指向更 生效\n新后Worker\n每一步都需关注产出结果，及时调整策略以保证迁移质量。\n18.4 清空阶段说明\nDELETE /admin/clear‑all\n在清空阶段，需通过Worker的 接口批量删除旧数据。该操\n作会循环模拟查询批次（dummyvectortopK=100）并调用deleteByIds，直到批量返\ntotalDeleted\n回不足为止。输出的 可用于确认旧数据体量。\n注意：Vectorize暂无“一键truncate”，批量删除需控制超时，必要时分多次执行，避\n免因超时导致删除不完整。\n",
+          "doc_id": "RAG知识_p104",
+          "source": "RAG知识.pdf",
+          "page": 104,
+          "char_count": 299,
+          "rerank_score": 0.9986749291419983
+        },
+        {
+          "chunk_id": "RAG知识_p102_c001",
+          "distance": 0.24645763635635376,
+          "text": "第 18 章\n全量重索引迁移指南\n本章节介绍如何将向量库从旧结构迁移到新版高并发Ingest流程，归纳常见动因、操\n作步骤、性能观测与标准作业流程（SOP），为例行或突发重建提供参考。迁移过程涉\n及多种场景和技术细节，需结合实际需求进行评估。\n18.1 迁移动因\n迁移通常由以下几类原因驱动，具体分类及说明如下：\n分类 说明\n模型升级 嵌入模型切换（Gemini→Qwen\n）导致向量语义空间不兼容\n维度变更 EMBED_DIM调整（768→1024）\n需要重新写入一致维度\n分块策略优化 chunkText改版（标题先切+标\n点再切）影响上下文粒度\n",
+          "page": 102,
+          "char_count": 276,
+          "doc_id": "RAG知识_p102",
+          "source": "RAG知识.pdf",
+          "rerank_score": 0.985496461391449
+        },
+        {
+          "chunk_id": "Redis全套学习笔记_p070_c003",
+          "distance": 0.3781917095184326,
+          "text": "完整性以及新AOF文件生成期间的新的数据修改动作不\n会丢失\n子进程写完新的AOF文件后，向主进程发送信号，父进程更新统计信息\n主进程把aof_rewrite_buf中的数据写入到新的AOF文件\n使用新的AOF文件覆盖旧的AOF文件，完成AOF重写\n更多Java学习视频，请关注公众号：Java充电社",
+          "doc_id": "Redis全套学习笔记_p070",
+          "source": "Redis全套学习笔记.pdf",
+          "page": 70,
+          "char_count": 149,
+          "rerank_score": 0.45568299293518066
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 66.63500005379319,
+      "gen_ms": 2409.791699843481,
+      "prompt_tokens": 732,
+      "completion_tokens": 398,
+      "cost": 0.002324,
+      "correct": true,
+      "reason": "回答准确引用资料，未涉及内容明确拒答。",
+      "cite_total": 7,
+      "cite_valid": 6,
+      "cite_invalid": [
+        2
+      ],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        1
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 1093,
+          "completion_tokens": 22
+        },
+        {
+          "prompt_tokens": 1147,
+          "completion_tokens": 48
+        }
+      ],
+      "judge_cost": 0.0019320000000000001
+    },
+    {
+      "id": 42,
+      "type": "partial",
+      "kind": "fact",
+      "question": "系统异常时有哪些降级策略？另外，如果要用熔断器（错误率阈值、半开探测、恢复策略），具体参数应该怎么定？",
+      "answer": "**子问题清单：**\n1. 系统异常时有哪些降级策略？\n2. 熔断器的错误率阈值、半开探测、恢复策略等具体参数应如何设定？\n\n**逐条回答：**\n\n1. 系统异常时的降级策略：定义系统的降级策略，当核心服务失败时，快速切换到简化模式 [2]；降级服务同时应保证用户体验不受明显影响 [2]；在恢复正常后及时重启到完整功能 [2]。此外，使用备用服务或模块在系统负载过高时保证服务可用性 [2]，并提供清晰的错误信息、建议用户进行下一步操作 [2]。系统中还实现了回退机制：如果语言过滤器没有结果，会使用回退机制进行查询 [2]。\n\n2. 熔断器的错误率阈值、半开探测、恢复策略等具体参数：资料未涉及熔断器错误率阈值、半开探测及恢复策略的具体参数设定。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p093_c005",
+          "distance": 0.2585687041282654,
+          "text": ";\n23 parts.push(question);\n24\n25 return parts.join('\\n');\n26 }\n16.3 异常处理与降级策略\n为维持稳定的用户体验，必须定义有效的异常和降级策略：\n・ 错误处理机制\n・ 均匀分散请求，降低单点故障风险\n83",
+          "page": 93,
+          "char_count": 134,
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p093",
+          "rerank_score": 0.9830850958824158
+        },
+        {
+          "chunk_id": "RAG知识_p094_c001",
+          "distance": 0.3759456276893616,
+          "text": "84 第16章：聊天机器人核心逻辑开发\n・ 提供清晰的错误信息，并建议用户进行下一步操作\n・ 使用备用服务或模块在系统负载过高时保证服务可用性\n・ 降级模式\n・ 定义系统的降级策略，当核心服务失败时，快速切换到简化模式\n・ 降级服务同时应保证用户体验不受明显影响\n・ 在恢复正常后及时重启到完整功能\n在我们的系统中，实现了多种异常处理和降级策略：\n・ API调用错误处理：在API调用过程中，如果发生错误，会记录错误信息并抛出一个\n错误。\n・ 语言过滤超时处理：如果语言过滤器超时，会抛出一个错误。\n・ 回退机制：如果语言过滤器没有结果，会使用回退机制进行查询。\n",
+          "page": 94,
+          "doc_id": "RAG知识_p094",
+          "char_count": 282,
+          "source": "RAG知识.pdf",
+          "rerank_score": 0.9763104915618896
+        },
+        {
+          "chunk_id": "Redis全套学习笔记_p068_c003",
+          "distance": 0.40707826614379883,
+          "text": "异常恢复\n修改默认的appendonly no，改为yes\n如遇到aof文件损坏，通过/usr/local/bin/redis-check-aof --fix appendonly.aof进行\n恢复\n更多Java学习视频，请关注公众号：Java充电社",
+          "page": 68,
+          "doc_id": "Redis全套学习笔记_p068",
+          "char_count": 125,
+          "source": "Redis全套学习笔记.pdf",
+          "rerank_score": 0.20561504364013672
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 106.43190005794168,
+      "gen_ms": 1575.854699825868,
+      "prompt_tokens": 585,
+      "completion_tokens": 196,
+      "cost": 0.001369,
+      "correct": true,
+      "reason": "降级策略有据可查，熔断器参数资料未涉及并明确拒答。",
+      "cite_total": 6,
+      "cite_valid": 6,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        2
+      ],
+      "valid_cited_ids": [
+        2
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 749,
+          "completion_tokens": 27
+        },
+        {
+          "prompt_tokens": 803,
+          "completion_tokens": 34
+        }
+      ],
+      "judge_cost": 0.0013636
+    },
+    {
+      "id": 43,
+      "type": "partial",
+      "kind": "fact",
+      "question": "Vectorize 最多能创建多少个元数据索引？对 url 这类高基数字段，建元数据索引的取舍标准是什么？",
+      "answer": "**子问题清单：**\n1. Vectorize 最多能创建多少个元数据索引？\n2. 对 url 这类高基数字段，建元数据索引的取舍标准是什么？\n\n**逐条回答：**\n\n1. Vectorize 最多可创建 10 个元数据索引 [1][2]。\n\n2. 资料未涉及针对 url 这类高基数字段建元数据索引的具体取舍标准。资料仅说明元数据可包含文档的 URL、语言、标签等信息，并建议为常用的过滤字段创建元数据索引以提升检索灵活性和性能 [3][2]，但未就高基数字段的取舍给出判断标准。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p030_c005",
+          "distance": 0.2807353734970093,
+          "text": "ype=string\n6\n7 # 为标签字段创建元数据索引\n8 wrangler vectorize create‑metadata‑index website‑rag ‑‑property‑name=tags ‑‑type=string\nVectorize支持最多创建10个元数据索引，每个索引支持的类型包括：\nstring\n・ ：字符串类型\nnumber\n・ ：数字类型\nboolean\n・ ：布尔类型\n20",
+          "char_count": 206,
+          "page": 30,
+          "doc_id": "RAG知识_p030",
+          "source": "RAG知识.pdf",
+          "rerank_score": 0.9996646642684937
+        },
+        {
+          "chunk_id": "RAG知识_p125_c001",
+          "distance": 0.28551435470581055,
+          "text": "22.5. Vectorize相关问题 115\n3. 使用元数据索引：\n・ 为常用的过滤字段创建元数据索引\n・ 最多可创建10个元数据索引\n4. 命名空间隔离：\n・ 使用命名空间隔离不同类型的数据\n・ 在查询时指定命名空间以提高效率\n22.5.4 如何处理 Vectorize 的限制？\nVectorize有一些重要限制需要注意：\n1. 向量维度限制：\n・ 最大支持1536维向量\n・ 选择合适的嵌入模型\n2. 元数据大小限制：\n・ 每个向量最多10KiB元数据\n・ 精简元数据内容\n3. 批量操作限制：\n・ 每批次最多1000个向量（Workers）或5000个向量（HTTPAPI）\n",
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p125",
+          "page": 125,
+          "char_count": 294,
+          "rerank_score": 0.9985449314117432
+        },
+        {
+          "chunk_id": "RAG知识_p030_c003",
+          "distance": 0.31256115436553955,
+          "text": "ngler vectorize create ‑‑help\n完整参数列表可通过 查看。建议根据实际嵌入模\n型和业务需求合理设置参数，确保索引性能和检索效果。\n5.3.3 创建元数据索引\n在向量数据库中，元数据（Metadata）是与每个向量一起存储的结构化信息，例如文\n档的URL、语言、标签等。元数据本身不是CloudflareVectorize独有的概念，几乎所\n有主流的嵌入数据库（如Pinecone、Weaviate、Milvus等）都支持为向量附加元数\n据，并基于元数据进行过滤检索。通过为常用的元数据字段建立索引，可以高效地实现\n如“按语言筛选”、“按标签过滤”等复杂查询，提升检索的灵活性和性能。\n",
+          "page": 30,
+          "doc_id": "RAG知识_p030",
+          "char_count": 306,
+          "source": "RAG知识.pdf",
+          "rerank_score": 0.9899863600730896
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 104.43289997056127,
+      "gen_ms": 1090.0191999971867,
+      "prompt_tokens": 711,
+      "completion_tokens": 137,
+      "cost": 0.0012590000000000001,
+      "correct": true,
+      "reason": "回答准确引用资料，对未涉及内容明确拒答。",
+      "cite_total": 4,
+      "cite_valid": 4,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 844,
+          "completion_tokens": 23
+        },
+        {
+          "prompt_tokens": 898,
+          "completion_tokens": 34
+        }
+      ],
+      "judge_cost": 0.0015076000000000002
+    },
+    {
+      "id": 44,
+      "type": "out",
+      "kind": "fact",
+      "question": "vLLM 的 PagedAttention 是怎么管理 KV Cache 的？它为什么能显著提高吞吐？",
+      "answer": "**子问题清单：**\n1. vLLM 的 PagedAttention 如何管理 KV Cache？\n2. PagedAttention 为什么能显著提高吞吐？\n\n**逐条回答：**\n\n1. 资料未涉及 vLLM 的 PagedAttention 如何管理 KV Cache 的具体机制。\n\n2. 资料未涉及 PagedAttention 提高吞吐的原因。\n\n说明：所提供的资料1、资料3讨论的是 RAG 向量数据管理与 Cloudflare Vectorize 架构，资料2讨论的是 RAG 架构中的查询路由、代理模式与响应合成器，均未涉及 vLLM 或 PagedAttention 相关内容，因此无法依据资料回答该问题。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p042_c002",
+          "distance": 0.4399227499961853,
+          "text": "结果不稳定 优先metadata过滤，\nURL二次规则兜底\n向量膨胀 存储成本上升 监控平均chunk长度，\n优化切分策略\n批量失败放大 整批重试浪费 降低单批大小/引入局\n部重试\n通过提前识别和应对上述风险，可提升系统的稳定性和可维护性。\n7.10 演进方向\n未来，向量数据管理可在以下几个方向持续优化：\n1. 条件删除接口（基于metadata.filter）\n2. 增量Ingest（文件修改时间diff/hash比对）\n3. 片段质量评分（过滤噪声或过短块）\n32",
+          "doc_id": "RAG知识_p042",
+          "char_count": 236,
+          "page": 42,
+          "source": "RAG知识.pdf",
+          "rerank_score": 0.005730246659368277
+        },
+        {
+          "chunk_id": "RAG 技术概览_web_c035",
+          "distance": 0.4332606792449951,
+          "text": "作方式的方案，其中包括了查询的路由处理和代理的智能行为模式。这个复杂方案的一个缺点可以通过图像来理解 —— 由于需要在代理内部与大语言模型（LLM）进行多轮迭代，因此处理速度较慢。需要注意的是，在 RAG 架构中，调用 LLM 总是最耗时的步骤，而搜索则是出于设计考虑而优化了速度。因此，对于涉及大量文档的存储系统，我建议对这一方案进行简化，以提高其扩展性。8. 响应合成器这是 RAG 架构中的最后一步 —— 基于我们精心收集的所有上下文和用户的初步查询来生成答案。最简单的方法是直接将所有相关度较高的上下文和查询串联起来，一次性输入到LLM中。然而，还有一些更复杂的方法，这些方法涉及多次使用LLM来细化检索到的上下文，并据此生成更加准确的答案。",
+          "source": "RAG 技术概览.html",
+          "char_count": 325,
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "doc_id": "RAG 技术概览_web",
+          "rerank_score": 0.0012448433553799987
+        },
+        {
+          "chunk_id": "RAG知识_p020_c003",
+          "distance": 0.4364205002784729,
+          "text": "档向量，最终将向量及其元数据直接存储到Cloudflare\nVectorize向量数据库中。整个流程无需消息队列或关系型数据库，简化了架构，提升\n了处理效率。\n在知识查询阶段，用户通过网站聊天Widget提交问题，CloudflareWorker作为API\n端点接收请求，首先将用户查询转化为向量表示，然后在Vectorize中检索最相关的文\n档片段。检索结果与原始查询一同构建提示词，调用大语言模型（如千问或Gemini）\n生成最终回答，并将响应返回给用户。\n该架构的主要优势包括：充分利用CloudflareWorkers的无服务器特性，自动扩缩容，\n无需服务器运维；依托全球200多个数据中心的边缘计算能力，提供低延迟响应；架构\n",
+          "doc_id": "RAG知识_p020",
+          "page": 20,
+          "source": "RAG知识.pdf",
+          "char_count": 318,
+          "rerank_score": 0.0002959570847451687
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 64.94840001687407,
+      "gen_ms": 1202.9108998831362,
+      "prompt_tokens": 773,
+      "completion_tokens": 141,
+      "cost": 0.001337,
+      "correct": true,
+      "reason": "资料与问题无关，回答明确拒答",
+      "cite_total": 0,
+      "cite_valid": 0,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [],
+      "valid_cited_ids": [],
+      "judge_usage": [
+        {
+          "prompt_tokens": 895,
+          "completion_tokens": 19
+        },
+        {
+          "prompt_tokens": 949,
+          "completion_tokens": 37
+        }
+      ],
+      "judge_cost": 0.0015872
+    },
+    {
+      "id": 45,
+      "type": "out",
+      "kind": "fact",
+      "question": "FlashAttention 是如何通过分块（tiling）和重计算（recomputation）降低显存占用的？",
+      "answer": "**子问题清单：**\n1. FlashAttention 如何通过分块（tiling）降低显存占用？\n2. FlashAttention 如何通过重计算（recomputation）降低显存占用？\n\n**逐条回答：**\n\n1. 资料未涉及 FlashAttention 的分块（tiling）机制及其对显存占用的影响。\n\n2. 资料未涉及 FlashAttention 的重计算（recomputation）机制及其对显存占用的影响。\n\n（说明：所给资料中，资料1讲 Redis HyperLogLog 基数统计，资料2讲 Transformer 架构与注意力机制，资料3讲 RAG 的索引与向量检索，均未涉及 FlashAttention 的具体实现原理。）",
+      "hits": [
+        {
+          "chunk_id": "Redis全套学习笔记_p048_c002",
+          "distance": 0.32935839891433716,
+          "text": "供的 hash、set、bitmaps 等数据结构来处理。\n以上的方案结果精确，但随着数据不断增加，导致占用空间越来越大，对于非常大的数据集是不切实际\n的。能否能够降低一定的精度来平衡存储空间？Redis 推出了 HyperLogLog。\nRedis HyperLogLog 是用来做基数统计的算法，HyperLogLog 的优点是：在输入元素的数量或者体积\n非常非常大时，计算基数所需的空间总是固定的、并且是很小的。\n在 Redis 里面，每个 HyperLogLog 键只需要花费 12 KB 内存，就可以计算接近 2^64 个不同元素的基\n数。这和计算基数时，元素越多耗费内存就越多的集合形成鲜明对比。\n",
+          "page": 48,
+          "source": "Redis全套学习笔记.pdf",
+          "char_count": 305,
+          "doc_id": "Redis全套学习笔记_p048",
+          "rerank_score": 0.03258974477648735
+        },
+        {
+          "chunk_id": "Transformer--Attention Is All You Need_web_c009",
+          "distance": 0.3906780481338501,
+          "text": "算[32]显著提高了计算效率，而且条件计算还提高了模型性能。但序列计算的根本性约束依然存在。注意力机制已成为各种序列建模和转导模型任务最引人注目的组件，它支持对依赖项进行建模，而无需考虑它们在输入或输出序列中的距离[2, 19]。然而，在全部但很少的情况下[27]，这种注意力机制被用来与循环网络结合使用。本作中，我们提出的Transfomer是一种规避循环的模型架构，完全依赖注意力机制来绘制输入和输出之间的全局依赖关系。在8个P100 GPU上经过短短12小时的训练后，Transformer就实现了更多的并行化，并在翻译质量方面达到了新水平。",
+          "title": "经典译文：Transformer--Attention Is All You Need",
+          "url": "https://zhuanlan.zhihu.com/p/689083488",
+          "char_count": 274,
+          "doc_id": "Transformer--Attention Is All You Need_web",
+          "source": "Transformer--Attention Is All You Need.html",
+          "rerank_score": 0.027169233188033104
+        },
+        {
+          "chunk_id": "RAG 技术概览_web_c016",
+          "distance": 0.3967115879058838,
+          "text": "用像bge-large7或E58嵌入系列这样的搜索优化模型。可以查看MTEB排行榜9来获取最新的模型信息。要实现分块和向量化的端到端操作，可以参考LlamaIndex中一个完整的数据输入流程示例10。2.搜索索引2.1向量存储索引图片在这个方案及文中后续内容中，为了保持方案的简洁性，我省略了编码器（Encoder）这一环节，直接将查询内容发送至索引。当然，查询内容在此之前已经被转换成了向量形式。这同样适用于前k个块的处理——索引实际检索的是前k个向量而非块本身，但在这里，我以块的形式呈现它们，因为从索引中提取这些块是一个简单的步骤。在RAG管道中，至关重要的部分是搜索索引，它用来存储我们在前一步骤中生成的向量化内容。",
+          "doc_id": "RAG 技术概览_web",
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "char_count": 312,
+          "source": "RAG 技术概览.html",
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "rerank_score": 0.015424552373588085
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 79.27870005369186,
+      "gen_ms": 998.6592000350356,
+      "prompt_tokens": 737,
+      "completion_tokens": 149,
+      "cost": 0.001333,
+      "correct": true,
+      "reason": "资料未涉及FlashAttention，回答正确拒答。",
+      "cite_total": 0,
+      "cite_valid": 0,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [],
+      "valid_cited_ids": [],
+      "judge_usage": [
+        {
+          "prompt_tokens": 923,
+          "completion_tokens": 21
+        },
+        {
+          "prompt_tokens": 977,
+          "completion_tokens": 37
+        }
+      ],
+      "judge_cost": 0.001636
+    },
+    {
+      "id": 46,
+      "type": "principle",
+      "kind": "principle",
+      "question": "为什么 RAG 评测要把「检索层指标」和「生成层指标」拆开，而不能只看最终的答案正确率？",
+      "answer": "因为两层失败模式不同，混在一起看最终正确率无法定位问题：\n\n1. **归因需要**：最终答案错，可能是没检索到正确证据（检索层召回/排序失败），也可能是证据已给但模型答错（生成层幻觉、推理或引用失败）。只看正确率无法区分该改检索还是改生成。\n\n2. **指标可解释性**：检索层用 Recall@k、MRR、nDCG 等衡量“找没找到、排得对不对”；生成层用忠实度、答案相关性、引用准确率等衡量“用得对不对”。拆开才能分别优化。\n\n3. **避免掩盖问题**：生成模型可能靠参数记忆答对，掩盖检索缺陷；也可能检索正确但生成拖累。合并指标会互相抵消。\n\n4. **工程决策**：拆开后能判断瓶颈在索引/切分/embedding/rerank，还是在提示词/模型/解码策略，从而针对性迭代。\n\n所以拆层是为了**可诊断、可归因、可分别优化**，最终正确率只作为端到端验收指标。",
+      "hits": [],
+      "top_k": 0,
+      "prompt_version": "v1-noretr",
+      "retrieval_mode": "none",
+      "retrieve_ms": 0.0,
+      "gen_ms": 2364.0467999503016,
+      "prompt_tokens": 48,
+      "completion_tokens": 230,
+      "cost": 0.000968,
+      "correct": false,
+      "reason": "未提零API可复现及回归门禁成本低稳定",
+      "coverage": 0.5,
+      "covered": [
+        1,
+        3
+      ],
+      "n_points": 4,
+      "judge_usage": [
+        {
+          "prompt_tokens": 526,
+          "completion_tokens": 36
+        }
+      ],
+      "judge_cost": 0.0004928
+    },
+    {
+      "id": 47,
+      "type": "principle",
+      "kind": "principle",
+      "question": "为什么「塞进 prompt 的资料越多越好」不成立？请从上下文窗口、注意力分布与成本三个角度说明。",
+      "answer": "「塞进 prompt 的资料越多越好」不成立，原因有三：\n\n1. **上下文窗口有限**：模型能处理的 token 数有上限，资料过多会超出窗口被截断，关键信息反而丢失；即使未超限，长上下文也会稀释有效信息。\n\n2. **注意力分布被稀释**：模型对长输入的注意力并非均匀，过多无关或冗余资料会分散注意力，导致对关键内容的关注下降，出现“迷失在中间”等现象，回答质量反而变差。\n\n3. **成本上升**：token 数增加直接推高推理费用与延迟，且冗余资料带来噪声，需要更多筛选与校验成本，性价比下降。\n\n因此应精选、结构化地提供相关资料，而非一味堆砌。",
+      "hits": [],
+      "top_k": 0,
+      "prompt_version": "v1-noretr",
+      "retrieval_mode": "none",
+      "retrieve_ms": 0.0,
+      "gen_ms": 1526.7046999651939,
+      "prompt_tokens": 47,
+      "completion_tokens": 154,
+      "cost": 0.000663,
+      "correct": true,
+      "reason": "四点均被覆盖，无遗漏。",
+      "coverage": 1.0,
+      "covered": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "n_points": 4,
+      "judge_usage": [
+        {
+          "prompt_tokens": 428,
+          "completion_tokens": 33
+        }
+      ],
+      "judge_cost": 0.00040840000000000006
+    },
+    {
+      "id": 48,
+      "type": "principle",
+      "kind": "principle",
+      "question": "语义缓存的相似度阈值为什么不能设得太高，也不能设得太低？各自会带来什么后果？",
+      "answer": "语义缓存的相似度阈值需要平衡“命中率”和“准确性”：\n\n- **设得太高**：只有几乎完全相同的问题才能命中缓存，导致命中率低，缓存形同虚设，无法节省计算和延迟。\n- **设得太低**：语义并不相同的问题也会被判定为相似而命中缓存，返回错误答案，损害回答准确性。\n\n因此阈值要在“多命中”和“少出错”之间取折中。",
+      "hits": [],
+      "top_k": 0,
+      "prompt_version": "v1-noretr",
+      "retrieval_mode": "none",
+      "retrieve_ms": 0.0,
+      "gen_ms": 1060.0846000015736,
+      "prompt_tokens": 44,
+      "completion_tokens": 94,
+      "cost": 0.00041999999999999996,
+      "correct": false,
+      "reason": "未提及绕过检索自检及校准审计方法",
+      "coverage": 0.5,
+      "covered": [
+        1,
+        2
+      ],
+      "n_points": 4,
+      "judge_usage": [
+        {
+          "prompt_tokens": 383,
+          "completion_tokens": 33
+        }
+      ],
+      "judge_cost": 0.00037240000000000005
+    },
+    {
+      "id": 49,
+      "type": "principle",
+      "kind": "principle",
+      "question": "Agentic RAG 为什么必须在代码层设置检索轮次上限（step cap），而不能只靠提示词约束？",
+      "answer": "因为提示词约束是软约束，模型可能忽略、遗忘或被上下文干扰，无法保证终止；代码层的 step cap 是硬性执行边界，能确定性地防止无限检索循环、控制延迟与成本，并在达到上限时强制降级或返回，保证系统可控。",
+      "hits": [],
+      "top_k": 0,
+      "prompt_version": "v1-noretr",
+      "retrieval_mode": "none",
+      "retrieve_ms": 0.0,
+      "gen_ms": 1616.955399978906,
+      "prompt_tokens": 46,
+      "completion_tokens": 59,
+      "cost": 0.00028199999999999997,
+      "correct": false,
+      "reason": "未提自评重查成本与召回池重叠无增益",
+      "coverage": 0.5,
+      "covered": [
+        3,
+        4
+      ],
+      "n_points": 4,
+      "judge_usage": [
+        {
+          "prompt_tokens": 338,
+          "completion_tokens": 36
+        }
+      ],
+      "judge_cost": 0.00034240000000000003
+    },
+    {
+      "id": 50,
+      "type": "principle",
+      "kind": "principle",
+      "question": "为什么 LLM 判官不能使用被测模型本身？除了「换一个模型」，还需要做哪些纪律来保证分数可信？",
+      "answer": "LLM 判官不能使用被测模型本身，核心原因是**自我偏好偏差（self-preference bias）**：模型倾向于给与自己风格、措辞、推理路径相似的输出更高分，导致分数虚高且失去区分度；同时被测模型与判官共享同一套盲区，无法发现自身错误，形成\"自己批改自己\"的循环。\n\n除「换一个模型」外，保证分数可信还需以下纪律：\n\n1. **判官与被测模型异构**：不同厂商/架构/训练数据，降低相关性偏差。\n2. **盲评与顺序随机化**：隐藏模型身份，随机交换 A/B 位置，消除位置偏差。\n3. **固定评分标准（rubric）**：明确维度、分档和锚点示例，减少判官自由发挥。\n4. **校准与一致性检验**：用人工标注样本校准判官，测与人类评分的相关性（如 Cohen's kappa）；做重复评分测稳定性。\n5. **对抗性/陷阱样本**：插入已知优劣的对照样本，检测判官是否被表面风格（长度、格式、谄媚语气）误导。\n6. **多判官集成**：多个异构判官投票或取中位数，降低单点偏差。\n7. **长度与格式控制**：惩罚或归一化冗长、堆砌格式带来的虚假优势。\n8. **保留人工抽检**：对高分/边界样本人工复核，防止系统性漂移。\n9. **记录与可复现**：固定判官版本、prompt、温度，报告判官自身的不确定性。",
+      "hits": [],
+      "top_k": 0,
+      "prompt_version": "v1-noretr",
+      "retrieval_mode": "none",
+      "retrieve_ms": 0.0,
+      "gen_ms": 3086.311100050807,
+      "prompt_tokens": 48,
+      "completion_tokens": 337,
+      "cost": 0.001396,
+      "correct": true,
+      "reason": "未提及判官会接受貌似成功实则失败的轨迹",
+      "coverage": 0.75,
+      "covered": [
+        1,
+        2,
+        3
+      ],
+      "n_points": 4,
+      "judge_usage": [
+        {
+          "prompt_tokens": 626,
+          "completion_tokens": 35
+        }
+      ],
+      "judge_cost": 0.0005708
+    }
+  ]
+}

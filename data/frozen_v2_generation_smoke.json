@@ -1,0 +1,365 @@
+{
+  "experiment": "frozen_v2_generation_v1",
+  "generated_at": "2026-10-24 20:23:07",
+  "judge": {
+    "model": "qwen3.8-max",
+    "temperature": 0,
+    "base_url": "https://ws-rbtvfl1mut97g4dq.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+    "extra_body": {
+      "enable_thinking": false
+    },
+    "principle_pass_threshold": 0.6
+  },
+  "generation": {
+    "model": "deepseek-v4-flash",
+    "mode": "dense",
+    "dedupe": true,
+    "top_k": 3,
+    "quota_cap": 2,
+    "prompt": {
+      "fact": "v2",
+      "principle": "v1-noretr"
+    }
+  },
+  "fingerprints": {
+    "frozen_v2_sha256": "5d466ec84e5bf38fa5ab3ed478f8262e825b1f4c8197eca4db2ccb47cd3e0e19",
+    "chunks_sha256": "199749aba2829aa7008ad33391f6a8157dd10f9492f58cb32cfef5aa316f6dde"
+  },
+  "summary": {
+    "n": 4,
+    "answer_acc": 1.0,
+    "by_type": {
+      "partial": {
+        "n": 1,
+        "correct": 1,
+        "rate": 1.0
+      },
+      "in": {
+        "n": 2,
+        "correct": 2,
+        "rate": 1.0
+      },
+      "cross": {
+        "n": 1,
+        "correct": 1,
+        "rate": 1.0
+      }
+    },
+    "fact_n": 4,
+    "cite_acc": 0.9444444444444444,
+    "cite_total": 18,
+    "cite_valid": 17,
+    "cite_at_k": 0.6666666666666666,
+    "slot_valid": 8,
+    "slot_total": 12,
+    "zero_cite_n": 0,
+    "principle_n": 0,
+    "principle_pass": 0,
+    "principle_coverage_mean": null,
+    "avg_retrieve_ms": 190.3527250397019,
+    "avg_gen_ms": 2145.500599988736,
+    "gen_prompt_tokens": 3031,
+    "gen_completion_tokens": 934,
+    "gen_cost": 0.006767,
+    "judge_prompt_tokens": 8090,
+    "judge_completion_tokens": 229,
+    "judge_cost": 0.00693
+  },
+  "records": [
+    {
+      "id": 6,
+      "type": "partial",
+      "kind": "fact",
+      "question": "RAG 能减少幻觉，一个重要原因是它把检索到的资料\"喂\"给生成模型。请问：检索到的上下文是如何与用户问题一起交给大模型，再由大模型利用\"自注意力\"生成回答的？请结合 RAG 的查询响应流程和 Transformer 的自注意力原理说明。",
+      "answer": "**子问题清单：**\n1. RAG 的查询响应流程中，检索到的上下文是如何与用户问题一起交给大模型的？\n2. 大模型如何利用“自注意力”机制处理这些输入并生成回答？\n\n**逐条回答：**\n\n1. 关于检索到的上下文如何与用户问题一起交给大模型：资料提到 RAG 采用三步流程，其中第三步为“拼接提示生成”，即把检索结果拼接进提示后交给生成模型 [1]。资料2指出 RAG 通过引入外部知识库，让 AI 模型在生成回答前先检索相关信息 [2]，并将工作流程分为知识库构建（离线处理）和查询响应（实时处理）两个阶段 [2]。但资料未具体说明查询响应阶段中上下文与用户问题拼接的具体格式或细节。\n\n2. 关于大模型如何利用“自注意力”生成回答：资料3讨论了 Transformer 自注意力机制的特点，包括自注意力可以产生更多可解释的模型、单个注意力头学习执行不同任务、表现出与句子句法和语义结构相关的行为，以及在 n 小于表征维度 d 时自注意力层比循环层更快 [3]。但资料未涉及大模型在 RAG 查询响应中如何具体利用自注意力处理拼接后的上下文与问题并生成回答这一过程。\n\n综上，资料未涉及“检索上下文与用户问题拼接后，大模型通过自注意力机制生成回答”的具体机制说明。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p016_c001",
+          "distance": 0.30606842041015625,
+          "text": "6 第2章：RAG原理与核心概念\n提出动因：LLM容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提\n供可追溯的证据。\n主要特点：采用三步流程（文档切块→向量检索→拼接提示生成），支持一体化端到\n端微调（如RAG‑Sequence和RAG‑Token），能够减少模型幻觉，提升开放域问答的准\n确率。\n2. AdvancedRAG\n提出动因：用户查询与知识库语义不完全对齐，NaiveRAG检索噪声较多、生成质量\n有限。\n主要特点：引入预检索（如查询重写/扩展）、检索（语义向量检索）、后检索（结果重排\n序、摘要压缩）等多阶段处理，显著提升检索相关性和生成质量。\n",
+          "char_count": 287,
+          "doc_id": "RAG知识_p016",
+          "source": "RAG知识.pdf",
+          "page": 16,
+          "rerank_score": 0.9965165853500366
+        },
+        {
+          "chunk_id": "RAG知识_p013_c002",
+          "distance": 0.3562428951263428,
+          "text": "方式解决了传统大语言模型的关键问题：\n传统LLM的局限性：\n・ 知识截止点：模型训练数据有时间限制，无法获取最新信息\n・ 幻觉问题：模型可能生成看似合理但实际错误的信息\n・ 领域专业性不足：对特定领域的深度知识掌握有限\n・ 个性化缺失：无法基于用户的个人知识库进行回答\nRAG的解决方案：\nRAG通过引入外部知识库，让AI模型在生成回答前先检索相关信息，从而显著提高回\n答的准确性和时效性。这种方法特别适合构建个人数字分身，因为它可以基于你的个人\n文档、博客文章、经验总结等生成符合你风格和观点的回答。\n2.2 RAG 的工作流程\nRAG系统的工作流程分为两个主要阶段：知识库构建（离线处理）和查询响应（实时\n处理）。\n",
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p013",
+          "page": 13,
+          "char_count": 310,
+          "rerank_score": 0.9830850958824158
+        },
+        {
+          "chunk_id": "Transformer--Attention Is All You Need_web_c076",
+          "distance": 0.3491209149360657,
+          "text": "的方法）。作为附带的好处，自注意力可以产生更多可解释的模型。我们对模型检查了其注意力分布，并在附录中展示和讨论了相关示例。不仅单个注意力头清楚地学习执行不同的任务，而且许多似乎表现出与句子的句法和语义结构相关的行为。n小于表征维度d时，自注意力层比循环层更快，这通常是机器翻译中最先进模型使用的句子表示的情况，例如word-piece [38]和byte-pair [31] 表征法。为了提高涉及非常长序列的任务的计算性能，自注意力可以限制为仅考虑大小为r的邻域。输入序列以各自的输出位置为中心。这会将最大路径长度增加到O(n/r)。我们计划在未来的工作中进一步研究这种方法。内核宽度k的单个卷积层不会连接所有输入和输出位置对。",
+          "title": "经典译文：Transformer--Attention Is All You Need",
+          "source": "Transformer--Attention Is All You Need.html",
+          "doc_id": "Transformer--Attention Is All You Need_web",
+          "url": "https://zhuanlan.zhihu.com/p/689083488",
+          "char_count": 314,
+          "rerank_score": 0.971563994884491
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 408.07919995859265,
+      "gen_ms": 3264.5493999589235,
+      "prompt_tokens": 855,
+      "completion_tokens": 299,
+      "cost": 0.002051,
+      "correct": true,
+      "reason": "回答准确依据资料，并正确指出细节缺失。",
+      "cite_total": 4,
+      "cite_valid": 4,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 1132,
+          "completion_tokens": 21
+        },
+        {
+          "prompt_tokens": 1186,
+          "completion_tokens": 33
+        }
+      ],
+      "judge_cost": 0.0019624000000000004
+    },
+    {
+      "id": 13,
+      "type": "in",
+      "kind": "fact",
+      "question": "分块函数 chunkText() 的分块策略是怎样的？它的目标片段长度上限是多少，切分时先按什么切、再按什么切？",
+      "answer": "**子问题清单：**\n1. chunkText() 的分块策略是怎样的？\n2. 目标片段长度上限是多少？\n3. 切分时先按什么切、再按什么切？\n\n**逐条回答：**\n\n1. 分块策略：在保持语义完整的前提下生成长度适中、兼容中英文的片段；先按标题粗切，对每段做长度判断，短段直接收集，长段再按句末标点分句，逐句累积至上限，超限截断换新块 [1]。\n2. 目标片段长度上限：≤800字符（maxLen 默认 800）[1]。\n3. 切分顺序：先按标题（`^#{1,6}`）粗切，再对长段按句末标点（。！？；）分句 [1]。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p052_c001",
+          "distance": 0.24727821350097656,
+          "text": "42 第9章：Markdown向量映射\n9.2 分块算法 chunkText()\n目标：在保持语义完整的前提下生成长度适中（≤800字符）的片段，兼容中英文。\n策略：\n^#{1,6}\n1. 先按标题（ ）粗切\n2. 对每段做长度判断，短段直接收集\n/[ !? ;]\\{}s*/\n3. 长段再按句末标点正则 。！？ ； 分句\nmaxLen\n4. 逐句累积至 ，超限截断换新块\n核心实现（节选）：\n1 export function chunkText(input: string, maxLen = 800): string[] {\n",
+          "page": 52,
+          "doc_id": "RAG知识_p052",
+          "char_count": 266,
+          "source": "RAG知识.pdf",
+          "rerank_score": 0.9990600943565369
+        },
+        {
+          "chunk_id": "RAG知识_p129_c001",
+          "distance": 0.3908960819244385,
+          "text": "23.3. 提示工程技术 119\n算机能够理解和处理语义信息。\n・ 嵌入模型（EmbeddingModel）：专门用于生成向量表示的机器学习模型。嵌入模\n型将离散的符号（如单词、句子）转换为连续的向量表示，捕获其语义特征。\n・ 文档分块（Chunking）：将长文档分割成较小、语义相对完整的文本片段的技术。\n分块是RAG系统中的关键步骤，好的分块策略需要平衡块的大小、语义完整性和检\n索效果。\n・ 向量数据库（VectorDatabase）：专门存储和检索高维向量数据的数据库系统。与\n传统关系数据库不同，向量数据库优化了相似度搜索功能。\n",
+          "char_count": 271,
+          "page": 129,
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p129",
+          "rerank_score": 0.6397360563278198
+        },
+        {
+          "chunk_id": "RAG 技术概览_web_c014",
+          "distance": 0.35062700510025024,
+          "text": "先，我们需要创建一个向量索引，这个索引代表了我们文档的内容。然后，在程序运行时，我们会搜索这些向量与查询向量之间的最小余弦距离，以找到语义上最接近的匹配。1.1 分块Transformer 模型的输入序列长度是固定的，即使输入上下文窗口很大，用一个句子或几个句子的向量来代表它们的语义含义，通常比对几页文本进行平均向量化更为有效。因此，需要对数据进行分块处理，将文档切分成合适大小的段落，同时保持其原有意义不变（例如，将文本划分为句子或段落，而不是将单个句子切割成两部分）。市面上有多种文本分割工具可用于此任务。需要考虑的一个参数是块的大小，这取决于你使用的嵌入模型及其处理token的能力。",
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "char_count": 296,
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "source": "RAG 技术概览.html",
+          "doc_id": "RAG 技术概览_web",
+          "rerank_score": 0.024053551256656647
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 128.66250006482005,
+      "gen_ms": 1239.5256999880075,
+      "prompt_tokens": 761,
+      "completion_tokens": 182,
+      "cost": 0.0014889999999999999,
+      "correct": true,
+      "reason": "回答内容均能在资料1中找到依据，无编造。",
+      "cite_total": 3,
+      "cite_valid": 3,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1
+      ],
+      "valid_cited_ids": [
+        1
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 941,
+          "completion_tokens": 23
+        },
+        {
+          "prompt_tokens": 995,
+          "completion_tokens": 34
+        }
+      ],
+      "judge_cost": 0.0016628000000000003
+    },
+    {
+      "id": 14,
+      "type": "in",
+      "kind": "fact",
+      "question": "创建 Vectorize 索引时必须指定哪两个关键参数？它支持哪三种距离度量方式，各自的值域和「越接近什么值表示越相似」是怎么定义的？",
+      "answer": "**子问题清单：**\n1. 创建 Vectorize 索引时必须指定哪两个关键参数？\n2. Vectorize 支持哪三种距离度量方式？\n3. 各距离度量的值域及「越接近什么值表示越相似」如何定义？\n\n**逐条回答：**\n\n1. 创建索引时需指定两个关键参数：维度（Dimensions），必须与所用嵌入模型输出维度一致；距离度量（Distance Metric），用于计算向量相似度 [1]。\n\n2. Vectorize 支持三种距离度量方式，其中资料明确列出的是余弦相似度（cosine） [1][2]。\n\n3. 余弦相似度适用于文本相似度搜索，范围从 -1（最不相似）到 1（完全相同），0 表示正交向量 [2]。即越接近 1 表示越相似。资料未涉及另外两种距离度量的名称、值域及相似性定义 [1][2]。",
+      "hits": [
+        {
+          "chunk_id": "RAG知识_p066_c001",
+          "distance": 0.21616190671920776,
+          "text": "56 第11章：使用CloudflareVectorize构建向量数据库\n11.3 创建 Vectorize 索引\n在使用Vectorize之前，需要先创建一个索引。索引是Vectorize中存储向量的基本\n单位。\n11.3.1 索引配置参数\n创建索引时需要指定两个关键参数：\n1. 维度（Dimensions）：向量的维度大小，必须与所使用的嵌入模型输出维度一致\n2. 距离度量（DistanceMetric）：用于计算向量相似度的度量方式\n11.3.2 距离度量类型\nVectorize支持三种距离度量方式：\n",
+          "doc_id": "RAG知识_p066",
+          "page": 66,
+          "source": "RAG知识.pdf",
+          "char_count": 257,
+          "rerank_score": 0.999220609664917
+        },
+        {
+          "chunk_id": "RAG知识_p073_c003",
+          "distance": 0.3230830430984497,
+          "text": "eVectorize支持三种距离度量方式，适用于不同场景：\n1. 余弦相似度（cosine）：\n・ 适用于文本相似度搜索\n・ 范围：‑1（最不相似）到1（完全相同）\n・ 0表示正交向量\n63",
+          "char_count": 95,
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p073",
+          "page": 73,
+          "rerank_score": 0.9939024448394775
+        },
+        {
+          "chunk_id": "RAG 技术概览_web_c017",
+          "distance": 0.3367140293121338,
+          "text": "部分是搜索索引，它用来存储我们在前一步骤中生成的向量化内容。最基础的实现方式是使用flat索引，它通过暴力法计算查询向量与所有块向量之间的距离。一个高效的搜索索引，针对超过10000个元素的大规模检索进行了优化，例如使用faiss、nmslib或annoy这样的向量索引。这些索引采用近似最近邻方法，如聚类、树状结构或HNSW算法。还有一些像OpenSearch或ElasticSearch这样的托管解决方案和向量数据库，它们在幕后处理第1步中描述的数据摄入过程，例如Pinecone、Weaviate或Chroma。根据您选择的索引类型、数据和搜索需求，您还可以将元数据与向量一起存储，然后使用元数据过滤器来搜索特定日期或来源的信息。",
+          "char_count": 318,
+          "source": "RAG 技术概览.html",
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "doc_id": "RAG 技术概览_web",
+          "rerank_score": 0.02595735713839531
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 69.38710017129779,
+      "gen_ms": 1941.4764000102878,
+      "prompt_tokens": 645,
+      "completion_tokens": 194,
+      "cost": 0.001421,
+      "correct": true,
+      "reason": "回答依据资料准确作答，并正确指出缺失信息。",
+      "cite_total": 5,
+      "cite_valid": 4,
+      "cite_invalid": [
+        1
+      ],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2
+      ],
+      "valid_cited_ids": [
+        2
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 850,
+          "completion_tokens": 22
+        },
+        {
+          "prompt_tokens": 904,
+          "completion_tokens": 40
+        }
+      ],
+      "judge_cost": 0.0015272
+    },
+    {
+      "id": 17,
+      "type": "cross",
+      "kind": "fact",
+      "question": "分块时块大小应该怎么定？请结合《RAG知识》里 chunkText 的切分顺序与长度上限，以及《RAG 技术概览》中关于块大小受嵌入模型 token 处理能力限制的说法，说明确定块大小时需要权衡什么。",
+      "answer": "**子问题清单：**\n1. 分块时块大小应如何确定？\n2. 《RAG知识》中 chunkText 的切分顺序与长度上限是什么？\n3. 《RAG 技术概览》中块大小受嵌入模型 token 处理能力限制的说法是什么？\n4. 确定块大小时需要权衡什么？\n\n**逐条回答：**\n\n1. 分块是RAG系统中的关键步骤，好的分块策略需要平衡块的大小、语义完整性和检索效果 [3]。块大小取决于所使用的嵌入模型及其处理token的能力 [1]。\n\n2. 资料未涉及 chunkText 的具体切分顺序；关于长度上限，资料仅说明单行最大处理Token数是指每个chunk的最大长度限制，超出部分需要进一步切分 [2]。\n\n3. 块的大小取决于嵌入模型及其处理token的能力，例如基于BERT的标准Transformer编码器模型最多处理512个token，而OpenAI ada-002能处理更长的序列，如8191个token [1]。\n\n4. 需要权衡的是为大语言模型提供足够上下文以进行推理，与实现高效搜索所需的足够具体的文本嵌入 [1]；同时好的分块策略还需平衡块的大小、语义完整性和检索效果 [3]。",
+      "hits": [
+        {
+          "chunk_id": "RAG 技术概览_web_c015",
+          "distance": 0.23652219772338867,
+          "text": "块的大小，这取决于你使用的嵌入模型及其处理token的能力。例如，基于BERT的标准Transformer编码器模型最多处理512个token，而OpenAI ada-002能处理更长的序列，如8191个token。但这里需要权衡的是为大语言模型提供足够上下文以进行推理，与实现高效搜索所需的足够具体的文本嵌入。关于选择块大小的研究5，可以在LlamaIndex的NodeParser6类中找到，该类提供了一些高级选项，比如定义自己的文本分割器、元数据、节点/块关系等。1.2 向量化接下来的步骤是选择一个模型来嵌入这些文本块。有很多种模型可以选择，我推荐使用像bge-large7或E58嵌入系列这样的搜索优化模型。",
+          "title": "深度好文！最全的大模型 RAG 技术概览",
+          "char_count": 309,
+          "source": "RAG 技术概览.html",
+          "doc_id": "RAG 技术概览_web",
+          "url": "https://zhuanlan.zhihu.com/p/678893732",
+          "rerank_score": 0.9961755275726318
+        },
+        {
+          "chunk_id": "RAG知识_p045_c003",
+          "distance": 0.40332359075546265,
+          "text": "上限，并不是限制整个文件可以被拆分成多少份。比如千问模型的\n最大行数为10，表示你可以一次性批量提交最多10个文本块（chunk）进行嵌入生\n成。如果你的文件被拆分成30个chunk，可以分3次批量提交，每次不超过10个。单\n行最大处理Token数则是指每个chunk的最大长度限制，超出部分需要进一步切分。\n最大行数限制的是每次批量请求的chunk数量，不是文件总共能拆分多少chunk。\n35",
+          "char_count": 198,
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p045",
+          "page": 45,
+          "rerank_score": 0.907312273979187
+        },
+        {
+          "chunk_id": "RAG知识_p129_c001",
+          "distance": 0.40809059143066406,
+          "text": "23.3. 提示工程技术 119\n算机能够理解和处理语义信息。\n・ 嵌入模型（EmbeddingModel）：专门用于生成向量表示的机器学习模型。嵌入模\n型将离散的符号（如单词、句子）转换为连续的向量表示，捕获其语义特征。\n・ 文档分块（Chunking）：将长文档分割成较小、语义相对完整的文本片段的技术。\n分块是RAG系统中的关键步骤，好的分块策略需要平衡块的大小、语义完整性和检\n索效果。\n・ 向量数据库（VectorDatabase）：专门存储和检索高维向量数据的数据库系统。与\n传统关系数据库不同，向量数据库优化了相似度搜索功能。\n",
+          "source": "RAG知识.pdf",
+          "doc_id": "RAG知识_p129",
+          "page": 129,
+          "char_count": 271,
+          "rerank_score": 0.6469064354896545
+        }
+      ],
+      "top_k": 3,
+      "prompt_version": "v2",
+      "retrieval_mode": "dense",
+      "retrieve_ms": 155.28209996409714,
+      "gen_ms": 2136.450899997726,
+      "prompt_tokens": 770,
+      "completion_tokens": 259,
+      "cost": 0.0018059999999999999,
+      "correct": true,
+      "reason": "回答均基于资料，未编造且无矛盾。",
+      "cite_total": 6,
+      "cite_valid": 6,
+      "cite_invalid": [],
+      "cite_missing": false,
+      "cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "valid_cited_ids": [
+        1,
+        2,
+        3
+      ],
+      "judge_usage": [
+        {
+          "prompt_tokens": 1014,
+          "completion_tokens": 22
+        },
+        {
+          "prompt_tokens": 1068,
+          "completion_tokens": 34
+        }
+      ],
+      "judge_cost": 0.0017775999999999998
+    }
+  ]
+}

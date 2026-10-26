@@ -1,0 +1,2953 @@
+{
+  "version": "frozen_v2_baseline_v1",
+  "generated_at": "2026-10-24 19:23:28",
+  "frozen_v2": "frozen_v2.jsonl",
+  "frozen_v2_sha256": "5d466ec84e5bf38fa5ab3ed478f8262e825b1f4c8197eca4db2ccb47cd3e0e19",
+  "chunks_sha256": "199749aba2829aa7008ad33391f6a8157dd10f9492f58cb32cfef5aa316f6dde",
+  "gold_version": "gold_frozen_v2",
+  "config_fingerprint": {
+    "modes": [
+      "dense",
+      "hybrid"
+    ],
+    "recall_k": 10,
+    "rerank_top_k": 3,
+    "rrf_k": 60,
+    "source_cap": 2,
+    "dedupe": true,
+    "min_score": 0.0,
+    "default_embed": "bge-small-zh",
+    "variant": "raw",
+    "collection": "day6_kb",
+    "eval_ks": [
+      3,
+      5,
+      10
+    ],
+    "collection_count": 932,
+    "reranker": "bge-reranker-base"
+  },
+  "gate": {
+    "tolerance": 0.0,
+    "scope": "逐题 chunk_id 顺序 + rerank_score + 汇总指标",
+    "node": "检索层零 API；生成层不入默认门禁"
+  },
+  "modes": {
+    "dense": {
+      "metrics": {
+        "by_type": {
+          "in": {
+            "n": 8,
+            "n_scored": 8,
+            "mrr": 1.0,
+            "recall@3": 0.39375,
+            "ndcg@3": 0.5602396399220029,
+            "recall@5": 0.4354166666666667,
+            "ndcg@5": 0.540540399298055,
+            "recall@10": 0.4354166666666667,
+            "ndcg@10": 0.540540399298055
+          },
+          "cross": {
+            "n": 7,
+            "n_scored": 7,
+            "mrr": 1.0,
+            "recall@3": 0.8571428571428571,
+            "ndcg@3": 0.8780021678113006,
+            "recall@5": 0.8571428571428571,
+            "ndcg@5": 0.8780021678113006,
+            "recall@10": 0.8571428571428571,
+            "ndcg@10": 0.8780021678113006
+          },
+          "partial": {
+            "n": 5,
+            "n_scored": 5,
+            "mrr": 0.9,
+            "recall@3": 0.7333333333333333,
+            "ndcg@3": 0.7530721273977243,
+            "recall@5": 0.8,
+            "ndcg@5": 0.7934935966978338,
+            "recall@10": 0.8,
+            "ndcg@10": 0.7934935966978338
+          }
+        },
+        "all_with_gold": {
+          "n": 20,
+          "n_scored": 20,
+          "mrr": 0.975,
+          "recall@3": 0.6408333333333334,
+          "ndcg@3": 0.7196646465521874,
+          "recall@5": 0.6741666666666666,
+          "ndcg@5": 0.7218903176276357,
+          "recall@10": 0.6741666666666666,
+          "ndcg@10": 0.7218903176276357
+        },
+        "n_no_gold": 0
+      },
+      "latency": {
+        "n": 25,
+        "recall_mean_ms": 28.22973200120032,
+        "recall_med_ms": 26.69870015233755,
+        "rerank_mean_ms": 86.86528400518,
+        "rerank_med_ms": 85.38460009731352,
+        "total_med_ms": 112.80629993416369
+      },
+      "n_fact": 25,
+      "n_scored": 20,
+      "hits_all_fact": [
+        {
+          "id": 6,
+          "type": "partial",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p016_c001",
+              "source": "RAG知识.pdf",
+              "page": 16,
+              "rerank_score": 0.9965165853500366
+            },
+            {
+              "chunk_id": "RAG知识_p013_c002",
+              "source": "RAG知识.pdf",
+              "page": 13,
+              "rerank_score": 0.9830850958824158
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c076",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.971563994884491
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c011",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.9658995866775513
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c074",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.9643214344978333
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c078",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.9553191661834717
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c037",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.9553191661834717
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c009",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.949669361114502
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c066",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.9273632764816284
+            },
+            {
+              "chunk_id": "RAG知识_p131_c001",
+              "source": "RAG知识.pdf",
+              "page": 131,
+              "rerank_score": 0.7325918078422546
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "type": "in",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p052_c001",
+              "source": "RAG知识.pdf",
+              "page": 52,
+              "rerank_score": 0.9990600943565369
+            },
+            {
+              "chunk_id": "RAG知识_p129_c001",
+              "source": "RAG知识.pdf",
+              "page": 129,
+              "rerank_score": 0.6397360563278198
+            },
+            {
+              "chunk_id": "RAG知识_p039_c001",
+              "source": "RAG知识.pdf",
+              "page": 39,
+              "rerank_score": 0.48444104194641113
+            },
+            {
+              "chunk_id": "RAG知识_p025_c001",
+              "source": "RAG知识.pdf",
+              "page": 25,
+              "rerank_score": 0.22270013391971588
+            },
+            {
+              "chunk_id": "RAG知识_p079_c003",
+              "source": "RAG知识.pdf",
+              "page": 79,
+              "rerank_score": 0.22135066986083984
+            },
+            {
+              "chunk_id": "RAG知识_p055_c002",
+              "source": "RAG知识.pdf",
+              "page": 55,
+              "rerank_score": 0.15102779865264893
+            },
+            {
+              "chunk_id": "RAG知识_p040_c002",
+              "source": "RAG知识.pdf",
+              "page": 40,
+              "rerank_score": 0.042087726294994354
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c014",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.024053551256656647
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c021",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.0037072531413286924
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "type": "in",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p066_c001",
+              "source": "RAG知识.pdf",
+              "page": 66,
+              "rerank_score": 0.999220609664917
+            },
+            {
+              "chunk_id": "RAG知识_p073_c003",
+              "source": "RAG知识.pdf",
+              "page": 73,
+              "rerank_score": 0.9939024448394775
+            },
+            {
+              "chunk_id": "RAG知识_p029_c002",
+              "source": "RAG知识.pdf",
+              "page": 29,
+              "rerank_score": 0.9711290597915649
+            },
+            {
+              "chunk_id": "RAG知识_p074_c001",
+              "source": "RAG知识.pdf",
+              "page": 74,
+              "rerank_score": 0.5987815260887146
+            },
+            {
+              "chunk_id": "RAG知识_p066_c003",
+              "source": "RAG知识.pdf",
+              "page": 66,
+              "rerank_score": 0.24508501589298248
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c017",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.02595735713839531
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c014",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.012821214273571968
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p016_c002",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 16,
+              "rerank_score": 0.003273064736276865
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "type": "cross",
+          "hits": [
+            {
+              "chunk_id": "RAG 技术概览_web_c015",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.9961755275726318
+            },
+            {
+              "chunk_id": "RAG知识_p045_c003",
+              "source": "RAG知识.pdf",
+              "page": 45,
+              "rerank_score": 0.907312273979187
+            },
+            {
+              "chunk_id": "RAG知识_p129_c001",
+              "source": "RAG知识.pdf",
+              "page": 129,
+              "rerank_score": 0.6469064354896545
+            },
+            {
+              "chunk_id": "RAG知识_p039_c001",
+              "source": "RAG知识.pdf",
+              "page": 39,
+              "rerank_score": 0.6361271142959595
+            },
+            {
+              "chunk_id": "RAG知识_p052_c001",
+              "source": "RAG知识.pdf",
+              "page": 52,
+              "rerank_score": 0.6343168616294861
+            },
+            {
+              "chunk_id": "RAG知识_p013_c002",
+              "source": "RAG知识.pdf",
+              "page": 13,
+              "rerank_score": 0.541893720626831
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c001",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.21733753383159637
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c021",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.04023794084787369
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p048_c002",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 48,
+              "rerank_score": 0.023330770432949066
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "type": "cross",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p129_c002",
+              "source": "RAG知识.pdf",
+              "page": 129,
+              "rerank_score": 0.9919379353523254
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c022",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.9908744096755981
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c002",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.9688562154769897
+            },
+            {
+              "chunk_id": "RAG知识_p016_c001",
+              "source": "RAG知识.pdf",
+              "page": 16,
+              "rerank_score": 0.961533784866333
+            },
+            {
+              "chunk_id": "RAG知识_p013_c001",
+              "source": "RAG知识.pdf",
+              "page": 13,
+              "rerank_score": 0.9124361872673035
+            },
+            {
+              "chunk_id": "RAG知识_p128_c003",
+              "source": "RAG知识.pdf",
+              "page": 128,
+              "rerank_score": 0.9111796617507935
+            },
+            {
+              "chunk_id": "RAG知识_p073_c001",
+              "source": "RAG知识.pdf",
+              "page": 73,
+              "rerank_score": 0.8104788661003113
+            },
+            {
+              "chunk_id": "RAG知识_p123_c003",
+              "source": "RAG知识.pdf",
+              "page": 123,
+              "rerank_score": 0.4007493853569031
+            },
+            {
+              "chunk_id": "RAG知识_p119_c002",
+              "source": "RAG知识.pdf",
+              "page": 119,
+              "rerank_score": 0.3182732164859772
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "type": "cross",
+          "hits": [
+            {
+              "chunk_id": "RAG 技术概览_web_c024",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.9978172779083252
+            },
+            {
+              "chunk_id": "RAG知识_p043_c001",
+              "source": "RAG知识.pdf",
+              "page": 43,
+              "rerank_score": 0.9883127808570862
+            },
+            {
+              "chunk_id": "RAG知识_p061_c002",
+              "source": "RAG知识.pdf",
+              "page": 61,
+              "rerank_score": 0.9859364032745361
+            },
+            {
+              "chunk_id": "RAG知识_p016_c001",
+              "source": "RAG知识.pdf",
+              "page": 16,
+              "rerank_score": 0.949669361114502
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c016",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.735641598701477
+            },
+            {
+              "chunk_id": "RAG知识_p056_c002",
+              "source": "RAG知识.pdf",
+              "page": 56,
+              "rerank_score": 0.6270381808280945
+            },
+            {
+              "chunk_id": "RAG知识_p042_c002",
+              "source": "RAG知识.pdf",
+              "page": 42,
+              "rerank_score": 0.5472221374511719
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p034_c002",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 34,
+              "rerank_score": 0.1127954050898552
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "type": "partial",
+          "hits": [
+            {
+              "chunk_id": "RAG 技术概览_web_c041",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.9976032376289368
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c043",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.6406359076499939
+            },
+            {
+              "chunk_id": "RAG知识_p015_c002",
+              "source": "RAG知识.pdf",
+              "page": 15,
+              "rerank_score": 0.1677633374929428
+            },
+            {
+              "chunk_id": "RAG知识_p097_c001",
+              "source": "RAG知识.pdf",
+              "page": 97,
+              "rerank_score": 0.08882029354572296
+            },
+            {
+              "chunk_id": "RAG知识_p013_c001",
+              "source": "RAG知识.pdf",
+              "page": 13,
+              "rerank_score": 0.04958902671933174
+            },
+            {
+              "chunk_id": "RAG知识_p022_c003",
+              "source": "RAG知识.pdf",
+              "page": 22,
+              "rerank_score": 0.035678550601005554
+            },
+            {
+              "chunk_id": "RAG知识_p042_c001",
+              "source": "RAG知识.pdf",
+              "page": 42,
+              "rerank_score": 0.020964240655303
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "type": "out",
+          "hits": [
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c059",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.6893056035041809
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c057",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.5316957235336304
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c050",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.44046923518180847
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c052",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.4335017800331116
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p045_c004",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 45,
+              "rerank_score": 0.004198795650154352
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "type": "out",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p130_c001",
+              "source": "RAG知识.pdf",
+              "page": 130,
+              "rerank_score": 0.7826625108718872
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p002_c003",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 2,
+              "rerank_score": 0.12852513790130615
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c040",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.034100424498319626
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c038",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.03210070729255676
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c093",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.010013571009039879
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p032_c003",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 32,
+              "rerank_score": 0.00407013762742281
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c043",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.0024726230185478926
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p104_c005",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 104,
+              "rerank_score": 0.0012065897462889552
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "type": "out",
+          "hits": [
+            {
+              "chunk_id": "Redis全套学习笔记_p104_c005",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 104,
+              "rerank_score": 0.005220125429332256
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p103_c002",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 103,
+              "rerank_score": 0.0014550630003213882
+            },
+            {
+              "chunk_id": "RAG知识_p085_c003",
+              "source": "RAG知识.pdf",
+              "page": 85,
+              "rerank_score": 0.00017952796770259738
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c037",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.00013135180051904172
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p048_c002",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 48,
+              "rerank_score": 8.481103577651083e-05
+            },
+            {
+              "chunk_id": "RAG知识_p124_c001",
+              "source": "RAG知识.pdf",
+              "page": 124,
+              "rerank_score": 4.006369272246957e-05
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c039",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 3.7636447814293206e-05
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c043",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 3.7636447814293206e-05
+            }
+          ]
+        },
+        {
+          "id": 31,
+          "type": "in",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p042_c001",
+              "source": "RAG知识.pdf",
+              "page": 42,
+              "rerank_score": 0.9993928670883179
+            },
+            {
+              "chunk_id": "RAG知识_p103_c002",
+              "source": "RAG知识.pdf",
+              "page": 103,
+              "rerank_score": 0.8128673434257507
+            },
+            {
+              "chunk_id": "RAG知识_p118_c002",
+              "source": "RAG知识.pdf",
+              "page": 118,
+              "rerank_score": 0.43014734983444214
+            },
+            {
+              "chunk_id": "RAG知识_p077_c004",
+              "source": "RAG知识.pdf",
+              "page": 77,
+              "rerank_score": 0.38722676038742065
+            },
+            {
+              "chunk_id": "RAG知识_p116_c001",
+              "source": "RAG知识.pdf",
+              "page": 116,
+              "rerank_score": 0.10087862610816956
+            },
+            {
+              "chunk_id": "RAG知识_p071_c004",
+              "source": "RAG知识.pdf",
+              "page": 71,
+              "rerank_score": 0.0384661927819252
+            },
+            {
+              "chunk_id": "RAG知识_p077_c001",
+              "source": "RAG知识.pdf",
+              "page": 77,
+              "rerank_score": 0.03021458350121975
+            },
+            {
+              "chunk_id": "RAG知识_p120_c001",
+              "source": "RAG知识.pdf",
+              "page": 120,
+              "rerank_score": 0.014503579586744308
+            },
+            {
+              "chunk_id": "RAG知识_p040_c001",
+              "source": "RAG知识.pdf",
+              "page": 40,
+              "rerank_score": 0.0037072531413286924
+            }
+          ]
+        },
+        {
+          "id": 32,
+          "type": "in",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p045_c003",
+              "source": "RAG知识.pdf",
+              "page": 45,
+              "rerank_score": 0.9987550973892212
+            },
+            {
+              "chunk_id": "RAG知识_p045_c001",
+              "source": "RAG知识.pdf",
+              "page": 45,
+              "rerank_score": 0.9916841983795166
+            },
+            {
+              "chunk_id": "RAG知识_p030_c001",
+              "source": "RAG知识.pdf",
+              "page": 30,
+              "rerank_score": 0.974821150302887
+            },
+            {
+              "chunk_id": "RAG知识_p044_c002",
+              "source": "RAG知识.pdf",
+              "page": 44,
+              "rerank_score": 0.9678993225097656
+            },
+            {
+              "chunk_id": "RAG知识_p025_c002",
+              "source": "RAG知识.pdf",
+              "page": 25,
+              "rerank_score": 0.6566582322120667
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c015",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.6495786309242249
+            },
+            {
+              "chunk_id": "RAG知识_p064_c001",
+              "source": "RAG知识.pdf",
+              "page": 64,
+              "rerank_score": 0.36116471886634827
+            },
+            {
+              "chunk_id": "RAG知识_p062_c001",
+              "source": "RAG知识.pdf",
+              "page": 62,
+              "rerank_score": 0.10818895697593689
+            },
+            {
+              "chunk_id": "RAG知识_p050_c004",
+              "source": "RAG知识.pdf",
+              "page": 50,
+              "rerank_score": 0.06754669547080994
+            }
+          ]
+        },
+        {
+          "id": 33,
+          "type": "in",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p064_c001",
+              "source": "RAG知识.pdf",
+              "page": 64,
+              "rerank_score": 0.999555766582489
+            },
+            {
+              "chunk_id": "RAG知识_p062_c001",
+              "source": "RAG知识.pdf",
+              "page": 62,
+              "rerank_score": 0.6825737357139587
+            },
+            {
+              "chunk_id": "RAG知识_p060_c005",
+              "source": "RAG知识.pdf",
+              "page": 60,
+              "rerank_score": 0.23231014609336853
+            },
+            {
+              "chunk_id": "RAG知识_p063_c002",
+              "source": "RAG知识.pdf",
+              "page": 63,
+              "rerank_score": 0.07477004081010818
+            },
+            {
+              "chunk_id": "RAG知识_p039_c002",
+              "source": "RAG知识.pdf",
+              "page": 39,
+              "rerank_score": 0.06560483574867249
+            },
+            {
+              "chunk_id": "RAG知识_p056_c001",
+              "source": "RAG知识.pdf",
+              "page": 56,
+              "rerank_score": 0.04742587357759476
+            },
+            {
+              "chunk_id": "RAG知识_p104_c003",
+              "source": "RAG知识.pdf",
+              "page": 104,
+              "rerank_score": 0.04535258188843727
+            },
+            {
+              "chunk_id": "RAG知识_p044_c002",
+              "source": "RAG知识.pdf",
+              "page": 44,
+              "rerank_score": 0.031143832951784134
+            },
+            {
+              "chunk_id": "RAG知识_p025_c002",
+              "source": "RAG知识.pdf",
+              "page": 25,
+              "rerank_score": 0.013636835850775242
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p110_c002",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 110,
+              "rerank_score": 0.003273064736276865
+            }
+          ]
+        },
+        {
+          "id": 34,
+          "type": "in",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p071_c001",
+              "source": "RAG知识.pdf",
+              "page": 71,
+              "rerank_score": 0.9993928670883179
+            },
+            {
+              "chunk_id": "RAG知识_p066_c001",
+              "source": "RAG知识.pdf",
+              "page": 66,
+              "rerank_score": 0.9559813141822815
+            },
+            {
+              "chunk_id": "RAG知识_p030_c002",
+              "source": "RAG知识.pdf",
+              "page": 30,
+              "rerank_score": 0.9124361872673035
+            },
+            {
+              "chunk_id": "RAG知识_p025_c002",
+              "source": "RAG知识.pdf",
+              "page": 25,
+              "rerank_score": 0.24798744916915894
+            },
+            {
+              "chunk_id": "RAG知识_p070_c003",
+              "source": "RAG知识.pdf",
+              "page": 70,
+              "rerank_score": 0.20055769383907318
+            },
+            {
+              "chunk_id": "RAG知识_p029_c003",
+              "source": "RAG知识.pdf",
+              "page": 29,
+              "rerank_score": 0.12592275440692902
+            },
+            {
+              "chunk_id": "RAG知识_p040_c002",
+              "source": "RAG知识.pdf",
+              "page": 40,
+              "rerank_score": 0.06560483574867249
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c016",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.05582314357161522
+            }
+          ]
+        },
+        {
+          "id": 35,
+          "type": "in",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p092_c001",
+              "source": "RAG知识.pdf",
+              "page": 92,
+              "rerank_score": 0.9989350438117981
+            },
+            {
+              "chunk_id": "RAG知识_p079_c001",
+              "source": "RAG知识.pdf",
+              "page": 79,
+              "rerank_score": 0.9958011507987976
+            },
+            {
+              "chunk_id": "RAG知识_p094_c001",
+              "source": "RAG知识.pdf",
+              "page": 94,
+              "rerank_score": 0.976669192314148
+            },
+            {
+              "chunk_id": "RAG知识_p119_c002",
+              "source": "RAG知识.pdf",
+              "page": 119,
+              "rerank_score": 0.949669361114502
+            },
+            {
+              "chunk_id": "RAG知识_p115_c003",
+              "source": "RAG知识.pdf",
+              "page": 115,
+              "rerank_score": 0.8056321740150452
+            },
+            {
+              "chunk_id": "RAG知识_p090_c001",
+              "source": "RAG知识.pdf",
+              "page": 90,
+              "rerank_score": 0.7892336845397949
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c028",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.6918097138404846
+            },
+            {
+              "chunk_id": "RAG知识_p018_c002",
+              "source": "RAG知识.pdf",
+              "page": 18,
+              "rerank_score": 0.5808276534080505
+            },
+            {
+              "chunk_id": "RAG知识_p019_c001",
+              "source": "RAG知识.pdf",
+              "page": 19,
+              "rerank_score": 0.3459886312484741
+            }
+          ]
+        },
+        {
+          "id": 36,
+          "type": "in",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p120_c001",
+              "source": "RAG知识.pdf",
+              "page": 120,
+              "rerank_score": 0.9928786158561707
+            },
+            {
+              "chunk_id": "RAG知识_p119_c002",
+              "source": "RAG知识.pdf",
+              "page": 119,
+              "rerank_score": 0.9518632292747498
+            },
+            {
+              "chunk_id": "RAG知识_p129_c001",
+              "source": "RAG知识.pdf",
+              "page": 129,
+              "rerank_score": 0.13296423852443695
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c017",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.05749328061938286
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c035",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.04336579889059067
+            },
+            {
+              "chunk_id": "RAG知识_p077_c004",
+              "source": "RAG知识.pdf",
+              "page": 77,
+              "rerank_score": 0.03308597952127457
+            },
+            {
+              "chunk_id": "RAG知识_p017_c001",
+              "source": "RAG知识.pdf",
+              "page": 17,
+              "rerank_score": 0.026355354115366936
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c014",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.0222861859947443
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c028",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.0064882696606218815
+            }
+          ]
+        },
+        {
+          "id": 37,
+          "type": "cross",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p042_c001",
+              "source": "RAG知识.pdf",
+              "page": 42,
+              "rerank_score": 0.937210738658905
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c041",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.7138307690620422
+            },
+            {
+              "chunk_id": "RAG知识_p103_c002",
+              "source": "RAG知识.pdf",
+              "page": 103,
+              "rerank_score": 0.42727720737457275
+            },
+            {
+              "chunk_id": "RAG知识_p076_c002",
+              "source": "RAG知识.pdf",
+              "page": 76,
+              "rerank_score": 0.332852303981781
+            },
+            {
+              "chunk_id": "RAG知识_p120_c001",
+              "source": "RAG知识.pdf",
+              "page": 120,
+              "rerank_score": 0.04742587357759476
+            },
+            {
+              "chunk_id": "RAG知识_p116_c002",
+              "source": "RAG知识.pdf",
+              "page": 116,
+              "rerank_score": 0.031143832951784134
+            },
+            {
+              "chunk_id": "RAG知识_p026_c001",
+              "source": "RAG知识.pdf",
+              "page": 26,
+              "rerank_score": 0.018833130598068237
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c043",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.014957086183130741
+            }
+          ]
+        },
+        {
+          "id": 38,
+          "type": "cross",
+          "hits": [
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c064",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.9777138829231262
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c089",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.9777138829231262
+            },
+            {
+              "chunk_id": "RAG知识_p045_c003",
+              "source": "RAG知识.pdf",
+              "page": 45,
+              "rerank_score": 0.8449215292930603
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c005",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.5580862164497375
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c082",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.489686518907547
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c079",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.4452883005142212
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c015",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.3890821933746338
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c072",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.2829881012439728
+            },
+            {
+              "chunk_id": "RAG知识_p125_c001",
+              "source": "RAG知识.pdf",
+              "page": 125,
+              "rerank_score": 0.1520322561264038
+            },
+            {
+              "chunk_id": "RAG知识_p052_c001",
+              "source": "RAG知识.pdf",
+              "page": 52,
+              "rerank_score": 0.10087862610816956
+            }
+          ]
+        },
+        {
+          "id": 39,
+          "type": "cross",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p079_c002",
+              "source": "RAG知识.pdf",
+              "page": 79,
+              "rerank_score": 0.997285008430481
+            },
+            {
+              "chunk_id": "RAG知识_p099_c001",
+              "source": "RAG知识.pdf",
+              "page": 99,
+              "rerank_score": 0.9960545301437378
+            },
+            {
+              "chunk_id": "RAG知识_p095_c002",
+              "source": "RAG知识.pdf",
+              "page": 95,
+              "rerank_score": 0.977022647857666
+            },
+            {
+              "chunk_id": "RAG知识_p124_c002",
+              "source": "RAG知识.pdf",
+              "page": 124,
+              "rerank_score": 0.9539660811424255
+            },
+            {
+              "chunk_id": "RAG知识_p092_c004",
+              "source": "RAG知识.pdf",
+              "page": 92,
+              "rerank_score": 0.9343951344490051
+            },
+            {
+              "chunk_id": "RAG知识_p080_c001",
+              "source": "RAG知识.pdf",
+              "page": 80,
+              "rerank_score": 0.9241418242454529
+            },
+            {
+              "chunk_id": "RAG知识_p097_c002",
+              "source": "RAG知识.pdf",
+              "page": 97,
+              "rerank_score": 0.9219217896461487
+            },
+            {
+              "chunk_id": "RAG知识_p115_c003",
+              "source": "RAG知识.pdf",
+              "page": 115,
+              "rerank_score": 0.9149009585380554
+            },
+            {
+              "chunk_id": "RAG知识_p074_c003",
+              "source": "RAG知识.pdf",
+              "page": 74,
+              "rerank_score": 0.7386690378189087
+            }
+          ]
+        },
+        {
+          "id": 40,
+          "type": "cross",
+          "hits": [
+            {
+              "chunk_id": "Redis全套学习笔记_p109_c002",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 109,
+              "rerank_score": 0.9961755275726318
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p006_c002",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 6,
+              "rerank_score": 0.9905874133110046
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p112_c001",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 112,
+              "rerank_score": 0.985042929649353
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p110_c001",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 110,
+              "rerank_score": 0.8749346137046814
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p111_c001",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 111,
+              "rerank_score": 0.8068526387214661
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p113_c001",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 113,
+              "rerank_score": 0.5722447633743286
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p114_c003",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 114,
+              "rerank_score": 0.09009299427270889
+            }
+          ]
+        },
+        {
+          "id": 41,
+          "type": "partial",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p104_c001",
+              "source": "RAG知识.pdf",
+              "page": 104,
+              "rerank_score": 0.9986749291419983
+            },
+            {
+              "chunk_id": "RAG知识_p102_c001",
+              "source": "RAG知识.pdf",
+              "page": 102,
+              "rerank_score": 0.985496461391449
+            },
+            {
+              "chunk_id": "RAG知识_p103_c001",
+              "source": "RAG知识.pdf",
+              "page": 103,
+              "rerank_score": 0.9799765348434448
+            },
+            {
+              "chunk_id": "RAG知识_p104_c003",
+              "source": "RAG知识.pdf",
+              "page": 104,
+              "rerank_score": 0.929440438747406
+            },
+            {
+              "chunk_id": "RAG知识_p080_c001",
+              "source": "RAG知识.pdf",
+              "page": 80,
+              "rerank_score": 0.5095202922821045
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p070_c003",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 70,
+              "rerank_score": 0.45568299293518066
+            },
+            {
+              "chunk_id": "RAG知识_p040_c001",
+              "source": "RAG知识.pdf",
+              "page": 40,
+              "rerank_score": 0.4474602937698364
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p082_c002",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 82,
+              "rerank_score": 0.08756384253501892
+            }
+          ]
+        },
+        {
+          "id": 42,
+          "type": "partial",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p093_c005",
+              "source": "RAG知识.pdf",
+              "page": 93,
+              "rerank_score": 0.9830850958824158
+            },
+            {
+              "chunk_id": "RAG知识_p094_c001",
+              "source": "RAG知识.pdf",
+              "page": 94,
+              "rerank_score": 0.9763104915618896
+            },
+            {
+              "chunk_id": "RAG知识_p095_c001",
+              "source": "RAG知识.pdf",
+              "page": 95,
+              "rerank_score": 0.9124361872673035
+            },
+            {
+              "chunk_id": "RAG知识_p093_c001",
+              "source": "RAG知识.pdf",
+              "page": 93,
+              "rerank_score": 0.8774768114089966
+            },
+            {
+              "chunk_id": "RAG知识_p080_c001",
+              "source": "RAG知识.pdf",
+              "page": 80,
+              "rerank_score": 0.2146914303302765
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p068_c003",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 68,
+              "rerank_score": 0.20561504364013672
+            },
+            {
+              "chunk_id": "RAG知识_p104_c003",
+              "source": "RAG知识.pdf",
+              "page": 104,
+              "rerank_score": 0.05665242671966553
+            },
+            {
+              "chunk_id": "RAG知识_p076_c002",
+              "source": "RAG知识.pdf",
+              "page": 76,
+              "rerank_score": 0.037892427295446396
+            }
+          ]
+        },
+        {
+          "id": 43,
+          "type": "partial",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p030_c005",
+              "source": "RAG知识.pdf",
+              "page": 30,
+              "rerank_score": 0.9996646642684937
+            },
+            {
+              "chunk_id": "RAG知识_p125_c001",
+              "source": "RAG知识.pdf",
+              "page": 125,
+              "rerank_score": 0.9985449314117432
+            },
+            {
+              "chunk_id": "RAG知识_p030_c003",
+              "source": "RAG知识.pdf",
+              "page": 30,
+              "rerank_score": 0.9899863600730896
+            },
+            {
+              "chunk_id": "RAG知识_p070_c001",
+              "source": "RAG知识.pdf",
+              "page": 70,
+              "rerank_score": 0.9458011984825134
+            },
+            {
+              "chunk_id": "RAG知识_p022_c002",
+              "source": "RAG知识.pdf",
+              "page": 22,
+              "rerank_score": 0.859663724899292
+            },
+            {
+              "chunk_id": "RAG知识_p022_c005",
+              "source": "RAG知识.pdf",
+              "page": 22,
+              "rerank_score": 0.7853085398674011
+            },
+            {
+              "chunk_id": "RAG知识_p069_c001",
+              "source": "RAG知识.pdf",
+              "page": 69,
+              "rerank_score": 0.4651445150375366
+            },
+            {
+              "chunk_id": "RAG知识_p029_c002",
+              "source": "RAG知识.pdf",
+              "page": 29,
+              "rerank_score": 0.3638729155063629
+            },
+            {
+              "chunk_id": "RAG知识_p066_c001",
+              "source": "RAG知识.pdf",
+              "page": 66,
+              "rerank_score": 0.22270013391971588
+            }
+          ]
+        },
+        {
+          "id": 44,
+          "type": "out",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p042_c002",
+              "source": "RAG知识.pdf",
+              "page": 42,
+              "rerank_score": 0.005730246659368277
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c035",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.0012448433553799987
+            },
+            {
+              "chunk_id": "RAG知识_p020_c003",
+              "source": "RAG知识.pdf",
+              "page": 20,
+              "rerank_score": 0.0002959570847451687
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p048_c002",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 48,
+              "rerank_score": 6.60521473037079e-05
+            },
+            {
+              "chunk_id": "RAG知识_p013_c001",
+              "source": "RAG知识.pdf",
+              "page": 13,
+              "rerank_score": 4.832564081880264e-05
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c012",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 3.7636447814293206e-05
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c004",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 3.7636447814293206e-05
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c041",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 3.7636447814293206e-05
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c002",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 3.7636447814293206e-05
+            }
+          ]
+        },
+        {
+          "id": 45,
+          "type": "out",
+          "hits": [
+            {
+              "chunk_id": "Redis全套学习笔记_p048_c002",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 48,
+              "rerank_score": 0.03258974477648735
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c009",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.027169233188033104
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c016",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.015424552373588085
+            },
+            {
+              "chunk_id": "RAG知识_p054_c002",
+              "source": "RAG知识.pdf",
+              "page": 54,
+              "rerank_score": 0.014957086183130741
+            },
+            {
+              "chunk_id": "RAG知识_p042_c002",
+              "source": "RAG知识.pdf",
+              "page": 42,
+              "rerank_score": 0.012821214273571968
+            },
+            {
+              "chunk_id": "RAG知识_p040_c002",
+              "source": "RAG知识.pdf",
+              "page": 40,
+              "rerank_score": 0.0060975621454417706
+            },
+            {
+              "chunk_id": "RAG知识_p043_c001",
+              "source": "RAG知识.pdf",
+              "page": 43,
+              "rerank_score": 0.00407013762742281
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c049",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.00013982206291984767
+            }
+          ]
+        }
+      ]
+    },
+    "hybrid": {
+      "metrics": {
+        "by_type": {
+          "in": {
+            "n": 8,
+            "n_scored": 8,
+            "mrr": 1.0,
+            "recall@3": 0.39375,
+            "ndcg@3": 0.5602396399220029,
+            "recall@5": 0.39375,
+            "ndcg@5": 0.5178476752308859,
+            "recall@10": 0.39375,
+            "ndcg@10": 0.5178476752308859
+          },
+          "cross": {
+            "n": 7,
+            "n_scored": 7,
+            "mrr": 0.9285714285714286,
+            "recall@3": 0.9285714285714286,
+            "ndcg@3": 0.9009390851975327,
+            "recall@5": 0.9285714285714286,
+            "ndcg@5": 0.9009390851975327,
+            "recall@10": 0.9285714285714286,
+            "ndcg@10": 0.9009390851975327
+          },
+          "partial": {
+            "n": 5,
+            "n_scored": 5,
+            "mrr": 0.8,
+            "recall@3": 0.7333333333333333,
+            "ndcg@3": 0.6917574081211785,
+            "recall@5": 0.8,
+            "ndcg@5": 0.7321788774212881,
+            "recall@10": 0.8,
+            "ndcg@10": 0.7321788774212881
+          }
+        },
+        "all_with_gold": {
+          "n": 20,
+          "n_scored": 20,
+          "mrr": 0.925,
+          "recall@3": 0.6658333333333333,
+          "ndcg@3": 0.7123638878182322,
+          "recall@5": 0.6825,
+          "ndcg@5": 0.7055124692668129,
+          "recall@10": 0.6825,
+          "ndcg@10": 0.7055124692668129
+        },
+        "n_no_gold": 0
+      },
+      "latency": {
+        "n": 25,
+        "recall_mean_ms": 58.938903994858265,
+        "recall_med_ms": 58.279599994421005,
+        "rerank_mean_ms": 66.0598480142653,
+        "rerank_med_ms": 64.25429997034371,
+        "total_med_ms": 122.98189988359809
+      },
+      "n_fact": 25,
+      "n_scored": 20,
+      "hits_all_fact": [
+        {
+          "id": 6,
+          "type": "partial",
+          "hits": [
+            {
+              "chunk_id": "RAG 技术概览_web_c036",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.9983515739440918
+            },
+            {
+              "chunk_id": "RAG知识_p128_c003",
+              "source": "RAG知识.pdf",
+              "page": 128,
+              "rerank_score": 0.9971103668212891
+            },
+            {
+              "chunk_id": "RAG知识_p016_c001",
+              "source": "RAG知识.pdf",
+              "page": 16,
+              "rerank_score": 0.9965165853500366
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c002",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.9937100410461426
+            },
+            {
+              "chunk_id": "RAG知识_p087_c001",
+              "source": "RAG知识.pdf",
+              "page": 87,
+              "rerank_score": 0.9871788024902344
+            },
+            {
+              "chunk_id": "RAG知识_p013_c002",
+              "source": "RAG知识.pdf",
+              "page": 13,
+              "rerank_score": 0.9830850958824158
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c011",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.9658995866775513
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c074",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.9643214344978333
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c078",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.9553191661834717
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "type": "in",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p052_c001",
+              "source": "RAG知识.pdf",
+              "page": 52,
+              "rerank_score": 0.9990600943565369
+            },
+            {
+              "chunk_id": "RAG知识_p045_c003",
+              "source": "RAG知识.pdf",
+              "page": 45,
+              "rerank_score": 0.8068526387214661
+            },
+            {
+              "chunk_id": "RAG知识_p129_c001",
+              "source": "RAG知识.pdf",
+              "page": 129,
+              "rerank_score": 0.6397360563278198
+            },
+            {
+              "chunk_id": "RAG知识_p039_c001",
+              "source": "RAG知识.pdf",
+              "page": 39,
+              "rerank_score": 0.48444104194641113
+            },
+            {
+              "chunk_id": "RAG知识_p025_c001",
+              "source": "RAG知识.pdf",
+              "page": 25,
+              "rerank_score": 0.22270013391971588
+            },
+            {
+              "chunk_id": "RAG知识_p079_c003",
+              "source": "RAG知识.pdf",
+              "page": 79,
+              "rerank_score": 0.22135066986083984
+            },
+            {
+              "chunk_id": "RAG知识_p055_c002",
+              "source": "RAG知识.pdf",
+              "page": 55,
+              "rerank_score": 0.15102779865264893
+            },
+            {
+              "chunk_id": "RAG知识_p040_c002",
+              "source": "RAG知识.pdf",
+              "page": 40,
+              "rerank_score": 0.042087726294994354
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c014",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.024053551256656647
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c021",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.0037072531413286924
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "type": "in",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p066_c001",
+              "source": "RAG知识.pdf",
+              "page": 66,
+              "rerank_score": 0.999220609664917
+            },
+            {
+              "chunk_id": "RAG知识_p073_c002",
+              "source": "RAG知识.pdf",
+              "page": 73,
+              "rerank_score": 0.9967268705368042
+            },
+            {
+              "chunk_id": "RAG知识_p029_c002",
+              "source": "RAG知识.pdf",
+              "page": 29,
+              "rerank_score": 0.9711290597915649
+            },
+            {
+              "chunk_id": "RAG知识_p074_c001",
+              "source": "RAG知识.pdf",
+              "page": 74,
+              "rerank_score": 0.5987815260887146
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c017",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.02595735713839531
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c014",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.012821214273571968
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "type": "cross",
+          "hits": [
+            {
+              "chunk_id": "RAG 技术概览_web_c015",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.9961755275726318
+            },
+            {
+              "chunk_id": "RAG知识_p045_c003",
+              "source": "RAG知识.pdf",
+              "page": 45,
+              "rerank_score": 0.907312273979187
+            },
+            {
+              "chunk_id": "RAG知识_p129_c001",
+              "source": "RAG知识.pdf",
+              "page": 129,
+              "rerank_score": 0.6469064354896545
+            },
+            {
+              "chunk_id": "RAG知识_p052_c001",
+              "source": "RAG知识.pdf",
+              "page": 52,
+              "rerank_score": 0.6343168616294861
+            },
+            {
+              "chunk_id": "RAG知识_p013_c002",
+              "source": "RAG知识.pdf",
+              "page": 13,
+              "rerank_score": 0.541893720626831
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c002",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.2689414322376251
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p072_c003",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 72,
+              "rerank_score": 0.23792988061904907
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c021",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.04023794084787369
+            }
+          ]
+        },
+        {
+          "id": 19,
+          "type": "cross",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p129_c002",
+              "source": "RAG知识.pdf",
+              "page": 129,
+              "rerank_score": 0.9919379353523254
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c022",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.9908744096755981
+            },
+            {
+              "chunk_id": "RAG知识_p016_c001",
+              "source": "RAG知识.pdf",
+              "page": 16,
+              "rerank_score": 0.961533784866333
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c001",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.9161096215248108
+            },
+            {
+              "chunk_id": "RAG知识_p013_c001",
+              "source": "RAG知识.pdf",
+              "page": 13,
+              "rerank_score": 0.9124361872673035
+            },
+            {
+              "chunk_id": "RAG知识_p128_c003",
+              "source": "RAG知识.pdf",
+              "page": 128,
+              "rerank_score": 0.9111796617507935
+            },
+            {
+              "chunk_id": "RAG知识_p087_c001",
+              "source": "RAG知识.pdf",
+              "page": 87,
+              "rerank_score": 0.7826625108718872
+            },
+            {
+              "chunk_id": "RAG知识_p123_c003",
+              "source": "RAG知识.pdf",
+              "page": 123,
+              "rerank_score": 0.4007493853569031
+            },
+            {
+              "chunk_id": "RAG知识_p119_c002",
+              "source": "RAG知识.pdf",
+              "page": 119,
+              "rerank_score": 0.3182732164859772
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "type": "cross",
+          "hits": [
+            {
+              "chunk_id": "RAG 技术概览_web_c024",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.9978172779083252
+            },
+            {
+              "chunk_id": "RAG知识_p043_c001",
+              "source": "RAG知识.pdf",
+              "page": 43,
+              "rerank_score": 0.9883127808570862
+            },
+            {
+              "chunk_id": "RAG知识_p061_c002",
+              "source": "RAG知识.pdf",
+              "page": 61,
+              "rerank_score": 0.9859364032745361
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c038",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.9830850958824158
+            },
+            {
+              "chunk_id": "RAG知识_p058_c002",
+              "source": "RAG知识.pdf",
+              "page": 58,
+              "rerank_score": 0.9381240010261536
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c016",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.735641598701477
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c001",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.5669777989387512
+            },
+            {
+              "chunk_id": "RAG知识_p042_c002",
+              "source": "RAG知识.pdf",
+              "page": 42,
+              "rerank_score": 0.5472221374511719
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "type": "partial",
+          "hits": [
+            {
+              "chunk_id": "RAG 技术概览_web_c041",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.9976032376289368
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c043",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.6406359076499939
+            },
+            {
+              "chunk_id": "RAG知识_p015_c002",
+              "source": "RAG知识.pdf",
+              "page": 15,
+              "rerank_score": 0.1677633374929428
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c004",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.06754669547080994
+            },
+            {
+              "chunk_id": "RAG知识_p130_c002",
+              "source": "RAG知识.pdf",
+              "page": 130,
+              "rerank_score": 0.03308597952127457
+            },
+            {
+              "chunk_id": "RAG知识_p042_c001",
+              "source": "RAG知识.pdf",
+              "page": 42,
+              "rerank_score": 0.020964240655303
+            }
+          ]
+        },
+        {
+          "id": 26,
+          "type": "out",
+          "hits": [
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c059",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.6893056035041809
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c050",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.44046923518180847
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c052",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.4335017800331116
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c056",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.3665897250175476
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c001",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.22953522205352783
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c022",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.0120537793263793
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "type": "out",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p130_c001",
+              "source": "RAG知识.pdf",
+              "page": 130,
+              "rerank_score": 0.7826625108718872
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p002_c003",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 2,
+              "rerank_score": 0.12852513790130615
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c040",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.034100424498319626
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c038",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.03210070729255676
+            },
+            {
+              "chunk_id": "RAG知识_p129_c004",
+              "source": "RAG知识.pdf",
+              "page": 129,
+              "rerank_score": 0.026759283617138863
+            },
+            {
+              "chunk_id": "RAG知识_p084_c003",
+              "source": "RAG知识.pdf",
+              "page": 84,
+              "rerank_score": 0.003273064736276865
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p104_c005",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 104,
+              "rerank_score": 0.0012065897462889552
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p004_c003",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 4,
+              "rerank_score": 0.0009110511746257544
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "type": "out",
+          "hits": [
+            {
+              "chunk_id": "Redis全套学习笔记_p102_c006",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 102,
+              "rerank_score": 0.011687257327139378
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p103_c002",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 103,
+              "rerank_score": 0.0014550630003213882
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c015",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.0007321811863221228
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c022",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.00017952796770259738
+            },
+            {
+              "chunk_id": "RAG知识_p085_c003",
+              "source": "RAG知识.pdf",
+              "page": 85,
+              "rerank_score": 0.00017952796770259738
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c037",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.00013135180051904172
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c039",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 3.7636447814293206e-05
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c020",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 3.7636447814293206e-05
+            }
+          ]
+        },
+        {
+          "id": 31,
+          "type": "in",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p042_c001",
+              "source": "RAG知识.pdf",
+              "page": 42,
+              "rerank_score": 0.9993928670883179
+            },
+            {
+              "chunk_id": "RAG知识_p100_c002",
+              "source": "RAG知识.pdf",
+              "page": 100,
+              "rerank_score": 0.9736446738243103
+            },
+            {
+              "chunk_id": "RAG知识_p103_c002",
+              "source": "RAG知识.pdf",
+              "page": 103,
+              "rerank_score": 0.8128673434257507
+            },
+            {
+              "chunk_id": "RAG知识_p079_c004",
+              "source": "RAG知识.pdf",
+              "page": 79,
+              "rerank_score": 0.7371581792831421
+            },
+            {
+              "chunk_id": "RAG知识_p118_c002",
+              "source": "RAG知识.pdf",
+              "page": 118,
+              "rerank_score": 0.43014734983444214
+            },
+            {
+              "chunk_id": "RAG知识_p077_c004",
+              "source": "RAG知识.pdf",
+              "page": 77,
+              "rerank_score": 0.38722676038742065
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c042",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.2583259642124176
+            },
+            {
+              "chunk_id": "RAG知识_p104_c003",
+              "source": "RAG知识.pdf",
+              "page": 104,
+              "rerank_score": 0.16132023930549622
+            },
+            {
+              "chunk_id": "RAG知识_p116_c002",
+              "source": "RAG知识.pdf",
+              "page": 116,
+              "rerank_score": 0.02262919954955578
+            },
+            {
+              "chunk_id": "RAG知识_p120_c001",
+              "source": "RAG知识.pdf",
+              "page": 120,
+              "rerank_score": 0.014503579586744308
+            }
+          ]
+        },
+        {
+          "id": 32,
+          "type": "in",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p045_c003",
+              "source": "RAG知识.pdf",
+              "page": 45,
+              "rerank_score": 0.9987550973892212
+            },
+            {
+              "chunk_id": "RAG知识_p045_c001",
+              "source": "RAG知识.pdf",
+              "page": 45,
+              "rerank_score": 0.9916841983795166
+            },
+            {
+              "chunk_id": "RAG知识_p030_c001",
+              "source": "RAG知识.pdf",
+              "page": 30,
+              "rerank_score": 0.974821150302887
+            },
+            {
+              "chunk_id": "RAG知识_p044_c002",
+              "source": "RAG知识.pdf",
+              "page": 44,
+              "rerank_score": 0.9678993225097656
+            },
+            {
+              "chunk_id": "RAG知识_p125_c001",
+              "source": "RAG知识.pdf",
+              "page": 125,
+              "rerank_score": 0.8300437331199646
+            },
+            {
+              "chunk_id": "RAG知识_p025_c002",
+              "source": "RAG知识.pdf",
+              "page": 25,
+              "rerank_score": 0.6566582322120667
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c015",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.6495786309242249
+            },
+            {
+              "chunk_id": "RAG知识_p064_c001",
+              "source": "RAG知识.pdf",
+              "page": 64,
+              "rerank_score": 0.36116471886634827
+            }
+          ]
+        },
+        {
+          "id": 33,
+          "type": "in",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p064_c001",
+              "source": "RAG知识.pdf",
+              "page": 64,
+              "rerank_score": 0.999555766582489
+            },
+            {
+              "chunk_id": "RAG知识_p062_c001",
+              "source": "RAG知识.pdf",
+              "page": 62,
+              "rerank_score": 0.6825737357139587
+            },
+            {
+              "chunk_id": "RAG知识_p060_c005",
+              "source": "RAG知识.pdf",
+              "page": 60,
+              "rerank_score": 0.23231014609336853
+            },
+            {
+              "chunk_id": "RAG知识_p063_c002",
+              "source": "RAG知识.pdf",
+              "page": 63,
+              "rerank_score": 0.07477004081010818
+            },
+            {
+              "chunk_id": "RAG知识_p039_c002",
+              "source": "RAG知识.pdf",
+              "page": 39,
+              "rerank_score": 0.06560483574867249
+            },
+            {
+              "chunk_id": "RAG知识_p102_c001",
+              "source": "RAG知识.pdf",
+              "page": 102,
+              "rerank_score": 0.017442485317587852
+            },
+            {
+              "chunk_id": "RAG知识_p025_c002",
+              "source": "RAG知识.pdf",
+              "page": 25,
+              "rerank_score": 0.013636835850775242
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c015",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.007345826830714941
+            }
+          ]
+        },
+        {
+          "id": 34,
+          "type": "in",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p071_c001",
+              "source": "RAG知识.pdf",
+              "page": 71,
+              "rerank_score": 0.9993928670883179
+            },
+            {
+              "chunk_id": "RAG知识_p070_c002",
+              "source": "RAG知识.pdf",
+              "page": 70,
+              "rerank_score": 0.9728307723999023
+            },
+            {
+              "chunk_id": "RAG知识_p066_c001",
+              "source": "RAG知识.pdf",
+              "page": 66,
+              "rerank_score": 0.9559813141822815
+            },
+            {
+              "chunk_id": "RAG知识_p041_c001",
+              "source": "RAG知识.pdf",
+              "page": 41,
+              "rerank_score": 0.793105959892273
+            },
+            {
+              "chunk_id": "RAG知识_p030_c001",
+              "source": "RAG知识.pdf",
+              "page": 30,
+              "rerank_score": 0.5869964361190796
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c017",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.28776782751083374
+            },
+            {
+              "chunk_id": "RAG知识_p029_c003",
+              "source": "RAG知识.pdf",
+              "page": 29,
+              "rerank_score": 0.12592275440692902
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c048",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.042087726294994354
+            }
+          ]
+        },
+        {
+          "id": 35,
+          "type": "in",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p092_c001",
+              "source": "RAG知识.pdf",
+              "page": 92,
+              "rerank_score": 0.9989350438117981
+            },
+            {
+              "chunk_id": "RAG知识_p079_c001",
+              "source": "RAG知识.pdf",
+              "page": 79,
+              "rerank_score": 0.9958011507987976
+            },
+            {
+              "chunk_id": "RAG知识_p094_c001",
+              "source": "RAG知识.pdf",
+              "page": 94,
+              "rerank_score": 0.976669192314148
+            },
+            {
+              "chunk_id": "RAG知识_p099_c001",
+              "source": "RAG知识.pdf",
+              "page": 99,
+              "rerank_score": 0.9752018451690674
+            },
+            {
+              "chunk_id": "RAG知识_p119_c002",
+              "source": "RAG知识.pdf",
+              "page": 119,
+              "rerank_score": 0.949669361114502
+            },
+            {
+              "chunk_id": "RAG知识_p115_c003",
+              "source": "RAG知识.pdf",
+              "page": 115,
+              "rerank_score": 0.8056321740150452
+            },
+            {
+              "chunk_id": "RAG知识_p090_c001",
+              "source": "RAG知识.pdf",
+              "page": 90,
+              "rerank_score": 0.7892336845397949
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c028",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.6918097138404846
+            },
+            {
+              "chunk_id": "RAG知识_p018_c002",
+              "source": "RAG知识.pdf",
+              "page": 18,
+              "rerank_score": 0.5808276534080505
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c017",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.5387405753135681
+            }
+          ]
+        },
+        {
+          "id": 36,
+          "type": "in",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p120_c001",
+              "source": "RAG知识.pdf",
+              "page": 120,
+              "rerank_score": 0.9928786158561707
+            },
+            {
+              "chunk_id": "RAG知识_p119_c002",
+              "source": "RAG知识.pdf",
+              "page": 119,
+              "rerank_score": 0.9518632292747498
+            },
+            {
+              "chunk_id": "RAG知识_p092_c001",
+              "source": "RAG知识.pdf",
+              "page": 92,
+              "rerank_score": 0.2583259642124176
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c029",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.14804719388484955
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c017",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.05749328061938286
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c019",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.052618950605392456
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c035",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.04336579889059067
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c014",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.0222861859947443
+            }
+          ]
+        },
+        {
+          "id": 37,
+          "type": "cross",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p042_c001",
+              "source": "RAG知识.pdf",
+              "page": 42,
+              "rerank_score": 0.937210738658905
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c041",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.7138307690620422
+            },
+            {
+              "chunk_id": "RAG知识_p103_c002",
+              "source": "RAG知识.pdf",
+              "page": 103,
+              "rerank_score": 0.42727720737457275
+            },
+            {
+              "chunk_id": "RAG知识_p076_c002",
+              "source": "RAG知识.pdf",
+              "page": 76,
+              "rerank_score": 0.332852303981781
+            },
+            {
+              "chunk_id": "RAG知识_p120_c001",
+              "source": "RAG知识.pdf",
+              "page": 120,
+              "rerank_score": 0.04742587357759476
+            },
+            {
+              "chunk_id": "RAG知识_p026_c001",
+              "source": "RAG知识.pdf",
+              "page": 26,
+              "rerank_score": 0.018833130598068237
+            },
+            {
+              "chunk_id": "RAG知识_p116_c001",
+              "source": "RAG知识.pdf",
+              "page": 116,
+              "rerank_score": 0.01798621006309986
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c043",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.014957086183130741
+            },
+            {
+              "chunk_id": "RAG知识_p130_c001",
+              "source": "RAG知识.pdf",
+              "page": 130,
+              "rerank_score": 0.005554925184696913
+            }
+          ]
+        },
+        {
+          "id": 38,
+          "type": "cross",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p045_c003",
+              "source": "RAG知识.pdf",
+              "page": 45,
+              "rerank_score": 0.8449215292930603
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c007",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.7386690378189087
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c009",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.7170118689537048
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c005",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.5580862164497375
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c082",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.489686518907547
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c015",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.3890821933746338
+            },
+            {
+              "chunk_id": "RAG知识_p052_c001",
+              "source": "RAG知识.pdf",
+              "page": 52,
+              "rerank_score": 0.10087862610816956
+            }
+          ]
+        },
+        {
+          "id": 39,
+          "type": "cross",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p100_c002",
+              "source": "RAG知识.pdf",
+              "page": 100,
+              "rerank_score": 0.9974491000175476
+            },
+            {
+              "chunk_id": "RAG知识_p079_c002",
+              "source": "RAG知识.pdf",
+              "page": 79,
+              "rerank_score": 0.997285008430481
+            },
+            {
+              "chunk_id": "RAG知识_p099_c001",
+              "source": "RAG知识.pdf",
+              "page": 99,
+              "rerank_score": 0.9960545301437378
+            },
+            {
+              "chunk_id": "RAG知识_p095_c002",
+              "source": "RAG知识.pdf",
+              "page": 95,
+              "rerank_score": 0.977022647857666
+            },
+            {
+              "chunk_id": "RAG知识_p092_c001",
+              "source": "RAG知识.pdf",
+              "page": 92,
+              "rerank_score": 0.977022647857666
+            },
+            {
+              "chunk_id": "RAG知识_p092_c004",
+              "source": "RAG知识.pdf",
+              "page": 92,
+              "rerank_score": 0.9343951344490051
+            },
+            {
+              "chunk_id": "RAG知识_p115_c003",
+              "source": "RAG知识.pdf",
+              "page": 115,
+              "rerank_score": 0.9149009585380554
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c024",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.9124361872673035
+            },
+            {
+              "chunk_id": "RAG知识_p074_c003",
+              "source": "RAG知识.pdf",
+              "page": 74,
+              "rerank_score": 0.7386690378189087
+            }
+          ]
+        },
+        {
+          "id": 40,
+          "type": "cross",
+          "hits": [
+            {
+              "chunk_id": "Redis全套学习笔记_p109_c002",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 109,
+              "rerank_score": 0.9961755275726318
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p006_c002",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 6,
+              "rerank_score": 0.9905874133110046
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p112_c001",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 112,
+              "rerank_score": 0.985042929649353
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p108_c003",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 108,
+              "rerank_score": 0.9830850958824158
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p110_c001",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 110,
+              "rerank_score": 0.8749346137046814
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p113_c001",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 113,
+              "rerank_score": 0.5722447633743286
+            }
+          ]
+        },
+        {
+          "id": 41,
+          "type": "partial",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p104_c001",
+              "source": "RAG知识.pdf",
+              "page": 104,
+              "rerank_score": 0.9986749291419983
+            },
+            {
+              "chunk_id": "RAG知识_p102_c001",
+              "source": "RAG知识.pdf",
+              "page": 102,
+              "rerank_score": 0.985496461391449
+            },
+            {
+              "chunk_id": "RAG知识_p103_c001",
+              "source": "RAG知识.pdf",
+              "page": 103,
+              "rerank_score": 0.9799765348434448
+            },
+            {
+              "chunk_id": "RAG知识_p104_c003",
+              "source": "RAG知识.pdf",
+              "page": 104,
+              "rerank_score": 0.929440438747406
+            },
+            {
+              "chunk_id": "RAG知识_p080_c001",
+              "source": "RAG知识.pdf",
+              "page": 80,
+              "rerank_score": 0.5095202922821045
+            },
+            {
+              "chunk_id": "RAG知识_p040_c001",
+              "source": "RAG知识.pdf",
+              "page": 40,
+              "rerank_score": 0.4474602937698364
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c016",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.23792988061904907
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p113_c002",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 113,
+              "rerank_score": 0.2107662856578827
+            }
+          ]
+        },
+        {
+          "id": 42,
+          "type": "partial",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p093_c005",
+              "source": "RAG知识.pdf",
+              "page": 93,
+              "rerank_score": 0.9830850958824158
+            },
+            {
+              "chunk_id": "RAG知识_p094_c001",
+              "source": "RAG知识.pdf",
+              "page": 94,
+              "rerank_score": 0.9763104915618896
+            },
+            {
+              "chunk_id": "RAG知识_p095_c001",
+              "source": "RAG知识.pdf",
+              "page": 95,
+              "rerank_score": 0.9124361872673035
+            },
+            {
+              "chunk_id": "RAG知识_p093_c001",
+              "source": "RAG知识.pdf",
+              "page": 93,
+              "rerank_score": 0.8774768114089966
+            },
+            {
+              "chunk_id": "RAG知识_p080_c001",
+              "source": "RAG知识.pdf",
+              "page": 80,
+              "rerank_score": 0.2146914303302765
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p068_c003",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 68,
+              "rerank_score": 0.20561504364013672
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p071_c004",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 71,
+              "rerank_score": 0.06187598779797554
+            },
+            {
+              "chunk_id": "RAG知识_p104_c003",
+              "source": "RAG知识.pdf",
+              "page": 104,
+              "rerank_score": 0.05665242671966553
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p072_c003",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 72,
+              "rerank_score": 0.01971912756562233
+            }
+          ]
+        },
+        {
+          "id": 43,
+          "type": "partial",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p030_c005",
+              "source": "RAG知识.pdf",
+              "page": 30,
+              "rerank_score": 0.9996646642684937
+            },
+            {
+              "chunk_id": "RAG知识_p125_c001",
+              "source": "RAG知识.pdf",
+              "page": 125,
+              "rerank_score": 0.9985449314117432
+            },
+            {
+              "chunk_id": "RAG知识_p030_c003",
+              "source": "RAG知识.pdf",
+              "page": 30,
+              "rerank_score": 0.9899863600730896
+            },
+            {
+              "chunk_id": "RAG知识_p070_c001",
+              "source": "RAG知识.pdf",
+              "page": 70,
+              "rerank_score": 0.9458011984825134
+            },
+            {
+              "chunk_id": "RAG知识_p022_c002",
+              "source": "RAG知识.pdf",
+              "page": 22,
+              "rerank_score": 0.859663724899292
+            },
+            {
+              "chunk_id": "RAG知识_p022_c005",
+              "source": "RAG知识.pdf",
+              "page": 22,
+              "rerank_score": 0.7853085398674011
+            },
+            {
+              "chunk_id": "RAG知识_p069_c001",
+              "source": "RAG知识.pdf",
+              "page": 69,
+              "rerank_score": 0.4651445150375366
+            },
+            {
+              "chunk_id": "RAG知识_p029_c002",
+              "source": "RAG知识.pdf",
+              "page": 29,
+              "rerank_score": 0.3638729155063629
+            },
+            {
+              "chunk_id": "RAG知识_p066_c001",
+              "source": "RAG知识.pdf",
+              "page": 66,
+              "rerank_score": 0.22270013391971588
+            }
+          ]
+        },
+        {
+          "id": 44,
+          "type": "out",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p061_c001",
+              "source": "RAG知识.pdf",
+              "page": 61,
+              "rerank_score": 0.9273632764816284
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c009",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.07585817575454712
+            },
+            {
+              "chunk_id": "RAG知识_p042_c002",
+              "source": "RAG知识.pdf",
+              "page": 42,
+              "rerank_score": 0.005730246659368277
+            },
+            {
+              "chunk_id": "RAG知识_p120_c002",
+              "source": "RAG知识.pdf",
+              "page": 120,
+              "rerank_score": 0.0038244836032390594
+            },
+            {
+              "chunk_id": "RAG知识_p062_c001",
+              "source": "RAG知识.pdf",
+              "page": 62,
+              "rerank_score": 0.0014103584690019488
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c035",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 0.0012448433553799987
+            },
+            {
+              "chunk_id": "RAG知识_p020_c003",
+              "source": "RAG知识.pdf",
+              "page": 20,
+              "rerank_score": 0.0002959570847451687
+            },
+            {
+              "chunk_id": "RAG知识_p016_c003",
+              "source": "RAG知识.pdf",
+              "page": 16,
+              "rerank_score": 0.00011591933434829116
+            },
+            {
+              "chunk_id": "RAG 技术概览_web_c012",
+              "source": "RAG 技术概览.html",
+              "page": null,
+              "rerank_score": 3.7636447814293206e-05
+            }
+          ]
+        },
+        {
+          "id": 45,
+          "type": "out",
+          "hits": [
+            {
+              "chunk_id": "RAG知识_p104_c003",
+              "source": "RAG知识.pdf",
+              "page": 104,
+              "rerank_score": 0.04401864856481552
+            },
+            {
+              "chunk_id": "Redis全套学习笔记_p048_c002",
+              "source": "Redis全套学习笔记.pdf",
+              "page": 48,
+              "rerank_score": 0.03258974477648735
+            },
+            {
+              "chunk_id": "Transformer--Attention Is All You Need_web_c009",
+              "source": "Transformer--Attention Is All You Need.html",
+              "page": null,
+              "rerank_score": 0.027169233188033104
+            },
+            {
+              "chunk_id": "RAG知识_p042_c002",
+              "source": "RAG知识.pdf",
+              "page": 42,
+              "rerank_score": 0.012821214273571968
+            },
+            {
+              "chunk_id": "RAG知识_p102_c001",
+              "source": "RAG知识.pdf",
+              "page": 102,
+              "rerank_score": 0.01065251138061285
+            },
+            {
+              "chunk_id": "RAG知识_p020_c002",
+              "source": "RAG知识.pdf",
+              "page": 20,
+              "rerank_score": 0.008315778337419033
+            },
+            {
+              "chunk_id": "RAG知识_p040_c002",
+              "source": "RAG知识.pdf",
+              "page": 40,
+              "rerank_score": 0.0060975621454417706
+            },
+            {
+              "chunk_id": "RAG知识_p109_c001",
+              "source": "RAG知识.pdf",
+              "page": 109,
+              "rerank_score": 4.2647468944778666e-05
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

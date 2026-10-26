@@ -1,0 +1,519 @@
+{
+  "version": "gold_frozen_v2",
+  "testset": "frozen_v2.jsonl",
+  "testset_sha256": "5d466ec84e5bf38fa5ab3ed478f8262e825b1f4c8197eca4db2ccb47cd3e0e19",
+  "chunks": "chunks.jsonl",
+  "chunks_sha256": "199749aba2829aa7008ad33391f6a8157dd10f9492f58cb32cfef5aa316f6dde",
+  "generated_at": "2026-10-24 19:03:35",
+  "n_questions": 30,
+  "records": [
+    {
+      "id": 6,
+      "type": "partial",
+      "question": "RAG 能减少幻觉，一个重要原因是它把检索到的资料\"喂\"给生成模型。请问：检索到的上下文是如何与用户问题一起交给大模型，再由大模型利用\"自注意力\"生成回答的？请结合 RAG 的查询响应流程和 Transformer 的自注意力原理说明。",
+      "expect": "需同时引用 RAG知识.pdf 与 Transformer论文",
+      "unit": "source",
+      "gold": [
+        "RAG知识.pdf",
+        "Transformer--Attention Is All You Need.html"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf",
+          "Transformer--Attention Is All You Need.html"
+        ],
+        "page": null,
+        "n_chunks": 467
+      }
+    },
+    {
+      "id": 13,
+      "type": "in",
+      "question": "分块函数 chunkText() 的分块策略是怎样的？它的目标片段长度上限是多少，切分时先按什么切、再按什么切？",
+      "expect": "RAG知识.pdf 第52页",
+      "unit": "page",
+      "gold": [
+        "RAG知识_p052_c001",
+        "RAG知识_p052_c002",
+        "RAG知识_p052_c003",
+        "RAG知识_p052_c004",
+        "RAG知识_p052_c005"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": 52,
+        "n_chunks": 5
+      }
+    },
+    {
+      "id": 14,
+      "type": "in",
+      "question": "创建 Vectorize 索引时必须指定哪两个关键参数？它支持哪三种距离度量方式，各自的值域和「越接近什么值表示越相似」是怎么定义的？",
+      "expect": "RAG知识.pdf 第66页",
+      "unit": "page",
+      "gold": [
+        "RAG知识_p066_c001",
+        "RAG知识_p066_c002",
+        "RAG知识_p066_c003"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": 66,
+        "n_chunks": 3
+      }
+    },
+    {
+      "id": 17,
+      "type": "cross",
+      "question": "分块时块大小应该怎么定？请结合《RAG知识》里 chunkText 的切分顺序与长度上限，以及《RAG 技术概览》中关于块大小受嵌入模型 token 处理能力限制的说法，说明确定块大小时需要权衡什么。",
+      "expect": "需同时引用 RAG知识.pdf（分块算法 chunkText）与 RAG 技术概览（分块与嵌入模型 token 上限）",
+      "unit": "source",
+      "gold": [
+        "RAG 技术概览.html",
+        "RAG知识.pdf"
+      ],
+      "detail": {
+        "files": [
+          "RAG 技术概览.html",
+          "RAG知识.pdf"
+        ],
+        "page": null,
+        "n_chunks": 401
+      }
+    },
+    {
+      "id": 19,
+      "type": "cross",
+      "question": "《RAG知识》把语义检索定义为「基于语义理解而非关键词匹配」，而《RAG 技术概览》提出把两种检索方式融合起来。请说明这两种检索方式各自的优势，为什么要融合，以及融合时用什么算法合并两路结果。",
+      "expect": "需同时引用 RAG知识.pdf（语义检索定义）与 RAG 技术概览（融合检索/混合搜索与 RRF）",
+      "unit": "source",
+      "gold": [
+        "RAG 技术概览.html",
+        "RAG知识.pdf"
+      ],
+      "detail": {
+        "files": [
+          "RAG 技术概览.html",
+          "RAG知识.pdf"
+        ],
+        "page": null,
+        "n_chunks": 401
+      }
+    },
+    {
+      "id": 20,
+      "type": "cross",
+      "question": "向量检索初筛之后为什么还要再做一次重排（rerank）？请结合《RAG知识》里对 Rerank 模块的定位与《RAG 技术概览》中后处理器、交叉编码器重新排名的做法说明。",
+      "expect": "需同时引用 RAG知识.pdf（向量重排 rerank）与 RAG 技术概览（后处理器/交叉编码器重新排名）",
+      "unit": "source",
+      "gold": [
+        "RAG 技术概览.html",
+        "RAG知识.pdf"
+      ],
+      "detail": {
+        "files": [
+          "RAG 技术概览.html",
+          "RAG知识.pdf"
+        ],
+        "page": null,
+        "n_chunks": 401
+      }
+    },
+    {
+      "id": 24,
+      "type": "partial",
+      "question": "RAG 系统该从哪些维度评估效果？另外，资料里提到的 ragas 框架，它计算各指标的具体代码实现是什么？",
+      "expect": "部分覆盖：需引用 RAG 技术概览（RAG 评估维度）；ragas 代码实现库中无",
+      "unit": "source",
+      "gold": [
+        "RAG 技术概览.html"
+      ],
+      "detail": {
+        "files": [
+          "RAG 技术概览.html"
+        ],
+        "page": null,
+        "n_chunks": 64
+      }
+    },
+    {
+      "id": 26,
+      "type": "out",
+      "question": "LLaMA 使用的 RoPE（旋转位置编码）和《Attention Is All You Need》里的正弦位置编码相比，优势和局限分别是什么？",
+      "expect": "库外，应拒答",
+      "unit": null,
+      "gold": [],
+      "detail": {
+        "files": [],
+        "page": null,
+        "n_chunks": 0
+      }
+    },
+    {
+      "id": 28,
+      "type": "out",
+      "question": "LoRA 微调是怎么用低秩分解把可训练参数降下来的？rank 和 alpha 一般怎么取？",
+      "expect": "库外，应拒答",
+      "unit": null,
+      "gold": [],
+      "detail": {
+        "files": [],
+        "page": null,
+        "n_chunks": 0
+      }
+    },
+    {
+      "id": 29,
+      "type": "out",
+      "question": "Kubernetes 的调度器在为 Pod 选择节点时会考虑哪些因素？",
+      "expect": "库外，应拒答",
+      "unit": null,
+      "gold": [],
+      "detail": {
+        "files": [],
+        "page": null,
+        "n_chunks": 0
+      }
+    },
+    {
+      "id": 31,
+      "type": "in",
+      "question": "RAG 系统运行过程中，为了保障可观测性，建议记录哪些关键指标？查询阶段和清空操作分别要记录什么？这些指标能帮助发现哪两类问题？",
+      "expect": "RAG知识.pdf 第42页",
+      "unit": "page",
+      "gold": [
+        "RAG知识_p042_c001",
+        "RAG知识_p042_c002"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": 42,
+        "n_chunks": 2
+      }
+    },
+    {
+      "id": 32,
+      "type": "in",
+      "question": "选择嵌入模型时需要比较哪些维度？「最大行数」和「单行最大处理 Token 数」分别限制的是什么？要把 30 个 chunk 提交给千问的嵌入接口，应该怎么分批？",
+      "expect": "RAG知识.pdf 第45页",
+      "unit": "page",
+      "gold": [
+        "RAG知识_p045_c001",
+        "RAG知识_p045_c002",
+        "RAG知识_p045_c003"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": 45,
+        "n_chunks": 3
+      }
+    },
+    {
+      "id": 33,
+      "type": "in",
+      "question": "嵌入批量处理常见的失败有哪几类？推荐的弹性设计是什么？",
+      "expect": "RAG知识.pdf 第64页",
+      "unit": "page",
+      "gold": [
+        "RAG知识_p064_c001",
+        "RAG知识_p064_c002"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": 64,
+        "n_chunks": 2
+      }
+    },
+    {
+      "id": 34,
+      "type": "in",
+      "question": "Vectorize 的「存储向量维度数」是怎么计算的？1,000 个 1536 维向量对应多少存储维度？哪些项目明确不计费？",
+      "expect": "RAG知识.pdf 第71页",
+      "unit": "page",
+      "gold": [
+        "RAG知识_p071_c001",
+        "RAG知识_p071_c002",
+        "RAG知识_p071_c003",
+        "RAG知识_p071_c004"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": 71,
+        "n_chunks": 4
+      }
+    },
+    {
+      "id": 35,
+      "type": "in",
+      "question": "聊天机器人做上下文管理时，「向量检索上下文」和「对话历史管理」分别怎么使用语言元数据过滤器？过滤器超时或结果为空时，回退逻辑是什么？",
+      "expect": "RAG知识.pdf 第92页",
+      "unit": "page",
+      "gold": [
+        "RAG知识_p092_c001",
+        "RAG知识_p092_c002",
+        "RAG知识_p092_c003",
+        "RAG知识_p092_c004",
+        "RAG知识_p092_c005"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": 92,
+        "n_chunks": 5
+      }
+    },
+    {
+      "id": 36,
+      "type": "in",
+      "question": "什么是「分离式架构」？相比把对话历史和查询混在一起的做法，它在向量检索准确性、对话连贯性、检索效率、扩展性四方面有什么差异？落地时有哪些最佳实践？",
+      "expect": "RAG知识.pdf 第120页",
+      "unit": "page",
+      "gold": [
+        "RAG知识_p120_c001",
+        "RAG知识_p120_c002"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": 120,
+        "n_chunks": 2
+      }
+    },
+    {
+      "id": 37,
+      "type": "cross",
+      "question": "线上运行时要记录哪些指标？离线评估检索效果又该用哪些指标？这两套指标为什么不能互相替代？",
+      "expect": "需同时引用 RAG知识.pdf（第42页 观测与指标）与 RAG 技术概览（上下文精确度/召回率/命中率/MRR）",
+      "unit": "source",
+      "gold": [
+        "RAG 技术概览.html",
+        "RAG知识.pdf"
+      ],
+      "detail": {
+        "files": [
+          "RAG 技术概览.html",
+          "RAG知识.pdf"
+        ],
+        "page": 42,
+        "n_chunks": 401
+      }
+    },
+    {
+      "id": 38,
+      "type": "cross",
+      "question": "分块长度为什么不能无限加大？请结合嵌入模型对单块 token 数的限制，以及 Transformer 中自注意力的计算代价两方面说明。",
+      "expect": "需同时引用 RAG 技术概览（分块大小与嵌入模型 token 上限）与 Transformer--Attention Is All You Need（自注意力计算复杂度）",
+      "unit": "source",
+      "gold": [
+        "RAG 技术概览.html",
+        "Transformer--Attention Is All You Need.html"
+      ],
+      "detail": {
+        "files": [
+          "RAG 技术概览.html",
+          "Transformer--Attention Is All You Need.html"
+        ],
+        "page": null,
+        "n_chunks": 194
+      }
+    },
+    {
+      "id": 39,
+      "type": "cross",
+      "question": "多语言检索时，如何用语言元数据做过滤来保证召回的语言一致？过滤失败或结果为空时怎么回退？查询路由解决的是同一个问题吗，两者在流程上是什么关系？",
+      "expect": "需同时引用 RAG知识.pdf（第99页 检索阶段两级策略）与 RAG 技术概览（查询路由）",
+      "unit": "source",
+      "gold": [
+        "RAG 技术概览.html",
+        "RAG知识.pdf"
+      ],
+      "detail": {
+        "files": [
+          "RAG 技术概览.html",
+          "RAG知识.pdf"
+        ],
+        "page": 99,
+        "n_chunks": 401
+      }
+    },
+    {
+      "id": 40,
+      "type": "cross",
+      "question": "如果要给 RAG 的高频问题做结果缓存，需要防哪些缓存失效问题（缓存穿透、缓存击穿）？Redis 侧分别有哪些解法？加锁时为什么必须给锁设置过期时间？",
+      "expect": "需同时引用 Redis全套学习笔记.pdf（缓存穿透/缓存击穿与锁的过期时间）与 RAG知识.pdf（第120页 缓存优化最佳实践）",
+      "unit": "source",
+      "gold": [
+        "RAG知识.pdf",
+        "Redis全套学习笔记.pdf"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf",
+          "Redis全套学习笔记.pdf"
+        ],
+        "page": 120,
+        "n_chunks": 738
+      }
+    },
+    {
+      "id": 41,
+      "type": "partial",
+      "question": "全量重索引迁移一般要经过哪些步骤？删除旧数据时要注意什么？另外，迁移期间要做到零停机、可回滚，具体的回滚方案和 SLA 应该怎么设计？",
+      "expect": "部分覆盖：需引用 RAG知识.pdf（第104页 迁移流程与清空阶段）；零停机与回滚方案库中无",
+      "unit": "page",
+      "gold": [
+        "RAG知识_p104_c001",
+        "RAG知识_p104_c002",
+        "RAG知识_p104_c003"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": 104,
+        "n_chunks": 3
+      }
+    },
+    {
+      "id": 42,
+      "type": "partial",
+      "question": "系统异常时有哪些降级策略？另外，如果要用熔断器（错误率阈值、半开探测、恢复策略），具体参数应该怎么定？",
+      "expect": "部分覆盖：需引用 RAG知识.pdf（第93-95页 异常处理与降级策略）；熔断器参数库中无",
+      "unit": "source",
+      "gold": [
+        "RAG知识.pdf"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": null,
+        "n_chunks": 337
+      }
+    },
+    {
+      "id": 43,
+      "type": "partial",
+      "question": "Vectorize 最多能创建多少个元数据索引？对 url 这类高基数字段，建元数据索引的取舍标准是什么？",
+      "expect": "部分覆盖：需引用 RAG知识.pdf（第125页 元数据索引与限制）；高基数字段取舍标准库中无",
+      "unit": "page",
+      "gold": [
+        "RAG知识_p125_c001",
+        "RAG知识_p125_c002",
+        "RAG知识_p125_c003"
+      ],
+      "detail": {
+        "files": [
+          "RAG知识.pdf"
+        ],
+        "page": 125,
+        "n_chunks": 3
+      }
+    },
+    {
+      "id": 44,
+      "type": "out",
+      "question": "vLLM 的 PagedAttention 是怎么管理 KV Cache 的？它为什么能显著提高吞吐？",
+      "expect": "库外，应拒答",
+      "unit": null,
+      "gold": [],
+      "detail": {
+        "files": [],
+        "page": null,
+        "n_chunks": 0
+      }
+    },
+    {
+      "id": 45,
+      "type": "out",
+      "question": "FlashAttention 是如何通过分块（tiling）和重计算（recomputation）降低显存占用的？",
+      "expect": "库外，应拒答",
+      "unit": null,
+      "gold": [],
+      "detail": {
+        "files": [],
+        "page": null,
+        "n_chunks": 0
+      }
+    },
+    {
+      "id": 46,
+      "type": "principle",
+      "question": "为什么 RAG 评测要把「检索层指标」和「生成层指标」拆开，而不能只看最终的答案正确率？",
+      "expect": "通用原理，无需检索",
+      "unit": null,
+      "gold": [],
+      "detail": {
+        "files": [],
+        "page": null,
+        "n_chunks": 0
+      }
+    },
+    {
+      "id": 47,
+      "type": "principle",
+      "question": "为什么「塞进 prompt 的资料越多越好」不成立？请从上下文窗口、注意力分布与成本三个角度说明。",
+      "expect": "通用原理，无需检索",
+      "unit": null,
+      "gold": [],
+      "detail": {
+        "files": [],
+        "page": null,
+        "n_chunks": 0
+      }
+    },
+    {
+      "id": 48,
+      "type": "principle",
+      "question": "语义缓存的相似度阈值为什么不能设得太高，也不能设得太低？各自会带来什么后果？",
+      "expect": "通用原理，无需检索",
+      "unit": null,
+      "gold": [],
+      "detail": {
+        "files": [],
+        "page": null,
+        "n_chunks": 0
+      }
+    },
+    {
+      "id": 49,
+      "type": "principle",
+      "question": "Agentic RAG 为什么必须在代码层设置检索轮次上限（step cap），而不能只靠提示词约束？",
+      "expect": "通用原理，无需检索",
+      "unit": null,
+      "gold": [],
+      "detail": {
+        "files": [],
+        "page": null,
+        "n_chunks": 0
+      }
+    },
+    {
+      "id": 50,
+      "type": "principle",
+      "question": "为什么 LLM 判官不能使用被测模型本身？除了「换一个模型」，还需要做哪些纪律来保证分数可信？",
+      "expect": "通用原理，无需检索",
+      "unit": null,
+      "gold": [],
+      "detail": {
+        "files": [],
+        "page": null,
+        "n_chunks": 0
+      }
+    }
+  ]
+}

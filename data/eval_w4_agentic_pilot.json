@@ -1,0 +1,780 @@
+{
+  "experiment": "w4_agentic_ab",
+  "stage_scope": "pilot(5)",
+  "generated_at": "2026-10-19 18:18:16",
+  "params": {
+    "RETRIEVAL_MODE": "dense",
+    "RECALL_K": 10,
+    "RRF_K": 60,
+    "RERANK_TOP_K": 3,
+    "cache_threshold": 0.9,
+    "retrieval_params": {
+      "mode": "dense",
+      "top_k": 3,
+      "quota_cap": null,
+      "dedupe": true,
+      "min_score": 0.0,
+      "RECALL_K": 10,
+      "RERANK_TOP_K": 3,
+      "RRF_K": 60
+    },
+    "groups": {
+      "A": {
+        "max_rounds": 1,
+        "use_gate": false,
+        "use_rewrite": false,
+        "use_cache": false
+      },
+      "B": {
+        "max_rounds": 2,
+        "use_gate": false,
+        "use_rewrite": true,
+        "use_cache": false
+      },
+      "C": {
+        "max_rounds": 3,
+        "use_gate": true,
+        "use_rewrite": true,
+        "use_cache": false
+      },
+      "D": {
+        "max_rounds": 3,
+        "use_gate": true,
+        "use_rewrite": true,
+        "use_cache": true
+      }
+    }
+  },
+  "fingerprints": {
+    "testset": "testset_tune.jsonl",
+    "testset_sha256": "77feeb79bde269cb19bfb2925a6b2e7b1c3e42572b567e1e4b099d2651428da8",
+    "gold": "gold_tune.json",
+    "gold_sha256": "d6ec3c428d6d39f54a12bcf06ca252d0fee2371747ffed82b3b778ce8ee1ed1c",
+    "trace_file": "w4_agentic_traces_pilot.jsonl"
+  },
+  "aggregate": {
+    "by_stage": {
+      "A": {
+        "n": 5,
+        "llm_calls": 1.0,
+        "tokens": 791.0,
+        "cost": 0.0010712,
+        "total_ms": 1022.4322800058872,
+        "retrieve_times": 1.0,
+        "cache_hits": 0,
+        "totals": {
+          "llm_calls": 5,
+          "tokens": 3955,
+          "cost": 0.005356,
+          "total_ms": 5112.161400029436,
+          "retrieve_times": 5
+        },
+        "terminate_reasons": {
+          "cap": 5
+        }
+      },
+      "B": {
+        "n": 5,
+        "llm_calls": 2.0,
+        "tokens": 1713.0,
+        "cost": 0.0012826,
+        "total_ms": 2381.369959958829,
+        "retrieve_times": 2.0,
+        "cache_hits": 0,
+        "totals": {
+          "llm_calls": 10,
+          "tokens": 8565,
+          "cost": 0.006413,
+          "total_ms": 11906.849799794145,
+          "retrieve_times": 10
+        },
+        "terminate_reasons": {
+          "cap": 5
+        }
+      },
+      "C": {
+        "n": 5,
+        "llm_calls": 4.0,
+        "tokens": 2263.2,
+        "cost": 0.001131,
+        "total_ms": 3695.077979983762,
+        "retrieve_times": 1.4,
+        "cache_hits": 0,
+        "totals": {
+          "llm_calls": 20,
+          "tokens": 11316,
+          "cost": 0.005655,
+          "total_ms": 18475.38989991881,
+          "retrieve_times": 7
+        },
+        "terminate_reasons": {
+          "self_eval_sufficient": 2,
+          "gate_no_retrieve": 1,
+          "cap": 1,
+          "query_repeat": 1
+        }
+      },
+      "D1": {
+        "n": 5,
+        "llm_calls": 4.0,
+        "tokens": 2272.6,
+        "cost": 0.0011702000000000001,
+        "total_ms": 3639.538160013035,
+        "retrieve_times": 1.4,
+        "cache_hits": 0,
+        "totals": {
+          "llm_calls": 20,
+          "tokens": 11363,
+          "cost": 0.005851,
+          "total_ms": 18197.690800065175,
+          "retrieve_times": 7
+        },
+        "terminate_reasons": {
+          "self_eval_sufficient": 2,
+          "gate_no_retrieve": 1,
+          "cap": 1,
+          "query_repeat": 1
+        }
+      },
+      "D2": {
+        "n": 5,
+        "llm_calls": 0.4,
+        "tokens": 60.8,
+        "cost": 0.00021019999999999996,
+        "total_ms": 621.848740009591,
+        "retrieve_times": 0.0,
+        "cache_hits": 4,
+        "totals": {
+          "llm_calls": 2,
+          "tokens": 304,
+          "cost": 0.0010509999999999999,
+          "total_ms": 3109.243700047955,
+          "retrieve_times": 0
+        },
+        "terminate_reasons": {
+          "cache_hit": 4,
+          "gate_no_retrieve": 1
+        }
+      }
+    },
+    "ratios_vs_A": {
+      "A": {
+        "llm_calls": 1.0,
+        "tokens": 1.0,
+        "cost": 1.0,
+        "total_ms": 1.0,
+        "retrieve_times": 1.0
+      },
+      "B": {
+        "llm_calls": 2.0,
+        "tokens": 2.165613147914033,
+        "cost": 1.1973487677371173,
+        "total_ms": 2.329122433365579,
+        "retrieve_times": 2.0
+      },
+      "C": {
+        "llm_calls": 4.0,
+        "tokens": 2.861188369152971,
+        "cost": 1.0558252427184467,
+        "total_ms": 3.6140075506638794,
+        "retrieve_times": 1.4
+      },
+      "D1": {
+        "llm_calls": 4.0,
+        "tokens": 2.8730720606826803,
+        "cost": 1.092419716206124,
+        "total_ms": 3.5596862806327656,
+        "retrieve_times": 1.4
+      },
+      "D2": {
+        "llm_calls": 0.4,
+        "tokens": 0.07686472819216182,
+        "cost": 0.19622852875280059,
+        "total_ms": 0.6082053082342141,
+        "retrieve_times": 0.0
+      }
+    },
+    "method": "总额比 sum(趟)/sum(A)"
+  },
+  "invariants": {
+    "d2_cache": {
+      "checked": 5,
+      "n_d1_wrote": 4,
+      "n_d2_hit": 4,
+      "rows": [
+        {
+          "qid": "1",
+          "qtype": "in",
+          "d1_terminate": "self_eval_sufficient",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "1",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "2",
+          "qtype": "in",
+          "d1_terminate": "self_eval_sufficient",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "2",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "22",
+          "qtype": "partial",
+          "d1_terminate": "cap",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "22",
+          "d2_answer_eq_d1": true
+        },
+        {
+          "qid": "7",
+          "qtype": "cross",
+          "d1_terminate": "gate_no_retrieve",
+          "d1_cache_wrote": false,
+          "d2_cache_hit": false,
+          "d2_matched_qid": null,
+          "d2_answer_eq_d1": false
+        },
+        {
+          "qid": "9",
+          "qtype": "out",
+          "d1_terminate": "query_repeat",
+          "d1_cache_wrote": true,
+          "d2_cache_hit": true,
+          "d2_matched_qid": "9",
+          "d2_answer_eq_d1": true
+        }
+      ],
+      "note": "命中率只落盘、人工核对（不 raise）。D2 未命中可能是 gate_no_retrieve / 0 命中路径 —— 这两条按设计不入缓存，D2 结构上不可能命中；只需核对「D1 写了缓存（d1_cache_wrote=True）的题 D2 是否都命中」"
+    },
+    "d1_eq_c": {
+      "checked": 5,
+      "mismatched": [
+        {
+          "qid": "1",
+          "fields": [
+            "answer"
+          ]
+        },
+        {
+          "qid": "22",
+          "fields": [
+            "answer"
+          ]
+        },
+        {
+          "qid": "7",
+          "fields": [
+            "answer"
+          ]
+        },
+        {
+          "qid": "9",
+          "fields": [
+            "hits_list"
+          ]
+        }
+      ],
+      "ok": false
+    },
+    "d2_eq_d1": {
+      "checked": 4,
+      "mismatched": [],
+      "ok": true
+    },
+    "passed": false
+  },
+  "per_question": [
+    {
+      "qid": "1",
+      "qtype": "in",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 877,
+      "cost": 0.001234,
+      "total_ms": 1242.4831999232993,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p015_c004",
+        "RAG知识_p016_c001",
+        "RAG知识_p016_c003"
+      ],
+      "answer_preview": "RAG 系统根据提出动因和主要特点可分为 NaiveRAG、AdvancedRAG 等类别 [1][2]。其中 NaiveRAG 的提出动因是：LLM 容易出现“幻觉”，参数化知识难以更新，需要外部检"
+    },
+    {
+      "qid": "1",
+      "qtype": "in",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1797,
+      "cost": 0.00123,
+      "total_ms": 2295.146999997087,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p015_c004",
+        "RAG知识_p016_c001",
+        "RAG知识_p016_c003"
+      ],
+      "answer_preview": "RAG 系统根据提出动因和主要特点可分为 NaiveRAG、AdvancedRAG 等类别 [1][2]。其中 NaiveRAG 的提出动因是：LLM 容易出现“幻觉”，参数化知识难以更新，需要外部检"
+    },
+    {
+      "qid": "1",
+      "qtype": "in",
+      "stage": "C",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1605,
+      "cost": 0.001234,
+      "total_ms": 3542.732800007798,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p015_c004",
+        "RAG知识_p016_c001",
+        "RAG知识_p016_c003"
+      ],
+      "answer_preview": "RAG 系统根据提出动因和主要特点可分为 NaiveRAG、AdvancedRAG 等类别 [1][2]。其中 NaiveRAG 的提出动因是：LLM 容易出现“幻觉”，参数化知识难以更新，需要外部检"
+    },
+    {
+      "qid": "1",
+      "qtype": "in",
+      "stage": "D1",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 1643,
+      "cost": 0.001386,
+      "total_ms": 3648.0498000746593,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p015_c004",
+        "RAG知识_p016_c001",
+        "RAG知识_p016_c003"
+      ],
+      "answer_preview": "RAG 系统根据提出动因和主要特点可分为三类：NaiveRAG、AdvancedRAG，以及采用多智能体架构的一类（资料中该部分标题未完整显示，但描述为多智能体架构、主智能体协调子智能体、具备动态决策"
+    },
+    {
+      "qid": "1",
+      "qtype": "in",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 5.107400007545948,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p015_c004",
+        "RAG知识_p016_c001",
+        "RAG知识_p016_c003"
+      ],
+      "answer_preview": "RAG 系统根据提出动因和主要特点可分为三类：NaiveRAG、AdvancedRAG，以及采用多智能体架构的一类（资料中该部分标题未完整显示，但描述为多智能体架构、主智能体协调子智能体、具备动态决策"
+    },
+    {
+      "qid": "2",
+      "qtype": "in",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 979,
+      "cost": 0.00163,
+      "total_ms": 1594.6834000060335,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p013_c002",
+        "RAG 技术概览_web_c002",
+        "RAG知识_p081_c001"
+      ],
+      "answer_preview": "和传统大语言模型相比，RAG 解决了以下关键问题：\n\n1. **知识截止点问题**：传统LLM的训练数据有时间限制，无法获取最新信息；RAG通过引入外部知识库，在生成回答前先检索相关信息，显著提高了回"
+    },
+    {
+      "qid": "2",
+      "qtype": "in",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1855,
+      "cost": 0.001626,
+      "total_ms": 2619.965099962428,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p013_c002",
+        "RAG 技术概览_web_c002",
+        "RAG知识_p017_c001"
+      ],
+      "answer_preview": "和传统大语言模型相比，RAG 解决了以下关键问题：\n\n1. **知识截止点问题**：传统LLM的训练数据有时间限制，无法获取最新信息；RAG通过引入外部知识库，在生成回答前先检索相关信息，显著提高了回"
+    },
+    {
+      "qid": "2",
+      "qtype": "in",
+      "stage": "C",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1711,
+      "cost": 0.00163,
+      "total_ms": 3425.1177998958156,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p013_c002",
+        "RAG 技术概览_web_c002",
+        "RAG知识_p081_c001"
+      ],
+      "answer_preview": "和传统大语言模型相比，RAG 解决了以下关键问题：\n\n1. **知识截止点问题**：传统LLM的训练数据有时间限制，无法获取最新信息；RAG通过引入外部知识库，在生成回答前先检索相关信息，显著提高了回"
+    },
+    {
+      "qid": "2",
+      "qtype": "in",
+      "stage": "D1",
+      "terminate_reason": "self_eval_sufficient",
+      "llm_calls": 3,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 1711,
+      "cost": 0.00163,
+      "total_ms": 2590.58429999277,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p013_c002",
+        "RAG 技术概览_web_c002",
+        "RAG知识_p081_c001"
+      ],
+      "answer_preview": "和传统大语言模型相比，RAG 解决了以下关键问题：\n\n1. **知识截止点问题**：传统LLM的训练数据有时间限制，无法获取最新信息；RAG通过引入外部知识库，在生成回答前先检索相关信息，显著提高了回"
+    },
+    {
+      "qid": "2",
+      "qtype": "in",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 6.01690006442368,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p013_c002",
+        "RAG 技术概览_web_c002",
+        "RAG知识_p081_c001"
+      ],
+      "answer_preview": "和传统大语言模型相比，RAG 解决了以下关键问题：\n\n1. **知识截止点问题**：传统LLM的训练数据有时间限制，无法获取最新信息；RAG通过引入外部知识库，在生成回答前先检索相关信息，显著提高了回"
+    },
+    {
+      "qid": "7",
+      "qtype": "cross",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 556,
+      "cost": 0.0005679999999999999,
+      "total_ms": 704.7638000221923,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p129_c002",
+        "RAG知识_p097_c003",
+        "RAG 技术概览_web_c008"
+      ],
+      "answer_preview": "资料中没有相关内容。"
+    },
+    {
+      "qid": "7",
+      "qtype": "cross",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1569,
+      "cost": 0.001454,
+      "total_ms": 2752.1960999583825,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p129_c002",
+        "RAG知识_p097_c003",
+        "RAG知识_p047_c002"
+      ],
+      "answer_preview": "把文本变成向量再检索之所以比关键词匹配更可能召回语义相关内容，原因如下：\n\n语义检索是基于语义理解而非关键词匹配的信息检索技术，它使用向量化技术将查询和文档转换为语义向量，再通过计算向量相似度找到语义"
+    },
+    {
+      "qid": "7",
+      "qtype": "cross",
+      "stage": "C",
+      "terminate_reason": "gate_no_retrieve",
+      "llm_calls": 2,
+      "retrieve_times": 0,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 243,
+      "cost": 0.000807,
+      "total_ms": 2119.522900087759,
+      "prompt_variant": "v1-noretr",
+      "fused_ids": [],
+      "answer_preview": "把文本变成向量再检索，本质是把“字面匹配”换成“语义空间中的邻近性匹配”。\n\n1. **向量嵌入（embedding）**：模型把一段文本映射为高维向量，使语义相近的文本在向量空间中距离更近。即使两段"
+    },
+    {
+      "qid": "7",
+      "qtype": "cross",
+      "stage": "D1",
+      "terminate_reason": "gate_no_retrieve",
+      "llm_calls": 2,
+      "retrieve_times": 0,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 320,
+      "cost": 0.0011149999999999999,
+      "total_ms": 2620.0470000039786,
+      "prompt_variant": "v1-noretr",
+      "fused_ids": [],
+      "answer_preview": "把文本转成向量再检索，核心在于**向量嵌入把“字面”映射为“语义空间中的位置”**，因此能召回关键词不重合但意思相近的内容。\n\n1. **嵌入编码语义**：embedding 模型把文本压缩为稠密向量"
+    },
+    {
+      "qid": "7",
+      "qtype": "cross",
+      "stage": "D2",
+      "terminate_reason": "gate_no_retrieve",
+      "llm_calls": 2,
+      "retrieve_times": 0,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 304,
+      "cost": 0.0010509999999999999,
+      "total_ms": 3086.6755000315607,
+      "prompt_variant": "v1-noretr",
+      "fused_ids": [],
+      "answer_preview": "把文本转成向量再检索，核心在于**向量嵌入把“字面”映射为“语义空间中的位置”**，因此能召回关键词不重合但意思相近的内容。\n\n1. **嵌入表示语义**：embedding 模型把文本编码为稠密向量"
+    },
+    {
+      "qid": "22",
+      "qtype": "partial",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 806,
+      "cost": 0.001175,
+      "total_ms": 955.1418999908492,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c037",
+        "RAG 技术概览_web_c041",
+        "RAG知识_p025_c002"
+      ],
+      "answer_preview": "微调嵌入模型后，检索质量可提升约 2%：资料1提到对 bge-large-en-v1.5 的微调测试表明检索质量提高了 2% [1]。\n\n关于在 8GB 显存显卡上微调 bge-small-zh 的具"
+    },
+    {
+      "qid": "22",
+      "qtype": "partial",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1688,
+      "cost": 0.0013310000000000002,
+      "total_ms": 2289.2401999561116,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG知识_p025_c002",
+        "RAG 技术概览_web_c037",
+        "RAG 技术概览_web_c038"
+      ],
+      "answer_preview": "根据资料，微调嵌入模型（编码器）带来的检索质量提升约为 2%：在 LlamaIndex 环境中对 bge-large-en-v1.5 进行微调测试，检索质量提高了 2% [2]。资料还提到，这一提升虽"
+    },
+    {
+      "qid": "22",
+      "qtype": "partial",
+      "stage": "C",
+      "terminate_reason": "cap",
+      "llm_calls": 6,
+      "retrieve_times": 3,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 3774,
+      "cost": 0.0012070000000000002,
+      "total_ms": 5131.781999953091,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c038",
+        "RAG知识_p025_c002",
+        "RAG 技术概览_web_c037"
+      ],
+      "answer_preview": "根据资料，微调嵌入模型（如 bge-large-en-v1.5）的测试结果显示检索质量提高了 2% [1][3]。另外，交叉编码器微调可使成对得分提升 4% [1]。\n\n关于在 8GB 显存显卡上微调"
+    },
+    {
+      "qid": "22",
+      "qtype": "partial",
+      "stage": "D1",
+      "terminate_reason": "cap",
+      "llm_calls": 6,
+      "retrieve_times": 3,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 3708,
+      "cost": 0.000943,
+      "total_ms": 4705.727199907415,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c038",
+        "RAG知识_p025_c002",
+        "RAG 技术概览_web_c037"
+      ],
+      "answer_preview": "根据资料，微调嵌入模型（如 bge-large-en-v1.5）的测试结果显示检索质量提高了 2% [1][3]。资料中未提及在 8GB 显存显卡上微调 bge-small-zh 的具体训练参数和显存"
+    },
+    {
+      "qid": "22",
+      "qtype": "partial",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 5.615499918349087,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "RAG 技术概览_web_c038",
+        "RAG知识_p025_c002",
+        "RAG 技术概览_web_c037"
+      ],
+      "answer_preview": "根据资料，微调嵌入模型（如 bge-large-en-v1.5）的测试结果显示检索质量提高了 2% [1][3]。资料中未提及在 8GB 显存显卡上微调 bge-small-zh 的具体训练参数和显存"
+    },
+    {
+      "qid": "9",
+      "qtype": "out",
+      "stage": "A",
+      "terminate_reason": "cap",
+      "llm_calls": 1,
+      "retrieve_times": 1,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 737,
+      "cost": 0.000749,
+      "total_ms": 615.0891000870615,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c008",
+        "Transformer--Attention Is All You Need_web_c010",
+        "Transformer--Attention Is All You Need_web_c105"
+      ],
+      "answer_preview": "资料中没有相关内容。"
+    },
+    {
+      "qid": "9",
+      "qtype": "out",
+      "stage": "B",
+      "terminate_reason": "cap",
+      "llm_calls": 2,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 1656,
+      "cost": 0.000772,
+      "total_ms": 1950.3013999201357,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c008",
+        "Transformer--Attention Is All You Need_web_c010",
+        "RAG知识_p087_c001"
+      ],
+      "answer_preview": "资料中没有相关内容。"
+    },
+    {
+      "qid": "9",
+      "qtype": "out",
+      "stage": "C",
+      "terminate_reason": "query_repeat",
+      "llm_calls": 6,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": false,
+      "total_tokens": 3983,
+      "cost": 0.0007769999999999999,
+      "total_ms": 4256.234399974346,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c008",
+        "Transformer--Attention Is All You Need_web_c013",
+        "Transformer--Attention Is All You Need_web_c010"
+      ],
+      "answer_preview": "资料中没有相关内容。"
+    },
+    {
+      "qid": "9",
+      "qtype": "out",
+      "stage": "D1",
+      "terminate_reason": "query_repeat",
+      "llm_calls": 6,
+      "retrieve_times": 2,
+      "cache_hit": false,
+      "cache_wrote": true,
+      "total_tokens": 3981,
+      "cost": 0.0007769999999999999,
+      "total_ms": 4633.282500086352,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c008",
+        "Transformer--Attention Is All You Need_web_c010",
+        "Transformer--Attention Is All You Need_web_c013"
+      ],
+      "answer_preview": "资料中没有相关内容。"
+    },
+    {
+      "qid": "9",
+      "qtype": "out",
+      "stage": "D2",
+      "terminate_reason": "cache_hit",
+      "llm_calls": 0,
+      "retrieve_times": 0,
+      "cache_hit": true,
+      "cache_wrote": false,
+      "total_tokens": 0,
+      "cost": 0.0,
+      "total_ms": 5.828400026075542,
+      "prompt_variant": "v1",
+      "fused_ids": [
+        "Transformer--Attention Is All You Need_web_c008",
+        "Transformer--Attention Is All You Need_web_c010",
+        "Transformer--Attention Is All You Need_web_c013"
+      ],
+      "answer_preview": "资料中没有相关内容。"
+    }
+  ]
+}

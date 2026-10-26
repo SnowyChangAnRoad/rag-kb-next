@@ -90,8 +90,8 @@ def run_group(pipeline: RAGPipeline, questions: list[dict], dedupe: bool, top_k,
     for q in questions:
         out = pipeline.answer(q["question"], qtype=q["type"], dedupe=dedupe,
                               top_k=top_k, quota_cap=quota_cap, prompt_version=prompt)
-        jc = judge_correct(pipeline.llm, q["question"], out["hits"], out["answer"])
-        jcit = judge_citations(pipeline.llm, q["question"], out["hits"], out["answer"])
+        jc = judge_correct(q["question"], out["hits"], out["answer"])
+        jcit = judge_citations(q["question"], out["hits"], out["answer"])
         cited = extract_cited_ids(out["answer"])                        # 模型写了哪些编号
         valid_ids = count_valid_cited(cited, jcit["invalid"], out["top_k"])
         rec = {

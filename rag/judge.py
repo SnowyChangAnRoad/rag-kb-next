@@ -16,10 +16,40 @@
          基线表里的「平均 token / 成本」只统计生成阶段，裁判用量单列。
 """
 import json
+import os
 import re
 
-from .config import LLM_MODEL, THINKING_DISABLED
+from openai import OpenAI
+
+from .config import (
+    JUDGE_BASE_URL, JUDGE_EXTRA_BODY, JUDGE_MODEL, JUDGE_PRICE_IN_PER_M,
+    JUDGE_PRICE_OUT_PER_M, JUDGE_PRINCIPLE_PASS,
+)
 from .llm import format_context
+
+
+def get_judge_llm() -> OpenAI:
+    """裁判专用客户端（W5 卡3）：百炼 / MaaS 端点，与被测 DeepSeek 不同家族。
+
+    为什么不复用 rag.llm.get_llm()：那是【被测模型】的客户端（DeepSeek），
+    用它判 DeepSeek 就是 self-preference bias（自家族输出打分偏高）。
+    key 与 base_url 独立从 .env 读，judge 换源不影响生成链路。
+    """
+    return OpenAI(
+        api_key=os.getenv("DASHSCOPE_API_KEY"),
+        base_url=os.getenv("DASHSCOPE_BASE_URL") or JUDGE_BASE_URL,
+    )
+
+
+_judge_client: OpenAI | None = None
+
+
+def _judge_client_or_build() -> OpenAI:
+    """进程内复用同一个客户端：一次评测有几十次判分，不必每次重建连接池。"""
+    global _judge_client
+    if _judge_client is None:
+        _judge_client = get_judge_llm()
+    return _judge_client
 
 # ------------------------------------------------------------
 # 裁判 1：答案是否被资料支撑（不看引用）
@@ -66,17 +96,27 @@ def _parse_json(raw: str) -> dict:
         return json.loads(m.group(0))
 
 
+def judge_cost(usage: dict) -> float:
+    """按 config 的 judge 单价折算一次判分成本（元）。只进报告，不影响判决。"""
+    return (usage["prompt_tokens"] / 1e6 * JUDGE_PRICE_IN_PER_M
+            + usage["completion_tokens"] / 1e6 * JUDGE_PRICE_OUT_PER_M)
+
+
 def _call_judge(llm, system: str, user: str) -> tuple[dict, dict]:
-    """已给：调一次裁判。temperature=0（裁判要可复现）+ 关闭思考模式。"""
+    """调一次裁判：temperature=0（可复现）+ 关闭深度思考（qwen3.8-max 默认开）。
+
+    llm 为 None 时用裁判专用客户端（百炼），**不要**把 pipeline.llm 传进来 ——
+    那是被测模型，同源判分就是 self-preference bias。
+    """
+    llm = llm or _judge_client_or_build()
     messages = [{"role": "system", "content": system},
                 {"role": "user", "content": user}]
-    kwargs = {"model": LLM_MODEL, "messages": messages, "temperature": 0,
-              "extra_body": THINKING_DISABLED}
+    kwargs = {"model": JUDGE_MODEL, "messages": messages, "temperature": 0,
+              "extra_body": JUDGE_EXTRA_BODY}
     try:
-        # DeepSeek 的 JSON Output 模式，输出更稳
+        # JSON Output 模式（Qwen / DeepSeek 都支持；MaaS 端点不支持时退回纯文本）
         resp = llm.chat.completions.create(response_format={"type": "json_object"}, **kwargs)
     except Exception:
-        # 少数网关不支持该参数时退回纯文本，靠 _parse_json 兜底
         resp = llm.chat.completions.create(**kwargs)
     data = _parse_json(resp.choices[0].message.content)
     usage = {"prompt_tokens": resp.usage.prompt_tokens,
@@ -84,17 +124,18 @@ def _call_judge(llm, system: str, user: str) -> tuple[dict, dict]:
     return data, usage
 
 
-def judge_correct(llm, question: str, hits: list[dict], answer: str) -> dict:
-    """已给：裁判 1，返回 {"correct": bool, "reason": str, "usage": {...}}。"""
+def judge_correct(question: str, hits: list[dict], answer: str, llm=None) -> dict:
+    """裁判 1，返回 {"correct": bool, "reason": str, "usage": {...}, "cost": float}。"""
     user = (f"资料：\n{format_context(hits)}\n\n"
             f"问题：{question}\n\n回答：\n{answer}")
     data, usage = _call_judge(llm, JUDGE_ANSWER_SYSTEM, user)
     return {"correct": bool(data.get("correct", False)),
-            "reason": str(data.get("reason", "")), "usage": usage}
+            "reason": str(data.get("reason", "")), "usage": usage,
+            "cost": judge_cost(usage)}
 
 
-def judge_citations(llm, question: str, hits: list[dict], answer: str) -> dict:
-    """已给：裁判 2，返回 {"total": int, "valid": int, "invalid": [...], "missing": bool, ...}。
+def judge_citations(question: str, hits: list[dict], answer: str, llm=None) -> dict:
+    """裁判 2，返回 {"total": int, "valid": int, "invalid": [...], "missing": bool, ...}。
 
     total=0 表示回答没有任何 [n]（此时引用正确率不计入分母，eval 里会单独统计"零引用题数"）。
     """
@@ -108,4 +149,49 @@ def judge_citations(llm, question: str, hits: list[dict], answer: str) -> dict:
     return {"total": total, "valid": valid,
             "invalid": list(data.get("invalid", []) or []),
             "missing": bool(data.get("missing", False)),
-            "reason": str(data.get("reason", "")), "usage": usage}
+            "reason": str(data.get("reason", "")), "usage": usage,
+            "cost": judge_cost(usage)}
+
+
+# ------------------------------------------------------------
+# 裁判 3（W5 卡3 新增）：通用原理题按 reference 要点覆盖率判
+# ------------------------------------------------------------
+# 为什么 principle 不能用裁判 1：裁判 1 的判据是「回答是否被资料支撑」，而 principle 题
+# 本来就不检索、没有资料；硬套会让「不检索」等于「无支撑」，系统性判错。
+# 为什么不直接让 judge 给 correct 布尔：覆盖率是可审计的中间量（覆盖了哪几条、漏了哪几条），
+# 布尔只给一个结论，出错时无法复盘。融合规则（≥60%）放在 config，脚本与报告读同一个常量。
+JUDGE_PRINCIPLE_SYSTEM = """你是严格的内容覆盖裁判。用户给出「问题」「参考要点」（编号列表）与「回答」。
+
+任务：逐条判断回答是否覆盖了每个参考要点。判定标准：
+- 覆盖：回答里能找到意思到位的表述（同义改写算覆盖，不要求逐字一致）；
+- 未覆盖：完全没提到，或只是沾边但没给出该要点的核心意思；
+- 不要评价语气、格式或长度；回答比参考要点更详细不算错，但漏掉的要点必须如实标出。
+
+只输出 JSON：{"covered": [已覆盖的要点编号...], "missed": [未覆盖的要点编号...], \
+"reason": "一句话理由（20 字内）"}"""
+
+
+def judge_principle(question: str, reference: list[str], answer: str, llm=None) -> dict:
+    """裁判 3：返回 {"covered": [...], "total": n, "coverage": float, "correct": bool, ...}。
+
+    correct 由覆盖率阈值（config.JUDGE_PRINCIPLE_PASS）判定，不由 judge 自己下结论 ——
+    阈值可复现、可审计；judge 只负责回答「哪几条被覆盖了」。
+    """
+    ref = "\n".join(f"{i}. {p}" for i, p in enumerate(reference, 1))
+    user = f"问题：{question}\n\n参考要点：\n{ref}\n\n回答：\n{answer}"
+    data, usage = _call_judge(llm, JUDGE_PRINCIPLE_SYSTEM, user)
+    n = len(reference)
+    covered: list[int] = []
+    for x in data.get("covered", []) or []:
+        try:
+            k = int(x)
+        except (TypeError, ValueError):
+            continue
+        if 1 <= k <= n:
+            covered.append(k)
+    covered = sorted(set(covered))
+    coverage = len(covered) / n if n else 0.0
+    return {"covered": covered, "total": n, "coverage": coverage,
+            "correct": coverage >= JUDGE_PRINCIPLE_PASS,
+            "reason": str(data.get("reason", "")), "usage": usage,
+            "cost": judge_cost(usage)}

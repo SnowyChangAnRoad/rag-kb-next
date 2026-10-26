@@ -1,0 +1,1940 @@
+{
+  "experiment": "w4_rejudge_qwen",
+  "generated_at": "2026-10-24 20:36:16",
+  "elapsed_s": 130.9,
+  "judge": {
+    "old_model": "deepseek（原始锚点未记录模型名）",
+    "new_model": "qwen3.8-max",
+    "new_base_url": "https://ws-rbtvfl1mut97g4dq.cn-beijing.maas.aliyuncs.com/compatible-mode/v1",
+    "temperature": 0,
+    "extra_body": {
+      "enable_thinking": false
+    }
+  },
+  "fingerprints": {
+    "trace_file": "w4_agentic_traces_full.jsonl",
+    "trace_sha256": "c4cb09f0f57327d439ecdb123df19073516724df57a90fe90f8e19b51ef0988b",
+    "old_stats_file": "eval_w4_agentic_stats_full.json"
+  },
+  "groups": {
+    "A": {
+      "old": {
+        "n": 20,
+        "correct": 19,
+        "answer_acc": 0.95,
+        "cite_at_k_judge": 0.6078431372549019,
+        "cite_at_k_regex": 0.7450980392156863,
+        "zero_cite": 0
+      },
+      "new": {
+        "n": 20,
+        "correct": 17,
+        "answer_acc": 0.85,
+        "cite_at_k_judge": 0.6470588235294118,
+        "cite_at_k_regex": 0.7450980392156863,
+        "zero_cite": 0
+      }
+    },
+    "C": {
+      "old": {
+        "n": 20,
+        "correct": 18,
+        "answer_acc": 0.9,
+        "cite_at_k_judge": 0.6444444444444445,
+        "cite_at_k_regex": 0.7777777777777778,
+        "zero_cite": 0
+      },
+      "new": {
+        "n": 20,
+        "correct": 17,
+        "answer_acc": 0.85,
+        "cite_at_k_judge": 0.6888888888888889,
+        "cite_at_k_regex": 0.7777777777777778,
+        "zero_cite": 0
+      }
+    }
+  },
+  "flips": [
+    {
+      "stage": "A",
+      "qid": "18",
+      "qtype": "cross",
+      "old_correct": true,
+      "new_correct": false,
+      "old_reason": "资料未含filter用法及操作符，拒答合理",
+      "new_reason": "资料能回答部分问题，不应完全拒答"
+    },
+    {
+      "stage": "A",
+      "qid": "21",
+      "qtype": "cross",
+      "old_correct": true,
+      "new_correct": false,
+      "old_reason": "回答核心结论均能在资料1和资料3中找到依据",
+      "new_reason": "编造了资料中未提及的「构建sources列表」做法"
+    },
+    {
+      "stage": "C",
+      "qid": "21",
+      "qtype": "cross",
+      "old_correct": true,
+      "new_correct": false,
+      "old_reason": "回答核心结论均有资料依据，无编造",
+      "new_reason": "问题要求结合sources列表做法，回答未涉及且编造关联"
+    }
+  ],
+  "new_anchor": {
+    "groups": {
+      "A": {
+        "n": 20,
+        "correct": 17,
+        "answer_acc": 0.85,
+        "cite_at_k_judge": 0.6470588235294118,
+        "cite_at_k_regex": 0.7450980392156863,
+        "slot_valid": 33,
+        "slot_total": 51,
+        "zero_cite": 0,
+        "out_no_cite_excluded": 3
+      },
+      "C": {
+        "n": 20,
+        "correct": 17,
+        "answer_acc": 0.85,
+        "cite_at_k_judge": 0.6888888888888889,
+        "cite_at_k_regex": 0.7777777777777778,
+        "slot_valid": 31,
+        "slot_total": 45,
+        "zero_cite": 0,
+        "out_no_cite_excluded": 3
+      }
+    },
+    "per_question": {
+      "A": [
+        {
+          "qid": "1",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答与资料内容一致，无编造或矛盾。",
+          "cite_total": 5,
+          "cite_valid": 3,
+          "invalid": [
+            1,
+            2
+          ],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "RAG 系统根据提出动因和主要特点可分为三类：NaiveRAG、AdvancedRAG，以及采用多智能体架构的一类（资料中该部分标题未完整显示，但描述为多智能体架构、主智能体协调子智能体、具备动态决策能力）[1][2][3]。  NaiveRAG 的提出动因：LLM 容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提供可追溯的证据[2]。主要特点：采用三步流程（文档切块→向量检索→拼接"
+        },
+        {
+          "qid": "2",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答核心结论均有资料支撑，无矛盾或编造。",
+          "cite_total": 5,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "和传统大语言模型相比，RAG 解决了以下关键问题：  1. **知识截止点问题**：传统LLM的训练数据有时间限制，无法获取最新信息；RAG通过引入外部知识库，在生成回答前先检索相关信息，显著提高了回答的时效性 [1]。 2. **幻觉问题**：传统LLM可能生成看似合理但实际错误的信息；RAG先检索相关信息再生成回答，从而显著提高回答的准确性 [1]。 3. **领域专业性不足**：传统LLM对"
+        },
+        {
+          "qid": "3",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "两阶段名称及细节均有资料支撑。",
+          "cite_total": 3,
+          "cite_valid": 2,
+          "invalid": [
+            2
+          ],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "Cloudflare 提供的 RAG 参考架构中，RAG 系统的实现通常分为两个核心阶段：知识库构建阶段（Knowledge Seeding）和实时查询响应阶段 [1][2]。其中，知识库构建阶段负责将原始文档上传至系统，经过初步处理后异步推送到队列 [1]。"
+        },
+        {
+          "qid": "4",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答与资料1和资料3内容完全一致。",
+          "cite_total": 5,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "向量数据库（Vectorize）中存储的向量通常包含以下关键组成部分：  1. **向量ID**：唯一标识符，通常基于文档路径和块索引生成 [1] 2. **向量值**：由嵌入模型生成的数值数组 [1] 3. **元数据**：与向量关联的描述性信息 [1] 4. **命名空间**：可选的向量分组标识 [1]  此外，元数据可存储文档来源、时间戳等信息 [3]。"
+        },
+        {
+          "qid": "5",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答内容均可在资料中找到依据，无编造。",
+          "cite_total": 3,
+          "cite_valid": 3,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "《RAGHandbook》建议中国大陆用户选择千问而不是 Gemini，原因有两点：  1. **服务可访问性**：Google 的服务在中国被封禁，而千问可正常使用 [1]。 2. **中文处理表现与成本**：千问 text-embedding-v4 模型在中文处理上表现更佳，且千问的嵌入模型和大语言模型都提供高质量的中文支持，更具成本优势（只有 Gemini API 约一半的价格）[1]。  "
+        },
+        {
+          "qid": "7",
+          "qtype": "cross",
+          "correct": false,
+          "correct_reason": "资料已给出语义检索原理，回答却拒答。",
+          "cite_total": 2,
+          "cite_valid": 2,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "资料中没有相关内容。  现有资料仅提到语义检索“使用向量化技术将查询和文档转换为语义向量，通过计算向量相似度找到语义相关的内容”[1]，以及检索时“把用户的查询转换成向量，然后根据这个向量在索引中进行搜索”[3]；但均未说明向量嵌入（embedding）的具体原理，也未解释为何向量检索比关键词匹配更能召回语义相关内容。"
+        },
+        {
+          "qid": "8",
+          "qtype": "cross",
+          "correct": true,
+          "correct_reason": "回答准确综合了资料1和资料2的内容，无编造。",
+          "cite_total": 5,
+          "cite_valid": 4,
+          "invalid": [
+            2
+          ],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "把复杂问题拆成子查询属于**预检索阶段**：Advanced RAG 将查询重写、扩展等归入预检索处理 [2]；而将复杂查询分解为多个更简单、具体的子查询，正是对用户查询进行改写/扩展的一种做法 [1][2]。  其作用是：让原本难以直接匹配语料库的复杂问题，转化为若干更易检索到具体信息的子查询，分别检索后再把检索到的上下文组合进提示，由大语言模型综合出最终答案，从而提高检索质量与生成质量 [1]"
+        },
+        {
+          "qid": "9",
+          "qtype": "out",
+          "correct": true,
+          "correct_reason": "资料未涉及扩散模型，回答正确拒答。",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "invalid": [],
+          "cited_ids": [],
+          "judge_valid_ids": [],
+          "regex_valid_ids": [],
+          "n_slots": 3,
+          "answer_preview": "资料中没有相关内容。"
+        },
+        {
+          "qid": "10",
+          "qtype": "out",
+          "correct": true,
+          "correct_reason": "资料未涉及GNN，回答正确拒答。",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "invalid": [],
+          "cited_ids": [],
+          "judge_valid_ids": [],
+          "regex_valid_ids": [],
+          "n_slots": 3,
+          "answer_preview": "资料中没有相关内容。提供的资料主要涉及 Transformer 的并行化、背景、RNN/LSTM/GRU 的序列建模局限，以及 RAG 技术，未包含图神经网络（GNN）的核心思想，也未说明 GNN 与 Transformer 的联系。"
+        },
+        {
+          "qid": "11",
+          "qtype": "cross",
+          "correct": true,
+          "correct_reason": "回答内容均可在资料1和资料2中找到依据，无编造。",
+          "cite_total": 3,
+          "cite_valid": 3,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "检索得到候选文档后、送入大模型前，可以进一步做过滤、重新排名或转换等优化：可基于相似度评分、关键词、元数据等过滤结果，也可用 LLM、句子-转换器交叉编码器、Cohere 重新排名端点等模型重新排名，或基于日期等元数据的新近性进行重排 [1]。这一环节属于将检索到的上下文输入大语言模型以得到最终答案之前的最后一步 [1]。在模块化 RAG 中，这类处理对应 PostRetrieval（检索后）模块"
+        },
+        {
+          "qid": "12",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "步骤顺序与资料一致，拼装和构建提示词判断正确。",
+          "cite_total": 2,
+          "cite_valid": 2,
+          "invalid": [],
+          "cited_ids": [
+            1
+          ],
+          "judge_valid_ids": [
+            1
+          ],
+          "regex_valid_ids": [
+            1
+          ],
+          "n_slots": 3,
+          "answer_preview": "《RAG知识》第4章列出的RAG流水线主要处理步骤依次为：Markdown内容 → 解析+Front-matter → 分块chunkText → 批量嵌入（Gemini/Qwen）→ 向量规整/裁剪 → 批量UpsertVectorize → 检索（查询+过滤+回退）→ 上下文拼装 → Prompt构建 [1]。  其中，负责把检索结果组织成送给大模型提示词的步骤是“上下文拼装”和“Prompt"
+        },
+        {
+          "qid": "15",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答内容均能在资料中找到依据，无编造。",
+          "cite_total": 6,
+          "cite_valid": 6,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "“维度”指每个文本被嵌入后所生成的向量包含的数值个数，例如维度为1024表示每个文本会被表示为一个包含1024个浮点数的向量 [1]。维度越高，向量能表达的信息越丰富，检索越精确，但存储和计算成本也会增加 [1]。  配置索引维度时必须与所选嵌入模型的输出维度一致，因为索引维度必须与嵌入模型输出维度匹配 [2]；实际开发中应严格按照所选嵌入模型的输出维度进行配置，而不是自行选择 [1]。例如千问 "
+        },
+        {
+          "qid": "16",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答内容均可在资料中找到依据，无编造。",
+          "cite_total": 5,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "聊天组件前端检测用户语言的方式与优先级如下：  - 客户端需要准确检测用户所用语言，为后续流程打下基础 [2]。 - 最小逻辑是：路径以 `/en/` 开头即英文，否则中文 [2]。 - 可扩展的优先级顺序为：URL → `navigator.language` → `meta` → `html lang` → 默认 `zh` [2]。 - 默认语言是中文（`zh`）[2]。 - 另外，简化语言检"
+        },
+        {
+          "qid": "18",
+          "qtype": "cross",
+          "correct": false,
+          "correct_reason": "资料能回答部分问题，不应完全拒答",
+          "cite_total": 4,
+          "cite_valid": 4,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "资料中没有相关内容。  说明：现有资料仅涉及 Vectorize 的元数据索引创建（string/number/boolean 类型）[2]、查询时使用元数据过滤的概述[2]、返回元数据设置[3]，以及“按标签过滤”等提法[1]；但均未给出 query 中 filter 的具体用法、支持的过滤操作符，也未包含《RAG 技术概览》中关于元数据过滤器的说法，因此无法据此说明可做哪些维度的过滤。"
+        },
+        {
+          "qid": "21",
+          "qtype": "cross",
+          "correct": false,
+          "correct_reason": "编造了资料中未提及的「构建sources列表」做法",
+          "cite_total": 6,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "**可追溯的实现方式**  RAG 系统在检索后会构建 sources 列表，把检索到的上下文组织进提示词并交由模型生成回答，从而使生成结果具备可追溯性 [1]。在引用层面，实践中可采用两种做法：一是将引用任务插入提示中，要求大语言模型提及所使用来源的 ID；二是将生成响应的部分与索引中的原始文本块进行匹配，LlamaIndex 为此提供了基于模糊匹配的高效方案 [3]。  **引用为什么不容易做"
+        },
+        {
+          "qid": "22",
+          "qtype": "partial",
+          "correct": true,
+          "correct_reason": "回答准确引用资料且对缺失内容明确拒答",
+          "cite_total": 2,
+          "cite_valid": 2,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "根据资料1，对 bge-large-en-v1.5 进行微调后，测试结果显示检索质量提高了 2% [1]。  关于在 8GB 显存显卡上微调 bge-small-zh 的具体训练参数和显存占用配置，资料中没有相关内容。资料3仅列出了 EMBED_DIM、EMBEDDING_BATCH_SIZE、UPSERT_LOAD_BATCH_SIZE 等常用配置参数及示例 [3]，未涉及 bge-small-"
+        },
+        {
+          "qid": "23",
+          "qtype": "partial",
+          "correct": true,
+          "correct_reason": "回答准确引用资料，未编造公式。",
+          "cite_total": 3,
+          "cite_valid": 3,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "「幻觉」指模型生成看似合理但实际错误信息的现象 [3]。RAG 能减少模型幻觉 [1]。  关于「信实度」：资料提到 Ragas 主要利用信实度和答案相关性作为评估生成答案质量的指标 [2]，但资料中没有给出信实度的具体计算方法或公式。"
+        },
+        {
+          "qid": "25",
+          "qtype": "partial",
+          "correct": true,
+          "correct_reason": "回答准确引用资料，且对无关问题明确拒答。",
+          "cite_total": 5,
+          "cite_valid": 4,
+          "invalid": [
+            3
+          ],
+          "cited_ids": [
+            1,
+            3
+          ],
+          "judge_valid_ids": [
+            1
+          ],
+          "regex_valid_ids": [
+            1,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "查询路由是一种基于LLM的决策步骤，用于确定针对用户查询接下来应采取的行动 [1]。它通常的选项包括：概括回答、针对某个数据索引执行搜索，或尝试多条不同的途径并将结果综合成一个答案 [1]。查询路由器还用于选择合适的索引或更广泛的数据存储位置来处理用户查询，可能涉及向量存储、图数据库、关系型数据库或多个数据来源 [1]。在多文档存储场景下，常见设置是一个概要索引和一个文档块向量索引，由路由器决定使"
+        },
+        {
+          "qid": "27",
+          "qtype": "out",
+          "correct": true,
+          "correct_reason": "资料未涉及BERT的MLM任务，拒答正确。",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "invalid": [],
+          "cited_ids": [],
+          "judge_valid_ids": [],
+          "regex_valid_ids": [],
+          "n_slots": 3,
+          "answer_preview": "资料中没有相关内容。"
+        },
+        {
+          "qid": "30",
+          "qtype": "out",
+          "correct": true,
+          "correct_reason": "回答内容均有资料依据，且如实说明未展开细节。",
+          "cite_total": 7,
+          "cite_valid": 7,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "**实现方式**：使用 Redis 的 `set key value NX PX 有效期(毫秒)` 命令实现分布式锁。该命令表示当 key 不存在时设置其值为 value，并同时设置有效期；返回 ok 表示执行成功即获取锁成功，多个客户端并发执行时 Redis 可确保只有一个能执行成功 [2]。分布式锁要解决的是跨 JVM 的互斥机制问题，用于控制共享资源的访问 [1]。在主流方案中，Redis "
+        }
+      ],
+      "C": [
+        {
+          "qid": "1",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答内容与资料完全一致，无编造或矛盾。",
+          "cite_total": 4,
+          "cite_valid": 4,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "RAG 系统根据提出动因和主要特点可分为 NaiveRAG、AdvancedRAG 等类别 [1][2]。其中 NaiveRAG 的提出动因是：LLM 容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提供可追溯的证据 [2]；主要特点是：采用三步流程（文档切块→向量检索→拼接提示生成），支持一体化端到端微调（如 RAG‑Sequence 和 RAG‑Token），能够减少模型幻觉，提升"
+        },
+        {
+          "qid": "2",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答内容均可在资料1和资料2中找到依据。",
+          "cite_total": 5,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "和传统大语言模型相比，RAG 解决了以下关键问题：  1. **知识截止点问题**：传统LLM的训练数据有时间限制，无法获取最新信息；RAG通过引入外部知识库，在生成回答前先检索相关信息，显著提高了回答的时效性 [1]。  2. **幻觉问题**：传统LLM可能生成看似合理但实际错误的信息；RAG先检索相关信息再生成回答，从而显著提高回答的准确性 [1]。  3. **领域专业性不足**：传统LL"
+        },
+        {
+          "qid": "3",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答的两个阶段及细节均有资料支撑。",
+          "cite_total": 3,
+          "cite_valid": 2,
+          "invalid": [
+            2
+          ],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "Cloudflare 提供的 RAG 参考架构中，RAG 系统的实现通常分为两个核心阶段：知识库构建阶段（Knowledge Seeding）和实时查询响应阶段 [1][2]。其中，知识库构建阶段会将原始文档上传至系统，经过初步处理后，消息被异步推送到队列 [1]。"
+        },
+        {
+          "qid": "4",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答与资料1和资料3内容完全一致。",
+          "cite_total": 5,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "向量数据库（Vectorize）中存储的向量通常包含以下关键组成部分：  1. **向量ID**：唯一标识符，通常基于文档路径和块索引生成 [1] 2. **向量值**：由嵌入模型生成的数值数组 [1] 3. **元数据**：与向量关联的描述性信息 [1] 4. **命名空间**：可选的向量分组标识 [1]  此外，元数据可存储文档来源、时间戳等信息 [3]。"
+        },
+        {
+          "qid": "5",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答内容均可在资料中找到依据，无编造。",
+          "cite_total": 4,
+          "cite_valid": 4,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "《RAGHandbook》建议中国大陆用户选择千问而不是 Gemini，原因包括：  1. Google 的服务在中国被封禁，而千问更适合中国大陆用户使用 [1]。 2. 千问的嵌入模型（如 text-embedding-v4）和大语言模型（如 qwen-turbo-latest）在中文处理上表现更佳，提供高质量的中文支持 [1]。 3. 千问更具成本优势，价格只有 Gemini API 约一半 "
+        },
+        {
+          "qid": "7",
+          "qtype": "cross",
+          "correct": false,
+          "correct_reason": "资料为空，回答未拒答而是自行作答。",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "invalid": [],
+          "cited_ids": [],
+          "judge_valid_ids": [],
+          "regex_valid_ids": [],
+          "n_slots": 0,
+          "answer_preview": "把文本变成向量再检索，本质是把“字面匹配”换成“语义空间中的近邻搜索”。向量嵌入模型把文本映射为高维向量，使语义相近的文本在向量空间中距离更近；检索时计算查询向量与文档向量的相似度（如余弦相似度），返回最近邻。因此，即使查询和文档没有相同关键词，只要表达相近含义，也可能被召回。关键词匹配依赖词项是否重合，难以处理同义表达、改写、上下位关系和跨语言表述；语义检索则通过嵌入捕获这些语义关联，所以更可能"
+        },
+        {
+          "qid": "8",
+          "qtype": "cross",
+          "correct": true,
+          "correct_reason": "回答准确综合了两份资料，无编造或矛盾。",
+          "cite_total": 5,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "把复杂问题拆成子查询属于**预检索阶段**：Advanced RAG 将查询重写、扩展等归入预检索处理 [2]；而将复杂查询分解为多个更简单、具体的子查询，正是对用户查询进行改写/扩展的一种做法 [1][2]。  它的作用是：提高检索质量——复杂问题（如框架对比）难以直接命中语料，分解为子查询后可并行检索，再将检索到的上下文组合进提示，供大语言模型综合出最终答案 [1]；从 Advanced RA"
+        },
+        {
+          "qid": "9",
+          "qtype": "out",
+          "correct": true,
+          "correct_reason": "资料未涉及扩散模型，回答正确拒答。",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "invalid": [],
+          "cited_ids": [],
+          "judge_valid_ids": [],
+          "regex_valid_ids": [],
+          "n_slots": 3,
+          "answer_preview": "资料中没有相关内容。"
+        },
+        {
+          "qid": "10",
+          "qtype": "out",
+          "correct": true,
+          "correct_reason": "资料未涉及GNN，回答正确拒答。",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "invalid": [],
+          "cited_ids": [],
+          "judge_valid_ids": [],
+          "regex_valid_ids": [],
+          "n_slots": 3,
+          "answer_preview": "资料中没有相关内容。"
+        },
+        {
+          "qid": "11",
+          "qtype": "cross",
+          "correct": false,
+          "correct_reason": "资料为空，回答未拒答而是编造了内容",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "invalid": [],
+          "cited_ids": [],
+          "judge_valid_ids": [],
+          "regex_valid_ids": [],
+          "n_slots": 0,
+          "answer_preview": "检索得到候选文档后、送进大模型前，通常还可做以下处理来提升质量：  1. **去重与去噪**：删除重复、空白、导航栏、广告、模板化内容等低信息文本。 2. **相关性重排/过滤**：用重排模型或规则按与问题的相关性排序，截断低分文档。 3. **分块优化**：调整 chunk 大小、重叠度，或按语义/段落重新切分。 4. **内容清洗与规范化**：统一格式、修复乱码、去除无关标记、保留关键结构。 "
+        },
+        {
+          "qid": "12",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "步骤顺序与资料一致，结论有据可依。",
+          "cite_total": 2,
+          "cite_valid": 2,
+          "invalid": [],
+          "cited_ids": [
+            1
+          ],
+          "judge_valid_ids": [
+            1
+          ],
+          "regex_valid_ids": [
+            1
+          ],
+          "n_slots": 3,
+          "answer_preview": "按【资料1】第4章，RAG流水线从内容接入到答案生成的主要处理步骤依次为：Markdown内容 → 解析+Front-matter → 分块chunkText → 批量嵌入（Gemini/Qwen） → 向量规整/裁剪 → 批量UpsertVectorize → 检索（查询+过滤+回退） → 上下文拼装 → Prompt构建 [1]。  其中，负责把检索结果组织成送给大模型提示词的步骤是“上下文拼"
+        },
+        {
+          "qid": "15",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答内容均可在资料中找到依据，无编造或矛盾。",
+          "cite_total": 6,
+          "cite_valid": 6,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "“维度”指每个文本被嵌入后所生成向量包含的数值个数，例如维度为1024表示每个文本会被表示为一个包含1024个浮点数的向量 [1]。维度越高，向量能表达的信息越丰富，检索越精确，但存储和计算成本也会增加 [1]。  配置索引维度时必须与所选嵌入模型的输出维度一致，因为索引维度必须与嵌入模型输出维度匹配 [2]；实际开发中应严格按照所选嵌入模型的输出维度进行配置，而不是自行选择 [1]。例如千问 t"
+        },
+        {
+          "qid": "16",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答内容均可在资料中找到依据，无编造。",
+          "cite_total": 5,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "聊天组件前端检测用户语言的方式与优先级如下：  - 客户端需要准确检测用户所用语言，为后续流程打下基础 [2]。 - 最小逻辑是：路径以 `/en/` 开头即英文，否则中文 [2]。 - 可扩展的优先级顺序为：URL → `navigator.language` → `meta` → `html lang` → 默认 `zh` [2]。 - 默认语言是中文（`zh`）[2]。 - 另有资料说明，简"
+        },
+        {
+          "qid": "18",
+          "qtype": "cross",
+          "correct": true,
+          "correct_reason": "回答准确引用资料，并正确说明缺少相关内容。",
+          "cite_total": 7,
+          "cite_valid": 6,
+          "invalid": [
+            2
+          ],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "在向量检索时，可通过在查询中传入 `filter` 对象实现基于元数据的过滤查询 [2][3]。例如查询时设置 `filter: { url: { $eq: \"/blog/post-1\" } }`，并配合 `returnMetadata: \"all\"` 返回元数据 [3]。支持的过滤操作符包括：`$eq`（等于）、`$ne`（不等于）、`$in`（在指定数组中）、`$nin`（不在指定数组中）、`"
+        },
+        {
+          "qid": "21",
+          "qtype": "cross",
+          "correct": false,
+          "correct_reason": "问题要求结合sources列表做法，回答未涉及且编造关联",
+          "cite_total": 5,
+          "cite_valid": 4,
+          "invalid": [
+            2
+          ],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "**可追溯的实现方式**  RAG 系统在答案生成流程中，用户消息先被嵌入为查询向量，用于在向量库中检索相关上下文，检索到的上下文再被组织进提示词交由模型生成最终回答，从而保证生成结果具备可追溯性 [1]。RAG 的提出动因之一正是参数化知识难以更新，需要外部检索补充知识并提供可追溯的证据 [2]。  **引用在实践中为什么不容易做准**  当使用多个来源生成答案时——无论是因初始查询复杂而需执行"
+        },
+        {
+          "qid": "22",
+          "qtype": "partial",
+          "correct": true,
+          "correct_reason": "回答准确引用资料，缺失部分明确拒答。",
+          "cite_total": 4,
+          "cite_valid": 3,
+          "invalid": [
+            1
+          ],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            2,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "根据资料，微调嵌入模型（如 bge-large-en-v1.5）的测试结果显示检索质量提高了 2% [1][3]。另外，交叉编码器微调可使成对得分提升 4% [1]。  关于在 8GB 显存显卡上微调 bge-small-zh 的具体训练参数和显存占用配置，资料中没有相关内容。资料2仅列出 EMBED_DIM、EMBEDDING_BATCH_SIZE、UPLOAD_BATCH_SIZE 等通用配置"
+        },
+        {
+          "qid": "23",
+          "qtype": "partial",
+          "correct": true,
+          "correct_reason": "回答准确引用资料，未编造公式。",
+          "cite_total": 3,
+          "cite_valid": 3,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "「幻觉」指模型生成看似合理但实际错误信息的现象 [2]。RAG 能减少模型幻觉、提升开放域问答准确率 [1]。  关于「信实度」：资料3只提到评估RAG系统性能时涉及信实度等指标，并指出Ragas主要利用信实度和答案相关性作为评估生成答案质量的指标 [3]；但资料中没有给出信实度的具体计算方法或公式。"
+        },
+        {
+          "qid": "25",
+          "qtype": "partial",
+          "correct": true,
+          "correct_reason": "回答准确引用资料，且对无关问题明确拒答。",
+          "cite_total": 5,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "查询路由是一种基于LLM的决策步骤，用于确定针对用户查询接下来应采取的行动 [1]。它通常的选项包括：概括回答、针对某个数据索引执行搜索，或尝试多条不同的途径并将结果综合成一个答案 [1]。查询路由器还用于选择合适的索引或更广泛的数据存储位置来处理用户查询，可能涉及向量存储、图数据库、关系型数据库或多个数据来源 [1]。在多文档存储场景下，常见设置是一个概要索引和一个文档块向量索引，由路由器决定使"
+        },
+        {
+          "qid": "27",
+          "qtype": "out",
+          "correct": true,
+          "correct_reason": "资料未涉及BERT的MLM任务，拒答正确。",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "invalid": [],
+          "cited_ids": [],
+          "judge_valid_ids": [],
+          "regex_valid_ids": [],
+          "n_slots": 3,
+          "answer_preview": "资料中没有相关内容。"
+        },
+        {
+          "qid": "30",
+          "qtype": "out",
+          "correct": true,
+          "correct_reason": "回答内容均有资料依据，且如实说明细节缺失。",
+          "cite_total": 6,
+          "cite_valid": 6,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "**实现方式**：使用 Redis 的 `set key value NX PX 有效期(毫秒)` 命令实现分布式锁。该命令表示当 key 不存在时设置其值为 value，并同时设置有效期；返回 ok 表示执行成功即获取锁成功，多个客户端并发执行时 Redis 可确保只有一个能执行成功 [2]。示例：`set sku:1:info \"ok\" NX PX 10000` 表示当 sku:1:info "
+        }
+      ]
+    },
+    "a_wrong_c_right": [
+      {
+        "qid": "18",
+        "qtype": "cross",
+        "a_reason": "资料能回答部分问题，不应完全拒答",
+        "c_reason": "回答准确引用资料，并正确说明缺少相关内容。",
+        "a_answer": "资料中没有相关内容。  说明：现有资料仅涉及 Vectorize 的元数据索引创建（string/number/boolean 类型）[2]、查询时使用元数据过滤的概述[2]、返回元数据设置[3]，以及“按标签过滤”等提法[1]；但均未给出 query 中 filter 的具体用法、支持的过滤操作符，也未包含《RAG 技术概览》中关于元数据过滤器的说法，因此无法据此说明可做哪些维度的过滤。",
+        "c_answer": "在向量检索时，可通过在查询中传入 `filter` 对象实现基于元数据的过滤查询 [2][3]。例如查询时设置 `filter: { url: { $eq: \"/blog/post-1\" } }`，并配合 `returnMetadata: \"all\"` 返回元数据 [3]。支持的过滤操作符包括：`$eq`（等于）、`$ne`（不等于）、`$in`（在指定数组中）、`$nin`（不在指定数组中）、`"
+      }
+    ],
+    "judge_tokens": {
+      "prompt": 70590,
+      "completion": 2276
+    }
+  },
+  "old_anchor": {
+    "groups": {
+      "A": {
+        "n": 20,
+        "correct": 19,
+        "answer_acc": 0.95,
+        "cite_at_k_judge": 0.6078431372549019,
+        "cite_at_k_regex": 0.7450980392156863,
+        "slot_valid": 31,
+        "slot_total": 51,
+        "zero_cite": 0,
+        "out_no_cite_excluded": 3
+      },
+      "C": {
+        "n": 20,
+        "correct": 18,
+        "answer_acc": 0.9,
+        "cite_at_k_judge": 0.6444444444444445,
+        "cite_at_k_regex": 0.7777777777777778,
+        "slot_valid": 29,
+        "slot_total": 45,
+        "zero_cite": 0,
+        "out_no_cite_excluded": 3
+      }
+    },
+    "per_question": {
+      "A": [
+        {
+          "qid": "1",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "分类及NaiveRAG动因特点均与资料一致",
+          "cite_total": 4,
+          "cite_valid": 2,
+          "invalid": [
+            1,
+            3
+          ],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "RAG 系统根据提出动因和主要特点可分为三类：NaiveRAG、AdvancedRAG，以及采用多智能体架构的一类（资料中该部分标题未完整显示，但描述为多智能体架构、主智能体协调子智能体、具备动态决策能力）[1][2][3]。  NaiveRAG 的提出动因：LLM 容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提供可追溯的证据[2]。主要特点：采用三步流程（文档切块→向量检索→拼接"
+        },
+        {
+          "qid": "2",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答四点均可在资料1中找到依据",
+          "cite_total": 5,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "和传统大语言模型相比，RAG 解决了以下关键问题：  1. **知识截止点问题**：传统LLM的训练数据有时间限制，无法获取最新信息；RAG通过引入外部知识库，在生成回答前先检索相关信息，显著提高了回答的时效性 [1]。 2. **幻觉问题**：传统LLM可能生成看似合理但实际错误的信息；RAG先检索相关信息再生成回答，从而显著提高回答的准确性 [1]。 3. **领域专业性不足**：传统LLM对"
+        },
+        {
+          "qid": "3",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "资料1明确提及知识库构建阶段，资料2提及实时查询响应阶段，回答有依据",
+          "cite_total": 3,
+          "cite_valid": 2,
+          "invalid": [
+            2
+          ],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "Cloudflare 提供的 RAG 参考架构中，RAG 系统的实现通常分为两个核心阶段：知识库构建阶段（Knowledge Seeding）和实时查询响应阶段 [1][2]。其中，知识库构建阶段负责将原始文档上传至系统，经过初步处理后异步推送到队列 [1]。"
+        },
+        {
+          "qid": "4",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答与资料1的向量组成部分完全一致",
+          "cite_total": 5,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "向量数据库（Vectorize）中存储的向量通常包含以下关键组成部分：  1. **向量ID**：唯一标识符，通常基于文档路径和块索引生成 [1] 2. **向量值**：由嵌入模型生成的数值数组 [1] 3. **元数据**：与向量关联的描述性信息 [1] 4. **命名空间**：可选的向量分组标识 [1]  此外，元数据可存储文档来源、时间戳等信息 [3]。"
+        },
+        {
+          "qid": "5",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "资料1明确给出封禁、中文表现和成本优势依据",
+          "cite_total": 3,
+          "cite_valid": 3,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "《RAGHandbook》建议中国大陆用户选择千问而不是 Gemini，原因有两点：  1. **服务可访问性**：Google 的服务在中国被封禁，而千问可正常使用 [1]。 2. **中文处理表现与成本**：千问 text-embedding-v4 模型在中文处理上表现更佳，且千问的嵌入模型和大语言模型都提供高质量的中文支持，更具成本优势（只有 Gemini API 约一半的价格）[1]。  "
+        },
+        {
+          "qid": "7",
+          "qtype": "cross",
+          "correct": false,
+          "correct_reason": "资料已说明语义检索原理，回答却拒答",
+          "cite_total": 2,
+          "cite_valid": 2,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "资料中没有相关内容。  现有资料仅提到语义检索“使用向量化技术将查询和文档转换为语义向量，通过计算向量相似度找到语义相关的内容”[1]，以及检索时“把用户的查询转换成向量，然后根据这个向量在索引中进行搜索”[3]；但均未说明向量嵌入（embedding）的具体原理，也未解释为何向量检索比关键词匹配更能召回语义相关内容。"
+        },
+        {
+          "qid": "8",
+          "qtype": "cross",
+          "correct": true,
+          "correct_reason": "回答结论与资料1、2一致，无编造",
+          "cite_total": 4,
+          "cite_valid": 3,
+          "invalid": [
+            2
+          ],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "把复杂问题拆成子查询属于**预检索阶段**：Advanced RAG 将查询重写、扩展等归入预检索处理 [2]；而将复杂查询分解为多个更简单、具体的子查询，正是对用户查询进行改写/扩展的一种做法 [1][2]。  其作用是：让原本难以直接匹配语料库的复杂问题，转化为若干更易检索到具体信息的子查询，分别检索后再把检索到的上下文组合进提示，由大语言模型综合出最终答案，从而提高检索质量与生成质量 [1]"
+        },
+        {
+          "qid": "9",
+          "qtype": "out",
+          "correct": true,
+          "correct_reason": "资料未涉及扩散模型，回答明确拒答",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "invalid": [],
+          "cited_ids": [],
+          "judge_valid_ids": [],
+          "regex_valid_ids": [],
+          "n_slots": 3,
+          "answer_preview": "资料中没有相关内容。"
+        },
+        {
+          "qid": "10",
+          "qtype": "out",
+          "correct": true,
+          "correct_reason": "资料未涉及GNN，回答明确拒答",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "invalid": [],
+          "cited_ids": [],
+          "judge_valid_ids": [],
+          "regex_valid_ids": [],
+          "n_slots": 3,
+          "answer_preview": "资料中没有相关内容。提供的资料主要涉及 Transformer 的并行化、背景、RNN/LSTM/GRU 的序列建模局限，以及 RAG 技术，未包含图神经网络（GNN）的核心思想，也未说明 GNN 与 Transformer 的联系。"
+        },
+        {
+          "qid": "11",
+          "qtype": "cross",
+          "correct": true,
+          "correct_reason": "回答内容均可在资料1和资料2中找到依据",
+          "cite_total": 3,
+          "cite_valid": 3,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "检索得到候选文档后、送入大模型前，可以进一步做过滤、重新排名或转换等优化：可基于相似度评分、关键词、元数据等过滤结果，也可用 LLM、句子-转换器交叉编码器、Cohere 重新排名端点等模型重新排名，或基于日期等元数据的新近性进行重排 [1]。这一环节属于将检索到的上下文输入大语言模型以得到最终答案之前的最后一步 [1]。在模块化 RAG 中，这类处理对应 PostRetrieval（检索后）模块"
+        },
+        {
+          "qid": "12",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "步骤顺序与资料1一致，提示词相关步骤判断合理",
+          "cite_total": 2,
+          "cite_valid": 2,
+          "invalid": [],
+          "cited_ids": [
+            1
+          ],
+          "judge_valid_ids": [
+            1
+          ],
+          "regex_valid_ids": [
+            1
+          ],
+          "n_slots": 3,
+          "answer_preview": "《RAG知识》第4章列出的RAG流水线主要处理步骤依次为：Markdown内容 → 解析+Front-matter → 分块chunkText → 批量嵌入（Gemini/Qwen）→ 向量规整/裁剪 → 批量UpsertVectorize → 检索（查询+过滤+回退）→ 上下文拼装 → Prompt构建 [1]。  其中，负责把检索结果组织成送给大模型提示词的步骤是“上下文拼装”和“Prompt"
+        },
+        {
+          "qid": "15",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答核心结论均能在资料中找到依据",
+          "cite_total": 5,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "“维度”指每个文本被嵌入后所生成的向量包含的数值个数，例如维度为1024表示每个文本会被表示为一个包含1024个浮点数的向量 [1]。维度越高，向量能表达的信息越丰富，检索越精确，但存储和计算成本也会增加 [1]。  配置索引维度时必须与所选嵌入模型的输出维度一致，因为索引维度必须与嵌入模型输出维度匹配 [2]；实际开发中应严格按照所选嵌入模型的输出维度进行配置，而不是自行选择 [1]。例如千问 "
+        },
+        {
+          "qid": "16",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答的检测方式、优先级和默认语言均可在资料2中找到依据",
+          "cite_total": 5,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "聊天组件前端检测用户语言的方式与优先级如下：  - 客户端需要准确检测用户所用语言，为后续流程打下基础 [2]。 - 最小逻辑是：路径以 `/en/` 开头即英文，否则中文 [2]。 - 可扩展的优先级顺序为：URL → `navigator.language` → `meta` → `html lang` → 默认 `zh` [2]。 - 默认语言是中文（`zh`）[2]。 - 另外，简化语言检"
+        },
+        {
+          "qid": "18",
+          "qtype": "cross",
+          "correct": true,
+          "correct_reason": "资料未含filter用法及操作符，拒答合理",
+          "cite_total": 3,
+          "cite_valid": 3,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "资料中没有相关内容。  说明：现有资料仅涉及 Vectorize 的元数据索引创建（string/number/boolean 类型）[2]、查询时使用元数据过滤的概述[2]、返回元数据设置[3]，以及“按标签过滤”等提法[1]；但均未给出 query 中 filter 的具体用法、支持的过滤操作符，也未包含《RAG 技术概览》中关于元数据过滤器的说法，因此无法据此说明可做哪些维度的过滤。"
+        },
+        {
+          "qid": "21",
+          "qtype": "cross",
+          "correct": true,
+          "correct_reason": "回答核心结论均能在资料1和资料3中找到依据",
+          "cite_total": 6,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "**可追溯的实现方式**  RAG 系统在检索后会构建 sources 列表，把检索到的上下文组织进提示词并交由模型生成回答，从而使生成结果具备可追溯性 [1]。在引用层面，实践中可采用两种做法：一是将引用任务插入提示中，要求大语言模型提及所使用来源的 ID；二是将生成响应的部分与索引中的原始文本块进行匹配，LlamaIndex 为此提供了基于模糊匹配的高效方案 [3]。  **引用为什么不容易做"
+        },
+        {
+          "qid": "22",
+          "qtype": "partial",
+          "correct": true,
+          "correct_reason": "检索提升2%有依据，显存配置资料无相关内容故拒答",
+          "cite_total": 2,
+          "cite_valid": 1,
+          "invalid": [
+            3
+          ],
+          "cited_ids": [
+            1,
+            3
+          ],
+          "judge_valid_ids": [
+            1
+          ],
+          "regex_valid_ids": [
+            1,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "根据资料1，对 bge-large-en-v1.5 进行微调后，测试结果显示检索质量提高了 2% [1]。  关于在 8GB 显存显卡上微调 bge-small-zh 的具体训练参数和显存占用配置，资料中没有相关内容。资料3仅列出了 EMBED_DIM、EMBEDDING_BATCH_SIZE、UPSERT_LOAD_BATCH_SIZE 等常用配置参数及示例 [3]，未涉及 bge-small-"
+        },
+        {
+          "qid": "23",
+          "qtype": "partial",
+          "correct": true,
+          "correct_reason": "幻觉定义有据，信实度公式资料未给，回答如实说明",
+          "cite_total": 3,
+          "cite_valid": 3,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "「幻觉」指模型生成看似合理但实际错误信息的现象 [3]。RAG 能减少模型幻觉 [1]。  关于「信实度」：资料提到 Ragas 主要利用信实度和答案相关性作为评估生成答案质量的指标 [2]，但资料中没有给出信实度的具体计算方法或公式。"
+        },
+        {
+          "qid": "25",
+          "qtype": "partial",
+          "correct": true,
+          "correct_reason": "路由机制有资料支撑，接口问题资料无相关内容故拒答",
+          "cite_total": 5,
+          "cite_valid": 4,
+          "invalid": [
+            3
+          ],
+          "cited_ids": [
+            1,
+            3
+          ],
+          "judge_valid_ids": [
+            1
+          ],
+          "regex_valid_ids": [
+            1,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "查询路由是一种基于LLM的决策步骤，用于确定针对用户查询接下来应采取的行动 [1]。它通常的选项包括：概括回答、针对某个数据索引执行搜索，或尝试多条不同的途径并将结果综合成一个答案 [1]。查询路由器还用于选择合适的索引或更广泛的数据存储位置来处理用户查询，可能涉及向量存储、图数据库、关系型数据库或多个数据来源 [1]。在多文档存储场景下，常见设置是一个概要索引和一个文档块向量索引，由路由器决定使"
+        },
+        {
+          "qid": "27",
+          "qtype": "out",
+          "correct": true,
+          "correct_reason": "资料未涉及BERT的MLM，拒答合理",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "invalid": [],
+          "cited_ids": [],
+          "judge_valid_ids": [],
+          "regex_valid_ids": [],
+          "n_slots": 3,
+          "answer_preview": "资料中没有相关内容。"
+        },
+        {
+          "qid": "30",
+          "qtype": "out",
+          "correct": true,
+          "correct_reason": "核心结论均有资料依据，未编造事实",
+          "cite_total": 8,
+          "cite_valid": 6,
+          "invalid": [
+            3,
+            3
+          ],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "**实现方式**：使用 Redis 的 `set key value NX PX 有效期(毫秒)` 命令实现分布式锁。该命令表示当 key 不存在时设置其值为 value，并同时设置有效期；返回 ok 表示执行成功即获取锁成功，多个客户端并发执行时 Redis 可确保只有一个能执行成功 [2]。分布式锁要解决的是跨 JVM 的互斥机制问题，用于控制共享资源的访问 [1]。在主流方案中，Redis "
+        }
+      ],
+      "C": [
+        {
+          "qid": "1",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "分类及NaiveRAG动因特点均与资料一致",
+          "cite_total": 3,
+          "cite_valid": 2,
+          "invalid": [
+            1
+          ],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "RAG 系统根据提出动因和主要特点可分为 NaiveRAG、AdvancedRAG 等类别 [1][2]。其中 NaiveRAG 的提出动因是：LLM 容易出现“幻觉”，参数化知识难以更新，需要外部检索补充知识并提供可追溯的证据 [2]；主要特点是：采用三步流程（文档切块→向量检索→拼接提示生成），支持一体化端到端微调（如 RAG‑Sequence 和 RAG‑Token），能够减少模型幻觉，提升"
+        },
+        {
+          "qid": "2",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答四点均直接对应资料1的局限性及RAG解决方案",
+          "cite_total": 5,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "和传统大语言模型相比，RAG 解决了以下关键问题：  1. **知识截止点问题**：传统LLM的训练数据有时间限制，无法获取最新信息；RAG通过引入外部知识库，在生成回答前先检索相关信息，显著提高了回答的时效性 [1]。  2. **幻觉问题**：传统LLM可能生成看似合理但实际错误的信息；RAG先检索相关信息再生成回答，从而显著提高回答的准确性 [1]。  3. **领域专业性不足**：传统LL"
+        },
+        {
+          "qid": "3",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "资料1明确提及两大阶段，回答与资料一致",
+          "cite_total": 3,
+          "cite_valid": 2,
+          "invalid": [
+            2
+          ],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "Cloudflare 提供的 RAG 参考架构中，RAG 系统的实现通常分为两个核心阶段：知识库构建阶段（Knowledge Seeding）和实时查询响应阶段 [1][2]。其中，知识库构建阶段会将原始文档上传至系统，经过初步处理后，消息被异步推送到队列 [1]。"
+        },
+        {
+          "qid": "4",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答与资料1的向量组成部分完全一致",
+          "cite_total": 5,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "向量数据库（Vectorize）中存储的向量通常包含以下关键组成部分：  1. **向量ID**：唯一标识符，通常基于文档路径和块索引生成 [1] 2. **向量值**：由嵌入模型生成的数值数组 [1] 3. **元数据**：与向量关联的描述性信息 [1] 4. **命名空间**：可选的向量分组标识 [1]  此外，元数据可存储文档来源、时间戳等信息 [3]。"
+        },
+        {
+          "qid": "5",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "资料1明确给出封禁、中文表现、成本优势等理由",
+          "cite_total": 4,
+          "cite_valid": 4,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "《RAGHandbook》建议中国大陆用户选择千问而不是 Gemini，原因包括：  1. Google 的服务在中国被封禁，而千问更适合中国大陆用户使用 [1]。 2. 千问的嵌入模型（如 text-embedding-v4）和大语言模型（如 qwen-turbo-latest）在中文处理上表现更佳，提供高质量的中文支持 [1]。 3. 千问更具成本优势，价格只有 Gemini API 约一半 "
+        },
+        {
+          "qid": "7",
+          "qtype": "cross",
+          "correct": false,
+          "correct_reason": "资料为空，回答无依据",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "invalid": [],
+          "cited_ids": [],
+          "judge_valid_ids": [],
+          "regex_valid_ids": [],
+          "n_slots": 0,
+          "answer_preview": "把文本变成向量再检索，本质是把“字面匹配”换成“语义空间中的近邻搜索”。向量嵌入模型把文本映射为高维向量，使语义相近的文本在向量空间中距离更近；检索时计算查询向量与文档向量的相似度（如余弦相似度），返回最近邻。因此，即使查询和文档没有相同关键词，只要表达相近含义，也可能被召回。关键词匹配依赖词项是否重合，难以处理同义表达、改写、上下位关系和跨语言表述；语义检索则通过嵌入捕获这些语义关联，所以更可能"
+        },
+        {
+          "qid": "8",
+          "qtype": "cross",
+          "correct": true,
+          "correct_reason": "回答结论均能在资料1和资料2中找到依据",
+          "cite_total": 4,
+          "cite_valid": 4,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "把复杂问题拆成子查询属于**预检索阶段**：Advanced RAG 将查询重写、扩展等归入预检索处理 [2]；而将复杂查询分解为多个更简单、具体的子查询，正是对用户查询进行改写/扩展的一种做法 [1][2]。  它的作用是：提高检索质量——复杂问题（如框架对比）难以直接命中语料，分解为子查询后可并行检索，再将检索到的上下文组合进提示，供大语言模型综合出最终答案 [1]；从 Advanced RA"
+        },
+        {
+          "qid": "9",
+          "qtype": "out",
+          "correct": true,
+          "correct_reason": "资料未涉及扩散模型或Stable Diffusion，拒答正确",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "invalid": [],
+          "cited_ids": [],
+          "judge_valid_ids": [],
+          "regex_valid_ids": [],
+          "n_slots": 3,
+          "answer_preview": "资料中没有相关内容。"
+        },
+        {
+          "qid": "10",
+          "qtype": "out",
+          "correct": true,
+          "correct_reason": "资料未涉及GNN，回答明确拒答",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "invalid": [],
+          "cited_ids": [],
+          "judge_valid_ids": [],
+          "regex_valid_ids": [],
+          "n_slots": 3,
+          "answer_preview": "资料中没有相关内容。"
+        },
+        {
+          "qid": "11",
+          "qtype": "cross",
+          "correct": false,
+          "correct_reason": "资料为空，回答无依据",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "invalid": [],
+          "cited_ids": [],
+          "judge_valid_ids": [],
+          "regex_valid_ids": [],
+          "n_slots": 0,
+          "answer_preview": "检索得到候选文档后、送进大模型前，通常还可做以下处理来提升质量：  1. **去重与去噪**：删除重复、空白、导航栏、广告、模板化内容等低信息文本。 2. **相关性重排/过滤**：用重排模型或规则按与问题的相关性排序，截断低分文档。 3. **分块优化**：调整 chunk 大小、重叠度，或按语义/段落重新切分。 4. **内容清洗与规范化**：统一格式、修复乱码、去除无关标记、保留关键结构。 "
+        },
+        {
+          "qid": "12",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "步骤顺序与资料1一致，组织提示词步骤有依据",
+          "cite_total": 2,
+          "cite_valid": 2,
+          "invalid": [],
+          "cited_ids": [
+            1
+          ],
+          "judge_valid_ids": [
+            1
+          ],
+          "regex_valid_ids": [
+            1
+          ],
+          "n_slots": 3,
+          "answer_preview": "按【资料1】第4章，RAG流水线从内容接入到答案生成的主要处理步骤依次为：Markdown内容 → 解析+Front-matter → 分块chunkText → 批量嵌入（Gemini/Qwen） → 向量规整/裁剪 → 批量UpsertVectorize → 检索（查询+过滤+回退） → 上下文拼装 → Prompt构建 [1]。  其中，负责把检索结果组织成送给大模型提示词的步骤是“上下文拼"
+        },
+        {
+          "qid": "15",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答核心结论均能在资料1-3中找到依据",
+          "cite_total": 5,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "“维度”指每个文本被嵌入后所生成向量包含的数值个数，例如维度为1024表示每个文本会被表示为一个包含1024个浮点数的向量 [1]。维度越高，向量能表达的信息越丰富，检索越精确，但存储和计算成本也会增加 [1]。  配置索引维度时必须与所选嵌入模型的输出维度一致，因为索引维度必须与嵌入模型输出维度匹配 [2]；实际开发中应严格按照所选嵌入模型的输出维度进行配置，而不是自行选择 [1]。例如千问 t"
+        },
+        {
+          "qid": "16",
+          "qtype": "in",
+          "correct": true,
+          "correct_reason": "回答的检测方式、优先级和默认语言均可在资料2中找到依据",
+          "cite_total": 5,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2
+          ],
+          "n_slots": 3,
+          "answer_preview": "聊天组件前端检测用户语言的方式与优先级如下：  - 客户端需要准确检测用户所用语言，为后续流程打下基础 [2]。 - 最小逻辑是：路径以 `/en/` 开头即英文，否则中文 [2]。 - 可扩展的优先级顺序为：URL → `navigator.language` → `meta` → `html lang` → 默认 `zh` [2]。 - 默认语言是中文（`zh`）[2]。 - 另有资料说明，简"
+        },
+        {
+          "qid": "18",
+          "qtype": "cross",
+          "correct": true,
+          "correct_reason": "回答核心结论均有资料依据，且对未提及内容明确说明",
+          "cite_total": 6,
+          "cite_valid": 5,
+          "invalid": [
+            2
+          ],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "在向量检索时，可通过在查询中传入 `filter` 对象实现基于元数据的过滤查询 [2][3]。例如查询时设置 `filter: { url: { $eq: \"/blog/post-1\" } }`，并配合 `returnMetadata: \"all\"` 返回元数据 [3]。支持的过滤操作符包括：`$eq`（等于）、`$ne`（不等于）、`$in`（在指定数组中）、`$nin`（不在指定数组中）、`"
+        },
+        {
+          "qid": "21",
+          "qtype": "cross",
+          "correct": true,
+          "correct_reason": "回答核心结论均有资料依据，无编造",
+          "cite_total": 5,
+          "cite_valid": 4,
+          "invalid": [
+            2
+          ],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "**可追溯的实现方式**  RAG 系统在答案生成流程中，用户消息先被嵌入为查询向量，用于在向量库中检索相关上下文，检索到的上下文再被组织进提示词交由模型生成最终回答，从而保证生成结果具备可追溯性 [1]。RAG 的提出动因之一正是参数化知识难以更新，需要外部检索补充知识并提供可追溯的证据 [2]。  **引用在实践中为什么不容易做准**  当使用多个来源生成答案时——无论是因初始查询复杂而需执行"
+        },
+        {
+          "qid": "22",
+          "qtype": "partial",
+          "correct": true,
+          "correct_reason": "检索提升2%有依据，显存配置资料无相关内容故拒答",
+          "cite_total": 3,
+          "cite_valid": 2,
+          "invalid": [
+            2
+          ],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "根据资料，微调嵌入模型（如 bge-large-en-v1.5）的测试结果显示检索质量提高了 2% [1][3]。另外，交叉编码器微调可使成对得分提升 4% [1]。  关于在 8GB 显存显卡上微调 bge-small-zh 的具体训练参数和显存占用配置，资料中没有相关内容。资料2仅列出 EMBED_DIM、EMBEDDING_BATCH_SIZE、UPLOAD_BATCH_SIZE 等通用配置"
+        },
+        {
+          "qid": "23",
+          "qtype": "partial",
+          "correct": true,
+          "correct_reason": "幻觉定义有据，信实度公式资料未给，回答如实说明",
+          "cite_total": 3,
+          "cite_valid": 3,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "「幻觉」指模型生成看似合理但实际错误信息的现象 [2]。RAG 能减少模型幻觉、提升开放域问答准确率 [1]。  关于「信实度」：资料3只提到评估RAG系统性能时涉及信实度等指标，并指出Ragas主要利用信实度和答案相关性作为评估生成答案质量的指标 [3]；但资料中没有给出信实度的具体计算方法或公式。"
+        },
+        {
+          "qid": "25",
+          "qtype": "partial",
+          "correct": true,
+          "correct_reason": "路由机制有资料依据，接口问题资料无相关内容故拒答",
+          "cite_total": 5,
+          "cite_valid": 5,
+          "invalid": [],
+          "cited_ids": [
+            1,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            3
+          ],
+          "regex_valid_ids": [
+            1,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "查询路由是一种基于LLM的决策步骤，用于确定针对用户查询接下来应采取的行动 [1]。它通常的选项包括：概括回答、针对某个数据索引执行搜索，或尝试多条不同的途径并将结果综合成一个答案 [1]。查询路由器还用于选择合适的索引或更广泛的数据存储位置来处理用户查询，可能涉及向量存储、图数据库、关系型数据库或多个数据来源 [1]。在多文档存储场景下，常见设置是一个概要索引和一个文档块向量索引，由路由器决定使"
+        },
+        {
+          "qid": "27",
+          "qtype": "out",
+          "correct": true,
+          "correct_reason": "资料未涉及BERT的MLM预训练任务，拒答合理",
+          "cite_total": 0,
+          "cite_valid": 0,
+          "invalid": [],
+          "cited_ids": [],
+          "judge_valid_ids": [],
+          "regex_valid_ids": [],
+          "n_slots": 3,
+          "answer_preview": "资料中没有相关内容。"
+        },
+        {
+          "qid": "30",
+          "qtype": "out",
+          "correct": true,
+          "correct_reason": "核心结论均有资料依据，未编造事实",
+          "cite_total": 5,
+          "cite_valid": 4,
+          "invalid": [
+            3
+          ],
+          "cited_ids": [
+            1,
+            2,
+            3
+          ],
+          "judge_valid_ids": [
+            1,
+            2
+          ],
+          "regex_valid_ids": [
+            1,
+            2,
+            3
+          ],
+          "n_slots": 3,
+          "answer_preview": "**实现方式**：使用 Redis 的 `set key value NX PX 有效期(毫秒)` 命令实现分布式锁。该命令表示当 key 不存在时设置其值为 value，并同时设置有效期；返回 ok 表示执行成功即获取锁成功，多个客户端并发执行时 Redis 可确保只有一个能执行成功 [2]。示例：`set sku:1:info \"ok\" NX PX 10000` 表示当 sku:1:info "
+        }
+      ]
+    },
+    "a_wrong_c_right": [],
+    "judge_tokens": {
+      "prompt": 71782,
+      "completion": 2454
+    }
+  }
+}

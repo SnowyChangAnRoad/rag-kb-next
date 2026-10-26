@@ -1,0 +1,405 @@
+{
+  "experiment": "w4_noise_floor",
+  "scope": "full(20)",
+  "generated_at": "2026-10-19 18:52:43",
+  "params": {
+    "RETRIEVAL_MODE": "dense",
+    "RECALL_K": 10,
+    "RRF_K": 60,
+    "RERANK_TOP_K": 3
+  },
+  "result": {
+    "n": 20,
+    "mismatched": 17,
+    "mismatch_rate": 0.85,
+    "field_counts": {
+      "answer": 15,
+      "hits_list": 7,
+      "terminate_reason": 1,
+      "llm_calls": 1
+    },
+    "rows": [
+      {
+        "qid": "1",
+        "qtype": "in",
+        "fields": [],
+        "terminate": [
+          "self_eval_sufficient",
+          "self_eval_sufficient"
+        ],
+        "llm_calls": [
+          3,
+          3
+        ],
+        "retrieve_times": [
+          1,
+          1
+        ]
+      },
+      {
+        "qid": "2",
+        "qtype": "in",
+        "fields": [],
+        "terminate": [
+          "self_eval_sufficient",
+          "self_eval_sufficient"
+        ],
+        "llm_calls": [
+          3,
+          3
+        ],
+        "retrieve_times": [
+          1,
+          1
+        ]
+      },
+      {
+        "qid": "3",
+        "qtype": "in",
+        "fields": [
+          "answer"
+        ],
+        "terminate": [
+          "self_eval_sufficient",
+          "self_eval_sufficient"
+        ],
+        "llm_calls": [
+          3,
+          3
+        ],
+        "retrieve_times": [
+          1,
+          1
+        ]
+      },
+      {
+        "qid": "4",
+        "qtype": "in",
+        "fields": [],
+        "terminate": [
+          "self_eval_sufficient",
+          "self_eval_sufficient"
+        ],
+        "llm_calls": [
+          3,
+          3
+        ],
+        "retrieve_times": [
+          1,
+          1
+        ]
+      },
+      {
+        "qid": "5",
+        "qtype": "in",
+        "fields": [
+          "answer"
+        ],
+        "terminate": [
+          "self_eval_sufficient",
+          "self_eval_sufficient"
+        ],
+        "llm_calls": [
+          3,
+          3
+        ],
+        "retrieve_times": [
+          1,
+          1
+        ]
+      },
+      {
+        "qid": "7",
+        "qtype": "cross",
+        "fields": [
+          "answer"
+        ],
+        "terminate": [
+          "gate_no_retrieve",
+          "gate_no_retrieve"
+        ],
+        "llm_calls": [
+          2,
+          2
+        ],
+        "retrieve_times": [
+          0,
+          0
+        ]
+      },
+      {
+        "qid": "8",
+        "qtype": "cross",
+        "fields": [
+          "answer"
+        ],
+        "terminate": [
+          "self_eval_sufficient",
+          "self_eval_sufficient"
+        ],
+        "llm_calls": [
+          3,
+          3
+        ],
+        "retrieve_times": [
+          1,
+          1
+        ]
+      },
+      {
+        "qid": "9",
+        "qtype": "out",
+        "fields": [
+          "hits_list"
+        ],
+        "terminate": [
+          "cap",
+          "cap"
+        ],
+        "llm_calls": [
+          6,
+          6
+        ],
+        "retrieve_times": [
+          3,
+          3
+        ]
+      },
+      {
+        "qid": "10",
+        "qtype": "out",
+        "fields": [
+          "answer"
+        ],
+        "terminate": [
+          "cap",
+          "cap"
+        ],
+        "llm_calls": [
+          6,
+          6
+        ],
+        "retrieve_times": [
+          3,
+          3
+        ]
+      },
+      {
+        "qid": "11",
+        "qtype": "cross",
+        "fields": [
+          "answer"
+        ],
+        "terminate": [
+          "gate_no_retrieve",
+          "gate_no_retrieve"
+        ],
+        "llm_calls": [
+          2,
+          2
+        ],
+        "retrieve_times": [
+          0,
+          0
+        ]
+      },
+      {
+        "qid": "12",
+        "qtype": "in",
+        "fields": [
+          "answer"
+        ],
+        "terminate": [
+          "self_eval_sufficient",
+          "self_eval_sufficient"
+        ],
+        "llm_calls": [
+          3,
+          3
+        ],
+        "retrieve_times": [
+          1,
+          1
+        ]
+      },
+      {
+        "qid": "15",
+        "qtype": "in",
+        "fields": [
+          "answer"
+        ],
+        "terminate": [
+          "self_eval_sufficient",
+          "self_eval_sufficient"
+        ],
+        "llm_calls": [
+          3,
+          3
+        ],
+        "retrieve_times": [
+          1,
+          1
+        ]
+      },
+      {
+        "qid": "16",
+        "qtype": "in",
+        "fields": [
+          "answer"
+        ],
+        "terminate": [
+          "self_eval_sufficient",
+          "self_eval_sufficient"
+        ],
+        "llm_calls": [
+          3,
+          3
+        ],
+        "retrieve_times": [
+          1,
+          1
+        ]
+      },
+      {
+        "qid": "18",
+        "qtype": "cross",
+        "fields": [
+          "answer",
+          "hits_list"
+        ],
+        "terminate": [
+          "self_eval_sufficient",
+          "self_eval_sufficient"
+        ],
+        "llm_calls": [
+          5,
+          5
+        ],
+        "retrieve_times": [
+          2,
+          2
+        ]
+      },
+      {
+        "qid": "21",
+        "qtype": "cross",
+        "fields": [
+          "answer"
+        ],
+        "terminate": [
+          "self_eval_sufficient",
+          "self_eval_sufficient"
+        ],
+        "llm_calls": [
+          3,
+          3
+        ],
+        "retrieve_times": [
+          1,
+          1
+        ]
+      },
+      {
+        "qid": "22",
+        "qtype": "partial",
+        "fields": [
+          "answer",
+          "hits_list"
+        ],
+        "terminate": [
+          "cap",
+          "cap"
+        ],
+        "llm_calls": [
+          6,
+          6
+        ],
+        "retrieve_times": [
+          3,
+          3
+        ]
+      },
+      {
+        "qid": "23",
+        "qtype": "partial",
+        "fields": [
+          "answer",
+          "hits_list",
+          "terminate_reason",
+          "llm_calls"
+        ],
+        "terminate": [
+          "self_eval_sufficient",
+          "query_repeat"
+        ],
+        "llm_calls": [
+          5,
+          6
+        ],
+        "retrieve_times": [
+          2,
+          2
+        ]
+      },
+      {
+        "qid": "25",
+        "qtype": "partial",
+        "fields": [
+          "answer",
+          "hits_list"
+        ],
+        "terminate": [
+          "self_eval_sufficient",
+          "self_eval_sufficient"
+        ],
+        "llm_calls": [
+          5,
+          5
+        ],
+        "retrieve_times": [
+          2,
+          2
+        ]
+      },
+      {
+        "qid": "27",
+        "qtype": "out",
+        "fields": [
+          "hits_list"
+        ],
+        "terminate": [
+          "cap",
+          "cap"
+        ],
+        "llm_calls": [
+          6,
+          6
+        ],
+        "retrieve_times": [
+          3,
+          3
+        ]
+      },
+      {
+        "qid": "30",
+        "qtype": "out",
+        "fields": [
+          "answer",
+          "hits_list"
+        ],
+        "terminate": [
+          "self_eval_sufficient",
+          "self_eval_sufficient"
+        ],
+        "llm_calls": [
+          5,
+          5
+        ],
+        "retrieve_times": [
+          2,
+          2
+        ]
+      }
+    ]
+  }
+}

@@ -44,13 +44,45 @@ import re
 import time
 from pathlib import Path
 
-from .config import CHUNKS_JSONL, GOLD_TUNE_JSON, TESTSET_TUNE_JSONL
+from .config import (CHUNKS_JSONL, FROZEN_V2_JSONL, GOLD_FROZEN_V2_JSON, GOLD_TUNE_JSON,
+                     TESTSET_TUNE_JSONL)
 
 # 「第 16 页」里的数字。别把模式放宽（如 r"第\d+"）—— expect 里还有「第 4 章」
 # 「8GB 显存」这类数字，宽松模式会抓错页码，而且抓错后 gold 会静默变空/变大。
 PAGE_RE = re.compile(r"第(\d+)页")
 
 GOLD_VERSION = "gold_tune_v1"
+
+# ---------------- W5 卡2：gold 生成从「tune 专用」泛化为「按集配置」 ----------------
+# 为什么必须参数化而不是复制一份 gold_frozen.py：
+#   原来的审计把「20 题 / in8 cross5 partial3 out4」写死在函数里 —— 那是 tune 集的属性，
+#   不是 gold 展开逻辑的属性。复制一份 = 两个静默漂移点（改口径只改一边）。
+# 新增 type="principle"（通用原理题）：与 out 题一样 gold 为空，但它【不是拒答题】，
+#   只是不需库内证据 —— 语义不同、统计口径不同，所以不能直接并进 out 分支的注释里。
+SETS = {
+    "tune": {
+        "testset": TESTSET_TUNE_JSONL,
+        "gold": GOLD_TUNE_JSON,
+        "version": "gold_tune_v1",
+        "counts": {"in": 8, "cross": 5, "partial": 3, "out": 4, "principle": 0},
+    },
+    "frozen_v2": {
+        "testset": FROZEN_V2_JSONL,
+        "gold": GOLD_FROZEN_V2_JSON,
+        "version": "gold_frozen_v2",
+        "counts": {"in": 8, "cross": 7, "partial": 5, "out": 5, "principle": 5},
+    },
+}
+
+# 无需库内证据的题型：gold 为空，检索层指标天然跳过（out = 库外拒答，principle = 通用原理）
+NO_GOLD_TYPES = ("out", "principle")
+
+# expect 里的简称 → 语料里的真实 source。为什么需要这张表：
+#   frozen_v1 的 id=6 写的是「Transformer论文」，而 source 真名是
+#   「Transformer--Attention Is All You Need.html」—— 子串匹配永远命中不了，
+#   于是该题 gold 静默变成 1 个文件（cross/partial 的「另一侧」永远不计分）。
+#   这正是本项目最忌讳的「不报错的错」，所以用【显式白名单】修，不猜、不放宽匹配规则。
+ALIASES = {"Transformer论文": "Transformer--Attention Is All You Need.html"}
 
 
 def load_questions() -> list[dict]:
@@ -88,7 +120,8 @@ def match_sources(expect: str, sources: list[str]) -> list[str]:
     return [
         src
         for src in sources
-        if any(candidate in expect for candidate in (src, Path(src).stem))
+        if any(candidate in expect for candidate in
+               (src, Path(src).stem, *(a for a, target in ALIASES.items() if target == src)))
     ]
 
 
@@ -136,8 +169,8 @@ def expand_gold(q: dict, chunks: list[dict], sources: list[str]) -> dict:
     m = PAGE_RE.search(q["expect"])
     page = int(m.group(1)) if m else None
 
-    # out 题：拒答题没有 gold，evaluate 会跳过它 —— 这里【不报错】是对的
-    if q["type"] == "out":
+    # out / principle：都不需要库内证据 —— gold 为空，evaluate 会跳过它（这里【不报错】是对的）
+    if q["type"] in NO_GOLD_TYPES:
         return {"id": q["id"], "type": q["type"], "question": q["question"],
                 "expect": q["expect"], "unit": None, "gold": [],
                 "detail": {"files": [], "page": None, "n_chunks": 0}}
@@ -185,29 +218,30 @@ def sha256_file(path) -> str:
     return h.hexdigest()
 
 
-def _audit(records: list[dict]) -> None:
+def _audit(records: list[dict], expected_counts: dict) -> None:
     """TODO-3：把「人工审一遍」变成可执行的断言 —— 人眼会漏，断言不会。
 
     必写的不变量（每条都要能指出【是哪道题不通过】再 raise）：
-        a) 记录了 20 题，id 无重复（tune 集 = in8 / cross5 / partial3 / out4）
-        b) out 题（4 道）：unit 为 None 且 gold 为空
-        c) in 题（8 道）：unit == "page"，且 detail["n_chunks"] 落在 1~8
+        a) 题数与 type 分布符合该集的配置（counts 由调用方传入，不再写死 20 题）
+        b) out / principle 题：unit 为 None 且 gold 为空
+        c) in 题：unit == "page"，且 detail["n_chunks"] 落在 1~8
            —— 超过 8 几乎一定是页码抽错（退化成文件级就会变成几百）
-        d) cross 题（5 道）：unit == "source"，且 len(gold) == 2
+        d) cross 题：unit == "source"，且 len(gold) == 2
            —— 本库 5 道 cross 全是两个文件。将来若真加了单文件 cross 题，
               要【改这条断言】，不要放宽成 >=1 把问题掩盖掉
-        e) 所有非 out 题的 gold 非空（空 = gold 塌了，指标会静默变好）
+        e) 所有非 out/principle 题的 gold 非空（空 = gold 塌了，指标会静默变好）
 
     提示：先收集所有不通过的题号，打印出来再 raise（一次看到全部问题，
     比逐条 assert 停在第 1 条更省时间）。
     """
 
     problems: list[str] = []
+    n_expected = sum(expected_counts.values())
 
-    # a) 记录了 20 题，id 无重复，且 type 分布符合 tune 集：in8 / cross5 / partial3 / out4
+    # a) 题数与 type 分布
     n = len(records)
-    if n != 20:
-        problems.append(f"总题数应为 20，实际 {n}")
+    if n != n_expected:
+        problems.append(f"总题数应为 {n_expected}，实际 {n}")
 
     seen = set()
     dups = set()
@@ -220,7 +254,6 @@ def _audit(records: list[dict]) -> None:
     if dups:
         problems.append(f"id 重复：{sorted(map(str, dups))}")
 
-    expected_counts = {"in": 8, "cross": 5, "partial": 3, "out": 4}
     type_counts: dict = {}
     for r in records:
         t = r.get("type")
@@ -236,18 +269,18 @@ def _audit(records: list[dict]) -> None:
         gold = r.get("gold")
         detail = r.get("detail") or {}
 
-        # b) out 题：unit 为 None 且 gold 为空
-        if rtype == "out":
+        # b) out / principle 题：unit 为 None 且 gold 为空
+        if rtype in NO_GOLD_TYPES:
             if unit is not None or gold:
                 problems.append(
-                    f"id={rid} out 题应 unit=None 且 gold=[]，"
+                    f"id={rid} {rtype} 题应 unit=None 且 gold=[]，"
                     f"实际 unit={unit!r} gold={gold!r}"
                 )
             continue
 
-        # e) 所有非 out 题 gold 非空
+        # e) 所有需要 gold 的题 gold 非空
         if not gold:
-            problems.append(f"id={rid} 非 out 题 gold 为空：{gold!r}")
+            problems.append(f"id={rid} 非 out/principle 题 gold 为空：{gold!r}")
 
         # c) in 题：unit == "page"，且 n_chunks 落在 1~8
         if rtype == "in":
@@ -279,18 +312,26 @@ def _audit(records: list[dict]) -> None:
         raise ValueError(f"gold 审计未通过，共 {len(problems)} 个问题，详见上方打印")
 
 
-def load_gold() -> dict:
+def load_gold(gold_path: Path = GOLD_TUNE_JSON) -> dict:
     """已给：读回落盘的 gold，并把 gold 转成 set（卡7 的入口）。
 
     返回值与落盘结构一致，只是每条记录的 gold 从 list 变成 set，
     可直接喂给 metrics.evaluate 的 rows（它要求 gold 是集合）。
+
+    W5 泛化：不再只认 tune 集 —— 用 gold 文件反查它锚定的测试集，
+    指纹对不上就拒绝使用（拿旧 gold 锚新题 = 指标静默失真）。
     """
-    with open(GOLD_TUNE_JSON, "r", encoding="utf-8") as f:
+    with open(gold_path, "r", encoding="utf-8") as f:
         payload = json.load(f)
-    if payload.get("testset_sha256") != sha256_file(TESTSET_TUNE_JSONL):
+    owners = [s for s in SETS.values() if s["gold"] == gold_path]
+    if not owners:
+        raise KeyError(f"{gold_path} 不在 SETS 里登记 —— 新集必须先在 rag/gold.py 登记")
+    testset = owners[0]["testset"]
+    current = sha256_file(testset)
+    if payload.get("testset_sha256") != current:
         raise RuntimeError(
             f"gold 文件锚定的测试集已变（{payload.get('testset')} "
-            f"{payload.get('testset_sha256', '')[:12]}… ≠ 当前 {sha256_file(TESTSET_TUNE_JSONL)[:12]}…）"
+            f"{payload.get('testset_sha256', '')[:12]}… ≠ 当前 {current[:12]}…）"
             f"—— 重跑 python -m rag.gold，别拿旧 gold 锚新题"
         )
     for r in payload["records"]:
@@ -298,39 +339,56 @@ def load_gold() -> dict:
     return payload
 
 
-def main() -> None:
-    """已给：展开 → 打印逐题明细（人工过一遍）→ 审计 → 落盘。"""
-    questions = load_questions()
+def build_gold(set_key: str = "tune") -> dict:
+    """按集展开 → 打印逐题明细 → 审计 → 落盘，返回落盘 payload。
+
+    参数化是 W5 卡2 的改动：frozen_v2 的 gold 与 tune 的 gold 用同一套展开逻辑，
+    只有 testset / 输出路径 / 分层配比三处不同（见 SETS）。
+    """
+    spec = SETS[set_key]
+    with open(spec["testset"], "r", encoding="utf-8") as f:
+        questions = [json.loads(line) for line in f if line.strip()]
     chunks = load_chunks()
     sources = sorted({c["source"] for c in chunks})   # 排序 → 跨运行确定性
 
     records = [expand_gold(q, chunks, sources) for q in questions]
 
-    print(f"gold 展开：{len(records)} 题 | 真相源 {len(chunks)} 块 | {len(sources)} 个 source")
-    print(f"\n{'id':>3} {'type':<8}{'unit':<8}{'页':<5}{'块数':<6}期望文件")
+    print(f"gold 展开[{set_key}]：{len(records)} 题 | 真相源 {len(chunks)} 块 | "
+          f"{len(sources)} 个 source")
+    print(f"\n{'id':>3} {'type':<10}{'unit':<8}{'页':<5}{'块数':<6}期望文件")
     for r in records:
         d = r["detail"]
-        print(f"{r['id']:>3} {r['type']:<8}{str(r['unit']):<8}{str(d['page']):<5}"
+        print(f"{r['id']:>3} {r['type']:<10}{str(r['unit']):<8}{str(d['page']):<5}"
               f"{d['n_chunks']:<6}{' + '.join(d['files']) or '-'}")
 
-    _audit(records)
+    _audit(records, spec["counts"])
 
     payload = {
-        "version": GOLD_VERSION,
-        "testset": TESTSET_TUNE_JSONL.name,
-        "testset_sha256": sha256_file(TESTSET_TUNE_JSONL),
+        "version": spec["version"],
+        "testset": spec["testset"].name,
+        "testset_sha256": sha256_file(spec["testset"]),
         "chunks": CHUNKS_JSONL.name,
         "chunks_sha256": sha256_file(CHUNKS_JSONL),
         "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
         "n_questions": len(records),
         "records": records,
     }
-    GOLD_TUNE_JSON.parent.mkdir(parents=True, exist_ok=True)
-    with open(GOLD_TUNE_JSON, "w", encoding="utf-8") as f:
+    spec["gold"].parent.mkdir(parents=True, exist_ok=True)
+    with open(spec["gold"], "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
-    print(f"\n审计通过，已落盘：{GOLD_TUNE_JSON}")
+    print(f"\n审计通过，已落盘：{spec['gold']}")
     print("⚠️ 下一步是【人眼过一遍上面那张表】—— 尤其是 in 题的「页」和「块数」两列，"
           "指标公式对而 gold 错，是所有错误里最难发现的。")
+    return payload
+
+
+def main() -> None:
+    """默认展开 tune 集；传集名可展开其它已登记的集：python -m rag.gold frozen_v2"""
+    import sys
+    set_key = sys.argv[1] if len(sys.argv) > 1 else "tune"
+    if set_key not in SETS:
+        raise SystemExit(f"未知集 {set_key!r}（已登记：{sorted(SETS)}）")
+    build_gold(set_key)
 
 
 if __name__ == "__main__":
