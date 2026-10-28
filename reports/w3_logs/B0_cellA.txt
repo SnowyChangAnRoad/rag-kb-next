@@ -1,0 +1,20 @@
+1. 文档里怎么让大模型不胡编、不乱编内容？
+● Bash(ls -la "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus" | head -30)
+● Bash(ls -la "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus/data" | head -40)
+● Bash(find "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus/data" -maxdepth 2 | head -30)
+未调用rag-kb。
+答案正确。
+2. 文档里说检索回来的资料太多太杂、跑题了，该怎么办？
+● Bash(cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus" && du -h data/processed/* data/raw/* 2>/dev/null && wc -l
+● Bash(cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus" && python -I -c "
+● Bash(cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus" && python -I -c "
+● Bash(cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus" && python -I -c "
+未调用rag-kb。
+答案正确。
+3. 怎么让检索听懂用户真正想表达的意思，而不是只认字面的词？
+● Bash(cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus" && python -I -c "
+● Bash(cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus" && python -I -c "
+未调用rag-kb。
+答案正确。
+
+另外注意到claude code不仅回答了问题，还阅读了目录内的chunk.json，bm25_tokens.jsonl等文件，对这些文件给了一些与问题相关的评价和建议。

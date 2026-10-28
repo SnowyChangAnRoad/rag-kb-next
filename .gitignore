@@ -10,9 +10,8 @@ __pycache__/
 data/raw/
 data/uploads/
 
-# 学习文档（计划 / 修订说明 / 自测题等）
+# 学习文档（计划 / 修订说明 / 自测题 / 面试材料等，私有）
 docs/
 .trae/
 
-# 实验报告与归档（阶段性产出，如 W3 的 reports/w3_logs）
-reports/
+# reports/ 单独放行：README 链接的公开实验报告随仓库发布

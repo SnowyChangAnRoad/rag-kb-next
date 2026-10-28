@@ -1,0 +1,71 @@
+﻿python.exe : [10/14/26 20:09:29] WARNING  RAGKB_DESC_TIER='x'               tool_defs.py:211
+At line:15 char:3108
++ ... pgrep\bin'; & "C:\Users\xx\Desktop\python\.venv\Scripts\python.exe" " ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([10/14/26 20:09...ool_defs.py:211:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+                             不是合法档位，回退                                
+                             full（合法值：full / minimal /                    
+                             meta）                                            
+
+== 档 full ==
+  search_knowledge_base  参数=['query', 'top_k']                 desc_len=550
+  ask_knowledge_base     参数=['question']                       desc_len=489
+
+== 档 minimal ==
+  search_knowledge_base  参数=['query', 'top_k']                 desc_len=0
+  ask_knowledge_base     参数=['question']                       desc_len=0
+
+== 档 meta ==
+  knowledge_base         参数=['query', 'action', 'top_k']       desc_len=774
+
+== 工具名 ==
+  full     ['ask_knowledge_base', 'search_knowledge_base']
+  minimal  ['ask_knowledge_base', 'search_knowledge_base']
+  meta     ['knowledge_base']
+档② 描述全为空串 = True
+
+== 档① vs B2 快照 ==
+  search_knowledge_base  注册 550 | cleandoc(快照) 549 | 文案同源 = True | 描述逐字同 = True
+  ask_knowledge_base     注册 489 | cleandoc(快照) 488 | 文案同源 = True | 描述逐字同 = True
+
+== 共性段 ==
+  逐字相同 = True / 长度 = 299
+
+== 档③ 分派 ==
+  search → hits=True answer=None
+  ask    → answer=FAKE-ANSWER hits=None
+  实际调用序列 = [('search', 'q1', 2), ('ask', 'q2')]
+
+== 描述体积（DV2 的自变量）==
+  档 full     描述合计  1039 字符  工具数 2  {'ask_knowledge_base': 489, 'search_knowledge_base': 550}
+  档 minimal  描述合计     0 字符  工具数 2  {'ask_knowledge_base': 0, 'search_knowledge_base': 0}
+  档 meta     描述合计   774 字符  工具数 1  {'knowledge_base': 774}
+
+== resolve_tier ==
+  None→'full'  'META'→'meta'  'x'→'full'
+
+== 档③ 描述全文 ==
+语义检索本地 RAG 知识库。按 action 决定返回什么：search → 【原文片段】，ask → 【成稿答案】。
+
+知识库覆盖（只有这三份，别无其他）：
+  - RAG知识.pdf                                 RAG 全流程：分块 / 嵌入 / 向量库 / 检索 / 精排 / 生成 / 评估
+  - RAG 技术概览.html                            高级 RAG 架构与检索评估
+  - Transformer--Attention Is All You Need.html  Transformer 原始论文
+
+能力：语义检索 —— 问法与原文措辞不同也能命中；
+      关键词 grep 命中不了的改述问题，正是本工具最该用的场景。
+
+何时用：用户提到「文档里 / 资料里 / 论文里 / 知识库里」怎么讲，
+        且问题涉及 RAG、向量检索、Transformer 时。
+action 怎么选：
+  search —— 要原文片段、逐字引用、自己核对出处；拿到片段后自己组织语言。
+  ask    —— 要一段能直接拿去用的答案：回复用户、写进文档、或多块综合成连贯说明。
+何时不用：问本地代码 / 日志 / 配置 → 用 grep、Read；问与这三份文档无关的通用知识。
+返回：search → hits（text + source / chunk_id / page / url）；无相关内容时是空列表。
+      ask    → answer + sources；文档中无依据时 answer 会说明无法回答。
+参数：query 必填；action 必填；top_k 默认 3（仅 search 用），越大返回越多、上下文成本越高。
+
+
+全部校验通过 = True

@@ -1,0 +1,99 @@
+1. 文档里怎么让大模型不胡编、不乱编内容？
+“● 目录是空的，没有现成文档，所以我按通用做法答。”
+● Bash(ls -la "C:/Users/xx/AppData/Local/Temp/w3_cellB_nocorpus" 2>&1 | head -50)
+● Bash(cat "C:/Users/xx/.claude/projects/C--Users-xx-AppData-Local-Temp-w3-cellB-nocorpus/memory/MEMORY.md" 2>&1 | head
+  -30)
+未调用rag-kb。
+回答正确但宽泛。
+
+2. 文档里说检索回来的资料太多太杂、跑题了，该怎么办？
+● rag-kb - search_knowledge_base (MCP)(query: "检索回来的资料太多太杂、跑题、和问题不相关，怎么处理？", top_k: 5)
+● rag-kb - ask_knowledge_base (MCP)(question: "检索返回的资料太多太杂、跑题（不相关）时，有哪些解决办法？")
+● rag-kb - search_knowledge_base (MCP)(query: "精排 rerank 重排序 提升检索结果相关性", top_k: 5)
+● rag-kb - search_knowledge_base (MCP)(query: "检索结果太多，去重、压缩上下文、减少噪声", top_k: 5)
+● rag-kb - search_knowledge_base (MCP)(query: "混合检索 关键词检索 向量检索 结合 多路召回", top_k: 5)
+● rag-kb - search_knowledge_base (MCP)(query: "检索质量评估 召回率 准确率 相关性判断", top_k: 5)
+rag-kb被调用6次。
+回答正确。
+
+3. 怎么让检索听懂用户真正想表达的意思，而不是只认字面的词？
+● rag-kb - search_knowledge_base (MCP)(query: "语义检索 理解用户意图 不依赖字面关键词 换个说法也能命中", top_k: 5)
+● rag-kb - search_knowledge_base (MCP)(query: "查询改写 查询扩展 用户表达和文档语义不一致怎么办", top_k: 5)
+● rag-kb - search_knowledge_base (MCP)(query: "微调嵌入模型 编码器 领域适配 提升语义匹配", top_k: 5)
+● rag-kb - search_knowledge_base (MCP)(query: "自注意力机制 词的表示依赖上下文 语义由上下文决定", top_k: 4)
+● rag-kb - search_knowledge_base (MCP)(query: "查询转换 多查询 子查询分解 回退提示", top_k: 5)
+● rag-kb - search_knowledge_base (MCP)(query: "嵌入 embedding 把文本转换成向量 表示语义", top_k: 4)
+rag-kb被调用6次。
+回答正确。
+
+4. 文档里介绍的高级检索架构，作者把它切成好几块，其中专门用来提高「检索回来的内容跟问题搭不搭」这个指标的是哪几块？
+● Fetch(https://zhuanlan.zhihu.com/p/678893732)
+● Web Search(""Advanced RAG Techniques" "an Illustrated Overview" Ivan Ilin table of contents sections routing agents")
+● rag-kb - search_knowledge_base (MCP)(query: "聊天引擎 对话上下文 压缩成一个问题 CondensePlusContext", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "响应合成器 迭代细化 生成多个答案 摘要 最终回答", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "路由 选择 摘要还是搜索 决定使用哪个 工具 数据源", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "响应合成 模式 迭代 摘要模式 树 压缩 拼接", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "5. 聊天引擎", top_k: 4)
+● rag-kb - search_knowledge_base (MCP)(query: "6. 查询路由", top_k: 4)
+● rag-kb - search_knowledge_base (MCP)(query: "8. 响应合成器", top_k: 4)
+● rag-kb - search_knowledge_base (MCP)(query: "高级RAG 1 分块和向量化 2 搜索索引 3 重新排名和过滤 4 查询转换 5 聊天引擎 6 查询路由 7 智能体 8 响应合成器", top_k: 6)
+ctrl+o的详细界面记录了：rag-kb被调用8次
+但是Agent自己的输出显示：
+Thought for 1m 58s, called rag-kb 12 times (ctrl+o to expand)
+Thought for 59s, called rag-kb 8 times (ctrl+o to expand)
+Thought for 19s, called MCP (ctrl+o to expand)
+Thought for 40s, called rag-kb 8 times (ctrl+o to expand)
+总时长为：Worked for 4m 55s
+
+回答内容：文档（RAG 技术概览.html）里有非常直接的一句话回答了这个问题，在讲评估的那一节：
+
+  ▎ "……提出了 RAG 的三大评估维度：检索到的上下文与查询的相关性、答案的根据性……以及答案对查询的相关性。最关键也是最容易控
+  ▎ 制的指标是检索到的上下文相关性。实际上，高级 RAG 架构的前 1-7
+  ▎ 部分以及编码器和排名器的微调部分都是为了提高这一指标，而第 8
+  ▎ 部分和大语言模型的微调则侧重于提高答案的相关性和根据性。"
+
+  也就是说，"检索回来的内容跟问题搭不搭" = 检索到的上下文相关性，为它服务的是 1-7 部分 +
+  两块微调。按文档的目录逐块对照：
+
+  第 1-7 部分
+     融合检索或混合搜索
+  3. 重新排名和过滤——检索结果出来后"需要通过过滤、重新排名或进行一些转换来进一步优化"
+  4. 查询转换——多查询/子问题、回退式提示、查询重写，改的是"输入"来救"匹配"
+  5. 对话引擎——把对话历史和最后一条消息压缩成新查询（ContextChatEngine /
+     CondensePlusContextMode），保证多轮场景下检索的是"当前问题"而不是被历史稀释的复合查询
+  6. 查询路由——"基于 LLM 的决策步骤"，决定这次走概括回答、还是对某个索引搜索、还是多路并综合
+  7. RAG 中的智能体——工具调用、多文档代理等，让检索决策更聪明
+
+  外加两块微调（文档专门从"编码器和 LLM 微调"那一节里点出来的）：
+  - 编码器的微调——直接影响"生成高质量嵌入从而影响上下文检索效果"（文中例子：微调 bge-large-en-v1.5 后检索质量提升约 2%）
+  - 排名器的微调——用交叉编码器重新评估检索结果（文中例子：成对得分提升约 4%）
+
+  不算在内的：
+  - 第 8 部分 响应合成器——"RAG 架构中的最后一步：基于收集的所有上下文和用户的初步查询来生成答案"，属于答案侧
+  - 大语言模型的微调——提升的是答案的相关性和根据性（文中例：微调后信实度提升约 5%）
+  - 顺带一提：参考引用那一节文档明确说"没有编号"，因为它"更像是一个工具而非一种检索改进技术"
+
+  一句话记法：凡是作用在"检索到的上下文"上的（从头到检索环节的 1-7 部分 +
+  把检索侧模型调好）都算；凡是作用在"写答案"上的（第 8 部分、LLM 微调）都不算。
+  文档还强调了为什么要优先盯这个指标——"最关键也是最容易控制的"。
+
+  来源：RAG 技术概览（知乎） (https://zhuanlan.zhihu.com/p/678893732)
+
+
+
+花费信息：
+ Session
+
+  Total cost:            $2.41 (costs may be inaccurate due to usage of unknown models)
+  Total duration (API):  6m 10s
+  Total duration (wall): 19m 24s
+  Total code changes:    0 lines added, 0 lines removed
+  Usage by model:
+        deepseek-flash:  757 input, 659 output, 0 cache read, 0 cache write ($0.0203)
+    deepseek-flash[1m]:  81.1k input, 59.9k output, 958.0k cache read, 0 cache write, 1 web search ($2.39)
+  Prompt cache (main):   17 requests · 93% of input tokens from cache · 1 miss (last 17m 18s ago — likely cause: tool
+  definitions changed (+5/-0), 0 tokens re-cached) · cold — idle 7m 59s, next turn re-caches ~111.7k tokens
+
+在DeepSeekAPI平台上的花费记录是0.85￥(准确)
+
+注意：以上四个问题是在同一个对话框中依次运行的。模型可能因为上一个问题调用了rag-kb而在下一个问题倾向于调用rag-kb？是否需要每个对话都新开一个对话框？

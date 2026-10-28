@@ -1,0 +1,44 @@
+1. 文档里怎么让大模型不胡编、不乱编内容？
+● Bash(cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus/data/processed" && python -I -c "import json,collections…")
+● Bash(cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus/data/processed" && python -I -c "import json…")
+● Bash(cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus/data/processed" && python -I -c "import json,re…")
+● Bash(mkdir -p /tmp/w3_scratch && cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus/data/processed" && PYTHONIOENCODING=utf-8 python -I -c "import json…")
+● Bash(cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus/data/processed" && PYTHONIOENCODING=utf-8 python -I -c "import json…")
+● Bash(cygpath -w /tmp/w3_scratch/web_key.txt; cygpath -w /tmp/w3_scratch/pdf_key.txt)
+● Write(~\AppData\Local\Temp\w3_scratch\scan.py)
+● Write(~\AppData\Local\Temp\w3_scratch\scan.py)
+● Bash(cd /tmp/w3_scratch && python -I scan.py "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus/data/processed/chunks.jsonl" "C:/Users/xx/AppData/Local/Temp/w3_scratch/…")
+● Bash(cd /tmp/w3_scratch && python -I -c "import json,re,sys…")
+回答正确。
+
+2. 文档里说检索回来的资料太多太杂、跑题了，该怎么办？
+● rag-kb - ask_knowledge_base (MCP)(question: "检索回来的资料太多太杂、内容跑题（噪声大、不相关），应该怎么处理？")
+● rag-kb - search_knowledge_base (MCP)(query: "检索结果噪声大 不相关 过滤 精排 重排序 重写查询", top_k: 5)
+● rag-kb - search_knowledge_base (MCP)(query: "重新排名 rerank 上下文压缩 过滤 长上下文 LLM 打分", top_k: 4)
+● rag-kb - search_knowledge_base (MCP)(query: "topK 设置 分块大小 chunk size 检索精度 召回数量", top_k: 4)
+回答正确。
+
+3. 怎么让检索听懂用户真正想表达的意思，而不是只认字面的词？
+● rag-kb - ask_knowledge_base (MCP)(question: "怎么让检索理解用户真正想表达的语义意图，而不是只做字面关键词匹配？有哪些方法（语义向量检索、查询改写、混合检索、精排等）？")
+● rag-kb - search_knowledge_base (MCP)(query: "关键词匹配的局限 语义相似 查询改写 意图理解", top_k: 4)
+● rag-kb - search_knowledge_base (MCP)(query: "重排序 rerank 精排 Cross-Encoder 粗排", top_k: 3)
+● rag-kb - search_knowledge_base (MCP)(query: "查询改写 query rewriting HyDE 多查询扩展", top_k: 3)
+● rag-kb - search_knowledge_base (MCP)(query: "混合检索 BM25 关键词检索 稀疏向量 稠密向量 融合", top_k: 3)
+回答正确。
+
+4. 文档里介绍的高级检索架构，作者把它切成好几块，其中专门用来提高「检索回来的内容跟问题搭不搭」这个指标的是哪几块？
+● Bash(cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus/data/processed" && python -I -c "import json,sys…")
+● Bash(cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus/data/processed" && python -I -c "import json,re…")
+● Bash(cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus/data/processed" && PYTHONIOENCODING=utf-8 python -I -c "import json,re…")
+● Bash(mkdir -p "C:/Users/xx/AppData/Local/Temp/w3_cellA_out" && cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_out" && python -I -c "import json,re,io…")
+● Bash(cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_out" && python -I -c "import json,re,io…")
+● Bash(cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus/data/processed" && python -I -c "import json,sys…")
+● Search(pattern: "查询转换|RAG-Fusion|HyDE|多查询|路由|查询构建|响应合成", path: "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus/data/raw/RAG 技术概览.html")
+● Bash(cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_corpus/data/processed" && python -I -c "import json,re…")
+● Bash(mkdir -p "C:/Users/xx/AppData/Local/Temp/w3_cellA_out" && cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_out" && python -I -c "import json,re,io…")
+● Read(C:/Users/xx/AppData/Local/Temp/w3_cellA_out/heads.txt)
+● Bash(cd "C:/Users/xx/AppData/Local/Temp/w3_cellA_out" && python -I -c "import json,re,io…")
+● Read(C:/Users/xx/AppData/Local/Temp/w3_cellA_out/sec.txt · lines 1-30)
+
+ctrl+o显示的详情中，未看见调用rag-kb的记录，但是Agent输出了：
+Thought for [x]s, called rag-kb 4 times。rag-kb应该实际上被调用了，但是未被记录到。

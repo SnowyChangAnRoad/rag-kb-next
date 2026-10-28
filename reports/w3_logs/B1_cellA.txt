@@ -1,0 +1,56 @@
+1. 文档里怎么让大模型不胡编、不乱编内容？
+● rag-kb - search_knowledge_base (MCP)(query: "大模型幻觉 模型胡编乱造 如何避免 忠实于检索内容", top_k: 5)
+● rag-kb - search_knowledge_base (MCP)(query: "提示词模板 要求模型只根据检索到的上下文回答 无法回答时说不知道", top_k:5)
+● rag-kb - search_knowledge_base (MCP)(query: "评估指标 忠实度 faithfulness 答案相关性 幻觉率 评估生成质量", top_k: 5)
+● rag-kb - search_knowledge_base (MCP)(query: "Self-RAG 自我反思 自我评估 引用标注 归因 attribution", top_k: 5)
+● rag-kb - search_knowledge_base (MCP)(query: "温度参数 temperature 生成随机性 调低 控制输出", top_k: 4)
+● rag-kb - search_knowledge_base (MCP)(query: "上下文压缩 重排序 rerank 过滤无关内容 噪声 减少进入提示词的信息", top_k:5)
+rag-kb被调用7次。
+回答正确。
+
+2. 文档里说检索回来的资料太多太杂、跑题了，该怎么办？
+● rag-kb - search_knowledge_base (MCP)(query: "上下文压缩 LLMLingua 精简检索内容 减少不相关信息 后检索处理", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "重排序 rerank 后检索 提高相关性 传入大模型的文档数量太多", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "相似度阈值 top_k 调小 分块大小 chunk 太大 检索结果跑题", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "上下文压缩 压缩检索文档 提高准确率 降低成本 LongLLMLingua", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "查询路由 查询构建 选择正确的数据源 元数据过滤器", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "分块策略 chunk 大小 语义分块 重叠 过大过小对检索的影响", top_k: 6)
+rag-kb被调用6次。
+回答正确。
+
+3. 怎么让检索听懂用户真正想表达的意思，而不是只认字面的词？
+● rag-kb - search_knowledge_base (MCP)(query: "语义检索 向量检索 为什么能理解语义 意思相近但用词不同也能命中 字面匹配的局限", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "查询重写 查询扩展 多查询 回退式提示词 生成更多查询", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "混合检索 关键词检索 稀疏向量 稠密向量 结合 语义与字面", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "嵌入模型 微调 编码器 检索质量提升 句子转换器", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "查询构建 text-to-SQL 元数据 结构化查询 过滤条件", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "嵌入模型 选择 多语言 向量维度 嵌入质量 影响召回", top_k: 6)
+rag-kb被调用6次。
+回答正确。
+
+4. 文档里介绍的高级检索架构，作者把它切成好几块，其中专门用来提高「检索回来的内容跟问题搭不搭」这个指标的是哪几块？
+● rag-kb - search_knowledge_base (MCP)(query: "分层索引 概要索引 摘要索引 文档块向量索引 两级", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "重新排名和过滤 重新排名 过滤 后处理器 提高检索结果质量", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "高级 RAG 技术 包括 分块 向量化 搜索索引 上下文增强 融合检索 重新排名 查询转换 查询路由 响应合成", top_k: 8)
+● rag-kb - search_knowledge_base (MCP)(query: "重新排名和过滤 一节 检索结果 过滤掉不相关的 保留最相关的 再交给LLM", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "查询路由 代理 智能行为模式 多轮迭代 响应合成器 步骤编号", top_k: 6)
+rag-kb被调用5次。
+回答正确。
+
+
+花费信息：
+ Session
+
+  Total cost:            $1.01 (costs may be inaccurate due to usage of unknown models)
+  Total duration (API):  2m 8s
+  Total duration (wall): 11m 47s
+  Total code changes:    0 lines added, 0 lines removed
+  Usage by model:
+        deepseek-flash:  757 input, 568 output, 0 cache read, 0 cache write ($0.0180)
+    deepseek-flash[1m]:  54.1k input, 18.8k output, 501.2k cache read, 0 cache write ($0.99)
+  Prompt cache (main):   14 requests · 90% of input tokens from cache · no misses · warm (5m TTL, last activity 1m 34s
+  ago)
+
+这里的记录未必准确，在DeepSeekAPI平台上的花费记录是0.55￥左右(具体值记不清了，无法查看)
+
+注意：以上四个问题是在同一个对话框中依次运行的。模型可能因为上一个问题调用了rag-kb而在下一个问题倾向于调用rag-kb？是否需要每个对话都新开一个对话框？

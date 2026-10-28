@@ -1,0 +1,37 @@
+1. 文档里怎么让大模型不胡编、不乱编内容？
+● rag-kb - search_knowledge_base (MCP)(query: "提示词中要求模型只依据检索内容回答、无法回答时说不知道、标注引用出处", top_k: 5)
+● rag-kb - search_knowledge_base (MCP)(query: "生成阶段如何约束大模型，引用标注，忠实性，无法回答时的处理", top_k: 5)
+● rag-kb - search_knowledge_base (MCP)(query: "重排序 rerank 去除噪声 上下文压缩 减少无关内容干扰生成", top_k: 5)
+● rag-kb - search_knowledge_base (MCP)(query: "RAG 评估 忠实度 faithfulness 答案相关性 衡量生成是否忠实于检索内容", top_k: 5)
+回答正确。
+
+2. 文档里说检索回来的资料太多太杂、跑题了，该怎么办？
+● rag-kb - ask_knowledge_base (MCP)(question: "检索召回的文档内容太多、太杂、不相关（跑题），应该怎么处理和优化？")
+● rag-kb - search_knowledge_base (MCP)(query: "召回结果噪声大 不相关 精排 rerank 重排序 提高相关性", top_k: 5)
+回答正确。
+
+3. 怎么让检索听懂用户真正想表达的意思，而不是只认字面的词？
+● rag-kb - ask_knowledge_base (MCP)(question: "怎么让检索听懂用户真正想表达的意思，而不是只认字面的词？有哪些方法（如查询改写、HyDE、语义嵌入等）？")
+● rag-kb - search_knowledge_base (MCP)(query: "让检索理解用户真实意图，不依赖字面词汇匹配的方法", top_k: 5)
+● rag-kb - search_knowledge_base (MCP)(query: "查询改写 query rewriting 查询扩展 多查询 改写用户提问", top_k: 4)
+回答正确。
+
+4. 文档里介绍的高级检索架构，作者把它切成好几块，其中专门用来提高「检索回来的内容跟问题搭不搭」这个指标的是哪几块？
+● rag-kb - search_knowledge_base (MCP)(query: "分块和向量化 句子窗口 递归切分 块大小 分隔符 提高搜索质量", top_k: 5)
+● rag-kb - search_knowledge_base (MCP)(query: "逻辑路由 语义路由 动词 查询路由器 5. 查询路由 6. 查询构建", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "微调LLM 信实度提高 5% RA-DIT 双指令微调 答案根据性 答案相关性", top_k: 4)
+● rag-kb - search_knowledge_base (MCP)(query: "5. 查询构建 结构化数据 文本转SQL 文本转Cypher 元数据过滤器 拼装查询", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "查询构建 智能体 之后 第7节 ReAct 聊天引擎 工具 多文档智能体", top_k: 5)
+● rag-kb - search_knowledge_base (MCP)(query: "查询转换 多查询 分解 后退提示 step-back 之后 5. 部分 讲什么", top_k: 6)
+● rag-kb - search_knowledge_base (MCP)(query: "智能体 自省 计划 工具 反思 自我批评 第7节 响应合成器 细化上下文 多次调用", top_k: 5)
+● Search(pattern: "**/*RAG*")
+● rag-kb - search_knowledge_base (MCP)(query: "text-to-SQL text-to-Cypher 自然语言 结构化数据库 生成 查询语句", top_k: 5)
+● rag-kb - search_knowledge_base (MCP)(query: "自查询检索器 SelfQueryRetriever 用户查询 拆解 元数据过滤器 结构化 文本到SQL 图数据库", top_k: 6)
+回答正确。
+
+第4问里(其余对话也有类似的)Agent输出过这几行内容：
+Thought for 5s, called rag-kb 3 times (ctrl+o to expand)
+● Found the key passage. Let me pull the actual list of blocks so I can name them.
+Thought for 1m 4s, searched for 1 pattern, called rag-kb 17 times (ctrl+o to expand)
+
+这里显示Agent调用了更多次rag-kb，然而我记录的只有较少次工具调用。我怀疑我在B2实验中用ctrl+o查看并记录的工具调用不完整。
