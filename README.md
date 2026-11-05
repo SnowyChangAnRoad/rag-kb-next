@@ -87,14 +87,14 @@ SSE 帧、埋点、评测。出问题时能定位到具体一行，而不是猜�
 - Python 3.13（本机实测）；建议本地 GPU，BGE/reranker 在 CPU 上会明显变慢。
 - 默认链路模型：`bge-small-zh` + `bge-reranker-base`；`Qwen3-Embedding-0.6B` 仅 W2 对照需要。
 - API：`DEEPSEEK_API_KEY`（作答）、`DASHSCOPE_API_KEY`（判分）。
-- `requirements.txt` 钉了 10 个包；`torch`、`transformers`、`httpx`、`beautifulsoup4`
-  未列入，需要按本机环境另装（见[已知局限](#已知局限) ⑤）。
+- `requirements.txt` 钉了 10 个包；`torch`、`transformers`、`httpx`、`beautifulsoup4`、
+  `pytest`（仅门禁用）未列入，需要按本机环境另装（见[已知局限](#已知局限) ⑤）。
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-pip install httpx beautifulsoup4
+pip install httpx beautifulsoup4 pytest
 # torch / transformers 按本机 CUDA 版本安装（requirements 未钉版本）
 ```
 
@@ -103,7 +103,12 @@ pip install httpx beautifulsoup4
 ```powershell
 Copy-Item .env.example .env
 # 填入 DEEPSEEK_API_KEY / DASHSCOPE_API_KEY
+python scripts/day1_env_check.py   # 1 次 DeepSeek 最小调用，验证 key 可用
 ```
+
+> 只跑零 API 档时不必填真实 key，保留 `.env.example` 里的占位值即可：
+> `rag/pipeline.py` 构造 `RAGPipeline` 时会建 OpenAI 客户端，`DEEPSEEK_API_KEY` 不能为空，
+> 但零 API 链路不会真的发出请求。
 
 模型路径不是自动下载，写在 `rag/config.py`：
 
@@ -120,6 +125,8 @@ Copy-Item .env.example .env
 uvicorn api.main:app --port 8000
 # 另一个终端
 Invoke-RestMethod -Method Post http://127.0.0.1:8000/ingest
+Invoke-RestMethod http://127.0.0.1:8000/health      # 应返回 chunks=932
+Invoke-RestMethod http://127.0.0.1:8000/documents   # 按 source 聚合的入库资料列表
 ```
 
 若要从原始文件重新生成真相源：
@@ -139,20 +146,35 @@ python scripts/05_split.py split 300
 uvicorn api.main:app --port 8000
 # 前端：  http://127.0.0.1:8000/
 # Swagger：http://127.0.0.1:8000/docs
-python -m rag.cli "RAG 有哪些局限性？"
+
+python -m rag.cli "RAG 有哪些局限性？"   # 单次问答（命令行直接带问题）
+python -m rag.cli                       # 交互模式：q 退出，答完可记 👍/👎
+python -m rag.trace list                # 最近 10 条 trace
+python -m rag.trace show <trace_id>     # 单条 trace 的层级树 + 延迟 / token / 成本
 ```
+
+MCP server 走 stdio，通常由 Claude Code 按 `.mcp.json` 自动拉起；手动调试时另开终端
+`python -m mcp_server.server`（工具与安全约束见 [MCP 与安全](#mcp-与安全)）。
 
 ### 5. 复现分级
 
-| 级别 | 命令 | 说明 |
+| 级别 | 命令 | 说明（做什么 → 产出什么） |
 |---|---|---|
-| 零 API | `python -m pytest -m "not slow" -q` | 6 项数据不变量，毫秒级，不需要 GPU |
-| 零 API | `python -m pytest -q` | 7 项；本机实测约 70s，含 1 项 GPU 慢测；热缓存最快 17s，冷启动 1–2 分钟 |
-| 零 API | `python scripts/23_eval_frozen_v2.py --check` | 检索层逐题严格全等；需要 GPU、模型与已有基线 |
-| 零 API | `python scripts/24_trajectory_stats.py` | 只读 W4 轨迹，重算 `reports/w5_trajectory.md` |
-| 低 API | `python scripts/26_w4_rejudge.py` | 只判分不生成（约 80 次判分） |
-| 高 API | `python scripts/25_eval_frozen_v2_answer.py --limit 5` | 生成层冒烟；结果文件已存在时需 `--force` 才覆盖 |
-| 高 API | `python -m rag.eval final` / `python scripts/20_agentic_ab.py` | Day14 / W4 历史实验，花钱且耗时长 |
+| 零 API | `python -m pytest -m "not slow" -q` | 跑 6 项数据不变量（分层配比、题干无位置泄漏、gold 与语料指纹、gold 记录口径、principle 必带 reference、基线与 config/题集指纹一致）；毫秒级、不需要 GPU，只打印 PASS/FAIL |
+| 零 API | `python -m pytest -q` | 6 项数据不变量 + 1 项检索层严格回归（需 GPU/模型/已有基线）；本机约 70s，热缓存最快 17s，只打印 PASS/FAIL |
+| 零 API | `python -m rag.eval retrieval` | 30 题 × 3 组（无配额 / cap2 / cap2+v2）只跑召回→精排→去重→配额，逐题打印 top-k 构成、同源/同页重复槽、maxcos；不调 LLM、不落盘（需 GPU + 已建库） |
+| 零 API | `python scripts/23_eval_frozen_v2.py --check` | frozen_v2 的 25 道 fact 题（5 道 principle 跳过）重跑 dense/hybrid 检索层，与 `data/frozen_v2_baseline.json` 逐题比对 chunk_id 顺序、rerank_score、汇总指标；打印“回归通过”，不新增文件（需 GPU 与已有基线） |
+| 零 API | `python scripts/21_agentic_stats.py` | 只读 `data/w4_agentic_traces_full.jsonl` 与 `data/eval_w4_agentic_full.json`，算触发率/重复率/出口分布/recall@k·MRR·nDCG/正则引用覆盖率/缓存命中；落盘 `data/eval_w4_agentic_stats_full.json` |
+| 零 API | `python scripts/24_trajectory_stats.py` | 只读同一批轨迹，统计每题检索轮次、改写是否引入新块/新 gold、缓存命中去向；重写 `reports/w5_trajectory.md` |
+| 低 API | `python scripts/21_agentic_stats.py --judge` | 在零 API 统计上追加 A/C 两组约 80 次判分锚点，并排对照“正则口径 vs 判官口径”；覆盖 `data/eval_w4_agentic_stats_full.json`（新增 `judge_anchor`） |
+| 低 API | `python scripts/26_w4_rejudge.py` | 只读轨迹里已存的答案与资料，用百炼 `qwen3.8-max` 重判 A/C 两组（约 80 次判分、零生成）；产出 `data/eval_w4_agentic_rejudge_qwen.json`（新旧判官对照 + 逐题翻转；已有结果需 `--force`） |
+| 低 API | `python scripts/09_acceptance.py` | 先起服务（“效果基线”一项还要求已有 `data/eval_day14.json`）；打 `/health`、`/chat`、`/chat/stream` 等几枪，检查首 token、帧顺序、库外拒答、trace、`.env` 未被 git 跟踪；打印 PASS/FAIL 验收表，不落盘 |
+| 高 API | `python scripts/25_eval_frozen_v2_answer.py --limit 5` | 取前 5 题跑 DeepSeek 作答 + 百炼判分冒烟；写 `data/frozen_v2_generation_smoke.json`（冒烟档直接覆盖同名文件） |
+| 高 API | `python scripts/25_eval_frozen_v2_answer.py` | 30 题全量：每题 1 次生成 + 判分（fact 题 2 跳、principle 题 1 跳）；写 `data/frozen_v2_generation.json`（答案/引用指标、分题型、成本与延迟；已有文件需 `--force`） |
+| 高 API | `python -m rag.eval final` | 在 `data/test_questions.jsonl` 的 30 题上只跑交付口径 C（每题 1 次生成 + 2 次判分）；写 `data/eval_day14.json`（答案/引用正确率、token、成本、延迟），结尾读 `data/eval_day10_prompt.json` 做并排对照 |
+| 高 API | `python -m rag.eval` | 30 题 × A/B/C 三组端到端（每组 1 次生成 + 2 次判分，约 270 次调用）；写 `data/eval_day10_prompt.json`（三组对照指标）。最贵的一档，通常只跑 `retrieval` 或 `final` |
+| 高 API | `python scripts/20_agentic_ab.py --pilot` | 5 题 × 5 趟冒烟（A 标准 / B 加固 / C Agentic / D1 缓存写 / D2 缓存命中）；写 `data/w4_agentic_traces_pilot.jsonl` 与 `data/eval_w4_agentic_pilot.json`（含不变式校验） |
+| 高 API | `python scripts/20_agentic_ab.py` | 20 题 × 5 趟全量对照；写 `data/w4_agentic_traces_full.jsonl` 与 `data/eval_w4_agentic_full.json`（质量/调用数/token/成本/延迟，约 2.17× 成本） |
 
 <details>
 <summary>作者本机环境（Windows / Trae 沙箱）</summary>
@@ -305,7 +327,9 @@ trace 含检索+生成 span、有效反馈 ≥3、`.env` 未被 git 跟踪等。
 
 | 方法 | 路径 | 说明 |
 |---|---|---|
-| GET | `/health` | 探活 + 库内块数 + 默认 top_k + `retrieval_mode` |
+| GET | `/healthz` | 存活探针（liveness）：只返回 200，**不查 Chroma / 模型** |
+| GET | `/readyz` | 就绪探针（readiness）：collection 可用返回 200，否则 503 |
+| GET | `/health` | 诊断详情：探活 + 库内块数 + 默认 top_k + `retrieval_mode`（前端用） |
 | POST | `/chat` | 一次问答，返回结构化结果（含 `trace_id`） |
 | POST | `/chat/stream` | 同链路的 SSE：`meta → sources → delta… → done` |
 | POST | `/files` | 上传 PDF → 解析 → 切块 → 写真相源 → 入库 |
@@ -313,6 +337,41 @@ trace 含检索+生成 span、有效反馈 ≥3、`.env` 未被 git 跟踪等。
 | POST | `/feedback` | 给某条 trace 补 👍/👎 |
 | GET | `/documents` | 按 source 聚合“库里有哪些资料” |
 | GET | `/docs` / `/` | Swagger / 静态前端 |
+
+### 统一错误结构（2026-11-04）
+
+所有非 2xx 响应都走同一个出口：
+
+```json
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "请求参数校验失败",
+    "trace_id": "20261104-211417-bdbb",
+    "details": [{"type": "missing", "loc": ["body", "question"], "msg": "Field required"}]
+  },
+  "detail": "请求参数校验失败"
+}
+```
+
+- `error.code` 是稳定契约（`BAD_REQUEST` / `NOT_FOUND` / `VALIDATION_ERROR` /
+  `INTERNAL_ERROR` / `SERVICE_NOT_READY` / `DEPENDENCY_UNAVAILABLE` …），客户端按它分支；
+  `error.trace_id` 与响应头 `X-Request-ID` 一致，服务端日志用同一个 id。
+- 顶层 `detail` 是为 Day13 前端保留的兼容字段（`web/index.html` 读 `j.detail`），
+  后续前端切到 `error.message` 后可删。
+- 500 只回通用 message，堆栈只进服务端日志。
+- `/healthz` 是 liveness（失败才重启）；`/readyz` 是 readiness（失败只摘流量，不重启）；
+  `/health` 是诊断详情，不用于探针。空库（`chunks=0`）算 ready，响应里用 `empty: true` 提示。
+
+curl 验证（PowerShell 里 `curl` 是 `Invoke-WebRequest` 的别名，必须用 `curl.exe`）：
+
+```powershell
+curl.exe -sS -i http://127.0.0.1:8000/healthz        # 200
+curl.exe -sS -i http://127.0.0.1:8000/no-such-path   # 404
+# 500 需要启动服务前设置开关（默认不注册，避免生产多一个可触发的崩溃入口）
+$env:RAG_DEBUG_ENDPOINTS="1"
+curl.exe -sS -i http://127.0.0.1:8000/__debug__/boom
+```
 
 `/chat` 请求体：`question`（必填）、`qtype`（默认 `in`）、`top_k`（留空 = `RERANK_TOP_K=3`）、
 `quota_cap`（默认 2）、`prompt_version`（默认 `v2`）、`dedupe`（默认 `true`）、`trace`（默认 `true`）。
@@ -360,7 +419,7 @@ data: {"answer":"...", "prompt_tokens":..., "completion_tokens":..., "cost":...}
 | ② | `POST /ingest` 是 upsert-only，库比真相源多时删不掉多余块 | 真正重建 = 换库目录/删集合 + 重建 |
 | ③ | Chroma HNSW 在“写入后 compaction 未落盘即杀进程”时可能损坏 | 真相源先行 + 换目录重建；写操作后等进程正常退出 |
 | ④ | 代码型 PDF 切块效果差：react 91 页 PDF 出 339 块，大量代码页按 300 字硬切 | 只用于上传验收，未进交付库 |
-| ⑤ | requirements 可复现缺口：10 个包已钉，仍缺 `torch` / `transformers` / `httpx` / `beautifulsoup4` | 照 requirements 装不出完整环境；需按本机 CUDA 另装 |
+| ⑤ | requirements 可复现缺口：10 个包已钉，仍缺 `torch` / `transformers` / `httpx` / `beautifulsoup4` / `pytest` | 照 requirements 装不出完整环境；torch 需按本机 CUDA 另装，pytest 仅门禁需要 |
 | ⑥ | 没有鉴权、没有并发控制；上传/入库是同步长任务 | 真实生产要改后台任务 + 任务 id 轮询 |
 | ⑦ | 历史生成层数字仍是同源 judge：Day14 与 W1–W4 的判分模型与被测模型同为 DeepSeek | 只作内部迭代，不得对外当结论；W5 起换 `qwen3.8-max` |
 | ⑧ | 旧题集泄漏残留：`testset_tune` id=12 题干仍含“第 4 章” | 已用于调参且冻结不改，只登记；frozen_v2 起用正则拦截 |

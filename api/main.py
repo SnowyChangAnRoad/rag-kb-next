@@ -6,7 +6,9 @@
     不必再各自装 torch / chromadb / 模型权重。这就是「模块化 → 服务化」的收益。
 
 接口清单：
-    GET  /health        探活 + 知识库状态
+    GET  /healthz       存活探针（纯 liveness：不查任何依赖）
+    GET  /readyz        就绪探针（readiness：检查 collection 是否可用）
+    GET  /health        诊断详情（人看：库名 / 块数 / 默认参数；前端继续用它）
     POST /chat          一次问答（召回 → 精排 → 去重 → 配额 → 生成），可埋点返回 trace_id
     POST /ingest        读 data/processed/chunks.jsonl 全量重建向量索引
     POST /feedback      给某条 trace 补一条 👍/👎（Day10 卡 5 的 score，Day13 前端按钮用）
@@ -36,6 +38,9 @@
        所以 config.resolve_prompt 被从 pipeline 提到 config 顶层，由路由先调、再建流。
 """
 import json
+import logging
+import os
+import re
 import shutil
 import time
 
@@ -44,10 +49,14 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile
+from fastapi.encoders import jsonable_encoder
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
+from starlette.datastructures import MutableHeaders
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from rag.config import (
     CHUNK_SIZE, RERANK_TOP_K, RETRIEVAL_MODE, SOURCE_CAP, UPLOAD_DIR, UPLOAD_MAX_MB, WEB_DIR,
@@ -58,7 +67,7 @@ from rag.llm import hit_where, safe_preview
 from rag.pipeline import RAGPipeline
 from rag.retriever import get_client, get_collection
 from rag.splitter import pdf_to_chunks      # TODO-11 用：与 scripts/05_split.py 同一份切块口径
-from rag.trace import Tracer, add_score
+from rag.trace import Tracer, add_score, new_trace_id
 
 
 # ------------------------------------------------------------
@@ -153,6 +162,115 @@ class DocumentsResponse(BaseModel):
 
 
 # ------------------------------------------------------------
+# 服务边界（2026-11-04）：request_id + 统一错误响应
+# ------------------------------------------------------------
+logger = logging.getLogger("rag.api")
+
+# 客户端可以透传 X-Request-ID，但必须清洗：
+# 换行/空格会污染日志（日志注入），超长会撑爆一行日志。只收字母数字与 ._-，最长 64。
+# 不合法就忽略客户端的值，由服务端重新生成 —— 不能为了「链路追踪」把任意字符串写进日志。
+REQUEST_ID_RE = re.compile(r"^[A-Za-z0-9._-]{1,64}$")
+
+INTERNAL_ERROR_MESSAGE = "服务内部错误，请凭 trace_id 联系维护者"
+
+# HTTP status → 机器可读 code。status 是传输层语义，code 是稳定契约：
+# 客户端按 code 分支，未来把 404 拆成 USER_NOT_FOUND / DOC_NOT_FOUND 也不用改状态码。
+STATUS_CODES = {
+    400: "BAD_REQUEST", 401: "UNAUTHORIZED", 403: "FORBIDDEN",
+    404: "NOT_FOUND", 405: "METHOD_NOT_ALLOWED", 409: "CONFLICT",
+    413: "PAYLOAD_TOO_LARGE", 415: "UNSUPPORTED_MEDIA_TYPE",
+    422: "VALIDATION_ERROR", 429: "RATE_LIMITED",
+    500: "INTERNAL_ERROR", 502: "UPSTREAM_ERROR",
+    503: "SERVICE_UNAVAILABLE", 504: "UPSTREAM_TIMEOUT",
+}
+
+
+def error_response(status_code: int, code: str, message: str,
+                   trace_id: str | None, details=None,
+                   headers: dict | None = None) -> JSONResponse:
+    """所有非 2xx 的唯一出口。
+
+    body 结构：
+        {"error": {"code": ..., "message": ..., "trace_id": ..., "details": ...},
+         "detail": "与 message 相同的纯文本副本"}
+
+    为什么嵌套而不是平铺 code/message：顶层留给未来的元信息，避免和业务字段撞名。
+    为什么还留 `detail`：Day13 前端已经写死读 `j.detail`（web/index.html:541/750），
+    保留一份纯文本副本，前端不改也能显示人话；以后前端切到 `error.message` 再删。
+
+    ⚠️ `status_code` 是必填参数：JSONResponse 默认 200，漏传就会「错误返回 200」，
+    这是统一错误重构里最常见、也最容易被 curl 漏看的一行 bug。
+    """
+    err = {"code": code, "message": message, "trace_id": trace_id}
+    if details is not None:
+        err["details"] = details
+    return JSONResponse(
+        status_code=status_code,
+        content=jsonable_encoder({"error": err, "detail": message}),
+        headers=headers,
+    )
+
+
+class RequestContextMiddleware:
+    """一次请求做两件事：发 trace_id（进）、加 X-Request-ID + 兜底 500（出）。
+
+    为什么用纯 ASGI，而不是 `@app.middleware("http")`：
+      ① 纯 ASGI 能自己包 `send`，知道响应头有没有发出去。SSE 已经开流后再抛异常时，
+         状态码已经定了，不能再构造 500；BaseHTTPMiddleware 在这种场景下会把异常包成
+         ExceptionGroup，与 StreamingResponse 的交互也更绕。
+      ② 堆栈日志能保留第一因，不被中间件多包一层。
+    为什么中间件顺序是「先 request-id、后 CORS」（见下方 add_middleware）：
+      Starlette 后注册的中间件在最外层，于是 CORS 包住 request-id。
+      若反了，500 响应由内层中间件生成，不会再经过 CORS，浏览器读不到 body。
+    """
+
+    def __init__(self, app):
+        self.app = app
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "http":
+            await self.app(scope, receive, send)
+            return
+
+        request_id = self._pick_id(scope)
+        # Request.state 背后就是 scope["state"]；异常处理器里能直接读出来
+        scope.setdefault("state", {})["request_id"] = request_id
+
+        response_started = False
+
+        async def send_with_id(message):
+            nonlocal response_started
+            if message["type"] == "http.response.start":
+                response_started = True
+                MutableHeaders(scope=message)["X-Request-ID"] = request_id
+            await send(message)
+
+        try:
+            await self.app(scope, receive, send_with_id)
+        except Exception:
+            path = scope.get("path", "")
+            if response_started:
+                # 典型：SSE 中途失败 / 客户端断开。响应头已发出，改不了状态码，
+                # 只能把堆栈留在服务端日志；re-raise 交给 ServerErrorMiddleware 记录。
+                logger.exception("响应已开始，无法返回 500：request_id=%s path=%s",
+                                 request_id, path)
+                raise
+            logger.exception("未捕获异常：request_id=%s path=%s", request_id, path)
+            await error_response(500, "INTERNAL_ERROR", INTERNAL_ERROR_MESSAGE,
+                                 request_id)(scope, receive, send_with_id)
+
+    @staticmethod
+    def _pick_id(scope) -> str:
+        for key, value in scope.get("headers", []):
+            if key == b"x-request-id":
+                candidate = value.decode("latin-1")
+                if REQUEST_ID_RE.match(candidate):
+                    return candidate
+                break
+        return new_trace_id()
+
+
+# ------------------------------------------------------------
 # 生命周期：重资源只加载一次
 # ------------------------------------------------------------
 @asynccontextmanager
@@ -179,6 +297,11 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+# 中间件顺序 = 注册顺序的【反】序：后注册的在最外层。
+# 先 request-id、后 CORS ⇒ CORS 包住 request-id ⇒ 500 响应也会经过 CORS、
+# 带上 Access-Control-Allow-Origin；反过来的话浏览器读不到 500 的 body。
+app.add_middleware(RequestContextMiddleware)
+
 # CORS：浏览器同源策略默认禁止 http://localhost:5500 的页面调 127.0.0.1:8000 的接口。
 # Day13 的前端就是这种情况，所以现在就放开 —— 否则那天会先卡在跨域上，与 RAG 无关。
 # 注意 allow_origins=["*"] 不能和 allow_credentials=True 同时用（浏览器会直接拒绝携带凭证），
@@ -193,8 +316,86 @@ app.add_middleware(
 
 
 # ------------------------------------------------------------
+# 统一异常处理：所有非 2xx 都从 error_response 出去
+# ------------------------------------------------------------
+@app.exception_handler(StarletteHTTPException)
+async def http_exception_handler(request: Request, exc: StarletteHTTPException) -> JSONResponse:
+    """兜住路由里 raise 的 HTTPException + 框架自己的 404/405。
+
+    关键：必须注册 Starlette 的 HTTPException，而不是只注册 fastapi.HTTPException。
+    框架「路径没匹配」抛的是 starlette.exceptions.HTTPException；只注册 FastAPI 版本时，
+    这个 404 完全不会走你的统一格式（本项目末尾有 `mount("/")`，未知路径正好走这条）。
+    另外 fastapi.HTTPException 是 Starlette 版本的子类，注册父类即可一并覆盖。
+    """
+    message = exc.detail if isinstance(exc.detail, str) else "请求失败"
+    if exc.status_code == 404 and message == "Not Found":
+        message = "请求的资源不存在"      # 框架默认英文，转成人话；业务自定义 detail 不动
+    return error_response(
+        exc.status_code,
+        STATUS_CODES.get(exc.status_code, f"HTTP_{exc.status_code}"),
+        message,
+        getattr(request.state, "request_id", None),
+        headers=exc.headers,
+    )
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request,
+                                       exc: RequestValidationError) -> JSONResponse:
+    """Pydantic 参数校验失败：保留 422（请求 JSON 合法、但字段语义不合法）。
+
+    原始 exc.errors() 放进 error.details；顶层 detail 只放一句人话，
+    避免 Day13 前端把整个 loc/input 数组 JSON.stringify 到界面上。
+    """
+    return error_response(
+        422, "VALIDATION_ERROR", "请求参数校验失败",
+        getattr(request.state, "request_id", None),
+        details=exc.errors(),
+    )
+
+
+# ------------------------------------------------------------
 # 路由
 # ------------------------------------------------------------
+@app.get("/healthz")
+def healthz() -> dict:
+    """存活探针（liveness）：只证明进程还能响应 HTTP，不碰 Chroma / 模型 / LLM。
+
+    为什么必须「什么都不查」：
+        探针失败在 Kubernetes 里会触发【重启容器】。如果这里查 Chroma，
+        数据库一次短暂抖动 → 所有副本同时被判死 → 集体重启 → 雪崩。
+        「依赖坏了」应该由 readiness 摘流量，而不是用 liveness 重启进程。
+    为什么返回 minimal body：编排器只看状态码，不看 body；body 是给人看的。
+    """
+    return {"status": "ok", "service": "rag-kb-api"}
+
+
+@app.get("/readyz")
+def readyz(request: Request):
+    """就绪探针（readiness）：能不能现在接流量。
+
+    检查的是「依赖是否可用」，不是「数据是否丰富」：
+        - collection 没加载 → 503 SERVICE_NOT_READY（可预期的启动中间态）
+        - collection.count() 抛异常 → 503 DEPENDENCY_UNAVAILABLE（依赖故障，摘流量）
+        - chunks=0 仍返回 200（空库也是可服务状态，只是答不出东西；用 empty 字段提示）
+    为什么用 503 而不是 500：503 = 暂时不可用、稍后重试，负载均衡会摘流量；
+    500 = 服务端代码 bug，语义不同。
+    """
+    collection = getattr(request.app.state, "collection", None)
+    trace_id = getattr(request.state, "request_id", None)
+    if collection is None:
+        return error_response(503, "SERVICE_NOT_READY",
+                              "服务尚未就绪：collection 未加载", trace_id)
+    try:
+        chunks = collection.count()
+    except Exception:
+        # 只记日志，不把异常细节发给探针调用方
+        logger.exception("就绪检查失败：request_id=%s", trace_id)
+        return error_response(503, "DEPENDENCY_UNAVAILABLE", "向量库暂时不可用", trace_id)
+    return {"status": "ready", "collection": collection.name,
+            "chunks": chunks, "empty": chunks == 0}
+
+
 @app.get("/health")
 def health(request: Request) -> dict:
     """TODO-2：探活接口。返回服务与知识库状态，形如：
@@ -570,6 +771,18 @@ def documents(request: Request) -> DocumentsResponse:
     ]
     return DocumentsResponse(
         collection=collection.name, n_documents=len(docs), documents=docs)
+
+
+# ============================================================
+# 仅本地学习/验收：受控的 500 入口
+# ============================================================
+# 默认【不注册】。想用 curl 验证 500 时：先设 RAG_DEBUG_ENDPOINTS=1 再启动服务。
+# 为什么必须用环境变量开关：若常驻一个「稳定崩溃」的路由，生产环境就多了一个
+# 可被外部触发的故障点；而 500 又是必须能验证的行为，所以用开关把两边分开。
+if os.getenv("RAG_DEBUG_ENDPOINTS") == "1":
+    @app.get("/__debug__/boom", include_in_schema=False)
+    def debug_boom():
+        raise RuntimeError("intentional 500（RAG_DEBUG_ENDPOINTS=1）")
 
 
 # ============================================================
